@@ -41,4 +41,12 @@ public class LoginController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/joininsert.do")
+	public ModelAndView joinMembership() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("join.jsp");
+		
+		return mav;
+	}
+	
 }
