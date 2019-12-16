@@ -175,7 +175,8 @@
 		}
 
 		function eventSchedulingList() {
-			alert("이벤트 행사 신청 & 결과 보고 기능 구현 예정");
+			//alert("이벤트 행사 신청 & 결과 보고 기능 구현 예정");
+			location.replace("/group4erp/eventScheduling.do");
 		}
 
 		function eventGoodsOrder() {
