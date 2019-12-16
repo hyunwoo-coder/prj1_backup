@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@ControllerAdvice	//클래스 내부에서 발생하는 모든 예외를 처리해준다. 예외 발생시 ExceptionHandler 어노테이션이 붙은 메소드가 실행된다.
 public class LoginController {
 	
 	@Autowired
@@ -41,12 +40,13 @@ public class LoginController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/joininsert.do")
+	/*@RequestMapping(value="/joininsert.do")
 	public ModelAndView joinMembership() {
 		ModelAndView mav = new ModelAndView();
+		System.out.println("가입 메소드 실행");
 		mav.setViewName("join.jsp");
 		
 		return mav;
-	}
+	} */
 	
 }

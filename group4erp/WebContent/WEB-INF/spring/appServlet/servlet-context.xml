@@ -85,7 +85,7 @@
 			    </interceptors>  
 		    -->
 	 
-	 <interceptors>
+	 <!-- <interceptors>
         <interceptor>
 			<mapping path="/**/*" />                    
             <exclude-mapping path="/loginForm.do"/>
@@ -94,7 +94,7 @@
             <exclude-mapping path="/resources/**"/>
             <beans:bean class="com.group4.erp.SessionInterceptor"></beans:bean>            
         </interceptor>        
-    </interceptors> 
+    </interceptors>  -->
     
 	 
 	<!-- <mvc:interceptors>
