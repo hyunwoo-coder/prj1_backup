@@ -19,7 +19,7 @@
 
 </head>
 <body>
-<cneter>
+<center>
 <form name="login_form" method="post" action="/group4erp/loginProc.do">
 	<b>KOSMO YES4조 전사적자원관리시스템</b><br>
 	<table class="tbcss1" cellpadding=5 cellspacing=0>
