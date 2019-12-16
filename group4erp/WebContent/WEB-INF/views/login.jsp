@@ -33,7 +33,7 @@
 </form>
 
 <input type="button" name="loginBtn" value="로그인" onClick="checkLoginInfo();">&nbsp;
-<input type="button" name="loginBtn" value="사원등록" onClick="joinMembership();">
+<input type="button" name="joinBtn" value="사원등록" onClick="joinMembership();">
 
 </body>
 </html>

@@ -16,7 +16,7 @@
 </head>
 <body>
 <cneter>
-<form name="login_form" method="post" action="/group4erp/loginProc.do">
+<form name="join_form" method="post" action="/group4erp/joinProc.do">
 	<b>사원등록화면</b><br>
 	<table class="tbcss1" cellpadding=5 cellspacing=0>
 		<tr>
@@ -31,7 +31,7 @@
 	</table>
 </form>
 
-<input type="button" name="loginBtn" value="회원등록" onClick="checkLoginInfo();">&nbsp;
+<input type="button" name="joinBtn" value="회원등록" onClick="checkLoginInfo();">&nbsp;
 
 </body>
 </html>
