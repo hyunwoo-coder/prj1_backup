@@ -48,5 +48,13 @@ public class LoginController {
 		
 		return mav;
 	}
+	@RequestMapping(value="/godelete.do")
+	public ModelAndView deleteMembership() {
+		System.out.println("사원삭제 시작");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("delete.jsp");
+		
+		return mav;
+	}
 	
 }

@@ -15,6 +15,10 @@
 	function joinMembership(){
 		location.replace("/group4erp/joininsert.do");
 	}
+	
+	function deleteMembership(){
+		location.replace("/group4erp/godelete.do");
+	}
 </script>
 
 </head>
@@ -33,7 +37,8 @@
 </form>
 
 <input type="button" name="loginBtn" value="로그인" onClick="checkLoginInfo();">&nbsp;
-<input type="button" name="joinBtn" value="사원등록" onClick="joinMembership();">
+<input type="button" name="joinBtn" value="사원등록" onClick="joinMembership();">&nbsp;
+<input type="button" name="deleteBtn" value="사원삭제" onClick="deleteMembership();">
 
 </body>
 </html>
