@@ -103,9 +103,9 @@
 		<tr>
 			<td colspan="17">&nbsp;
 				<span id="subMenu1" onMouseOut="javascript:$('#subMenu1').hide();"> <!-- 업무관리 -->
-					<span id="mySchedule" style="cursor:pointer" onClick="goMySchedule();">나의 일정&nbsp;&nbsp;&nbsp;</span>
-						담당 상품 조회&nbsp;&nbsp;&nbsp;
-						나의 휴가 현황&nbsp;&nbsp;&nbsp; 
+					<label id="mySchedule" style="cursor:pointer" onClick="goMySchedule();">나의 일정&nbsp;&nbsp;&nbsp;</label>
+					<label id="myGoods" style="cursor:pointer" onClick="goMyGoods();">담당 상품 조회&nbsp;&nbsp;&nbsp;</label>
+					<label id="myDayOff" style="cursor:pointer" onClick="goMyDayOff();">나의 휴가 현황&nbsp;&nbsp;&nbsp; 
 						팀회의실 예약&nbsp;&nbsp;&nbsp;
 						회사차량이용신청&nbsp;&nbsp;&nbsp;
 						야근&주말근무신청&nbsp;&nbsp;&nbsp;	
@@ -113,16 +113,17 @@
 						근태조회&nbsp;&nbsp;&nbsp;
 						경비청구&nbsp;&nbsp;&nbsp;
 						ERP 메뉴 설정
-	</span>
+				</span>
+				
 	
-	<span id="subMenu2" onMouseOut="javascript:$('#subMenu2').hide();">	<!-- 재고관리 -->
-		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<span id="myCareBookList" style="cursor:pointer" onClick="goMyCareBookList();">도서정보조회&nbsp;&nbsp;&nbsp;</span>
-				재고현황조회&nbsp;&nbsp;&nbsp;
-				출고현황조회&nbsp;&nbsp;&nbsp; 
-				입고현황조회&nbsp;&nbsp;&nbsp;
-				반품현황조회&nbsp;&nbsp;&nbsp;
-	</span>
+				<span id="subMenu2" onMouseOut="javascript:$('#subMenu2').hide();">	<!-- 재고관리 -->
+		 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label id="myCareBookList" style="cursor:pointer" onClick="goMyCareBookList();">도서정보조회&nbsp;&nbsp;&nbsp;</label>
+					<label id="bookInventoryList" style="cursor:pointer" onClick="goMyCareBookList();">재고현황조회&nbsp;&nbsp;&nbsp;</label>
+					<label id="shippingList" style="cursor:pointer" onClick="goMyCareBookList();">출고현황조회&nbsp;&nbsp;&nbsp;</label> 
+					<label id="myIntoList" style="cursor:pointer" onClick="goMyCareBookList();">입고현황조회&nbsp;&nbsp;&nbsp;</label>
+					<label id="returnBookList" style="cursor:pointer" onClick="goMyCareBookList();">반품현황조회&nbsp;&nbsp;&nbsp;</label>
+				</span>
 	
 	<span id="subMenu3" onMouseOut="javascript:$('#subMenu3').hide();">	<!-- 배송관리 -->
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
