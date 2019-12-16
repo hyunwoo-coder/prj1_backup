@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-테스트
-테스트2
-테스트3 나는 브랜치
+이 파일은 브랜치 1이 만들었음.
 </body>
 </html>
