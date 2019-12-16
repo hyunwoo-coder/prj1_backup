@@ -12,9 +12,6 @@
 <body>
 <<<<<<< HEAD
 <!-- 깃허브 테스트 -->
-=======
-여기는 깃허브!! 하하하하핳
->>>>>>> branch 'master' of https://github.com/ccl607/prj1
-test.com
+
 </body>
 </html>
