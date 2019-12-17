@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<script>
+	location.replace("/group4erp/loginForm.do");
+</script>
+<title>YES4조 전사적자원관리 시스템</title>
 </head>
 <body>
-조충래 테스트 내용 : 팀원 파일 확인
+
 </body>
 </html>
