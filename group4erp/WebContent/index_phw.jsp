@@ -10,6 +10,6 @@
 <title>YES4조 전사적자원관리 시스템</title>
 </head>
 <body>
-
+	테스트 중입니다...
 </body>
 </html>
