@@ -16,45 +16,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class LoginController {
+public class MarketingController {
 	
 	@Autowired
 	//private LoginService loginService;	
 	
+
 	
-	@RequestMapping(value="/loginForm.do")
-	public ModelAndView loginForm() {
+	@RequestMapping(value="/eventScheduling.do")
+	public ModelAndView eventScheduling(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login.jsp");
-		
-		return mav;
-	}
-	
-	@RequestMapping(value="/loginProc.do")
-	public ModelAndView loginProc(HttpSession session) {
-		
-		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "eventReserve");
 		
 		return mav;
 	}
 	
-	@RequestMapping(value="/joininsert.do")
-	public ModelAndView joinMembership() {
-		System.out.println("사원등록 시작");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("join.jsp");
-		
-		return mav;
-	}
-	@RequestMapping(value="/godelete.do")
-	public ModelAndView deleteMembership() {
-		System.out.println("사원삭제 시작");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("delete.jsp");
-		
-		return mav;
-	}
 	
 }

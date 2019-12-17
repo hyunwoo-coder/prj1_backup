@@ -9,12 +9,16 @@
 </head>
 <body><center>
 
-<table border="0" cellpadding=5 cellspacing=0 width="95%" height="900">
+<table border="0" cellpadding=5 cellspacing=0 width="95%" >
 	<tr height="50">
 		<td align="center"><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></td>
 	</tr>
-	<tr height="700">
-		
+	<tr valign=top>
+		<td align="center" height="500"><br><br>
+			<c:if test="${subMenu.equals('eventReserve') }">
+				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
+			</c:if>
+		</td>
 	</tr>
 	<tr height="50">
 		<td align="center"><%@ include file ="/WEB-INF/views/footer.jsp" %></td>
