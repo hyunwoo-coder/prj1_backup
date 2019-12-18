@@ -261,6 +261,7 @@
 				</span>
 	
 				<span id="subMenu5">	<!-- 인사관리 -->
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span id="empList" style="cursor:pointer" onClick="viewEmpList();">직원현황&nbsp;</span>
 					<span id="salaryList" style="cursor:pointer" onClick="viewSalaryList();">급여지급현황&nbsp;</span>
 					<span id="empWorkState" style="cursor:pointer" onClick="viewEmpWorkStateList();">직원별 근무현황조회&nbsp;</span>
