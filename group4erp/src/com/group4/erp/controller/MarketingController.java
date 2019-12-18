@@ -21,7 +21,17 @@ public class MarketingController {
 	@Autowired
 	//private LoginService loginService;	
 	
-
+	@RequestMapping(value="/viewNewBooksList.do")
+	public ModelAndView viewNewBookList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "newBooksList");
+		
+		return mav;
+	}
+	
 	
 	@RequestMapping(value="/eventScheduling.do")
 	public ModelAndView eventScheduling(HttpSession session) {

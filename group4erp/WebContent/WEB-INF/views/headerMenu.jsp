@@ -20,6 +20,11 @@
 			var trObj = tableObj.find("th");
 
 		});
+
+
+		function moveMainPage() {
+			location.replace("/group4erp/goMainPage.do");
+		}
 			
 	
 		function viewMyWorkMenu() {
@@ -43,7 +48,7 @@
 			hideSubMenu();
 			$("#subMenu4").show();
 			//alert("마케팅관리 기능 구현");
-			//location.replace("/z_spring/boardListForm.do");
+			
 		}
 
 
@@ -236,7 +241,7 @@
 <center>
 	<table name="menuList" border="0" cellspacing="0" cellpadding="0" width="90%">
 		<tr>
-			<td align="left"><input type="button" value="메인화면으로"></td>
+			<td align="left"><input type="button" value="메인화면으로" onClick="moveMainPage();"></td>
 			<th style="cursor:pointer" onMouseOver="javascript:viewMyWorkMenu();">업무관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>	
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewInventoryMenu();">재고현황</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewShippingMenu();">배송관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
