@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<!-- mapper 태그 선언 -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+	<!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
+	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<mapper namespace="com.group4.erp.dao.invenSearchDAO">
+	<!-- 로그인 아이디, 암호의 존재 개수를 검색하는 select문을 내포한 <select> 태그 선언 -->
+	<!-- 
+		* <select> 태그 속성 설명
+		id="getAdminCnt" ==> SQL 구문의 고유 아이디값 설정. DAO 클래스의 메소드 이름과 동일
+		parameterType="hashmap" ==> SQL 구문에 삽입될 외부 데이터의 자료형 설정
+		resultType="int" ==> SQL 구문의 실행 후 리턴값 자료형 설정
+		
+		* SQL 구문 안의 #{HashMap객체키값명} 설명
+		키값에 대응하는 데이터가 문자열을 삽입하라는 뜻이다. 만약 문자면 ''(싱글쿼트)로 감싸 삽입하고 아니면 그대로 삽입한다.
+		
+		* SQL 구문 안의 #{HashMap객체키값명} 설명
+		키값에 대응하는 데이터의 종류에 관계없이 데이터를 그대로 삽입
+	
+	 -->  
+	<select id='getBookList' parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
+			select
+				ISBN13||'' 				as "ISBN13"
+				,book_name 				as "book_name"
+				,category_cd||'' 		as "category_cd"
+				,book_price  			as "book_price"
+				,book_pages||'' 		as "book_pages"
+				,writer 				as "writer"
+				,publisher 				as "publisher"
+				,size_cd||'' 			as "size_cd"
+				,is_not_print 			as "is_not_print"
+				,emp_no||''				as "emp_no"
+				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
+				,planner				as "planner"
+			from book
+			where 1=1 
+			
+			order by ISBN13 asc
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+	</select>
+</mapper>
