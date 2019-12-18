@@ -87,6 +87,7 @@
 
 	<!-- 업무관리 서브메뉴 -->
 		function goMySchedule() {
+			location.replace("/group4erp/goMySchedule.do");
 			alert("나의 일정 메뉴 준비중");
 		}
 

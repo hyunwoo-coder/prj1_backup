@@ -22,6 +22,10 @@
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('mySchedule') }">
+				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>
+			</c:if>
 		</td>
 	</tr>
 	<tr height="50">
