@@ -15,13 +15,11 @@ public class InvenDAOImpl implements InvenDAO{
 
 	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO){
 		
-		System.out.println("4444444");
 		List<Map<String,String>> getBookList = this.sqlSession.selectList(
 					"com.group4.erp.dao.invenSearchDAO.getBookList"
 					,invenSearchDTO
 				);
 		
-		System.out.println("5555555");
 		return getBookList;
 		
 	}

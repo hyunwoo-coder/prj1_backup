@@ -17,7 +17,6 @@ public class InvenServiceImpl implements InvenService{
 
 	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO) {
 
-		System.out.println("333333");
 		List<Map<String,String>> getBookList = this.invenDAO.getBookList(invenSearchDTO);
 		
 		return getBookList;
