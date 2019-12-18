@@ -16,30 +16,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class MarketingController {
+public class InvenController {
 	
 	@Autowired
 	//private LoginService loginService;	
 	
-	@RequestMapping(value="/viewNewBooksList.do")
-	public ModelAndView viewNewBookList(HttpSession session) {
+
+	
+	@RequestMapping(value="/goBookInvenList.do")
+	public ModelAndView goBookInvenList(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
-		mav.addObject("subMenu", "newBooksList");
-		
-		return mav;
-	}
-	
-	
-	@RequestMapping(value="/eventScheduling.do")
-	public ModelAndView eventScheduling(HttpSession session) {
-		
-		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
-		mav.setViewName("main.jsp");
-		mav.addObject("subMenu", "eventReserve");
+		mav.addObject("subMenu", "viewInventoryList");	//viewInventoryList 아무 이름이나 설정 가능. 메인 페이지에서 해당 메뉴 뜰 때 해당 페이지를 임포트하기 위해서 붙이는 플래그명
 		
 		return mav;
 	}

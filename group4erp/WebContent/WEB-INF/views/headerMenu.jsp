@@ -20,6 +20,11 @@
 			var trObj = tableObj.find("th");
 
 		});
+
+
+		function moveMainPage() {
+			location.replace("/group4erp/goMainPage.do");
+		}
 			
 	
 		function viewMyWorkMenu() {
@@ -43,7 +48,7 @@
 			hideSubMenu();
 			$("#subMenu4").show();
 			//alert("마케팅관리 기능 구현");
-			//location.replace("/z_spring/boardListForm.do");
+			
 		}
 
 
@@ -128,8 +133,9 @@
 			alert("도서정보리스트 구현 예정");
 		}
 
-		function goMyCareBookList() {
-			alert("재고현황조회 기능 구현 예정");
+		function goBookInvenList() {
+			//alert("재고현황조회 기능 구현 예정");
+			location.replace("/group4erp/goBookInvenList.do");
 		}
 
 		function goMyCareBookList() {
@@ -165,7 +171,7 @@
 			alert("배송추적기능 조회");
 		}
 
-		<!-- 마케팅관리 서브메뉴 -->
+		
 		function goNewBookList() {
 			alert("신간조회기능 구현 예정");
 		}
@@ -235,7 +241,7 @@
 <center>
 	<table name="menuList" border="0" cellspacing="0" cellpadding="0" width="90%">
 		<tr>
-			<td align="left"><input type="button" value="메인화면으로"></td>
+			<td align="left"><input type="button" value="메인화면으로" onClick="moveMainPage();"></td>
 			<th style="cursor:pointer" onMouseOver="javascript:viewMyWorkMenu();">업무관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>	
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewInventoryMenu();">재고현황</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewShippingMenu();">배송관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -266,10 +272,10 @@
 	
 				<span id="subMenu2">	<!-- 재고관리 -->
 					<span id="myCareBookList" style="cursor:pointer" onClick="goMyCareBookList();">도서정보조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="bookInventoryList" style="cursor:pointer" onClick="goMyCareBookList();">재고현황조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="shippingList" style="cursor:pointer" onClick="goMyCareBookList();">출고현황조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="myIntoList" style="cursor:pointer" onClick="goMyCareBookList();">입고현황조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="returnBookList" style="cursor:pointer" onClick="goMyCareBookList();">반품현황조회&nbsp;&nbsp;&nbsp;</span>
+					<span id="bookInventoryList" style="cursor:pointer" onClick="goBookInvenList();">재고현황조회&nbsp;&nbsp;&nbsp;</span>
+					<span id="shippingList" style="cursor:pointer" onClick="goShippingList();">출고현황조회&nbsp;&nbsp;&nbsp;</span>
+					<span id="myIntoList" style="cursor:pointer" onClick="goMyIntoList();">입고현황조회&nbsp;&nbsp;&nbsp;</span>
+					<span id="returnBookList" style="cursor:pointer" onClick="goReturnBookList();">반품현황조회&nbsp;&nbsp;&nbsp;</span>
 				</span>
 	
 				<span id="subMenu3" >	<!-- 배송관리 -->

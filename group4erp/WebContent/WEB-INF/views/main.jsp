@@ -18,6 +18,10 @@
 			<c:if test="${subMenu.equals('eventReserve') }">
 				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('viewInventoryList') }">
+				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
+			</c:if>
 		</td>
 	</tr>
 	<tr height="50">
