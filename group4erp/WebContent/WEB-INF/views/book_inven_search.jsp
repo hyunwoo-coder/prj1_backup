@@ -21,12 +21,19 @@
 	}
 	
 </script>
+<!--
+<style>
+	.table_layout{width:98%}
+	
+	table{width:100%}
 
+</style>
+-->
 </head>
 <body>
 	<center>
-	<form name="book_inven_search_form" method="post" action="/group4erp/goBookInvenList.do">
-		<!-- <div class="table_layout"> -->
+	<form name="book_inventory_search_form" method="post" action="/group4erp/goBookInvenList.do">
+		<div class="table_layout">
 		<table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<!-- <colgroup>
 				<col width="20%" />
@@ -74,7 +81,6 @@
 					<option value="출판사3">출판사3
 					<option value="출판사4">출판사4
 					<option value="출판사5">출판사5
-				</select>
 					<!--
 				<input type="checkbox" name="publisher" value="출판사1">출판사1
 				<input type="checkbox" name="publisher" value="출판사2">출판사2
