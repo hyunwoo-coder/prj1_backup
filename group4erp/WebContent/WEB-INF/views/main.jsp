@@ -22,6 +22,28 @@
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
+			
+			
+			<!-- 직원현황조회 -->
+			<c:if test="${subMenu.equals('viewEmpList') }">
+				<%@ include file="/WEB-INF/views/empListForm.jsp" %>
+			</c:if>
+			
+			<!-- 급여지급현황(인사팀 조회 & 직원 전체 목록) -->
+			<c:if test="${subMenu.equals('viewSalList') }">
+				<%@ include file="/WEB-INF/views/salListForm.jsp" %>
+			</c:if>
+			
+			<!-- 급여지급현황(인사팀 조회 & 직원별 상세정보) -->
+			<c:if test="${subMenu.equals('viewEmpSalInfo') }">
+				<%@ include file="/WEB-INF/views/empSalInfo.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewDayOffList') }">
+				<%@ include file="/WEB-INF/views/empDayOffList.jsp" %>
+			</c:if>
+			
+			
 		</td>
 	</tr>
 	<tr height="50">
