@@ -45,7 +45,7 @@ public class HRController {
 			mav.addObject("getEmpBoardList", getEmpBoardList);
 
 		}catch(Exception e) {
-			System.out.println("<¿¹¿Ü¹ß»ı>=="+e);
+			System.out.println("<ï¿½ï¿½ï¿½Ü¹ß»ï¿½>=="+e);
 		}
 
 		
@@ -59,7 +59,7 @@ public class HRController {
 		int sikdae = 10;
 		int car_care = 10;
 		
-		//°øÁ¦ ¸ñ·Ï
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		float health_care = (float) 0.0323;
 		double emp_insurance = 0.08d;
 		double annuity = 0.045d;
@@ -85,11 +85,11 @@ public class HRController {
 			
 			real_sal = empSalList.get(i).getSalary() + sikdae + car_care;
 			empSalList.get(i).setReal_sal(real_sal);
-			empSalList.get(i).setIncome(income_sal);//¼Òµæ¼¼
-			empSalList.get(i).setHealth_care(health_care_sal);	//°Ç°­º¸Çè·á
-			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//°í¿ëº¸Çè·á
-			empSalList.get(i).setAnnuity(annuity_sal);	//±¹¹Î¿¬±İ
-			empSalList.get(i).setResident(resident_sal);	//ÁÖ¹Î¼¼
+			empSalList.get(i).setIncome(income_sal);			//ì†Œë“ì„¸
+			empSalList.get(i).setHealth_care(health_care_sal);	//ê±´ê°•ë³´í—˜ë£Œ
+			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//ê³ ìš©ë³´í—˜ë£Œ
+			empSalList.get(i).setAnnuity(annuity_sal);			//êµ­ë¯¼ì—°ê¸ˆë³´í—˜ë£Œ
+			empSalList.get(i).setResident(resident_sal);		//ì£¼ë¯¼ì„¸
 			
 			deduct_sal = (float) (income_sal + health_care_sal + emp_insur_sal + annuity_sal + resident_sal );
 			empSalList.get(i).setDeduct_sal(Math.round(deduct_sal*1000)/1000.0);
@@ -106,7 +106,7 @@ public class HRController {
 		return mav;
 	}
 	
-	//±Ş¿©´ëÀå(°³ÀÎº°) »ó¼¼º¸±â
+	//ï¿½Ş¿ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Îºï¿½) ï¿½ó¼¼ºï¿½ï¿½ï¿½
 	@RequestMapping(value="/viewEmpSalInfo.do")
 	public ModelAndView viewEmpSalInfo(HttpSession session) {
 		
