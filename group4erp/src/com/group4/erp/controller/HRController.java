@@ -53,5 +53,16 @@ public class HRController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/viewEmpWorkStateList.do")
+	public ModelAndView viewEmpWorkStateList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpWorkStateList");
+		
+		return mav;
+	}
 
 }

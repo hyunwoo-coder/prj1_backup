@@ -12,7 +12,7 @@
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width="500">
 			<tr>
-				<th>소속 부서</th><th>직급</th><th>성명</th><th>휴가 종류</th><th>복귀 예정일</th>
+				<th>소속 부서 ▼ </th><th>직급 ▼ </th><th>성명 ▼ </th><th>휴가 종류 ▼ </th><th>복귀 예정일 ▼</th>
 			</tr>
 			<tr>
 				<td>기획부</td><td>과장</td><td>박민아</td><td>연차</td><td>2019.12.24</td>

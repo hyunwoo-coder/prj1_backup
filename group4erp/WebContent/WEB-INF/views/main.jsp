@@ -40,6 +40,11 @@
 				<%@ include file="/WEB-INF/views/empSalInfo.jsp" %>
 			</c:if>
 			
+			<!-- 직원 근무 현황 -->
+			<c:if test="${subMenu.equals('viewEmpWorkStateList') }">
+				<%@ include file="/WEB-INF/views/empWorkingStateList.jsp" %>
+			</c:if>
+			
 			<!-- 직원 휴가 현황 -->
 			<c:if test="${subMenu.equals('viewDayOffList') }">
 				<%@ include file="/WEB-INF/views/empDayOffList.jsp" %>
