@@ -24,8 +24,6 @@ public class InvenController {
 	@Autowired
 	private InvenService invenService;	
 	
-
-	
 	@RequestMapping(value="/goBookList.do")
 	public ModelAndView goBookInvenList(
 			HttpSession session

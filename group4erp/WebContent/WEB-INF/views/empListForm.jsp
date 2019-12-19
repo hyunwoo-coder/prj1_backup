@@ -29,14 +29,14 @@ $(document).ready(function(){
 <center>
 	<h1>[직원 리스트]</h1>
 	<form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">
+	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 	[총 개수] : ${boardListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 	<div id="blankArea"><br></div>
 		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
 			<thead>
 			<tr>
-				<th style="cursor:pointer">사번<th >성명<th>부서<th style="cursor:pointer">직급
+				<th style="cursor:pointer">사번<th>성명<th>부서<th style="cursor:pointer">직급
 			</tr>
 
 			<c:forEach items="${empList}" var="empList" varStatus="loopTagStatus">

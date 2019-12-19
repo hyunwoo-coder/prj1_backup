@@ -20,10 +20,7 @@ public class HrDAOImpl implements HrDAO {
 	@Override
 	public List<SalaryDTO> getEmpSalList() {
 		// TODO Auto-generated method stub
-		System.out.println("getEmpSalList() 메소드로 DB 연동 시작");
 		List<SalaryDTO> empSalList = this.sqlSession.selectList(mapper_namespace + "getEmpSalList");
-		System.out.println("getEmpSalList() 메소드로 DB 연동 끝");
-		
 		return empSalList;
 	
 	}
