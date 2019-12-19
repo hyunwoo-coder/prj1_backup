@@ -88,7 +88,6 @@
 	<!-- 업무관리 서브메뉴 -->
 		function goMySchedule() {
 			location.replace("/group4erp/goMySchedule.do");
-			alert("나의 일정 메뉴 준비중");
 		}
 
 		function goMyCareBookList() {
@@ -108,7 +107,7 @@
 		}
 
 		function businessTripForm() {
-			alert("출장신청 & 보고 기능 구현");
+			location.replace("/group4erp/workOutReport.do");
 		}
 
 		function viewMyWorkTime() {

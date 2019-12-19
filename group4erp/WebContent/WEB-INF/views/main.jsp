@@ -26,6 +26,10 @@
 			<c:if test="${subMenu.equals('mySchedule') }">
 				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('workOutReport') }">
+				<%@ include file="/WEB-INF/views/workOutReport.jsp" %>
+			</c:if>
 		</td>
 	</tr>
 	<tr height="50">
