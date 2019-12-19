@@ -11,7 +11,7 @@
 
 $(document).ready(function(){
 	
-	headerSort("empListTable", 0);
+	headerSort("empListForm .empListTable", 0);
 	
 });
 	function goSearch() {
