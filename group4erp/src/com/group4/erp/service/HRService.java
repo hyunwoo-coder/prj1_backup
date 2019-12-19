@@ -7,7 +7,7 @@ import com.group4.erp.HrListSearchDTO;
 
 public interface HRService {
 	
-	int getEmpAllCnt();
+	int getEmpListAllCnt(HrListSearchDTO hrListSearchDTO);
 	
 	List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO);
 

@@ -1,0 +1,38 @@
+package com.group4.erp.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.group4.erp.HrListSearchDTO;
+
+@Repository
+public class HrDAOImpl implements HrDAO {
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	public int getEmpListAllCnt(HrListSearchDTO hrListSearchDTO) {
+		
+		int getEmpBoardListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.HrDAO.getEmpListCnt"
+				,hrListSearchDTO
+				);
+		
+		return getEmpBoardListCnt;
+	}
+	
+	public List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO){
+
+		List<Map<String, String>> getEmpBoardList = this.sqlSession.selectList(
+				"com.group4.erp.dao.HrDAO.getEmpList"
+				,hrListSearchDTO
+				);
+
+		return getEmpBoardList;
+	}
+
+}

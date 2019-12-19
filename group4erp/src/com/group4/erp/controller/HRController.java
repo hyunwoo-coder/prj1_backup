@@ -10,14 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 import com.group4.erp.*;
+import com.group4.erp.service.HRService;
 import com.group4.erp.service.InvenService;
 
 @Controller
 public class HRController {
-	/*
+	
 	@Autowired
 	private HRService hrservice;	
-	*/
+	
 	@RequestMapping(value="/viewEmpList.do")
 	public ModelAndView viewEmpListList(
 			HttpSession session
@@ -29,16 +30,15 @@ public class HRController {
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpList");
 		
-		int getEmpBoardListCnt;
-		List<Map<String, String>> getEmpBoardList;
-		
 		
 		try {
 			
-			/*getEmpBoardListCnt = this.hr
-			
-			getEmpBoardList = this.hrservice.getEmpList(hrListSearchDTO);
-			*/
+			int getEmpBoardListCnt = this.hrservice.getEmpListAllCnt(hrListSearchDTO);
+			mav.addObject("getEmpBoardListCnt", getEmpBoardListCnt);
+
+			List<Map<String, String>> getEmpBoardList = this.hrservice.getEmpList(hrListSearchDTO);
+			mav.addObject("getEmpBoardList", getEmpBoardList);
+
 		}catch(Exception e) {
 			System.out.println("<직원 리스트 호출 실패>");
 		}
