@@ -40,6 +40,15 @@ public class LoginController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/goMainPage.do")
+	public ModelAndView goMainPage(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/joininsert.do")
 	public ModelAndView joinMembership() {
 		System.out.println("사원등록 시작");
