@@ -19,12 +19,14 @@
 	
 </script>
 </head>
-<body><center>
+<body>
+<center>
 	<h1>[직원 리스트]</h1>
 	<form name="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
-	[검색어]<input type="text" name="searchKeyword"> <input type="button" value="검색" onClick="goSearch();" >
+	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">
+	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 	<div id="blankArea"><br></div>
-		<table class="tbcss1" name="empList" cellpadding="5" cellspacing="5" width="500">		
+		<table class="empListTable tbcss1" name="empListTable" cellpadding="5" cellspacing="5" width="500">		
 			<tr>
 				<th>사번</th><th>성명</th><th>부서</th><th>직급</th>
 			</tr>

@@ -80,7 +80,7 @@
 			$('#subMenu8').hide();
 		}		
 
-	<!-- 업무관리 서브메뉴 -->
+	// 업무관리 서브메뉴 -->
 		function goMySchedule() {
 			alert("나의 일정 메뉴 준비중");
 		}
@@ -123,7 +123,7 @@
 		}
 
 
-		<!-- 재고관리 서브메뉴 -->
+		// 재고관리 서브메뉴 -->
 		function goBookList() {
 			location.replace("/group4erp/goBookList.do");
 			//alert("도서정보리스트 구현 예정");
@@ -146,7 +146,7 @@
 			alert("반품 현황 조회 기능 구현");
 		}
 
-		<!-- 배송관리 서브메뉴 -->
+		//배송관리 서브메뉴 -->
 		function goOrderList() {
 			alert("주문현황 조회 기능 구현");
 		}
@@ -184,7 +184,7 @@
 			alert("광고신청기능 구현 예정");
 		}
 
-		<!-- 인사관리 서브 메뉴-->
+		//인사관리 서브 메뉴-->
 		function viewEmpList() {	//직원정보
 			location.replace("/group4erp/viewEmpList.do");
 		}

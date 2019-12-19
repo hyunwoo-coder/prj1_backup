@@ -26,7 +26,7 @@ public class InvenController {
 	
 
 	
-	@RequestMapping(value="/goBookInvenList.do")
+	@RequestMapping(value="/goBookList.do")
 	public ModelAndView goBookInvenList(
 			HttpSession session
 			,InvenSearchDTO invenSearchDTO

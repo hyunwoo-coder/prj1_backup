@@ -130,12 +130,12 @@
 			 <tr style="cursor:pointer" onClick="goInvenContentForm(${book.ISBN13});">
 			 	<td align=center>${book.ISBN13}
 				<td align=center>${book.book_name}
-				<td align=center>${book.category_cd}
+				<td align=center>${book.cat_name}
 				<td align=center>${book.publisher}
 				<td align=center>${book.is_not_print}
 				<td align=center>${book.book_price}
 				<td align=center>${book.book_pages}
-				<td align=center>${book.planner}
+				<td align=center>${book.editor}
 			</c:forEach>
 			<!-- <tr><td colspan=8 align=center> DB 연동 실패(아직 구현중)  -->
 		</table>
