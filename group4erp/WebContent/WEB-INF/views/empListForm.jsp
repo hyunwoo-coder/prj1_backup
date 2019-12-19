@@ -14,6 +14,7 @@ $(document).ready(function(){
 	headerSort("empListForm .empListTable", 0);
 	
 });
+
 	function goSearch() {
 		alert("검색 기능 구현");
 	}
@@ -37,6 +38,14 @@ $(document).ready(function(){
 			<tr>
 				<th style="cursor:pointer">사번<th >성명<th>부서<th style="cursor:pointer">직급
 			</tr>
+
+			<c:forEach items="${empList}" var="empList" varStatus="loopTagStatus">
+			<tr style="cursor:pointer">
+				<td>${empList.emp_no}</td><td>${empList.emp_name}</td><td>${empList.dep_name} </td><td>${empList.jikup }</td>		
+			</tr>
+			
+			</c:forEach>
+
 			</thead>
 			<tbody>
 			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">

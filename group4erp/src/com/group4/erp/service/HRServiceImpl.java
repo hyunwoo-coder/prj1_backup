@@ -1,6 +1,13 @@
 package com.group4.erp.service;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.group4.erp.EmployeeDTO;
+import com.group4.erp.SalaryDTO;
+import com.group4.erp.dao.HrDAO;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +19,19 @@ import com.group4.erp.dao.HrDAO;
 import com.group4.erp.dao.InvenDAO;
 
 @Service
-@Transactional
 public class HRServiceImpl implements HRService {
-	
+
 	@Autowired
-	private HrDAO hrDAO;
+	HrDAO hrDAO;
+
+	@Override
+	public List<SalaryDTO> getEmpSalList() {
+		// TODO Auto-generated method stub
+		
+		List<SalaryDTO> empSalList = this.hrDAO.getEmpSalList();
+		
+		return empSalList;
+	}
 	
 	public int getEmpListAllCnt(HrListSearchDTO hrListSearchDTO) {
 		
@@ -30,6 +45,7 @@ public class HRServiceImpl implements HRService {
 		List<Map<String, String>> getEmpBoardList = this.hrDAO.getEmpList(hrListSearchDTO);
 		
 		return getEmpBoardList;
+
 	}
 
 }

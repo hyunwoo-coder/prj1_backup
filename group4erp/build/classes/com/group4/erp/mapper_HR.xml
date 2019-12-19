@@ -39,6 +39,16 @@
 			
 			order by emp_no asc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+
+
+	</select>
+	
+		<select id='getEmpSalList' resultType="com.group4.erp.SalaryDTO">
+		select 
+ 	   (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
+   		e.emp_name,
+    	trunc(e.salary/12, 5) "salary"
+    	from employee e   
 	</select>
 	
 </mapper>

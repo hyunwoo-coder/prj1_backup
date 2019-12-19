@@ -1,12 +1,17 @@
 package com.group4.erp.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.group4.erp.service.HRService;
+import com.group4.erp.EmployeeDTO;
+import com.group4.erp.SalaryDTO;
 import java.util.*;
 
 import com.group4.erp.*;
@@ -17,7 +22,7 @@ import com.group4.erp.service.InvenService;
 public class HRController {
 	
 	@Autowired
-	private HRService hrservice;	
+	HRService hrservice;
 	
 	@RequestMapping(value="/viewEmpList.do")
 	public ModelAndView viewEmpListList(
@@ -27,9 +32,9 @@ public class HRController {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
+		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpList");
-		
 		
 		try {
 			
@@ -40,8 +45,9 @@ public class HRController {
 			mav.addObject("getEmpBoardList", getEmpBoardList);
 
 		}catch(Exception e) {
-			System.out.println("<ì§ì› ë¦¬ìŠ¤íŠ¸ í˜¸ì¶œ ì‹¤íŒ¨>");
+			System.out.println("<¿¹¿Ü¹ß»ý>=="+e);
 		}
+
 		
 		return mav;
 	}
@@ -50,19 +56,63 @@ public class HRController {
 	@RequestMapping(value="/viewSalList.do")
 	public ModelAndView viewSalList(HttpSession session) {
 		
+		int sikdae = 10;
+		int car_care = 10;
+		
+		//°øÁ¦ ¸ñ·Ï
+		float health_care = (float) 0.0323;
+		double emp_insurance = 0.08d;
+		double annuity = 0.045d;
+		double residence = 0.1d;
+		double income = 0.027d;
+		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
+		
+		List<SalaryDTO> empSalList = this.hrservice.getEmpSalList();
+		
+		double real_sal = 0.0d;
+		double deduct_sal = 0.0d;
+		double final_sal = 0.0d;
+		
+		for(int i=0; i<empSalList.size(); i++) {
+			
+			double income_sal = Math.round(  ( (empSalList.get(i).getSalary() ) * income) * 1000 ) / 1000.0 ;
+			double health_care_sal = Math.round(empSalList.get(i).getSalary() * health_care * 1000) / 1000.0 ;
+			double emp_insur_sal = Math.round(empSalList.get(i).getSalary() * emp_insurance *1000) / 1000.0;
+			double annuity_sal = Math.round(empSalList.get(i).getSalary() * annuity * 1000) / 1000.0;
+			double resident_sal = Math.round( ( (empSalList.get(i).getSalary() * income) * residence ) * 1000) / 1000.0;
+			
+			real_sal = empSalList.get(i).getSalary() + sikdae + car_care;
+			empSalList.get(i).setReal_sal(real_sal);
+			empSalList.get(i).setIncome(income_sal);//¼Òµæ¼¼
+			empSalList.get(i).setHealth_care(health_care_sal);	//°Ç°­º¸Çè·á
+			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//°í¿ëº¸Çè·á
+			empSalList.get(i).setAnnuity(annuity_sal);	//±¹¹Î¿¬±Ý
+			empSalList.get(i).setResident(resident_sal);	//ÁÖ¹Î¼¼
+			
+			deduct_sal = (float) (income_sal + health_care_sal + emp_insur_sal + annuity_sal + resident_sal );
+			empSalList.get(i).setDeduct_sal(Math.round(deduct_sal*1000)/1000.0);
+			final_sal = real_sal - deduct_sal;
+			empSalList.get(i).setFinal_sal(Math.round(final_sal*1000)/1000.0);
+		}
+		
 		mav.setViewName("main.jsp");
+		mav.addObject("empSalList", empSalList);
+		mav.addObject("sikdae", sikdae);
+		mav.addObject("car_care", car_care);
 		mav.addObject("subMenu", "viewSalList");
 		
 		return mav;
 	}
 	
+	//±Þ¿©´ëÀå(°³ÀÎº°) »ó¼¼º¸±â
 	@RequestMapping(value="/viewEmpSalInfo.do")
 	public ModelAndView viewEmpSalInfo(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
+		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpSalInfo");
 		

@@ -80,26 +80,19 @@
 			$('#subMenu8').hide();
 		}		
 
-	// 업무관리 서브메뉴 -->
+
+	<!-- 업무관리 서브메뉴 -->
+
+
 		function goMySchedule() {
 			alert("나의 일정 메뉴 준비중");
 		}
 
+
 		function goMyCareBookList() {
-			alert("도서정보조회");
+			alert("담당상품조회");
 		}
 
-		function myDayOffList() {
-			alert("나의 휴가 현황 관련 기능 구현");
-		}
-
-		function reservateMeetingRoom() {
-			alert("팀회의실 예약 기능 구현");
-		}
-
-		function lentCompanyCar() {
-			alert("회사차량이용신청 기능 구현");
-		}
 
 		function businessTripForm() {
 			alert("출장신청 & 보고 기능 구현");
@@ -113,7 +106,6 @@
 			alert("야간&주말근무 신청 기능 구현");
 		}
 
-
 		function takeCharge() {
 			alert("경비청구 기능 구현 예정");
 		}
@@ -124,6 +116,7 @@
 
 
 		// 재고관리 서브메뉴 -->
+
 		function goBookList() {
 			location.replace("/group4erp/goBookList.do");
 			//alert("도서정보리스트 구현 예정");
