@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.group4.erp.service.HRService;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.SalaryDTO;
+import java.util.*;
+
+import com.group4.erp.*;
+import com.group4.erp.service.HRService;
+import com.group4.erp.service.InvenService;
 
 @Controller
 public class HRController {
@@ -21,7 +25,10 @@ public class HRController {
 	HRService hrservice;
 	
 	@RequestMapping(value="/viewEmpList.do")
-	public ModelAndView viewEmpListList(HttpSession session) {
+	public ModelAndView viewEmpListList(
+			HttpSession session
+			,HrListSearchDTO hrListSearchDTO
+			) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
@@ -29,7 +36,18 @@ public class HRController {
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpList");
 		
-		//List<Map<String, String>> boardList = this.boardService.getBoardList(boardSearchDTO);
+		try {
+			
+			int getEmpBoardListCnt = this.hrservice.getEmpListAllCnt(hrListSearchDTO);
+			mav.addObject("getEmpBoardListCnt", getEmpBoardListCnt);
+
+			List<Map<String, String>> getEmpBoardList = this.hrservice.getEmpList(hrListSearchDTO);
+			mav.addObject("getEmpBoardList", getEmpBoardList);
+
+		}catch(Exception e) {
+			System.out.println("<예외발생>=="+e);
+		}
+
 		
 		return mav;
 	}
@@ -53,12 +71,10 @@ public class HRController {
 		
 		List<SalaryDTO> empSalList = this.hrservice.getEmpSalList();
 		
-		
 		double real_sal = 0.0d;
 		double deduct_sal = 0.0d;
 		double final_sal = 0.0d;
 		
-	
 		for(int i=0; i<empSalList.size(); i++) {
 			
 			double income_sal = Math.round(  ( (empSalList.get(i).getSalary() ) * income) * 1000 ) / 1000.0 ;

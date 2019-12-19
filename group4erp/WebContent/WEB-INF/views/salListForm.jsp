@@ -6,7 +6,10 @@
 <meta charset="UTF-8">
 <title>급여지급내역(직원별)</title>
 <script>
-	function viewEmpSalInfo() {
+	function viewEmpSalInfo(emp_no) {
+
+		alert(emp_no);
+		
 		document.salListForm.submit();
 	}
 
@@ -16,7 +19,7 @@
 <body><center>
 	<h1>[2019년도 11월분 급여대장]</h1>
 	
-	지급일 : 2019년 11월 25일
+	지급일 : 2019년 11월 25일	&nbsp;&nbsp;단위 [만원]
 	<form name="salListForm" method="post" action="/group4erp/viewEmpSalInfo.do">
 		<table class="tbcss1" name="salEmpList" cellpadding="5" cellspacing="5">
 			<tr>
@@ -30,7 +33,7 @@
 			</tr>
 			
 			<c:forEach items="${empSalList}" var="empSal" varStatus="loopTagStatus">
-				<tr style="cursor:pointer" onClick="viewEmpSalInfo();">
+				<tr style="cursor:pointer" onClick="viewEmpSalInfo(${empSal.emp_no});">
 					<td>${empSal.jikup}</td><td>${empSal.emp_name}</td><td>${empSal.salary}</td><td>${sikdae}</td> <td> </td> <td> </td> <td>${car_care}</td> <td>${empSal.real_sal}</td>
 				
 					<td>${empSal.income}</td><td>${empSal.resident}</td><td>${empSal.emp_insurance}</td><td>${empSal.health_care }</td> <td>${empSal.annuity}</td> <td>.</td><td>${empSal.deduct_sal}</td><td>${empSal.final_sal}</td>
