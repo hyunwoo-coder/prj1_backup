@@ -19,6 +19,7 @@
 				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
 			</c:if>
 			
+			<!-- 재고현황목록 -->
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
@@ -39,6 +40,7 @@
 				<%@ include file="/WEB-INF/views/empSalInfo.jsp" %>
 			</c:if>
 			
+			<!-- 직원 휴가 현황 -->
 			<c:if test="${subMenu.equals('viewDayOffList') }">
 				<%@ include file="/WEB-INF/views/empDayOffList.jsp" %>
 			</c:if>

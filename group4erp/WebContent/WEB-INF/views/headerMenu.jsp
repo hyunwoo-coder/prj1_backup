@@ -69,11 +69,6 @@
 			$("#subMenu7").show();
 		}
 
-		function viewBuyerMenu() {
-			hideSubMenu();
-			$("#subMenu8").show();
-		}
-
 		function hideSubMenu() {
 			$('#subMenu1').hide();
 			$('#subMenu2').hide();
@@ -205,6 +200,21 @@
 		function viewEmpDayOffList() {	//직원별 휴가현황 조회
 			location.replace("/group4erp/viewEmpDayOffList.do");
 		}
+
+		//판매추이분석구현예정
+		function viewSalesChangeReport() {
+			alert("판매추이분석 리포트 구현 예정");
+		}
+
+		//판매추이분석구현예정
+		function viewCusClaimReport() {
+			alert("고객클레임처리분석 리포트 구현 예정");
+		}
+
+		//인기키워드분석
+		function viewBestKeywordReport() {
+			alert("인기키워드분석 리포트 구현 예정");
+		}
 		
 		
 	</script>
@@ -230,39 +240,34 @@
 			<td colspan="17">&nbsp;<!-- &nbsp;지우지말것!! -->
 				<span id="subMenu1"> <!-- 업무관리 -->
 					<span id="myCareBookList" style="cursor:pointer" onClick="myCareBookList();">담당 상품 조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="overTimeWork" style="cursor:pointer" onClick="overTimeWork();">야근&주말근무신청&nbsp;&nbsp;&nbsp;</span>
 					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&보고&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewMyWorkTime();">근태조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="takeCharge" style="cursor:pointer" onClick="takeCharge();">경비청구&nbsp;&nbsp;&nbsp;</span>
 				</span>
 				
 	
 				<span id="subMenu2">	<!-- 재고관리 -->
 					<span id="myCareBookList" style="cursor:pointer" onClick="goBookList();">도서정보조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="bookInventoryList" style="cursor:pointer" onClick="goBookInvenList();">재고현황조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="shippingList" style="cursor:pointer" onClick="goShippingList();">출고현황조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="myIntoList" style="cursor:pointer" onClick="goMyIntoList();">입고현황조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="returnBookList" style="cursor:pointer" onClick="goReturnBookList();">반품현황조회&nbsp;&nbsp;&nbsp;</span>
 				</span>
 	
-				<span id="subMenu3" >	<!-- 배송관리 -->
+				<!--<span id="subMenu3" >	 배송관리 
 					<span id="orderList" style="cursor:pointer" onClick="goOrderList();">주문현황조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="shipScheduleList" style="cursor:pointer" onClick="goShipScheduleList();">배송스케쥴조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="goShipping" style="cursor:pointer" onClick="goShipping();">출고지시&nbsp;&nbsp;&nbsp;</span> 
 					<span id="returnList" style="cursor:pointer" onClick="goReturnList();">반품접수&처리 현황&nbsp;&nbsp;&nbsp;</span>
-				</span>
+				</span>-->
 	
 				<span id="subMenu4">	<!-- 마케팅관리 -->
 					<span id="nowSaleList" style="cursor:pointer" onClick="goNowSaleList();">판매현황&nbsp;&nbsp;&nbsp;</span>
-					<span id="gateTableSaleList" style="cursor:pointer" onClick="goGateTableSaleList();">매대판매현황&nbsp;&nbsp;&nbsp;</span> 
 					<span id="eventSchedulingList" style="cursor:pointer" onClick="eventSchedulingList();">이벤트신청 & 결과보고&nbsp;&nbsp;&nbsp;</span>
-					<span id="eventGoodsOrder" style="cursor:pointer" onClick="eventGoodsOrder();">이벤트굿즈 제작 발주&nbsp;&nbsp;&nbsp;</span>
 					<span id="adOrder" style="cursor:pointer" onClick="adOrder();">광고신청현황&nbsp;&nbsp;&nbsp;</span>	
 				</span>
 	
 				<span id="subMenu5">	<!-- 인사관리 -->
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<span id="empList" style="cursor:pointer" onClick="viewEmpList();">직원현황&nbsp;</span>
+					<span id="empList" style="cursor:pointer" onClick="viewEmpList();">직원정보&nbsp;</span>
 					<span id="salaryList" style="cursor:pointer" onClick="viewSalaryList();">급여지급현황&nbsp;</span>
 					<span id="empWorkState" style="cursor:pointer" onClick="viewEmpWorkStateList();">직원별 근무현황조회&nbsp;</span>
 					<span id="empDayOffList" style="cursor:pointer" onClick="viewEmpDayOffList();">직원별 휴가 현황&nbsp;</span>		
@@ -271,21 +276,19 @@
 				<span id="subMenu6">	<!-- 회계관리 -->
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span id="salesInfoList" style="cursor:pointer" onClick="viewSalesReport();">매출정보&nbsp;&nbsp;&nbsp;</span>
-					<span id="nonPaymentList" style="cursor:pointer" onClick="viewNonPaymentList();">결제예정금액&nbsp;&nbsp;&nbsp;</span>
 					<span id="elecBill" style="cursor:pointer" onClick="viewElecBillList();">전자어음&nbsp;&nbsp;&nbsp;</span>
 					<span id="specTransaction" style="cursor:pointer" onClick="viewSpecTransaction();">거래명세서&nbsp;&nbsp;&nbsp;</span>
 					<span id="taxInvoice" style="cursor:pointer" onClick="viewTaxInvoice();">세금계산서&nbsp;&nbsp;&nbsp;</span>
+					<span id="viewTranLog" style="cursor:pointer" onClick="viewTranLog();">거래내역 조회&nbsp;&nbsp;&nbsp;</span>
+					<span id="updateClientList" style="cursor:pointer" onClick="updateClientList();">거래처 등록/삭제&nbsp;&nbsp;&nbsp;</span>
 				</span>
 	
 				<span id="subMenu7">	<!-- 전략분석 -->
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span id="salesChangeReport" style="cursor:pointer" onClick="viewSalesChangeReport();">매출추이분석&nbsp;&nbsp;&nbsp;</span>
-					<span id="nowSaleListReport" style="cursor:pointer" onClick="viewNowSaleReport();">판매현황분석&nbsp;&nbsp;&nbsp;</span>
-					<span id="cusPrefReport" style="cursor:pointer" onClick="viewCusPrefReport();">고객 선호도 분석&nbsp;&nbsp;&nbsp;</span>
 					<span id="cusClaimReport" style="cursor:pointer" onClick="viewCusClaimReport();">고객 클레임 처리 상황&nbsp;&nbsp;&nbsp;</span>
 					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywordReport();">인기 키워드 현황&nbsp;&nbsp;&nbsp;</span>
-					<span id="trendChangeReport" style="cursor:pointer" onClick="viewTrendChangeReportReport();">트렌드 변화 추이&nbsp;&nbsp;&nbsp;</span>
-					<span id="eventReport" style="cursor:pointer" onClick="viewEventReportReport();">이벤트 행사 사후 분석&nbsp;&nbsp;&nbsp;</span>
+					
 				</span>
 	
 				<!-- <span id="subMenu8">	거래처관리 
