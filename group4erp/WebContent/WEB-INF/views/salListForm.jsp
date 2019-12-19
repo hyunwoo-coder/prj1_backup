@@ -13,6 +13,10 @@
 		document.salListForm.submit();
 	}
 
+	function goApproval() {
+		alert("결재");
+	}
+
 </script>
 
 </head>
@@ -42,7 +46,9 @@
 	
 		</table>
 		<br>
-				[1][2][3][4][5][6][7][8][9][10]
+				[1][2][3][4][5][6][7][8][9][10] <br>
+				
+				<input type="button" value="결재" onClick="goApproval();">
 	</form>
 
 

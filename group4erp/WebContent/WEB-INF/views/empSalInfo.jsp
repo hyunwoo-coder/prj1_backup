@@ -9,7 +9,7 @@
 <body><center>
 	
 	<form name="salInfoForm" method="post" action=" ">
-		<h1>[2019년도 급여명세서]</h1><br>
+		<h1>[${timeDTO.now_year}년도 급여명세서]</h1><br>
 		직책 : 대표이사	&nbsp;&nbsp;성명 : 김**<br>
 		<table class="tbcss1" name="salInfoForm" cellpadding="5" cellspacing="5">
 			<tr>
