@@ -32,9 +32,9 @@
 	<!-- 		[Log4jdbcProxyDataSource 객체]가 없을 경우 [BasicDataSource 객체]를 [속성변수 dataSource]에 저장한다 -->
 	<!-- 	[속성변수 mapperLocations]에 [MyBatis SQL 설정 XML 파일]의 경로를 저장한다. -->
 	<!--**********************************************************************************************-->
-	<bean  id="basicDataSource"  class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+	<bean id="basicDataSource"  class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-	        <property name="url" value="jdbc:oracle:thin:@192.168.1.111:1521:XE" />
+	        <property name="url" value="jdbc:oracle:thin:@192.168.1.29:1521:XE" />
 	        <property name="username" value="book" />
 	        <property name="password" value="b123" />
 	</bean>		
@@ -52,7 +52,7 @@
 	</bean>		
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="log4jdbcProxyDataSource"/>
-		<property name="mapperLocations" value="classpath:com/group4/erp/dao/*.xml"/>		
+		<property name="mapperLocations" value="classpath:com/group4/erp/*.xml"/>		
 	</bean> 
 			 
 	<!--**********************************************************************************************-->
@@ -75,7 +75,7 @@
 	<!--**********************************************************************************************-->
 	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-	    <property name="basePackage" value="com.group4.erp.dao" />
+	    <property name="basePackage" value="com.group4.erp.dao.dao" />
 	</bean> 	
 </beans>
 		

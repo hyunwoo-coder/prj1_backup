@@ -28,12 +28,13 @@
 			<tr>
 				<th>사번  ▼</th><th>성명  ▼</th><th>부서  ▼</th><th>직급  ▼</th>
 			</tr>
+			<c:forEach items="${empList}" var="empList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer">
-				<td>001</td><td>김사장</td><td>    </td><td>대표이사</td>		
+				<td>${empList.emp_no}</td><td>${empList.emp_name}</td><td>${empList.dep_name} </td><td>${empList.jikup }</td>		
 			</tr>
-			<tr>
-				<td>025</td><td>조충래</td><td>기획부</td><td>대리</td>
-			</tr>
+			
+			</c:forEach>
+
 		
 		</table>
 		<br>
