@@ -45,7 +45,7 @@ public class HRController {
 			mav.addObject("getEmpBoardList", getEmpBoardList);
 
 		}catch(Exception e) {
-			System.out.println("<���ܹ߻�>=="+e);
+			System.out.println("예외발생=="+e);
 		}
 
 		
@@ -59,7 +59,7 @@ public class HRController {
 		int sikdae = 10;
 		int car_care = 10;
 		
-		//���� ���
+		//공제항목비율
 		float health_care = (float) 0.0323;
 		double emp_insurance = 0.08d;
 		double annuity = 0.045d;
@@ -68,6 +68,8 @@ public class HRController {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
+		
+		TimeDTO timeDTO = this.hrservice.getTime();
 		
 		List<SalaryDTO> empSalList = this.hrservice.getEmpSalList();
 		
@@ -99,6 +101,7 @@ public class HRController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("empSalList", empSalList);
+		mav.addObject("timeDTO", timeDTO);
 		mav.addObject("sikdae", sikdae);
 		mav.addObject("car_care", car_care);
 		mav.addObject("subMenu", "viewSalList");

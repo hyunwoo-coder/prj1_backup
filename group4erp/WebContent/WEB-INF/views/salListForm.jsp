@@ -17,9 +17,9 @@
 
 </head>
 <body><center>
-	<h1>[2019년도 11월분 급여대장]</h1>
+	<h1>${timeDTO.now_year}년도&nbsp;${timeDTO.now_month-1}월분 급여대장</h1>
 	
-	지급일 : 2019년 11월 25일	&nbsp;&nbsp;단위 [만원]
+	지급일 : ${timeDTO.now_year}년 ${timeDTO.now_month-1}월 25일	&nbsp;&nbsp;단위 [만원]
 	<form name="salListForm" method="post" action="/group4erp/viewEmpSalInfo.do">
 		<table class="tbcss1" name="salEmpList" cellpadding="5" cellspacing="5">
 			<tr>

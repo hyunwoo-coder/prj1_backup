@@ -43,13 +43,23 @@
 
 	</select>
 	
-		<select id='getEmpSalList' resultType="com.group4.erp.SalaryDTO">
+	<select id='getEmpSalList' resultType="com.group4.erp.SalaryDTO">
 		select 
 		emp_no "emp_no",
- 	   (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
+ 	    (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
    		e.emp_name,
-    	trunc(e.salary/12, 5) "salary"
+    	trunc(e.salary/12, 5) "salary",
+    	(select extract(year from sysdate) from dual) "year",
+    	(select extract(month from sysdate) from dual) "month"
     	from employee e   
+	</select>
+	
+	<select id='getTime' resultType="com.group4.erp.TimeDTO">
+
+		select extract(year from sysdate) as "now_year", 
+		extract(month from sysdate) as "now_month" 
+		from dual
+
 	</select>
 	
 </mapper>

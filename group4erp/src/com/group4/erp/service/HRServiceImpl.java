@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.SalaryDTO;
+import com.group4.erp.TimeDTO;
 import com.group4.erp.dao.HrDAO;
 
 import java.util.Map;
@@ -46,6 +47,14 @@ public class HRServiceImpl implements HRService {
 		
 		return getEmpBoardList;
 
+	}
+
+	@Override
+	public TimeDTO getTime() {
+		// TODO Auto-generated method stub
+		TimeDTO timeDTO = this.hrDAO.getTime();
+		
+		return timeDTO;
 	}
 
 }

@@ -18,6 +18,10 @@ public class SalaryDTO {
 	private double health_care = 0.0323d;
 	private double annuity = 0.045d;
 	
+	private String year;
+	private String month;
+	
+
 	
 	public double getIncome() {
 		return income;
@@ -106,6 +110,19 @@ public class SalaryDTO {
 		this.final_sal = final_sal;
 	}
 
+
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
 	
 	
 }

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.group4.erp.SalaryDTO;
+import com.group4.erp.TimeDTO;
 import com.group4.erp.HrListSearchDTO;
 
 @Repository
@@ -24,6 +25,14 @@ public class HrDAOImpl implements HrDAO {
 		return empSalList;
 	
 	}
+	
+	
+	public TimeDTO getTime() {
+		// TODO Auto-generated method stub
+		TimeDTO timeDTO = this.sqlSession.selectOne(mapper_namespace + "getTime");
+		return timeDTO;
+	}
+
 	
 	public int getEmpListAllCnt(HrListSearchDTO hrListSearchDTO) {
 		
@@ -45,5 +54,6 @@ public class HrDAOImpl implements HrDAO {
 		return getEmpBoardList;
 
 	}
+
 
 }
