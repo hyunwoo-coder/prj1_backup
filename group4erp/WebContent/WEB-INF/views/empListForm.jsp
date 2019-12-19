@@ -9,6 +9,12 @@
 <title>직원 리스트</title>
 <script>
 
+$(document).ready(function(){
+	
+	headerSort("empListTable", 0);
+	
+});
+
 	function goSearch() {
 		alert("검색 기능 구현");
 	}
@@ -19,22 +25,37 @@
 	
 </script>
 </head>
-<body><center>
+<body>
+<center>
 	<h1>[직원 리스트]</h1>
-	<form name="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
-	[검색어]<input type="text" name="searchKeyword"> <input type="button" value="검색" onClick="goSearch();" >
+	<form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
+	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">
+	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+	[총 개수] : ${boardListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 	<div id="blankArea"><br></div>
-		<table class="tbcss1" name="empList" cellpadding="5" cellspacing="5" width="500">		
+		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
+			<thead>
 			<tr>
-				<th>사번</th><th>성명</th><th>부서</th><th>직급</th>
+				<th style="cursor:pointer">사번<th >성명<th>부서<th style="cursor:pointer">직급
 			</tr>
+
+			<c:forEach items="${empList}" var="empList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer">
-				<td>001</td><td>김사장</td><td>    </td><td>대표이사</td>		
+				<td>${empList.emp_no}</td><td>${empList.emp_name}</td><td>${empList.dep_name} </td><td>${empList.jikup }</td>		
 			</tr>
-			<tr>
-				<td>025</td><td>조충래</td><td>기획부</td><td>대리</td>
-			</tr>
-		
+			
+			</c:forEach>
+
+			</thead>
+			<tbody>
+			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">
+			<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">	
+				<td align=center>${empList.emp_no}	
+				<td align=center>${empList.emp_name}	
+				<td align=center>${empList.dep_name}	
+				<td align=center>${empList.jikup}		
+			</c:forEach>
+			</tbody>
 		</table>
 		<br>
 		<input type="button" value="신규사원등록" onClick="insertNewEmp();">

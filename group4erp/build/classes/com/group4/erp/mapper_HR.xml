@@ -23,12 +23,32 @@
 	
 	 -->  
 
-	<select id='getEmpAllCnt' resultType="int">
+	<select id='getEmpListCnt' resultType="int">
 		select count(*) from employee
 	</select>
 	
-	<select id='getEmpList' resultType="java.util.HashMap">
-		select * from employee
+	<select id='getEmpList' parameterType="com.group4.erp.HrListSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
+			select
+				emp_no||'' 					as "emp_no"
+				,emp_name 				as "emp_name"
+				,(select d.dep_name from dept d where d.dep_no=e.dep_no) as "dep_name"
+				,(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) as "jikup"
+			from employee e	
+			where 1=1 
+			
+			order by emp_no asc
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+
+
+	</select>
+	
+		<select id='getEmpSalList' resultType="com.group4.erp.SalaryDTO">
+		select 
+ 	   (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
+   		e.emp_name,
+    	trunc(e.salary/12, 5) "salary"
+    	from employee e   
 	</select>
 	
 </mapper>
