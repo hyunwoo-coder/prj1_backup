@@ -26,7 +26,6 @@ public class HRServiceImpl implements HRService {
 
 	@Override
 	public List<SalaryDTO> getEmpSalList() {
-		// TODO Auto-generated method stub
 		
 		List<SalaryDTO> empSalList = this.hrDAO.getEmpSalList();
 		

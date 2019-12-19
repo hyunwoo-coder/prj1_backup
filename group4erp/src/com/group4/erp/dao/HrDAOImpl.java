@@ -19,10 +19,9 @@ public class HrDAOImpl implements HrDAO {
 
 	@Override
 	public List<SalaryDTO> getEmpSalList() {
-		// TODO Auto-generated method stub
-		System.out.println("getEmpSalList() ¸Þ¼Òµå·Î DB ¿¬µ¿ ½ÃÀÛ");
+		System.out.println("getEmpSalList() ï¿½Þ¼Òµï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		List<SalaryDTO> empSalList = this.sqlSession.selectList(mapper_namespace + "getEmpSalList");
-		System.out.println("getEmpSalList() ¸Þ¼Òµå·Î DB ¿¬µ¿ ³¡");
+		System.out.println("getEmpSalList() ï¿½Þ¼Òµï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
 		
 		return empSalList;
 	
@@ -31,7 +30,7 @@ public class HrDAOImpl implements HrDAO {
 	public int getEmpListAllCnt(HrListSearchDTO hrListSearchDTO) {
 		
 		int getEmpBoardListCnt = this.sqlSession.selectOne(
-				"com.group4.erp.dao.HrDAO.getEmpListCnt"
+				mapper_namespace+"getEmpListCnt"
 				,hrListSearchDTO
 				);
 		
