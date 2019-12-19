@@ -27,7 +27,7 @@
 			select
 				ISBN13||'' 				as "ISBN13"
 				,book_name 				as "book_name"
-				,category_cd||'' 		as "category_cd"
+				,cat_cd||'' 			as "cat_cd"
 				,book_price  			as "book_price"
 				,book_pages||'' 		as "book_pages"
 				,writer 				as "writer"
@@ -36,7 +36,7 @@
 				,is_not_print 			as "is_not_print"
 				,emp_no||''				as "emp_no"
 				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
-				,planner				as "planner"
+				,editor				as "editor"
 			from book
 			where 1=1 
 			
