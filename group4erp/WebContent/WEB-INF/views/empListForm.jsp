@@ -26,7 +26,7 @@
 	<div id="blankArea"><br></div>
 		<table class="tbcss1" name="empList" cellpadding="5" cellspacing="5" width="500">		
 			<tr>
-				<th>사번</th><th>성명</th><th>부서</th><th>직급</th>
+				<th>사번  ▼</th><th>성명  ▼</th><th>부서  ▼</th><th>직급  ▼</th>
 			</tr>
 			<tr style="cursor:pointer">
 				<td>001</td><td>김사장</td><td>    </td><td>대표이사</td>		
