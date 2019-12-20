@@ -5,7 +5,26 @@
 <head>
 <meta charset="UTF-8">
 <title>직원별 휴가현황</title>
+	<script>
 
+		$(document).ready(function(){
+			
+			$(".pagingNumber").html(
+				getPagingNumber(
+					"${getDayOffListCnt}"					//검색 결과 총 행 개수
+					,"${hrListSearchDTO.selectPageNo}"		//선택된 현재 페이지 번호
+					,"${hrListSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
+					,"10"									//페이지 당 보여줄 페이지번호 개수
+					,"goSearch();"							//페이지 번호 클릭 후 실행할 자스 코드
+				)
+			);
+		});
+	
+		function goSearch(){
+			document.empDayOffList.submit();
+		}	
+		
+	</script>
 </head>
 <body><center>
 	<h1>[직원 휴가 현황]</h1><br>
@@ -38,19 +57,13 @@
 				</c:forEach>
 			</tbody>
 		
-			
-			
-			<!-- <tr>
-				<th>소속 부서 ▼ </th><th>직급 ▼ </th><th>성명 ▼ </th><th>휴가 종류 ▼ </th><th>복귀 예정일 ▼</th>
-			</tr>
-			<tr>
-				<td>기획부</td><td>과장</td><td>박민아</td><td>연차</td><td>2019.12.24</td>
-			</tr>
-			<tr>
-				<td>영업부</td><td>사원</td><td>김설현</td><td>연차</td><td>2019.12.26</td>
-			</tr> -->
 		
 		</table>
+		
+		<table><tr height=10><td></table>
+		<input type="hidden" name="selectPageNo">
+		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+		
 	
 	</form>
 
