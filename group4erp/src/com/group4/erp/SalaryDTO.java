@@ -7,7 +7,7 @@ public class SalaryDTO {
 	private String emp_name;
 	private String jikup;
 	private String salary_dt;
-	private int salary;
+	private double salary;
 	private double real_sal;
 	private double deduct_sal;
 	private double final_sal;
@@ -91,10 +91,10 @@ public class SalaryDTO {
 	public void setJikup(String jikup) {
 		this.jikup = jikup;
 	}
-	public int getSalary() {
+	public double getSalary() {
 		return salary;
 	}
-	public void setSalary(int salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 	public double getReal_sal() {

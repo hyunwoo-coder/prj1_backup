@@ -10,9 +10,9 @@
 
 		//alert($("[name=salListForm]").serialize());
 		
-		//document.salListForm.submit();
+		document.salListForm.submit();
 
-		$.ajax({			
+		/*$.ajax({			
 			url : "/group4erp/viewEmpSalInfo.do"	
 			, type : "post"				
 			, data : $("[name=salListForm]").serialize()	
@@ -32,7 +32,7 @@
 			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
 				alert("서버 접속 실패!");
 			}			
-		});
+		}); */
 	}
 
 	function goApproval() {
