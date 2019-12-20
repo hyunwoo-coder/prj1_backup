@@ -19,5 +19,9 @@ public interface HRService {
 	int getDayOffListCnt (HrListSearchDTO hrListSearchDTO);
 	
 	List<Map<String, String>> getDayOffList(HrListSearchDTO hrListSearchDTO);
+	
+	int getEmpInoutListCnt(HrListSearchDTO hrListSearchDTO);
+	
+	List<Map<String, String>> getEmpInoutList(HrListSearchDTO hrListSearchDTO);
 
 }

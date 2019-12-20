@@ -143,12 +143,23 @@ public class HRController {
 	}
 	
 	@RequestMapping(value="/viewEmpWorkStateList.do")
-	public ModelAndView viewEmpWorkStateList(HttpSession session) {
+	public ModelAndView viewEmpWorkStateList(HttpSession session, HrListSearchDTO hrListSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpWorkStateList");
+		
+		try {
+			int getEmpInoutListCnt = this.hrservice.getEmpInoutListCnt(hrListSearchDTO);
+			mav.addObject("getEmpInoutListCnt", getEmpInoutListCnt);
+			
+			List<Map<String, String>> getEmpInoutList = this.hrservice.getEmpInoutList(hrListSearchDTO);
+			mav.addObject("getEmpInoutList", getEmpInoutList);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 		return mav;
 	}

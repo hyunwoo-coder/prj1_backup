@@ -63,6 +63,21 @@ public class HRServiceImpl implements HRService {
 		List<Map<String, String>> getDayOffList = this.hrDAO.getDayOffList(hrListSearchDTO);
 		return getDayOffList;
 	}
+
+	@Override
+	public int getEmpInoutListCnt(HrListSearchDTO hrListSearchDTO) {
+		int getEmpInoutListCnt = this.hrDAO.getEmpInoutListCnt(hrListSearchDTO);
+		return getEmpInoutListCnt;
+	}
+
+	@Override
+	public List<Map<String, String>> getEmpInoutList(HrListSearchDTO hrListSearchDTO) {
+		List<Map<String, String>> getEmpInoutList = this.hrDAO.getEmpInoutList(hrListSearchDTO);
+		return getEmpInoutList;
+	}
+	
+	
+	
 	
 	
 

@@ -66,9 +66,32 @@ public class HrDAOImpl implements HrDAO {
 				"com.group4.erp.dao.HrDAO.getDayOffList"
 				,hrListSearchDTO
 				);
-		//System.out.println("DAO=>" + getDayOffList);
 		return getDayOffList;
 	}
+
+	@Override
+	public int getEmpInoutListCnt(HrListSearchDTO hrListSearchDTO) {
+		
+		int getEmpInoutListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.HrDAO.getEmpInoutListCnt"
+				,hrListSearchDTO
+				);
+		
+		return getEmpInoutListCnt;
+	}
+
+	@Override
+	public List<Map<String, String>> getEmpInoutList(HrListSearchDTO hrListSearchDTO) {
+		
+		List<Map<String, String>> getEmpInoutList = this.sqlSession.selectList(
+				"com.group4.erp.dao.HrDAO.getEmpInoutList"
+				,hrListSearchDTO
+				);
+		
+		return getEmpInoutList;
+	}
+	
+	
 	
 	
 	
