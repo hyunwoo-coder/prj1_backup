@@ -51,6 +51,12 @@
 			</c:if>
 			
 			
+			<!-- 매출정보 조회 -->
+			<c:if test="${subMenu.equals('viewSalesReport') }">
+				<%@ include file="/WEB-INF/views/salesReportForm.jsp" %>
+			</c:if>
+			
+			
 		</td>
 	</tr>
 	<tr height="50">

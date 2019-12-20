@@ -160,10 +160,6 @@
 			alert("현재 판매 현황 조회");
 		}
 
-		function goGateTableSaleList() {
-			alert("매대판매 관련 정보 기능 조회");
-		}
-
 		function eventSchedulingList() {
 			//alert("이벤트 행사 신청 & 결과 보고 기능 구현 예정");
 			location.replace("/group4erp/eventScheduling.do");
@@ -193,6 +189,12 @@
 		function viewEmpDayOffList() {	//직원별 휴가현황 조회
 			location.replace("/group4erp/viewEmpDayOffList.do");
 		}
+		
+		//매출정보 조회
+		function viewSalesReport() {
+			location.replace("/group4erp/viewSalesReport.do");
+		}
+		
 
 		//판매추이분석구현예정
 		function viewSalesChangeReport() {
