@@ -15,6 +15,13 @@
 	</tr>
 	<tr valign=top>
 		<td align="center" height="500"><br><br>
+		
+			<!-- 출장신청&보고 -->
+			<c:if test="${subMenu.equals('businessTripForm') }">
+				<%@ include file="/WEB-INF/views/businessTripForm.jsp" %>
+			</c:if>
+			
+			
 			<c:if test="${subMenu.equals('eventReserve') }">
 				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
 			</c:if>
@@ -56,7 +63,6 @@
 			</c:if>
 			
 			
->>>>>>> refs/remotes/master/master
 		</td>
 	</tr>
 	<tr height="50">

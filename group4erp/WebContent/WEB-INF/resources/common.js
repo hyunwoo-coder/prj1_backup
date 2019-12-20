@@ -234,8 +234,6 @@ function inputData(selector, data) {
 	trsObj.filter(":visible").filter(":odd").css("background", "#D2D6D9");
 	
 } */
-
-<<<<<<< HEAD
 /*!
  * FullCalendar v1.6.4
  * Docs & License: http://arshaw.com/fullcalendar/
@@ -6346,7 +6344,6 @@ function HorizontalPositionCache(getElement) {
 ;;
 
 })(jQuery);
-=======
 //idx값은 정수형 데이터 비교할 열을 선택하는것이다.
 function headerSort(selector, idx){
 
@@ -6434,4 +6431,3 @@ function headerSort(selector, idx){
 	});
 	
 }
->>>>>>> refs/remotes/master/master
