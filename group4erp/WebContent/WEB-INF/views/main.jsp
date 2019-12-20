@@ -19,17 +19,44 @@
 				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
 			</c:if>
 			
+			<!-- 재고현황목록 -->
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
 			
-			<c:if test="${subMenu.equals('mySchedule') }">
-				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>
+			<!-- 직원현황조회 -->
+			<c:if test="${subMenu.equals('viewEmpList') }">
+				<%@ include file="/WEB-INF/views/empListForm.jsp" %>
 			</c:if>
 			
-			<c:if test="${subMenu.equals('workOutReport') }">
-				<%@ include file="/WEB-INF/views/workOutReport.jsp" %>
+			<!-- 급여지급현황(인사팀 조회 & 직원 전체 목록) -->
+			<c:if test="${subMenu.equals('viewSalList') }">
+				<%@ include file="/WEB-INF/views/salListForm.jsp" %>
 			</c:if>
+			
+			<!-- 급여지급현황(인사팀 조회 & 직원별 상세정보) -->
+			<c:if test="${subMenu.equals('viewEmpSalInfo') }">
+				<%@ include file="/WEB-INF/views/empSalInfo.jsp" %>
+			</c:if>
+			
+			<!-- 직원 근무 현황 -->
+			<c:if test="${subMenu.equals('viewEmpWorkStateList') }">
+				<%@ include file="/WEB-INF/views/empWorkingStateList.jsp" %>
+			</c:if>
+			
+			<!-- 직원 휴가 현황 -->
+			<c:if test="${subMenu.equals('viewDayOffList') }">
+				<%@ include file="/WEB-INF/views/empDayOffList.jsp" %>
+			</c:if>
+			
+			
+			<!-- 매출정보 조회 -->
+			<c:if test="${subMenu.equals('viewSalesReport') }">
+				<%@ include file="/WEB-INF/views/salesReportForm.jsp" %>
+			</c:if>
+			
+			
+>>>>>>> refs/remotes/master/master
 		</td>
 	</tr>
 	<tr height="50">
