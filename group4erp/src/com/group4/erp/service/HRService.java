@@ -15,5 +15,7 @@ public interface HRService {
 	List<SalaryDTO> getEmpSalList();
 
 	List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO);
+	
+	EmployeeDTO getEmpContant(int emp_no);
 
 }

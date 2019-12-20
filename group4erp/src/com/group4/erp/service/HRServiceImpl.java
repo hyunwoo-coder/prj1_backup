@@ -46,5 +46,12 @@ public class HRServiceImpl implements HRService {
 		return getEmpBoardList;
 
 	}
+	
+	public EmployeeDTO getEmpContant(int emp_no) {
+		
+		EmployeeDTO getEmpContantList = this.hrDAO.getEmpContant(emp_no);
+		
+		return getEmpContantList;
+	}
 
 }
