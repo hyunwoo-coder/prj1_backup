@@ -54,6 +54,19 @@
     	from employee e   
 	</select>
 	
+	
+	<select id='getEmpSalInfo' parameterType="int" resultType="com.group4.erp.SalaryDTO">
+		select 
+		(select e.emp_name from employee e where e.emp_no = #{emp_no}) "emp_name",
+ 	    (select j.jikup from code_jikup j where j.jikup_cd = (select e.jikup_cd from employee e where e.emp_no=#{emp_no}) ) "jikup",
+    	sop.salary_dt "salary_dt",
+   		sop.real_sal ||'' "real_sal"
+    	from state_of_payment sop
+    	where 1=1
+    	and sop.emp_no = #{emp_no}   
+	</select>
+	
+	
 	<select id='getTime' resultType="com.group4.erp.TimeDTO">
 
 		select extract(year from sysdate) as "now_year", 

@@ -15,5 +15,6 @@ public interface HrDAO {
 	List<SalaryDTO> getEmpSalList();
 	List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO);
 	TimeDTO getTime();
+	SalaryDTO getSalaryInfo(int emp_no);
 
 }

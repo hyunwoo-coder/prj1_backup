@@ -56,4 +56,13 @@ public class HRServiceImpl implements HRService {
 		return timeDTO;
 	}
 
+	@Override
+	public SalaryDTO getSalaryInfo(int emp_no) {
+		// TODO Auto-generated method stub
+		
+		SalaryDTO salaryDTO = this.hrDAO.getSalaryInfo(emp_no);
+		
+		return salaryDTO;
+	}
+
 }

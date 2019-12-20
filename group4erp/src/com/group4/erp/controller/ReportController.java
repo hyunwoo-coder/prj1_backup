@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ReportController {
 	
+	//매출정보 기능 구현
 	@RequestMapping(value="/viewSalesReport.do")
 	public ModelAndView viewSalesReport(HttpSession session) {
 		
@@ -16,6 +17,19 @@ public class ReportController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewSalesReport");
+		
+		return mav;
+	}
+	
+	
+	//어음정보 관련 기능 구현
+	@RequestMapping(value="/viewPromiNoteList.do")
+	public ModelAndView viewPromiNoteList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewPromiNoteList");
 		
 		return mav;
 	}

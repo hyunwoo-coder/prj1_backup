@@ -62,4 +62,15 @@ public class HrDAOImpl implements HrDAO {
 	}
 
 
+	@Override
+	public SalaryDTO getSalaryInfo(int emp_no) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("DAO getSalaryInfo() 메소드 실행");
+		SalaryDTO salaryDTO = this.sqlSession.selectOne(mapper_namespace+"getEmpSalInfo", emp_no);
+		
+		return salaryDTO;
+	}
+
+
 }

@@ -8,9 +8,30 @@
 <script>
 	function viewEmpSalInfo(emp_no) {
 
-		alert(emp_no);
+		alert($("[name=salListForm]").serialize());
 		
-		document.salListForm.submit();
+		//document.salListForm.submit();
+
+		$.ajax({			
+			url : "/group4erp/viewEmpSalInfo.do"	
+			, type : "post"				
+			, data : $("[name=salListForm]").serialize()	
+			
+			, success : function(sal_info) {	
+				if(sal_info != null) {				
+					location.replace("/group4erp/goMainPage.do");
+					
+				} else if(sal_info==0) {		
+					alert("해당 직원이 없습니다.");
+				} else {
+					alert("서버 오류 발생! 관리자에게 문의 바람!");
+				}				
+			}
+			
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}			
+		});
 	}
 
 	function goApproval() {
@@ -49,6 +70,7 @@
 				[1][2][3][4][5][6][7][8][9][10] <br>
 				
 				<input type="button" value="결재" onClick="goApproval();">
+				
 	</form>
 
 

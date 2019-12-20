@@ -56,6 +56,11 @@
 				<%@ include file="/WEB-INF/views/salesReportForm.jsp" %>
 			</c:if>
 			
+			<!-- 어음정보 조회 -->
+			<c:if test="${subMenu.equals('viewPromiNoteList') }">
+				<%@ include file="/WEB-INF/views/promiNoteListForm.jsp" %>
+			</c:if>
+			
 			
 		</td>
 	</tr>

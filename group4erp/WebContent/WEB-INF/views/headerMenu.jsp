@@ -194,6 +194,11 @@
 		function viewSalesReport() {
 			location.replace("/group4erp/viewSalesReport.do");
 		}
+
+		//어음정보 조회
+		function viewPromiNoteList() {
+			location.replace("/group4erp/viewPromiNoteList.do")
+		}
 		
 
 		//판매추이분석구현예정
@@ -271,7 +276,7 @@
 				<span id="subMenu6">	<!-- 회계관리 -->
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span id="salesInfoList" style="cursor:pointer" onClick="viewSalesReport();">매출정보&nbsp;&nbsp;&nbsp;</span>
-					<span id="elecBill" style="cursor:pointer" onClick="viewElecBillList();">전자어음&nbsp;&nbsp;&nbsp;</span>
+					<span id="elecBill" style="cursor:pointer" onClick="viewPromiNoteList();">전자어음&nbsp;&nbsp;&nbsp;</span>
 					<span id="specTransaction" style="cursor:pointer" onClick="viewSpecTransaction();">거래명세서&nbsp;&nbsp;&nbsp;</span>
 					<span id="taxInvoice" style="cursor:pointer" onClick="viewTaxInvoice();">세금계산서&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewTranLog" style="cursor:pointer" onClick="viewTranLog();">거래내역 조회&nbsp;&nbsp;&nbsp;</span>

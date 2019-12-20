@@ -121,12 +121,17 @@ public class HRController {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		int emp_no = 1;
+		
 		TimeDTO timeDTO = this.hrservice.getTime();
-		//mav.setViewName("eventScheduleForm.jsp");
+	
+		System.out.println("급여 컨트롤러 시작");
+		SalaryDTO salaryDTO = this.hrservice.getSalaryInfo(1);
+		System.out.println("컨트롤러 급여명세서 조회 성공");
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpSalInfo");
-		
+		mav.addObject("salaryDTO", salaryDTO);
 		mav.addObject("timeDTO", timeDTO);
 		
 		return mav;
