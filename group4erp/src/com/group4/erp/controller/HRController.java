@@ -46,7 +46,7 @@ public class HRController {
 
 			mav.addObject("hrListSearchDTO", hrListSearchDTO);
 		}catch(Exception e) {
-			System.out.println("<���ܹ߻�>=="+e);
+			System.out.println("<에러 발생>="+e);
 		}
 
 		

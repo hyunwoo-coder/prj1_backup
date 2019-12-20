@@ -75,7 +75,7 @@ $(document).ready(function(){
 			<tbody>
 			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">	
-				<td align=center>${empList.emp_no}
+				<td align=center>${empList.emp_no}<input type="hidden" value="${dep_no}">
 				<td align=center>${empList.emp_name}
 				<td align=center>${empList.dep_name}
 				<td align=center>${empList.jikup}
