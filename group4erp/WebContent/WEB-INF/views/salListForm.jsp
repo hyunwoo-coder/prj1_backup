@@ -8,7 +8,7 @@
 <script>
 	function viewEmpSalInfo(emp_no) {
 
-		alert($("[name=salListForm]").serialize());
+		//alert($("[name=salListForm]").serialize());
 		
 		//document.salListForm.submit();
 
@@ -18,7 +18,8 @@
 			, data : $("[name=salListForm]").serialize()	
 			
 			, success : function(sal_info) {	
-				if(sal_info != null) {				
+				if(sal_info != null) {		
+					alert("조회 성공");		
 					location.replace("/group4erp/goMainPage.do");
 					
 				} else if(sal_info==0) {		

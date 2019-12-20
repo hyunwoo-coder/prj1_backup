@@ -12,28 +12,38 @@
 	기준일 : 2019년 12월 19일
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		
-		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width="500">
+		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
 			<thead>
 				<tr>
-					<th style="cursor:pointer">소속 부서
+					<th style="cursor:pointer">날짜
+					<th style="cursor:pointer">사원번호
+					<th width=100 style="cursor:pointer">성명
+					<th style="cursor:pointer">부서
 					<th style="cursor:pointer">직급
-					<th style="cursor:pointer">성명
-					<th style="cursor:pointer">휴가 종류
-					<th style="cursor:pointer">복귀 예정일
+					<th style="cursor:pointer">출근시간
+					<th style="cursor:pointer">퇴근시간
+					<th style="cursor:pointer">근무시간
+					<th style="cursor:pointer">구분
+					<th style="cursor:pointer">비고
 				</tr>
 			</thead>
 			
 			<tbody>
-				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">
+				<c:forEach items="${requestScope.getEmpInoutList}" var="inout" varStatus="loopTagStatus">
 					<tr style="cursor:pointer">
 						<%-- <td align=center>
 							${boardListAllCnt - 
 								(boardSearchDTO.selectPageNo*boardSearchDTO.rowCntPerPage-boardSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1} --%>
-						<td align=center> ${dayoff.dep_name}
-						<td align=center> ${dayoff.jikup}
-						<td align=center> ${dayoff.emp_name}
-						<td align=center> ${dayoff.dayoff_name}
-						<td align=center> ${dayoff.end_day_off}
+						<td align=center> ${inout.dt_work}
+						<td align=center> ${inout.emp_no}
+						<td align=center> ${inout.emp_name}
+						<td align=center> ${inout.dep_name}
+						<td align=center> ${inout.jikup}
+						<td align=center> ${inout.in_time}
+						<td align=center> ${inout.out_time}
+						<td align=center> ${inout.working_hr}
+						<td align=center> ${inout.check_inout_name}
+						<td align=center> ${inout.remarks}
 					</tr>
 				</c:forEach>
 			</tbody>

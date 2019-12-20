@@ -54,7 +54,6 @@
     	from employee e   
 	</select>
 	
-	
 	<select id='getEmpSalInfo' parameterType="int" resultType="com.group4.erp.SalaryDTO">
 		select 
 		(select e.emp_name from employee e where e.emp_no = #{emp_no}) "emp_name",
@@ -74,5 +73,45 @@
 		from dual
 
 	</select>
+
+	
+	<select id='getDayOffListCnt' resultType="int">
+		select count(*) from emp_dayoff where 1=1 and (end_day_off &gt;= sysdate)	
+	</select>
+	
+	
+	
+	<select id='getDayOffList' resultType="java.util.HashMap"> 
+		select 
+		    (select d.dep_name from dept d, employee e where ed.emp_no = e.emp_no and d.dep_no = e.dep_no) as "dep_name"
+		    ,(select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = ed.emp_no) as "jikup" 
+		    ,(select e.emp_name from employee e where ed.emp_no = e.emp_no) as "emp_name" 
+		    ,(select cd.dayoff_name from code_dayoff cd where ed.dayoff_cd = cd.dayoff_cd ) as "dayoff_name" 
+		    ,ed.end_day_off||'' as "end_day_off"
+		from emp_dayoff ed
+		where 1=1 and (ed.end_day_off &gt;= sysdate)
+		order by 5
+	</select>
+	
+	<select id='getEmpInoutListCnt' resultType="int">
+		select count(*) from emp_inout	
+	</select>
+	
+	<select id='getEmpInoutList' resultType="java.util.HashMap"> 
+		select
+		    eio.dt_work||'' as "dt_work"
+		    ,eio.emp_no||'' as  "emp_no"
+		    ,(select e.emp_name from employee e where eio.emp_no = e.emp_no) as "emp_name"
+		    ,(select d.dep_name from dept d, employee e where e.emp_no = eio.emp_no and d.dep_no = e.dep_no) as "dep_name"
+		    ,(select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = eio.emp_no)  as "jikup"
+		    ,eio.in_time||''    as "in_time"
+		    ,eio.out_time||''   as "out_time"
+		    ,eio.working_hr||'' as "working_hr"
+		    ,(select check_inout_name from code_check_inout where eio.check_inout_cd = check_inout_cd) as "check_inout_name"
+		    ,eio.remarks as "remarks"
+		from emp_inout eio
+		order by 2
+	</select>
+	
 	
 </mapper>

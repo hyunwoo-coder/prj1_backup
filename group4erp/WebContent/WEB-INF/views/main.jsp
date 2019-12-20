@@ -42,7 +42,7 @@
 			
 			<!-- 직원 근무 현황 -->
 			<c:if test="${subMenu.equals('viewEmpWorkStateList') }">
-				<%@ include file="/WEB-INF/views/empWorkingStateList.jsp" %>
+				<%@ include file="/WEB-INF/views/empWorkStateList.jsp" %>
 			</c:if>
 			
 			<!-- 직원 휴가 현황 -->

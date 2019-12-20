@@ -16,5 +16,11 @@ public interface HrDAO {
 	List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO);
 	TimeDTO getTime();
 	SalaryDTO getSalaryInfo(int emp_no);
+	int getDayOffListCnt(HrListSearchDTO hrListSearchDTO);
+	List<Map<String, String>> getDayOffList(HrListSearchDTO hrListSearchDTO);
+	
+	int getEmpInoutListCnt(HrListSearchDTO hrListSearchDTO);
+	
+	List<Map<String, String>> getEmpInoutList(HrListSearchDTO hrListSearchDTO);
 
 }

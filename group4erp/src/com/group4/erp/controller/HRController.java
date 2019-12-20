@@ -43,13 +43,11 @@ public class HRController {
 
 			List<Map<String, String>> getEmpBoardList = this.hrservice.getEmpList(hrListSearchDTO);
 			mav.addObject("getEmpBoardList", getEmpBoardList);
-
 			mav.addObject("hrListSearchDTO", hrListSearchDTO);
 		}catch(Exception e) {
 			System.out.println("예외발생=="+e);
 
 		}
-
 		
 		return mav;
 	}
@@ -87,12 +85,21 @@ public class HRController {
 			double resident_sal = Math.round( ( (empSalList.get(i).getSalary() * income) * residence ) * 1000) / 1000.0;
 			
 			real_sal = empSalList.get(i).getSalary() + sikdae + car_care;
+
 			empSalList.get(i).setReal_sal(real_sal);
 			empSalList.get(i).setIncome(income_sal);			//소득세
 			empSalList.get(i).setHealth_care(health_care_sal);	//건강보험료
 			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//고용보험료
 			empSalList.get(i).setAnnuity(annuity_sal);			//국민연금보험료
 			empSalList.get(i).setResident(resident_sal);		//주민세
+			empSalList.get(i).setIncome(income_sal);//�ҵ漼
+			empSalList.get(i).setHealth_care(health_care_sal);	//�ǰ������
+			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//��뺸���
+			empSalList.get(i).setAnnuity(annuity_sal);	//���ο���
+			empSalList.get(i).setResident(resident_sal);	//�ֹμ�
+
+
+			empSalList.get(i).setReal_sal(real_sal);
 			empSalList.get(i).setIncome(income_sal);//�ҵ漼
 			empSalList.get(i).setHealth_care(health_care_sal);	//�ǰ������
 			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//��뺸���
@@ -115,7 +122,9 @@ public class HRController {
 		return mav;
 	}
 	
+
 	//급여명세서(개인별) 조회 기능
+
 	@RequestMapping(value="/viewEmpSalInfo.do")
 	public ModelAndView viewEmpSalInfo(HttpSession session) {
 		
@@ -138,23 +147,47 @@ public class HRController {
 	}
 	
 	@RequestMapping(value="/viewEmpDayOffList.do")
-	public ModelAndView viewDayOffList(HttpSession session) {
+	public ModelAndView viewDayOffList(HttpSession session, HrListSearchDTO hrListSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewDayOffList");
 		
+		try {
+			
+			int getDayOffListCnt = this.hrservice.getDayOffListCnt(hrListSearchDTO);
+			mav.addObject("getDayOffListCnt", getDayOffListCnt);
+			
+			List<Map<String, String>> getDayOffList = this.hrservice.getDayOffList(hrListSearchDTO);
+			mav.addObject("getDayOffList", getDayOffList);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		
 		return mav;
 	}
 	
 	@RequestMapping(value="/viewEmpWorkStateList.do")
-	public ModelAndView viewEmpWorkStateList(HttpSession session) {
+	public ModelAndView viewEmpWorkStateList(HttpSession session, HrListSearchDTO hrListSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpWorkStateList");
+		
+		try {
+			int getEmpInoutListCnt = this.hrservice.getEmpInoutListCnt(hrListSearchDTO);
+			mav.addObject("getEmpInoutListCnt", getEmpInoutListCnt);
+			
+			List<Map<String, String>> getEmpInoutList = this.hrservice.getEmpInoutList(hrListSearchDTO);
+			mav.addObject("getEmpInoutList", getEmpInoutList);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 		return mav;
 	}

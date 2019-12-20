@@ -25,7 +25,6 @@ public class HrDAOImpl implements HrDAO {
 
 		System.out.println("getEmpSalList() 메소드 시작");
 		List<SalaryDTO> empSalList = this.sqlSession.selectList(mapper_namespace + "getEmpSalList");
-
 		System.out.println("getEmpSalList() 메소드 끝");
 		
 		return empSalList;
@@ -56,10 +55,53 @@ public class HrDAOImpl implements HrDAO {
 				"com.group4.erp.dao.HrDAO.getEmpList"
 				,hrListSearchDTO
 				);
-
+		//System.out.println("DAO=>" + getEmpBoardList);
 		return getEmpBoardList;
 
 	}
+	
+	
+	@Override
+	public int getDayOffListCnt(HrListSearchDTO hrListSearchDTO) {
+		int getDayOffListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.HrDAO.getDayOffListCnt"
+				,hrListSearchDTO
+				);
+		
+		return getDayOffListCnt;
+	}
+
+	@Override
+	public List<Map<String, String>> getDayOffList(HrListSearchDTO hrListSearchDTO) {
+		List<Map<String, String>> getDayOffList = this.sqlSession.selectList(
+				"com.group4.erp.dao.HrDAO.getDayOffList"
+				,hrListSearchDTO
+				);
+		return getDayOffList;
+	}
+
+	@Override
+	public int getEmpInoutListCnt(HrListSearchDTO hrListSearchDTO) {
+		
+		int getEmpInoutListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.HrDAO.getEmpInoutListCnt"
+				,hrListSearchDTO
+				);
+		
+		return getEmpInoutListCnt;
+	}
+
+	@Override
+	public List<Map<String, String>> getEmpInoutList(HrListSearchDTO hrListSearchDTO) {
+		
+		List<Map<String, String>> getEmpInoutList = this.sqlSession.selectList(
+				"com.group4.erp.dao.HrDAO.getEmpInoutList"
+				,hrListSearchDTO
+				);
+		
+		return getEmpInoutList;
+	}
+	
 
 
 	@Override
