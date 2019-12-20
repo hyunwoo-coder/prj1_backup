@@ -23,8 +23,7 @@
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
-			
-			
+		
 			<!-- 직원현황조회 -->
 			<c:if test="${subMenu.equals('viewEmpList') }">
 				<%@ include file="/WEB-INF/views/empListForm.jsp" %>
@@ -60,8 +59,15 @@
 			<c:if test="${subMenu.equals('viewPromiNoteList') }">
 				<%@ include file="/WEB-INF/views/promiNoteListForm.jsp" %>
 			</c:if>
+
+			<c:if test="${subMenu.equals('mySchedule') }">
+				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>
+			</c:if>
 			
-			
+			<c:if test="${subMenu.equals('workOutReport') }">
+				<%@ include file="/WEB-INF/views/workOutReport.jsp" %>
+			</c:if>
+
 		</td>
 	</tr>
 	<tr height="50">

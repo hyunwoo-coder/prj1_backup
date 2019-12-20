@@ -52,7 +52,7 @@
 	 <table border=0 width=700>
 	 	<tr>
 	    	<td align=right>
-	        [총 개수] : ${getEmpBoardListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+	        [총원] : ${emp_tot_cnt} 명&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
 	               <option value="15">15</option>

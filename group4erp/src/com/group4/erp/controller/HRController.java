@@ -10,8 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.service.HRService;
-import com.group4.erp.EmployeeDTO;
-import com.group4.erp.SalaryDTO;
+
 import java.util.*;
 
 import com.group4.erp.*;
@@ -54,7 +53,7 @@ public class HRController {
 	
 	
 	@RequestMapping(value="/viewSalList.do")
-	public ModelAndView viewSalList(HttpSession session) {
+	public ModelAndView viewSalList(HttpSession session, HrListSearchDTO hrListSearchDTO) {
 		
 		int sikdae = 10;
 		int car_care = 10;
@@ -69,7 +68,8 @@ public class HRController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		
 		TimeDTO timeDTO = this.hrservice.getTime();
-		
+
+		int emp_tot_cnt = this.hrservice.getEmpListAllCnt(hrListSearchDTO);
 		List<SalaryDTO> empSalList = this.hrservice.getEmpSalList();
 		
 		double real_sal = 0.0d;
@@ -117,6 +117,7 @@ public class HRController {
 		mav.addObject("timeDTO", timeDTO);
 		mav.addObject("sikdae", sikdae);
 		mav.addObject("car_care", car_care);
+		mav.addObject("emp_tot_cnt", emp_tot_cnt);
 		mav.addObject("subMenu", "viewSalList");
 		
 		return mav;
