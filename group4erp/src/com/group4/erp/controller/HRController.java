@@ -44,8 +44,10 @@ public class HRController {
 			List<Map<String, String>> getEmpBoardList = this.hrservice.getEmpList(hrListSearchDTO);
 			mav.addObject("getEmpBoardList", getEmpBoardList);
 
+			mav.addObject("hrListSearchDTO", hrListSearchDTO);
 		}catch(Exception e) {
 			System.out.println("예외발생=="+e);
+
 		}
 
 		
@@ -58,8 +60,7 @@ public class HRController {
 		
 		int sikdae = 10;
 		int car_care = 10;
-		
-		//공제항목비율
+
 		float health_care = (float) 0.0323;
 		double emp_insurance = 0.08d;
 		double annuity = 0.045d;
@@ -92,7 +93,12 @@ public class HRController {
 			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//고용보험료
 			empSalList.get(i).setAnnuity(annuity_sal);			//국민연금보험료
 			empSalList.get(i).setResident(resident_sal);		//주민세
-			
+			empSalList.get(i).setIncome(income_sal);//�ҵ漼
+			empSalList.get(i).setHealth_care(health_care_sal);	//�ǰ������
+			empSalList.get(i).setEmp_insurance(emp_insur_sal);	//��뺸���
+			empSalList.get(i).setAnnuity(annuity_sal);	//���ο���
+			empSalList.get(i).setResident(resident_sal);	//�ֹμ�
+
 			deduct_sal = (float) (income_sal + health_care_sal + emp_insur_sal + annuity_sal + resident_sal );
 			empSalList.get(i).setDeduct_sal(Math.round(deduct_sal*1000)/1000.0);
 			final_sal = real_sal - deduct_sal;
@@ -109,15 +115,19 @@ public class HRController {
 		return mav;
 	}
 	
-	//�޿�����(���κ�) �󼼺���
+	//급여명세서(개인별) 조회 기능
 	@RequestMapping(value="/viewEmpSalInfo.do")
 	public ModelAndView viewEmpSalInfo(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
+		
+		TimeDTO timeDTO = this.hrservice.getTime();
 		//mav.setViewName("eventScheduleForm.jsp");
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpSalInfo");
+		
+		mav.addObject("timeDTO", timeDTO);
 		
 		return mav;
 	}
