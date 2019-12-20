@@ -51,4 +51,29 @@
     	from employee e   
 	</select>
 	
+	
+	
+	<select id='getDayOffListCnt' resultType="int">
+		select count(*) from emp_dayoff where 1=1 and (end_day_off &gt;= sysdate)	
+	</select>
+	
+	
+	
+	<select id='getDayOffList' resultType="java.util.HashMap"> 
+		select 
+		    (select d.dep_name from dept d, employee e where ed.emp_no = e.emp_no and d.dep_no = e.dep_no) as "dep_name"
+		    ,(select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = ed.emp_no) as "jikup" 
+		    ,(select e.emp_name from employee e where ed.emp_no = e.emp_no) as "emp_name" 
+		    ,(select cd.dayoff_name from code_dayoff cd where ed.dayoff_cd = cd.dayoff_cd ) as "dayoff_name" 
+		    ,ed.end_day_off||'' as "end_day_off"
+		from emp_dayoff ed
+		where 1=1 and (ed.end_day_off &gt;= sysdate)
+		order by 5
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>

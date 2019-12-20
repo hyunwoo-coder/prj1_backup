@@ -21,6 +21,8 @@ import com.group4.erp.dao.InvenDAO;
 @Service
 public class HRServiceImpl implements HRService {
 
+	
+
 	@Autowired
 	HrDAO hrDAO;
 
@@ -47,5 +49,21 @@ public class HRServiceImpl implements HRService {
 		return getEmpBoardList;
 
 	}
+	
+	
+	
+	@Override
+	public int getDayOffListCnt(HrListSearchDTO hrListSearchDTO) {
+		int getDayOffListCnt = this.hrDAO.getDayOffListCnt(hrListSearchDTO);
+		return getDayOffListCnt;
+	}
+
+	@Override
+	public List<Map<String, String>> getDayOffList(HrListSearchDTO hrListSearchDTO) {
+		List<Map<String, String>> getDayOffList = this.hrDAO.getDayOffList(hrListSearchDTO);
+		return getDayOffList;
+	}
+	
+	
 
 }

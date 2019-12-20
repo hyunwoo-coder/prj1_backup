@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>직원별 휴가현황</title>
+
 </head>
 <body><center>
 	<h1>[직원 휴가 현황]</h1><br>
@@ -12,11 +13,30 @@
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		
 		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width="500">
-		
-			<c:forEach items="${requestScope.dayoffList}" var="dayoff" varStatus="loopTagStatus">
-				<tr style="cursor:pointer">
-					<td align=center>
+			<thead>
+				<tr>
+					<th style="cursor:pointer">소속 부서
+					<th style="cursor:pointer">직급
+					<th style="cursor:pointer">성명
+					<th style="cursor:pointer">휴가 종류
+					<th style="cursor:pointer">복귀 예정일
 				</tr>
+			</thead>
+			
+			<tbody>
+				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">
+					<tr style="cursor:pointer">
+						<%-- <td align=center>
+							${boardListAllCnt - 
+								(boardSearchDTO.selectPageNo*boardSearchDTO.rowCntPerPage-boardSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1} --%>
+						<td align=center> ${dayoff.dep_name}
+						<td align=center> ${dayoff.jikup}
+						<td align=center> ${dayoff.emp_name}
+						<td align=center> ${dayoff.dayoff_name}
+						<td align=center> ${dayoff.end_day_off}
+					</tr>
+				</c:forEach>
+			</tbody>
 		
 			
 			
