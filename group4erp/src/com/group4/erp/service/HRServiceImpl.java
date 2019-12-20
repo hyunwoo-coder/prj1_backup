@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.group4.erp.HrListSearchDTO;
+import com.group4.erp.SalListSearchDTO;
 import com.group4.erp.dao.HrDAO;
 import com.group4.erp.dao.InvenDAO;
 
@@ -78,7 +79,12 @@ public class HRServiceImpl implements HRService {
 	
 	
 	
-	
+	public int getEmpListAllCnt(SalListSearchDTO salListSearchDTO) {
+		
+		int getEmpBoardListCnt = this.hrDAO.getEmpListAllCnt(salListSearchDTO);
+		
+		return getEmpBoardListCnt;
+	}
 	
 
 	@Override

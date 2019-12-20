@@ -34,5 +34,16 @@ public class ReportController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/viewTaxInvoiceList.do")
+	public ModelAndView viewTaxInvoiceList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTaxInvoiceList");
+		
+		return mav;
+	}
+	
 
 }

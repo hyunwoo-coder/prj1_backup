@@ -60,6 +60,12 @@
 				<%@ include file="/WEB-INF/views/promiNoteListForm.jsp" %>
 			</c:if>
 
+			<!-- 세금계산서 발급 내역 조회 -->
+			<c:if test="${subMenu.equals('viewTaxInvoiceList') }">
+				<%@ include file="/WEB-INF/views/taxInvoiceList.jsp" %>
+			</c:if>
+
+
 			<c:if test="${subMenu.equals('mySchedule') }">
 				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>
 			</c:if>

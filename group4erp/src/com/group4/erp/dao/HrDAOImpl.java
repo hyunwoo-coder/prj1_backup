@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
 import com.group4.erp.HrListSearchDTO;
+import com.group4.erp.SalListSearchDTO;
 
 @Repository
 public class HrDAOImpl implements HrDAO {
@@ -112,6 +113,20 @@ public class HrDAOImpl implements HrDAO {
 		SalaryDTO salaryDTO = this.sqlSession.selectOne(mapper_namespace+"getEmpSalInfo", emp_no);
 		
 		return salaryDTO;
+	}
+
+
+	@Override
+	public int getEmpListAllCnt(SalListSearchDTO salListSearchDTO) {
+		// TODO Auto-generated method stub
+		
+		int getSalListCnt = this.sqlSession.selectOne(
+				mapper_namespace+"getEmpListCnt"
+				,salListSearchDTO
+				);
+		
+		return getSalListCnt;
+	
 	}
 
 

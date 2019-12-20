@@ -6,11 +6,14 @@ import com.group4.erp.EmployeeDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
 import com.group4.erp.HrListSearchDTO;
+import com.group4.erp.SalListSearchDTO;
 
 
 public interface HRService {
 	
 	int getEmpListAllCnt(HrListSearchDTO hrListSearchDTO);
+	
+	int getEmpListAllCnt(SalListSearchDTO salListSearchDTO);
 	
 	List<SalaryDTO> getEmpSalList();
 
