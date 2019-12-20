@@ -238,7 +238,7 @@ function inputData(selector, data) {
 //idx값은 정수형 데이터 비교할 열을 선택하는것이다.
 function headerSort(selector, idx){
 
-	alert(9999)
+	
 	//첫번째 tr 태그 내부의 th 태그를 클릭하면 발생할 일을 설정
 	$("."+selector+" thead:eq(0) tr:eq(0) th").click(function(){
 		//클릭한 th 태그를 관리하는 JQuery 객체 메위주를 얻어 변수에 저장
