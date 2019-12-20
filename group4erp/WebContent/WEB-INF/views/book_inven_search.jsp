@@ -21,12 +21,19 @@
 	}
 	
 </script>
+<!--
+<style>
+	.table_layout{width:98%}
+	
+	table{width:100%}
 
+</style>
+-->
 </head>
 <body>
 	<center>
-	<form name="book_inventory_search_form" method="post" action="/group4erp/??????.do">
-		<!-- <div class="table_layout"> -->
+	<form name="book_inventory_search_form" method="post" action="/group4erp/goBookInvenList.do">
+		<div class="table_layout">
 		<table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<!-- <colgroup>
 				<col width="20%" />
@@ -116,11 +123,21 @@
 		
 		<br>
 	
-		<table class="boardTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=700>
+		<table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=700>
 			<tr bgcolor="gray"><th>책번호<th>책이름<th>카테고리<th>출판사<th>절판여부<th>가격<th>수량<th>재고위치
 			
-			<tr><td colspan=8 align=center> DB 연동 실패(아직 구현중)
-			
+			<c:forEach items="${requestScope.BookList}" var="book" varStatus="loopTagStatus">
+			 <tr style="cursor:pointer" onClick="goInvenContentForm(${book.ISBN13});">
+			 	<td align=center>${book.ISBN13}
+				<td align=center>${book.book_name}
+				<td align=center>${book.cat_name}
+				<td align=center>${book.publisher}
+				<td align=center>${book.is_not_print}
+				<td align=center>${book.book_price}
+				<td align=center>${book.book_pages}
+				<td align=center>${book.editor}
+			</c:forEach>
+			<!-- <tr><td colspan=8 align=center> DB 연동 실패(아직 구현중)  -->
 		</table>
 
 			<div>[1]&nbsp;&nbsp;[2]&nbsp;&nbsp;[3]</div>

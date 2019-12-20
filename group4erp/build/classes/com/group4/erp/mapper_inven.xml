@@ -7,7 +7,7 @@
 	<!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
 	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
-<mapper namespace="com.group4.erp.dao.HrDAO">
+<mapper namespace="com.group4.erp.dao.invenSearchDAO">
 	<!-- 로그인 아이디, 암호의 존재 개수를 검색하는 select문을 내포한 <select> 태그 선언 -->
 	<!-- 
 		* <select> 태그 속성 설명
@@ -22,13 +22,26 @@
 		키값에 대응하는 데이터의 종류에 관계없이 데이터를 그대로 삽입
 	
 	 -->  
-
-	<select id='getEmpAllCnt' resultType="int">
-		select count(*) from employee
+	<select id='getBookList' parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
+			select
+				ISBN13 					as "ISBN13"
+				,book_name 				as "book_name"
+				,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
+							as "cat_name"
+				,book_price  			as "book_price"
+				,book_pages||'' 		as "book_pages"
+				,writer 				as "writer"
+				,publisher 				as "publisher"
+				,size_cd||'' 			as "size_cd"
+				,is_not_print 			as "is_not_print"
+				,emp_no||''				as "emp_no"
+				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
+				,editor					as "editor"
+			from book b	
+			where 1=1 
+			
+			order by ISBN13 asc
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
-	
-	<select id='getEmpList' resultType="java.util.HashMap">
-		select * from employee
-	</select>
-	
 </mapper>
