@@ -204,6 +204,11 @@
 		function viewTaxInvoiceList() {
 			location.replace("/group4erp/viewTaxInvoiceList.do");
 		}
+
+		//세금계산서 발급하기
+		function viewTaxInvoiceForm() {
+			location.replace("/group4erp/viewTaxInvoiceForm.do");
+		}
 		
 
 		//판매추이분석구현예정

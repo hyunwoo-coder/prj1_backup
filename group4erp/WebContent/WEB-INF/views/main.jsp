@@ -64,6 +64,11 @@
 			<c:if test="${subMenu.equals('viewTaxInvoiceList') }">
 				<%@ include file="/WEB-INF/views/taxInvoiceList.jsp" %>
 			</c:if>
+			
+			<!-- 세금계산서 발급화면 -->
+			<c:if test="${subMenu.equals('viewTaxInvoiceForm') }">
+				<%@ include file="/WEB-INF/views/taxInvoiceForm.jsp" %>
+			</c:if>
 
 
 			<c:if test="${subMenu.equals('mySchedule') }">
