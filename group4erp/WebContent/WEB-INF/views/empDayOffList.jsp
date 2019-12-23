@@ -28,7 +28,7 @@
 </head>
 <body><center>
 	<h1>[직원 휴가 현황]</h1><br>
-	기준일 : 2019년 12월 19일
+	<!-- 기준일 : 2019년 12월 19일 -->
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		
 		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width="500">

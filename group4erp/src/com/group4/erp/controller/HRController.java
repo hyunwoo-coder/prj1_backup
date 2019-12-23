@@ -149,6 +149,8 @@ public class HRController {
 	@RequestMapping(value="/viewEmpWorkStateList.do")
 	public ModelAndView viewEmpWorkStateList(HttpSession session, HrListSearchDTO hrListSearchDTO) {
 		
+		//System.out.println(123456789);
+		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
@@ -163,6 +165,8 @@ public class HRController {
 			mav.addObject("getEmpInoutList", getEmpInoutList);
 			
 			mav.addObject("hrListSearchDTO", hrListSearchDTO);
+			
+			System.out.println("갯수"+getEmpInoutListCnt);
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

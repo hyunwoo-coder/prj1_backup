@@ -44,6 +44,10 @@
 	
 		$(document).ready(function(){
 
+			$('[name=rowCntPerPage]').change(function(){
+				goSearch();
+			});
+
 			
 			
 			$(".pagingNumber").html(
@@ -69,6 +73,16 @@
 			});
 
 
+			inputData( "[name=selectPageNo]", "${hrListSearchDTO.selectPageNo}" );	
+			inputData( "[name=rowCntPerPage]", "${hrListSearchDTO.rowCntPerPage}" );
+			inputData( "[name=datepicker]", "${hrListSearchDTO.datepicker}" );
+			inputData( "[name=keyword1]", '${hrListSearchDTO.keyword1}' );
+			<c:forEach items="${hrListSearchDTO.inout_name}" var="inout">
+				inputData( "[name=inout_name]", "${inout}" );
+			</c:forEach>
+
+
+
 			
 
 			
@@ -76,7 +90,19 @@
 	
 		function goSearch(){
 			//alert($("[name=datepicker]").val());
+			alert($("[name=InoutListDate]").serialize());
+			var keyword1 = $("[name=InoutListDate] [name=keyword1]").val();
+			keyword1 = $.trim(keyword1);
+			$("[name=InoutListDate] [name=keyword1]").val(keyword1);
 			document.InoutListDate.submit();
+		}
+
+		function goSearchAll(){
+			document.InoutListDate.reset();
+			$("[name=InoutListDate] [name=selectPageNo]").val(1);
+			$("[name=InoutListDate] [name=rowCntPerPage]").val(10);
+			goSearch();
+			
 		}
 
 		
@@ -109,27 +135,60 @@
 </head>
 <body><center>
 	<h1>[직원 근무 현황]</h1><br>
-	기준일 : 2019년 12월 19일
 	<form name="InoutListDate" method="post" action="/group4erp/viewEmpWorkStateList.do">
 		
-		
-		<table>
-			<tr>
-				<td width=73%>
-				<td>일자: <input type="text" id="datepicker" name="datepicker">
-				<td> <input type="button" value="검색" onClick='goSearch();'>
-		</table>
-		
+		<div style="width:800">
+			[키워드] : <input type="text" name="keyword1" >
+			[일자] : <input type="text" id="datepicker" name="datepicker"><br>
+			<table><tr height=10><td></table>
+			[구분] :
+			<input type="checkbox" name="inout_name" class="inout_name" value="출근">출근
+			<input type="checkbox" name="inout_name" class="inout_name" value="퇴근">퇴근
+			<input type="checkbox" name="inout_name" class="inout_name" value="결근">결근
+			<input type="checkbox" name="inout_name" class="inout_name" value="조퇴">조퇴
+			<input type="checkbox" name="inout_name" class="inout_name" value="지각">지각
+			<input type="checkbox" name="inout_name" class="inout_name" value="외근">외근
+			
+			<input type="button" value="검색" onClick="goSearch();"
+					style="width:75; font-family:돋움; background-color:#FFFFFF; border:1 solid #A0DBE4">&nbsp;
+			<input type="button" value="모두검색" onClick="goSearchAll();"
+					style="width:75; font-family:돋움; background-color:#FFFFFF; border:1 solid #A0DBE4">
+		</div>
 	    
 	    <script>
 	        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
 	        
 	    </script>
 	    
-	    <input type="text" name="selectPageNo">
+	    &nbsp;&nbsp;
+		<table border=0 width=70%>
+			<tr>
+				<td align=right>
+					[총 개수] : ${getEmpInoutListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+					<select name="rowCntPerPage">
+						<option value="10">10
+						<option value="15">15
+						<option value="20">20
+						<option value="25">25
+						<option value="30">30
+					</select> 행보기
+		</table>
+	    
+	    <input type="hidden" name="selectPageNo">
+	    
+	    
 	  </form>
 	    
+	    
+	    
+	    
+	    
 	    <table><tr height=10><td></table>
+	    
+	    
+	    
+	    
+	    
 	    
 	   <form name="getEmpInoutList" method="post" action="/group4erp/viewEmpWorkStateList.do">
 		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
@@ -154,16 +213,16 @@
 						<%-- <td align=center>
 							${boardListAllCnt - 
 								(boardSearchDTO.selectPageNo*boardSearchDTO.rowCntPerPage-boardSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1} --%>
-						<td align=center> ${inout.dt_work}
-						<td align=center> ${inout.emp_no}
-						<td align=center> ${inout.emp_name}
-						<td align=center> ${inout.dep_name}
-						<td align=center> ${inout.jikup}
-						<td align=center> ${inout.in_time}
-						<td align=center> ${inout.out_time}
-						<td align=center> ${inout.working_hrs}
-						<td align=center> ${inout.check_inout_name}
-						<td align=center> ${inout.remarks}
+						<td align=center> ${inout.DT_WORK}
+						<td align=center> ${inout.EMP_NO}
+						<td align=center> ${inout.EMP_NAME}
+						<td align=center> ${inout.DEP_NAME}
+						<td align=center> ${inout.JIKUP}
+						<td align=center> ${inout.IN_TIME}
+						<td align=center> ${inout.OUT_TIME}
+						<td align=center> ${inout.WORKING_HRS}
+						<td align=center> ${inout.CHECK_INOUT_NAME}
+						<td align=center> ${inout.REMARKS}
 					</tr>
 				</c:forEach>
 			</tbody>

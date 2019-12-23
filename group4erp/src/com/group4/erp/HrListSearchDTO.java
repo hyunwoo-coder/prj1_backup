@@ -5,9 +5,8 @@ public class HrListSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String datepicker;
-	
-	
-	
+	private String inout_name;
+	private String keyword1;
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
@@ -32,6 +31,25 @@ public class HrListSearchDTO {
 	public void setDatepicker(String datepicker) {
 		this.datepicker = datepicker;
 	}
+	public String getInout_name() {
+		return inout_name;
+	}
+	public void setInout_name(String inout_name) {
+		this.inout_name = inout_name;
+	}
+	public String getKeyword1() {
+		return keyword1;
+	}
+	public void setKeyword1(String keyword1) {
+		this.keyword1 = keyword1;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	
 	
