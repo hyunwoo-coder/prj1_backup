@@ -9,9 +9,31 @@
 <title>책 재고관리</title>
 <script>
 
+$(document).ready(function(){	
+	
+	$('[name=rowCntPerPage]').change(function(){
+		goSearchBookInven();
+	});
+	
+	
+	$(".pagingNumber").html(
+			getPagingNumber(
+				"${bookListCnt}"						//검색 결과 총 행 개수
+				,"${invenSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
+				,"${invenSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
+				,"10"										//페이지 당 보여줄 페이지번호 개수
+				,"goSearchBookInven();"						//페이지 번호 클릭 후 실행할 자스코드
+			)
+		);
+	
+
+	inputData('[name=rowCntPerPage]',"${invenSearchDTO.rowCntPerPage}");
+	inputData('[name=selectPageNo]',"${invenSearchDTO.selectPageNo}");
+});
+
 	function goSearchBookInven(){
-		alert("검색기능 구현중");
-		//document.book_inventory_search_form.submit();
+		//alert("검색기능 구현중");
+		document.book_inventory_search_form.submit();
 	}
 
 	function goAllSearchBookInven(){
@@ -32,7 +54,7 @@
 </head>
 <body>
 	<center>
-	<form name="book_inventory_search_form" method="post" action="/group4erp/goBookInvenList.do">
+	<form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
 		<div class="table_layout">
 		<table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<!-- <colgroup>
@@ -75,12 +97,18 @@
 			<tr>
 			<th bgcolor="gray">출판사
 			<td align=center>
-				<select name="publisher">
+				<select name="searchPublisher">
+					<option value="">--------</option>
+					<c:forEach items="${requestScope.publisher}" var="publisher" varStatus="loopTagStatus">
+						<option value="${publisher.publisher}">${publisher.publisher}</option>
+					</c:forEach>
+					<!-- 
 					<option value="출판사1">출판사1
 					<option value="출판사2">출판사2
 					<option value="출판사3">출판사3
 					<option value="출판사4">출판사4
 					<option value="출판사5">출판사5
+					 -->
 					<!--
 				<input type="checkbox" name="publisher" value="출판사1">출판사1
 				<input type="checkbox" name="publisher" value="출판사2">출판사2
@@ -108,6 +136,7 @@
 		<table border=0 width=700>
 			<tr>
 				<td align=right>
+				[검색 수량] : ${bookListCnt} 권
 					<select name="rowCntPerPage">
 						<option value="10">10</option>
 						<option value="15">15</option>
@@ -116,14 +145,15 @@
 						<option value="30">30</option>
 					</select> 행보기
 		</table>
+		<input type="hidden" name="selectPageNo">
+	</form>
 
-
-		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+		
 
 		
 		<br>
-	
-		<table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=700>
+	<form>
+		<table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=750>
 			<tr bgcolor="gray"><th>책번호<th>책이름<th>카테고리<th>출판사<th>절판여부<th>가격<th>수량<th>재고위치
 			
 			<c:forEach items="${requestScope.BookList}" var="book" varStatus="loopTagStatus">
@@ -134,14 +164,13 @@
 				<td align=center>${book.publisher}
 				<td align=center>${book.is_not_print}
 				<td align=center>${book.book_price}
-				<td align=center>${book.book_pages}
-				<td align=center>${book.editor}
+				<td align=center>${book.book_cnt}
+				<td align=center>${book.branch_name}
 			</c:forEach>
 			<!-- <tr><td colspan=8 align=center> DB 연동 실패(아직 구현중)  -->
 		</table>
 
-			<div>[1]&nbsp;&nbsp;[2]&nbsp;&nbsp;[3]</div>
-			(맨밑에 나올 예정)
+		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 	
 	
 

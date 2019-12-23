@@ -23,4 +23,24 @@ public class InvenDAOImpl implements InvenDAO{
 		return getBookList;
 		
 	}
+	
+	public int getBookListCnt(InvenSearchDTO invenSearchDTO) {
+		
+		int bookListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getBookListCnt"
+				,invenSearchDTO
+				);
+		
+		return bookListCnt;
+	}
+	
+	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String, String>> publisher = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getPublisherList"
+				,invenSearchDTO
+				);
+		
+		return publisher;
+	}
 }

@@ -5,15 +5,8 @@ public class InvenSearchDTO {
 	private String[] date;
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
-	private String[] readcnt;
-	private String orAnd="or";
+	private String[] publisher;
 	
-	public String getOrAnd() {
-		return orAnd;
-	}
-	public void setOrAnd(String orAnd) {
-		this.orAnd = orAnd;
-	}
 	public String getKeyword1() {
 		return keyword1;
 	}
@@ -38,13 +31,13 @@ public class InvenSearchDTO {
 	public void setRowCntPerPage(int rowCntPerPage) {
 		this.rowCntPerPage = rowCntPerPage;
 	}
-	public String[] getReadcnt() {
-		return readcnt;
+	public String[] getPublisher() {
+		return publisher;
 	}
-	public void setReadcnt(String[] readcnt) {
-		this.readcnt = readcnt;
+	public void setPublisher(String[] publisher) {
+		this.publisher = publisher;
 	}
 	
-	
+
 
 }
