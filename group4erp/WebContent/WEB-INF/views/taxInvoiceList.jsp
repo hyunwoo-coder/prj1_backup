@@ -28,6 +28,7 @@
 				<td>20190035</td><td>CJ 대한통운</td><td>박근희</td><td>2019.11.11</td><td>530,000</td><td><input type="button" value="수정발급"></td>
 			</tr>
 		</table>
+		<br>
 	<input type="button" value="세금계산서 발급" onClick="viewTaxInvoiceForm();"> 
 	</form>
 	

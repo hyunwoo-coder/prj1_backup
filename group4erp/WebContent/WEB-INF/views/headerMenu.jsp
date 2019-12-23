@@ -83,16 +83,9 @@
 
 	<!-- 업무관리 서브메뉴 -->
 
-
-		function goMySchedule() {
-			location.replace("/group4erp/goMySchedule.do");
-		}
-
-
 		function goMyCareBookList() {
 			alert("담당상품조회");
 		}
-
 
 		function businessTripForm() {
 			location.replace("/group4erp/workOutReport.do");
@@ -109,11 +102,6 @@
 		function takeCharge() {
 			alert("경비청구 기능 구현 예정");
 		}
-
-		function ERPoption() {
-			alert("ERP 설정 기능 구현 예정");
-		}
-
 
 		// 재고관리 서브메뉴 -->
 
@@ -209,6 +197,10 @@
 		function viewTaxInvoiceForm() {
 			location.replace("/group4erp/viewTaxInvoiceForm.do");
 		}
+
+		function viewCorpList() {
+			location.replace("/group4erp/viewCorpList.do");
+		}
 		
 
 		//판매추이분석구현예정
@@ -290,7 +282,7 @@
 					<span id="specTransaction" style="cursor:pointer" onClick="viewSpecTransaction();">거래명세서&nbsp;&nbsp;&nbsp;</span>
 					<span id="taxInvoice" style="cursor:pointer" onClick="viewTaxInvoiceList();">세금계산서&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewTranLog" style="cursor:pointer" onClick="viewTranLog();">거래내역 조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="updateClientList" style="cursor:pointer" onClick="updateClientList();">거래처 등록/삭제&nbsp;&nbsp;&nbsp;</span>
+					<span id="updateClientList" style="cursor:pointer" onClick="viewCorpList();">거래처 등록/삭제&nbsp;&nbsp;&nbsp;</span>
 				</span>
 	
 				<span id="subMenu7">	<!-- 전략분석 -->

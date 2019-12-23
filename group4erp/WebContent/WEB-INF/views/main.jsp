@@ -69,6 +69,10 @@
 			<c:if test="${subMenu.equals('viewTaxInvoiceForm') }">
 				<%@ include file="/WEB-INF/views/taxInvoiceForm.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('viewCorpList') }">
+				<%@ include file="/WEB-INF/views/corpList.jsp" %>
+			</c:if>
 
 
 			<c:if test="${subMenu.equals('mySchedule') }">
