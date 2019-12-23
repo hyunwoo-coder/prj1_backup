@@ -176,6 +176,10 @@ public class HRController {
 			
 			List<Map<String, String>> getDayOffList = this.hrservice.getDayOffList(hrListSearchDTO);
 			mav.addObject("getDayOffList", getDayOffList);
+			
+			mav.addObject("hrListSearchDTO", hrListSearchDTO);
+			
+			System.out.println(hrListSearchDTO.getSelectPageNo());
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -187,17 +191,24 @@ public class HRController {
 	@RequestMapping(value="/viewEmpWorkStateList.do")
 	public ModelAndView viewEmpWorkStateList(HttpSession session, HrListSearchDTO hrListSearchDTO) {
 		
+		//System.out.println(123456789);
+		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpWorkStateList");
 		
 		try {
+			
 			int getEmpInoutListCnt = this.hrservice.getEmpInoutListCnt(hrListSearchDTO);
 			mav.addObject("getEmpInoutListCnt", getEmpInoutListCnt);
 			
 			List<Map<String, String>> getEmpInoutList = this.hrservice.getEmpInoutList(hrListSearchDTO);
 			mav.addObject("getEmpInoutList", getEmpInoutList);
+			
+			mav.addObject("hrListSearchDTO", hrListSearchDTO);
+			
+			System.out.println("갯수"+getEmpInoutListCnt);
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
