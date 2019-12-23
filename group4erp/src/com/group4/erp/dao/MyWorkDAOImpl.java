@@ -16,10 +16,10 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 	public List<Map<String,String>> getMyCareBookList(MyCareBookListDTO myCareBookListDTO){
 		
 		List<Map<String,String>> getMyCareBookList = this.sqlSession.selectList(
-					"com.group4.erp.dao.invenSearchDAO.getMyCareBookList"
+					"com.group4.erp.dao.myWorkDAO.getMyCareBookList"
 					,myCareBookListDTO
 				);
-		
+		//System.out.println("DAO : " + getMyCareBookList.size());
 		return getMyCareBookList;
 		
 	}

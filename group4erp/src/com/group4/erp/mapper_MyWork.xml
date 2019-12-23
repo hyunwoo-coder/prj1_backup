@@ -7,10 +7,9 @@
 	<!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
 	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
-<mapper namespace="com.group4.erp.dao.MyWorkDAO">
+<mapper namespace="com.group4.erp.dao.myWorkDAO">
 	<select id='getMyCareBookList' parameterType="com.group4.erp.MyCareBookListDTO" resultType="java.util.HashMap">
-		select * from(select zzz.*, rownum RNUM from(
-			select
+		select
 				ISBN13 					as "ISBN13"
 				,book_name 				as "book_name"
 				,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
@@ -25,9 +24,6 @@
 				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
 				,editor					as "editor"
 			from book b	
-			where 1=1 
-			
-			order by ISBN13 asc
-		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+			where 1=1
 	</select>
 </mapper>
