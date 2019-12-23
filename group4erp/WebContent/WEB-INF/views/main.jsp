@@ -70,10 +70,15 @@
 				<%@ include file="/WEB-INF/views/taxInvoiceForm.jsp" %>
 			</c:if>
 			
+			<!-- 거래처 현황 조회 -->
 			<c:if test="${subMenu.equals('viewCorpList') }">
 				<%@ include file="/WEB-INF/views/corpList.jsp" %>
 			</c:if>
-
+			
+			<!-- 거래처 추가 페이지 -->
+			<c:if test="${subMenu.equals('goInsertCorpPage') }">
+				<%@ include file="/WEB-INF/views/corpInsertPage.jsp" %>
+			</c:if>
 
 			<c:if test="${subMenu.equals('mySchedule') }">
 				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>

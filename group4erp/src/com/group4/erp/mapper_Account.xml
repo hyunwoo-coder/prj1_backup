@@ -22,6 +22,19 @@
 		키값에 대응하는 데이터의 종류에 관계없이 데이터를 그대로 삽입
 	
 	 -->  
+	 <sql id="WhereCondition">
+		<if test="searchKeyword !=null and searchKeyword.length() > 0">
+				and (
+					upper(corp_no) like upper('%${searchKeyword}%') 
+					or upper(corp_name) like upper('%${searchKeyword}%')
+					or upper(ceo_name) like upper('%${searchKeyword}%')
+					or upper(corp_addr) like upper('%${searchKeyword}%')
+					or upper(corp_fax) like upper('%${searchKeyword}%')
+					or upper(corp_business_area) like upper('%${searchKeyword}%')
+				)			
+		</if>
+	</sql>
+	 
 
 	<select id='getCorpListCnt' resultType="int">
 		select count(*) from corporation_cus
@@ -29,7 +42,7 @@
 	
 	
 	<select id='getCorpList' resultType="com.group4.erp.CorporationDTO">
-		
+		select * from (select zzz.*, rownum RNUM from (
 			select
 				corp_no "corp_no",
 				corp_name "corp_name",
@@ -40,7 +53,29 @@
 				corp_business_area "corp_business_area"
 			from corporation_cus
 			where 1=1 
-		
+			<include refid="WhereCondition" />
+			
+		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
+	
+	<insert id="insertCorp" parameterType="com.group4.erp.CorporationDTO">
+		insert into corporation_cus(
+			corp_no, 
+			corp_name, 
+			ceo_name, 
+			corp_addr, 
+			corp_fax, 
+			corp_tel, 
+			corp_business_area )
+			values (
+			  #{corp_no},	
+			  #{corp_name},
+			  #{ceo_name},
+			  #{corp_addr},
+			  #{corp_fax},
+			  #{corp_tel},
+			  #{corp_business_area}
+			)
+	</insert>
 	
 </mapper>
