@@ -22,26 +22,33 @@
 		키값에 대응하는 데이터의 종류에 관계없이 데이터를 그대로 삽입
 	
 	 -->  
+	<select id="getBookListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
+		select count(*) from book where 1=1
+	</select>
+	 
 	<select id='getBookList' parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
 			select
 				ISBN13 					as "ISBN13"
 				,book_name 				as "book_name"
-				,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
-							as "cat_name"
-				,book_price  			as "book_price"
-				,book_pages||'' 		as "book_pages"
+				,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)	as "cat_name"
+				,book_price||'원'  			as "book_price"
+				,(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) 		as "book_cnt"
 				,writer 				as "writer"
 				,publisher 				as "publisher"
 				,size_cd||'' 			as "size_cd"
 				,is_not_print 			as "is_not_print"
 				,emp_no||''				as "emp_no"
 				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
-				,editor					as "editor"
+				,(select cb.branch_name from code_branch cb where cb.branch_cd=(select s.branch_cd from stock_info s where s.isbn13=b.isbn13))	as "branch_name"
 			from book b	
 			where 1=1 
 			
 			order by ISBN13 asc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+	</select>
+	
+	<select id="getPublisherList" parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
+		select distinct publisher as "publisher" from book
 	</select>
 </mapper>

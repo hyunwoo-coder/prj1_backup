@@ -7,6 +7,9 @@ public class HrListSearchDTO {
 	private String datepicker;
 	private String inout_name;
 	private String keyword1;
+
+	//private String rsoss = "2019-12-25";
+	
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
@@ -43,20 +46,5 @@ public class HrListSearchDTO {
 	public void setKeyword1(String keyword1) {
 		this.keyword1 = keyword1;
 	}
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-
 
 }

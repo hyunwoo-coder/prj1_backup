@@ -22,4 +22,18 @@ public class InvenServiceImpl implements InvenService{
 		return getBookList;
 		
 	}
+	
+	public int getBookListCnt(InvenSearchDTO invenSearchDTO) {
+		
+		int bookListCnt = this.invenDAO.getBookListCnt(invenSearchDTO);
+		
+		return bookListCnt;
+	}
+	
+	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String, String>> publisher = this.invenDAO.getPublisher(invenSearchDTO);
+		
+		return publisher;
+	}
 }

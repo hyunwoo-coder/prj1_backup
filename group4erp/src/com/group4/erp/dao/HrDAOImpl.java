@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
+import com.group4.erp.EmployeeDTO;
+import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.HrListSearchDTO;
 import com.group4.erp.SalListSearchDTO;
 
@@ -60,7 +62,6 @@ public class HrDAOImpl implements HrDAO {
 		return getEmpBoardList;
 
 	}
-	
 	
 	@Override
 	public int getDayOffListCnt(HrListSearchDTO hrListSearchDTO) {
@@ -129,5 +130,16 @@ public class HrDAOImpl implements HrDAO {
 	
 	}
 
+
+	public EmployeeInfoDTO getEmpContant(int emp_no) {
+		
+		EmployeeInfoDTO getEmpContantList = this.sqlSession.selectOne(
+				mapper_namespace+"getEmpContantList"
+				,emp_no
+				);
+		
+		return getEmpContantList;
+		
+	}
 
 }

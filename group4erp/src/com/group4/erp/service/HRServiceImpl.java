@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group4.erp.EmployeeDTO;
+import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.SalListSearchDTO;
 import com.group4.erp.TimeDTO;
@@ -50,8 +51,6 @@ public class HRServiceImpl implements HRService {
 		return getEmpBoardList;
 
 	}
-	
-	
 	
 	@Override
 	public int getDayOffListCnt(HrListSearchDTO hrListSearchDTO) {
@@ -102,6 +101,14 @@ public class HRServiceImpl implements HRService {
 		SalaryDTO salaryDTO = this.hrDAO.getSalaryInfo(emp_no);
 		
 		return salaryDTO;
+	}
+
+	public EmployeeInfoDTO getEmpContant(int emp_no) {
+		
+		EmployeeInfoDTO getEmpContantList = this.hrDAO.getEmpContant(emp_no);
+		
+		return getEmpContantList;
+
 	}
 
 }
