@@ -59,6 +59,7 @@
 				<%@ include file="/WEB-INF/views/salesReportForm.jsp" %>
 			</c:if>
 			
+
 			<!-- 어음정보 조회 -->
 			<c:if test="${subMenu.equals('viewPromiNoteList') }">
 				<%@ include file="/WEB-INF/views/promiNoteListForm.jsp" %>
@@ -68,7 +69,12 @@
 			<c:if test="${subMenu.equals('viewTaxInvoiceList') }">
 				<%@ include file="/WEB-INF/views/taxInvoiceList.jsp" %>
 			</c:if>
-			
+
+			<!-- 담당 상품 조회 -->
+			<c:if test="${subMenu.equals('viewMyCareBookList') }">
+				<%@ include file="/WEB-INF/views/mycarebooklist.jsp" %>
+			</c:if>
+						
 			<!-- 세금계산서 발급화면 -->
 			<c:if test="${subMenu.equals('viewTaxInvoiceForm') }">
 				<%@ include file="/WEB-INF/views/taxInvoiceForm.jsp" %>
