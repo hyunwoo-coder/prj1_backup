@@ -214,8 +214,9 @@
 		}
 
 		//인기키워드분석
-		function viewBestKeywordReport() {
-			alert("인기키워드분석 리포트 구현 예정");
+		function viewBestKeywdReport() {
+			location.replace("/group4erp/viewBestKeywdAnalysis.do");
+			
 		}
 		
 		
@@ -289,7 +290,7 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span id="salesChangeReport" style="cursor:pointer" onClick="viewSalesChangeReport();">매출추이분석&nbsp;&nbsp;&nbsp;</span>
 					<span id="cusClaimReport" style="cursor:pointer" onClick="viewCusClaimReport();">고객 클레임 처리 상황&nbsp;&nbsp;&nbsp;</span>
-					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywordReport();">인기 키워드 현황&nbsp;&nbsp;&nbsp;</span>
+					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywdReport();">인기 키워드 현황&nbsp;&nbsp;&nbsp;</span>
 					
 				</span>
 	

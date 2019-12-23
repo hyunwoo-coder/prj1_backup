@@ -118,17 +118,15 @@ public class AccountController {
 	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
-		mav.setViewName("taxInvoiceForm.jsp");
+		
+		mav.setViewName("searchCorpPopup.jsp");
 		
 		try {
 			
 			String corp_no = corpSearchDTO.getCorp_no();
+			System.out.println("검색된 사업자 번호=="+corp_no);
 			
 			CorporationDTO selectedCorp = this.accountService.getCorpInfo(corp_no);
-			
-			//List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);	
-			//System.out.println("corpList's size=="+corpList.size());
 			
 			mav.addObject("selectedCorp", selectedCorp);
 			

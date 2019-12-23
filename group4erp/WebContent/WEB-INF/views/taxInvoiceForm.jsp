@@ -58,16 +58,16 @@
 			<tr>
 				<td rowspan="5" width="100">공급받는자<input type="button" value="검색" onClick="searchCorp();"></td><td>사업자번호</td><td> ${selectedCorp.corp_no} </td>
 			<tr>
-				<td width="10">상호(법인명)</td><td>"${selectedCorp.corp_name}"</td>
+				<td width="10">상호(법인명)</td><td>${selectedCorp.corp_name}</td>
 			</tr>
 			<tr>
-				<td>성명(대표자)</td><td>"${selectedCorp.ceo_name}"</td> 
+				<td>성명(대표자)</td><td>${selectedCorp.ceo_name}</td> 
 			</tr>
 			<tr>
-				<td>사업자주소</td><td>"${selectedCorp.corp_addr}"</td>
+				<td>사업자주소</td><td>${selectedCorp.corp_addr}</td>
 			</tr>
 			<tr>
-				<td>업종</td><td>"${selectedCorp.corp_business_area}"</td>
+				<td>업종</td><td>${selectedCorp.corp_business_area}</td>
 			</tr>
 		</table>
 	

@@ -79,6 +79,10 @@
 			<c:if test="${subMenu.equals('goInsertCorpPage') }">
 				<%@ include file="/WEB-INF/views/corpInsertPage.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('viewkeywdAnalysis') }">
+				<%@ include file="/WEB-INF/views/bestKeywdAnalysis.jsp" %>
+			</c:if>
 
 			<c:if test="${subMenu.equals('mySchedule') }">
 				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>
