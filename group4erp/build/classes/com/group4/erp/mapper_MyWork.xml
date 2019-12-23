@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<!-- mapper 태그 선언 -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+	<!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
+	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<mapper namespace="com.group4.erp.dao.MyWorkDAO">
+	<select id='getMyCareBookList' parameterType="com.group4.erp.MyCareBookListDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
+			select
+				ISBN13 					as "ISBN13"
+				,book_name 				as "book_name"
+				,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
+							as "cat_name"
+				,book_price  			as "book_price"
+				,book_pages||'' 		as "book_pages"
+				,writer 				as "writer"
+				,publisher 				as "publisher"
+				,size_cd||'' 			as "size_cd"
+				,is_not_print 			as "is_not_print"
+				,emp_no||''				as "emp_no"
+				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
+				,editor					as "editor"
+			from book b	
+			where 1=1 
+			
+			order by ISBN13 asc
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+	</select>
+</mapper>

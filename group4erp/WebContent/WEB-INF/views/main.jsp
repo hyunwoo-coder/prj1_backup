@@ -56,6 +56,11 @@
 				<%@ include file="/WEB-INF/views/salesReportForm.jsp" %>
 			</c:if>
 			
+			<!-- 담당 상품 조회 -->
+			<c:if test="${subMenu.equals('viewMyCareBookList') }">
+				<%@ include file="/WEB-INF/views/mycarebooklist.jsp" %>
+			</c:if>
+			
 			
 		</td>
 	</tr>
