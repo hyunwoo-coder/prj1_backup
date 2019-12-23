@@ -11,7 +11,7 @@
 	$(document).ready(function(){
 		
 		$('[name=rowCntPerPage]').change(function(){
-			goSearch();
+			goSearchMyWorkList();
 		});
 		
 		$(".pagingNumber").html(
@@ -20,11 +20,11 @@
 					,"${myWorkSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
 					,"${myWorkSearchDTO.rowCntPerPage}"			//페이지 당 출력행의 개수
 					,"15"										//페이지 당 보여줄 페이지번호 개수
-					,"goSearch();"								//페이지 번호 클릭 후 실행할 자스코드
+					,"goSearchMyWorkList();"								//페이지 번호 클릭 후 실행할 자스코드
 				)
 			);
 	});
-	function goSearch(){
+	function goSearchMyWorkList(){
 		document.mycarebooklist.submit();
 	}
 </script>
@@ -86,8 +86,8 @@
 		</table>
 		<!-- </div> -->
 		<br>
-		<input type="button" value="  검색  " onclick="goSearchBookInven();">&nbsp;&nbsp;
-		<input type="button" value="모두검색" onclick="goAllSearchBookInven();">
+		<input type="button" value="  검색  " onclick="goSearchMyWorkList();">&nbsp;&nbsp;
+		<input type="button" value="모두검색" onclick="goAllSearchMyWorkList();">
 		<table border=0 width=700>
 			<tr>
 				<td align=right>

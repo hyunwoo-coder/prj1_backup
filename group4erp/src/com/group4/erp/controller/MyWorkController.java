@@ -62,6 +62,19 @@ public class MyWorkController {
 			int myWorkListAllCnt = this.myWorkService.getMyWorkListAllCnt(myWorkSearchDTO);
 			mav.addObject("myWorkListAllCnt", myWorkListAllCnt);
 			
+			if(myWorkListAllCnt>0) {
+				//선택한 페이지 번호 구하기
+				int selectPageNo = myWorkSearchDTO.getSelectPageNo();
+				// 한 화면에 보여지는 행의 개수 구하기
+				int rowCntPerPage = myWorkSearchDTO.getRowCntPerPage();
+				// 검색할 시작행 번호 구하기
+				int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
+				// 만약 검색 한 총 개수가 검색할 시작행 번호 보다 작으면
+				// 선택한 페이지 번호를 1로 세팅하기
+				if(myWorkListAllCnt<beginRowNo) {
+					myWorkSearchDTO.setSelectPageNo(1);
+				}
+			}
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);
