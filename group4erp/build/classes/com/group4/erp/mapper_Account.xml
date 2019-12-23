@@ -58,6 +58,22 @@
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
 	
+	<select id='getCorpInfo' parameterType="String" resultType="com.group4.erp.CorporationDTO">
+		
+		select
+			corp_no "corp_no",
+			corp_name "corp_name",
+			ceo_name "ceo_name",
+			corp_addr "corp_addr",
+			corp_fax "corp_fax",
+			corp_tel "corp_tel",
+			corp_business_area "corp_business_area"
+		from corporation_cus
+		where 1=1 
+		and corp_no = #{corp_no}
+			
+	</select>
+	
 	<insert id="insertCorp" parameterType="com.group4.erp.CorporationDTO">
 		insert into corporation_cus(
 			corp_no, 

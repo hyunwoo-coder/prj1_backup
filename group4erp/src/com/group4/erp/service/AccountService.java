@@ -19,5 +19,7 @@ public interface AccountService {
 	List<CorporationDTO> getCorpList(CorpSearchDTO corpSearchDTO);
 	
 	int insertCorp(CorporationDTO corporationDTO);
+	
+	CorporationDTO getCorpInfo(String corp_no);
 
 }

@@ -92,5 +92,52 @@ public class AccountController {
 				
 		return insertCorpCnt;		
 	}
+	
+	
+	@RequestMapping(value="/viewSearchCorp.do")
+	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("searchCorpPopup.jsp");
+		
+		try {
+			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);		
+			
+			mav.addObject("corpList", corpList);
+			
+		} catch(Exception e) {
+			
+			System.out.println("예외 발생=="+e);
+		}
+	
+		return mav;
+	}
+	
+	@RequestMapping(value="/selectCorp.do")
+	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("taxInvoiceForm.jsp");
+		
+		try {
+			
+			String corp_no = corpSearchDTO.getCorp_no();
+			
+			CorporationDTO selectedCorp = this.accountService.getCorpInfo(corp_no);
+			
+			//List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);	
+			//System.out.println("corpList's size=="+corpList.size());
+			
+			mav.addObject("selectedCorp", selectedCorp);
+			
+		} catch(Exception e) {
+			
+			System.out.println("예외 발생=="+e);
+		}
+	
+		return mav;
+	}
 
 }

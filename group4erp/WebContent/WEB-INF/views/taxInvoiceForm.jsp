@@ -12,7 +12,23 @@
 	}
 
 	function issueTaxInvoice() {
-		alert("세금계산서 발급");
+
+		if(confirm("정말 저장하겠습니까?")==false) {
+
+			return;
+		}
+
+		
+		//alert("세금계산서 발급");
+	}
+
+	function searchCorp() {
+		//alert("거래처 검색");
+		var url = "/group4erp/viewSearchCorp.do";
+		var name = "업체 검색";
+		var option = "width=300, height=500, top=200, left=200, scrollbars=yes";
+		
+		window.open(url, name, option);
 	}
 
 </script>
@@ -20,24 +36,40 @@
 <body><center>
 	<h3>세금계산서</h3>
 	<form name="taxInvoiceForm" method="post" action="/group4erp/insertTaxInvoice.do" >
-		<table class="tbcss1" name="taxInvoiceForm" cellpadding="5" cellspacing="5" width="800">
-		<tr>
-			<td rowspan="5" width="10">공급자</td><td>사업자번호</td><td>&nbsp;&nbsp;</td><td rowspan="5" width="10">공급받는자</td><td>사업자번호</td><td>&nbsp;&nbsp;</td>
-		</tr>
-		<tr>
-			<td width="10">상호(법인명)</td><td>&nbsp;&nbsp;</td><td width="10">상호(법인명)</td><td>&nbsp;&nbsp;</td>
-		</tr>
-		<tr>
-			<td>성명(대표자)</td><td>&nbsp;&nbsp;</td><td>성명(대표자)</td><td>&nbsp;&nbsp;</td>
-		</tr>
-		<tr>
-			<td>사업자주소</td><td>&nbsp;&nbsp;</td><td>사업자주소</td><td>&nbsp;&nbsp;</td>
-		</tr>
-		<tr>
-			<td>업종</td><td>&nbsp;&nbsp;</td><td>업종</td><td>&nbsp;&nbsp;</td>
-		</tr>
-
-	</table>
+		<table class="ourCompanyInfoForm tbcss1" name="ourCompanyInfoForm" cellpadding="5" cellspacing="5" width="800">
+			<tr>
+				<td rowspan="5" width="100">공급자</td><td>사업자번호</td><td>110-11-98765</td>
+			</tr>
+			<tr>
+				<td width="10">상호(법인명)</td><td>(주)아이즈북스&nbsp;&nbsp;</td>
+			</tr>
+			<tr>
+				<td>성명(대표자)</td><td>조충래, 김태현, 박현우, 이동하, 임남희, 최민지</td>
+			</tr>
+			<tr>
+				<td>사업자주소</td><td>서울특별시 금천구 가산동 월드메르디앙 2차 409호&nbsp;&nbsp;</td>
+			</tr>
+			<tr>
+				<td>업종</td><td>출판&nbsp;&nbsp;</td>
+			</tr>
+		</table><br>
+		
+		<table class="BuyerInfoForm tbcss1" name="BuyerInfoForm" cellpadding="5" cellspacing="5" width="800">
+			<tr>
+				<td rowspan="5" width="100">공급받는자<input type="button" value="검색" onClick="searchCorp();"></td><td>사업자번호</td><td> ${selectedCorp.corp_no} </td>
+			<tr>
+				<td width="10">상호(법인명)</td><td>"${selectedCorp.corp_name}"</td>
+			</tr>
+			<tr>
+				<td>성명(대표자)</td><td>"${selectedCorp.ceo_name}"</td> 
+			</tr>
+			<tr>
+				<td>사업자주소</td><td>"${selectedCorp.corp_addr}"</td>
+			</tr>
+			<tr>
+				<td>업종</td><td>"${selectedCorp.corp_business_area}"</td>
+			</tr>
+		</table>
 	
 	<br>				
 	<table class="invoice_body tbcss1" name="invoice_body" cellpadding="5" cellspacing="5" width="800">

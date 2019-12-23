@@ -42,4 +42,12 @@ public class AccountDAOImpl implements AccountDAO {
 		return insertCorpCnt;
 	}
 
+	@Override
+	public CorporationDTO getCorpInfo(String corp_no) {
+		
+		CorporationDTO selectedCorp = this.sqlSession.selectOne(mapper_namespace+"getCorpInfo", corp_no);
+		// TODO Auto-generated method stub
+		return selectedCorp;
+	}
+
 }

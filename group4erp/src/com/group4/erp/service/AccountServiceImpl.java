@@ -39,6 +39,14 @@ public class AccountServiceImpl implements AccountService {
 		
 		return insertCorpCnt;
 	}
+
+	@Override
+	public CorporationDTO getCorpInfo(String corp_no) {
+		// TODO Auto-generated method stub
+		CorporationDTO selectedCorp = this.accountDAO.getCorpInfo(corp_no);
+		
+		return selectedCorp;
+	}
 	
 	
 
