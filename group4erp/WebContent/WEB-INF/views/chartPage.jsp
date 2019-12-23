@@ -10,6 +10,7 @@
 <script src = "/www.google.com/jsapi"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+<!-- 막대그래프 차트를 보여준다. -->
 <!DOCTYPE html>
 <html>
 <head>
