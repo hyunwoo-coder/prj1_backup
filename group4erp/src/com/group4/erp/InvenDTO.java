@@ -14,6 +14,7 @@ public class InvenDTO {
 	private int emp_no;
 	private String published_de;
 	private String planner;
+	
 	public int getISBN13() {
 		return ISBN13;
 	}

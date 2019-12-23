@@ -53,6 +53,10 @@
 		alert("결재");
 	}
 
+	function goChart() {
+		location.replace("/group4erp/viewEmpAvgSalChart.do");
+	}
+
 </script>
 
 </head>
@@ -105,6 +109,7 @@
 		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div><br>
 				
 		<input type="button" value="결재" onClick="goApproval();">
+		<input type="button" value="차트보기" onClick="goChart();">
 			
 </center>
 

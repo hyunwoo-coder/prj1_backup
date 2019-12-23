@@ -110,6 +110,15 @@
     	and sop.emp_no = #{emp_no}   
 	</select>
 	
+	<select id='getAvgSalChart' resultType="com.group4.erp.SalaryDTO">
+		select         
+            (select c.jikup from code_jikup c where c.jikup_cd = e.jikup_cd) "jikup",
+            trunc(avg(salary), 1) "avg_salary"
+        from employee e   
+        group by e.jikup_cd
+        order by e.jikup_cd
+	</select>
+	
 	
 	<select id='getTime' resultType="com.group4.erp.TimeDTO">
 

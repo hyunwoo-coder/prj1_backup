@@ -173,6 +173,44 @@ public class HRController {
 		return mav;
 	}
 	
+	
+	//직급별 평균 연봉을 막대 차트로 보여준다.
+	@RequestMapping(value="/viewEmpAvgSalChart.do")
+	public ModelAndView viewEmpAvgSalChart(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpAvgSalChart");
+		
+		String sal_chart_data = "[";
+		sal_chart_data += "['직급', '평균연봉']";
+		try {
+			List<SalaryDTO> avgSalInfo = this.hrservice.getAvgSalChart();
+			
+			for(int i=0; i<avgSalInfo.size(); i++) {
+				//System.out.print(salaryList.get(i).get("jikup"));
+				sal_chart_data += ", ['";
+				sal_chart_data += avgSalInfo.get(i).getJikup();
+				sal_chart_data += "', ";
+				sal_chart_data += avgSalInfo.get(i).getAvg_salary();
+				sal_chart_data += "] ";
+			}
+			sal_chart_data += "]";
+			
+			System.out.println(sal_chart_data);
+			//obj.put("chartName", "직원평균연봉정보");
+			
+			mav.addObject("sal_chart_data", sal_chart_data);
+			//mav.addObject("salaryList", salaryList);
+		} catch(Exception e) {
+			System.out.println("예외발생=="+e);
+		}
+		
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/viewEmpDayOffList.do")
 	public ModelAndView viewDayOffList(HttpSession session, HrListSearchDTO hrListSearchDTO) {
 		

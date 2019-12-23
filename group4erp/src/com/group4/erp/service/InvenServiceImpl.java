@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class InvenServiceImpl implements InvenService{
 
-	@Autowired
-	private InvenDAO invenDAO;
+   @Autowired
+   private InvenDAO invenDAO;
 
-	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO) {
+   public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO) {
 
 		List<Map<String,String>> getBookList = this.invenDAO.getBookList(invenSearchDTO);
 		

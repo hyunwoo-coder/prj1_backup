@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class InvenDAOImpl implements InvenDAO{
 
-	@Autowired
-	private SqlSessionTemplate sqlSession;
+   @Autowired
+   private SqlSessionTemplate sqlSession;
 
 	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO){
 		
@@ -43,4 +43,5 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return publisher;
 	}
+
 }

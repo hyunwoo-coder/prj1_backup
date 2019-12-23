@@ -34,5 +34,7 @@ public interface HrDAO {
 	List<Map<String, String>> getEmpInoutList(HrListSearchDTO hrListSearchDTO);
 
 	EmployeeInfoDTO getEmpContant(int emp_no);
+	
+	List<SalaryDTO> getAvgSalChart();
 
 }

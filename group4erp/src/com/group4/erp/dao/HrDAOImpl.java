@@ -142,4 +142,13 @@ public class HrDAOImpl implements HrDAO {
 		
 	}
 
+
+	@Override
+	public List<SalaryDTO> getAvgSalChart() {
+		// TODO Auto-generated method stub
+		List<SalaryDTO> avgSalInfo = this.sqlSession.selectList(mapper_namespace+"getAvgSalChart");
+		
+		return avgSalInfo;
+	}
+
 }

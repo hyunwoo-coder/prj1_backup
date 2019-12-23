@@ -111,4 +111,13 @@ public class HRServiceImpl implements HRService {
 
 	}
 
+	@Override
+	public List<SalaryDTO> getAvgSalChart() {
+		// TODO Auto-generated method stub
+		
+		List<SalaryDTO> avgSalInfo = this.hrDAO.getAvgSalChart();
+		
+		return avgSalInfo;
+	}
+
 }

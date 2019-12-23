@@ -2,7 +2,6 @@ package com.group4.erp;
 
 public class SalaryDTO {
 
-
 	private int emp_no;
 	private String emp_name;
 	private String jikup;
@@ -11,6 +10,7 @@ public class SalaryDTO {
 	private double real_sal;
 	private double deduct_sal;
 	private double final_sal;
+	private String avg_salary;
 	
 	private double income;
 	private double resident = 0.1d;
@@ -21,7 +21,12 @@ public class SalaryDTO {
 	private String year;
 	private String month;
 	
-
+	public String getAvg_salary() {
+		return avg_salary;
+	}
+	public void setAvg_salary(String avg_salary) {
+		this.avg_salary = avg_salary;
+	}
 	
 	public double getIncome() {
 		return income;

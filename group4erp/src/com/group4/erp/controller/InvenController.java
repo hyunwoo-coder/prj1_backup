@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class InvenController {
+
 	
 	@Autowired
 	private InvenService invenService;	
@@ -50,6 +51,6 @@ public class InvenController {
 		}
 		return mav;
 	}
-	
-	
 }
+
+  
