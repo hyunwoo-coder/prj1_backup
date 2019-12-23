@@ -16,9 +16,14 @@
 	<tr valign=top>
 		<td align="center" height="500"><br><br>
 		
-			<!-- 출장신청&보고 -->
+			<!-- 출장신청&보고 작성 -->
 			<c:if test="${subMenu.equals('businessTripForm') }">
 				<%@ include file="/WEB-INF/views/businessTripForm.jsp" %>
+			</c:if>
+			
+			<!-- 출장신청&보고 리스트 -->
+			<c:if test="${subMenu.equals('businessTripList') }">
+				<%@ include file="/WEB-INF/views/businessTripList.jsp" %>
 			</c:if>
 			
 			

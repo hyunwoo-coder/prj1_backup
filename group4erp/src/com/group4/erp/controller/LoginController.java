@@ -24,7 +24,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/loginForm.do")
 	public ModelAndView loginForm() {
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login.jsp");
 		

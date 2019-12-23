@@ -6,6 +6,10 @@
 <html>
 <head>
 <script>
+
+	 function goBusinessTripList(){
+		location.replace("/group4erp/businessTripList.do");
+		}
 </script>	
 	
 <meta charset="UTF-8">
@@ -45,7 +49,7 @@
 		&nbsp;&nbsp;&nbsp;
 		<input type="button" value="초기화">
 		
-		<input type="button" value="목록보기">
+		<input type="button" value="목록보기" onClick="goBusinessTripList()">
 	</form>
 </body>
 </html>
