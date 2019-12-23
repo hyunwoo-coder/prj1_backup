@@ -62,13 +62,30 @@
     	from employee e   
 	</select>
 	
-	<select id="getEmpContantList" parameterType="int" resultType="com.group4.erp.EmployeeDTO">
+	
+	
+	<select id="getEmpContantList" parameterType="int" resultType="com.group4.erp.EmployeeInfoDTO">
 		select
 			emp_no		as		"emp_no"
 			,emp_name	as		"emp_name"
 			,emp_eng_name	as	"emp_eng_name"
-			,dep_no		as		"dep_no"
-			,
+			,jumin_num		as	"jumin_num"
+			,phone			as	"phone"
+			,emp_email		as	"emp_email"
+			,emp_email_office	as	"emp_email_office"
+			,emp_addr		as	"emp_addr"
+			,hire_dt		as	"hire_dt"
+			,is_on_leave	as	"is_on_leave"
+			,emp_gender		as	"emp_gender"
+			,salary			as	"salary"
+			,emp_pic		as	"emp_pic"
+			,(select d.dep_name from dept d where e1.dep_no=d.dep_no)	as	"dep_name"
+			,(select w.worktime_name from code_worktime w where e1.worktime_cd=w.worktime_cd)	as	"worktime_name"
+			,(select j.jikup from code_jikup j where j.jikup_cd=e1.jikup_cd)		as		"jikup"
+			,(select jikup from code_jikup where jikup_cd=(select jikup_cd from employee where emp_no=(select mgr_emp_no from employee where emp_no=#{emp_no})))	as	"mgr_emp_jikup"
+			,(select dep_name from dept where dep_no=(select dep_no from employee where emp_no=(select mgr_emp_no from employee where emp_no=#{emp_no})))		as		"mgr_emp_dep_name"
+			,(select e2.emp_name from employee e2 where e2.emp_no=e1.mgr_emp_no)		as		"mgr_emp_name"
+			from employee e1
+			where 1=1 and emp_no=#{emp_no}
 	</select>
-	
 </mapper>

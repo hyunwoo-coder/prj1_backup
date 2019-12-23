@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group4.erp.EmployeeDTO;
+import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.dao.HrDAO;
 
@@ -47,9 +48,9 @@ public class HRServiceImpl implements HRService {
 
 	}
 	
-	public EmployeeDTO getEmpContant(int emp_no) {
+	public EmployeeInfoDTO getEmpContant(int emp_no) {
 		
-		EmployeeDTO getEmpContantList = this.hrDAO.getEmpContant(emp_no);
+		EmployeeInfoDTO getEmpContantList = this.hrDAO.getEmpContant(emp_no);
 		
 		return getEmpContantList;
 	}

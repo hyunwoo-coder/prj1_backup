@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.EmployeeDTO;
+import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.HrListSearchDTO;
 
 @Repository
@@ -49,9 +50,9 @@ public class HrDAOImpl implements HrDAO {
 
 	}
 	
-	public EmployeeDTO getEmpContant(int emp_no) {
+	public EmployeeInfoDTO getEmpContant(int emp_no) {
 		
-		EmployeeDTO getEmpContantList = this.sqlSession.selectOne(
+		EmployeeInfoDTO getEmpContantList = this.sqlSession.selectOne(
 				mapper_namespace+"getEmpContantList"
 				,emp_no
 				);

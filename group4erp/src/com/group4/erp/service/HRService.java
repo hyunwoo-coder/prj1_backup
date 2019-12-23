@@ -3,6 +3,7 @@ package com.group4.erp.service;
 import java.util.List;
 import java.util.Map;
 import com.group4.erp.EmployeeDTO;
+import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.SalaryDTO;
 
 import com.group4.erp.HrListSearchDTO;
@@ -16,6 +17,6 @@ public interface HRService {
 
 	List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO);
 	
-	EmployeeDTO getEmpContant(int emp_no);
+	EmployeeInfoDTO getEmpContant(int emp_no);
 
 }

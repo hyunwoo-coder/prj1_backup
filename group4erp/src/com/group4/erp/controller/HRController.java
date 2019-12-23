@@ -42,6 +42,17 @@ public class HRController {
 			int getEmpBoardListCnt = this.hrservice.getEmpListAllCnt(hrListSearchDTO);
 			mav.addObject("getEmpBoardListCnt", getEmpBoardListCnt);
 
+			if(getEmpBoardListCnt>0) {
+				//선택한 페이지 번호 구하기
+				int selectPageNo = hrListSearchDTO.getSelectPageNo();
+				//한 화면에 보여지는 행의 개수 구하기
+				int rowCntPerPage = hrListSearchDTO.getRowCntPerPage();
+				//검색할 시작행 번호 구하기
+				int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
+				//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한페이지 번호를 1로 세팅하기
+				if(getEmpBoardListCnt<beginRowNo) hrListSearchDTO.setSelectPageNo(1);
+			}
+			
 			List<Map<String, String>> getEmpBoardList = this.hrservice.getEmpList(hrListSearchDTO);
 			mav.addObject("getEmpBoardList", getEmpBoardList);
 
@@ -143,14 +154,20 @@ public class HRController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/empViewContantProc.do")
-	public EmployeeDTO empViewContactProc(
+	@RequestMapping(value="/viewEmpContentForm.do")
+	public ModelAndView empViewContectProc(
 			@RequestParam(value="emp_no") int emp_no
 			) {
 		
-		EmployeeDTO getEmpContantList = this.hrservice.getEmpContant(emp_no);
+		ModelAndView mav = new ModelAndView();
 		
-		return getEmpContantList;
+		EmployeeInfoDTO getEmpContentInfo = this.hrservice.getEmpContant(emp_no);
+				
+		mav.setViewName("main.jsp");
+		mav.addObject("employeeInfoDTO", getEmpContentInfo);
+		mav.addObject("subMenu", "viewEmpContentInfo");
+		
+		return mav;
 		
 	}
 	

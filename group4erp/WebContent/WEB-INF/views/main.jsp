@@ -29,6 +29,10 @@
 			<c:if test="${subMenu.equals('viewEmpList') }">
 				<%@ include file="/WEB-INF/views/empListForm.jsp" %>
 			</c:if>
+			<!-- 직원 상세보기 -->
+			<c:if test="${subMenu.equals('viewEmpContentInfo') }">
+				<%@ include file="/WEB-INF/views/empListContentForm.jsp" %>
+			</c:if>
 			
 			<!-- 급여지급현황(인사팀 조회 & 직원 전체 목록) -->
 			<c:if test="${subMenu.equals('viewSalList') }">

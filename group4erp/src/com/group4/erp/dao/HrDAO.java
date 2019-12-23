@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.group4.erp.EmployeeDTO;
+import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.SalaryDTO;
 
 import com.group4.erp.HrListSearchDTO;
@@ -15,5 +16,5 @@ public interface HrDAO {
 	List<SalaryDTO> getEmpSalList();
 	List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO);
 
-	EmployeeDTO getEmpContant(int emp_no);
+	EmployeeInfoDTO getEmpContant(int emp_no);
 }

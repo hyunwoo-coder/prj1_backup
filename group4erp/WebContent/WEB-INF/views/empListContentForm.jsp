@@ -12,62 +12,101 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+
+	function goBack(){
+		history.go(-1);
+	}
+	
+	function empInfoUp(){
+		alert("수정 기능 구현중");
+	}
+	function empInfoDel(emp_no){
+		alert("삭제 기능 구현중");
+		/*
+		$.ajax({
+			url : "/group4erp/empInfoDelProc.do"
+			, type : "post"
+			, data : "emp_no="+emp_no
+			, success : function(DelCnt){
+				alert(999);
+				return;
+				location.replace("/group4erp/???????.do");
+			}
+			, error : function(){
+				alert("서버 접속 실패");
+			}
+		});
+		*/
+	}
+
+</script>
 </head>
 <body><center>
 	<b>직원 상세보기</b>
-	
-	
+	<br>
+	<table border=0 width=700>
+	 	<tr>
+	 	<td align=right>
+			<a href="javascript:goBack();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[닫기]</a>
+	</table>
 		<table class="tbcss1" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 				<th>이름
-				<td>가나다
+				<td>${employeeInfoDTO.emp_name}
 				<th>영어이름
-				<td>rkskek
+				<td>${employeeInfoDTO.emp_eng_name}
 				<th colspan=4 width="30%">사원사진
 			<tr>
 				<th>주민등록번호
-				<td colspan=3>111111-2222222
-				<td rowspan=4 colspan=4 width="30%">no image
+				<td colspan=3>${employeeInfoDTO.jumin_num}
+				<td rowspan=4 colspan=4 width="30%">${employeeInfoDTO.emp_pic}
 			<tr>
 				<th>핸드폰번호
-				<td colspan=3>010-1234-5678
+				<td colspan=3>${employeeInfoDTO.phone}
 			<tr>
 				<th>이메일
-				<td colspan=3>naver11@naver.com
+				<td colspan=3>${employeeInfoDTO.emp_email}
 			<tr>
 				<th>회사이메일
-				<td colspan=3>company11@company.com
+				<td colspan=3>${employeeInfoDTO.emp_email_office}
 			<tr>
 				<th>주소
-				<td colspan=5>전라북도 장수군 장수읍  개정농원길 20-43
+				<td colspan=5>${employeeInfoDTO.emp_addr}
 				<th>휴직상태
-				<td>X
+				<td>${employeeInfoDTO.is_on_leave}
 			<tr>
 				<th>입사일
-				<td colspan=2>2019-12-25 수요일
+				<td colspan=2>${employeeInfoDTO.hire_dt}
 				<!--<th>부서번호
 				<td>10-->
 				<th colspan=2>부서이름
-				<td>총무과
+				<td>${employeeInfoDTO.dep_name}
 				<th>성별
-				<td>남
+				<td>${employeeInfoDTO.emp_gender}
 			<tr>
 				<th>직업형태
-				<td>정규직
+				<td>${employeeInfoDTO.worktime_name}
 				<th>직급
-				<td>사원
+				<td>${employeeInfoDTO.jikup}
 				<th>연봉
-				<td colspan=3>30,000,000
+				<td colspan=3>${employeeInfoDTO.salary}
 			<tr>
 				<th>직속상관
 				<th>부서이름
-				<td>총무과
+				<td>${employeeInfoDTO.mgr_emp_dep_name}
 				<th>직급
-				<td>대표이사
+				<td>${employeeInfoDTO.mgr_emp_jikup}
 				<th>이름
-				<td colspan=2>라마바
+				<td colspan=2>${employeeInfoDTO.mgr_emp_name}
 		</table>
-
+		<br>
+		<input type="button" value=" 수정 " onclick="empInfoUp();">&nbsp;
+		<input type="button" value=" 삭제 " onclick="empInfoDel(${emp_no});">&nbsp;
+		<input type="button" value="뒤로가기" onclick="goBack();">
+		<form method="post" name="empUpDelForm" action="/group4erp/empUpDelProc.do">
+			<input type="hidden" name="emp_no" value="${emp_no}">
+		</form>
 </center>
 </body>
 </html>

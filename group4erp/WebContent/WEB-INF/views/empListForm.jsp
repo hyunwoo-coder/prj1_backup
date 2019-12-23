@@ -2,21 +2,48 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>직원 리스트</title>
+
+<style>
+.roundedCorners {
+  border: #000 1px solid;
+  padding: 2px 8px;
+  border-radius: 1em;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+}
+.tablesorter-headerDesc .roundedCorners {
+  border-color: #fff;
+}
+</style>
+
+<script src="${ctRoot}/resources/jquery.tablesorter.min.js"></script>
+<script src="${ctRoot}/resources/jquery.tablesorter.widgets.min.js"></script>
 <script>
 
-$(document).ready(function(){
+$(document).ready(function(){	
 	
+	$(function(){
+		$('table').tablesorter({
+			widgets        : ['zebra', 'columns'],
+			usNumberFormat : false,
+			sortReset      : true,
+			sortRestart    : true,
+			headerTemplate: '{content} {icon}',
+			onRenderHeader: function(index) {
+			      $(this).find('div').addClass('roundedCorners header' + index );
+			    }
+		});
+	});
 	
-	$(".empListContant")
-	
-	
-	
-	headerSort("empListTable", 0);
+	//headerSort("empListTable", 0);
 	
 	$('[name=rowCntPerPage]').change(function(){
 		goSearch();
@@ -49,9 +76,13 @@ $(document).ready(function(){
 	}
 	function goEmpContentForm(emp_no){
 		
-		alert("emp_no="+emp_no);
-		return;
+		//alert("emp_no="+emp_no);
+		//return;
 		
+		var str = "emp_no="+emp_no
+		
+		location.href="/group4erp/viewEmpContentForm.do?"+str;
+		/*
 		$.ajax({
 			url : "/group4erp/empViewContantProc.do"
 			, type : "post"
@@ -59,12 +90,13 @@ $(document).ready(function(){
 			, success : function(upDelCnt){
 				alert(999);
 				return;
+				location.replace("/group4erp/???????.do");
 			}
 			, error : function(){
 				alert("서버 접속 실패");
 			}
 		});
-		
+		*/
 		//location.replace("......");
 	}
 	
@@ -96,17 +128,20 @@ $(document).ready(function(){
 	<div id="blankArea"><br></div>
 		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
 			<thead>
-			<tr>
-				<th style="cursor:pointer">사번<th>성명<th>부서<th style="cursor:pointer">직급
+			<tr class="tablesorter-headerRow">
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">사번<i class="tablesorter-icon"></i></div></th>
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">성명<i class="tablesorter-icon"></i></div></th>
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">부서<i class="tablesorter-icon"></i></div></th>
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">직급<i class="tablesorter-icon"></i></div></th>
 			</tr>
 			</thead>
 			<tbody>
 			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">	
-				<td align=center>${empList.emp_no}	<!-- <input type="hidden" value="${dep_no}">  -->
-				<td align=center>${empList.emp_name}
-				<td align=center>${empList.dep_name}
-				<td align=center>${empList.jikup}
+				<td align=center>${empList.emp_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
+				<td align=center>${empList.emp_name}</td>
+				<td align=center>${empList.dep_name}</td>
+				<td align=center>${empList.jikup}</td>
 			</tr>		
 			</c:forEach>
 			</tbody>
@@ -117,6 +152,8 @@ $(document).ready(function(){
 		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 	</form>
 
+
+	<!-- 
 	<c:if test="EmployeeDTO.getEmp_no()!=null">
 	<div class="empListContant">
 		<a href="javascript:goClose();">[닫기]</a>
@@ -148,8 +185,7 @@ $(document).ready(function(){
 			<tr>
 				<th>입사일
 				<td colspan=2>2019-12-25 수요일
-				<!--<th>부서번호
-				<td>10-->
+				
 				<th colspan=2>부서이름
 				<td>총무과
 				<th>성별
@@ -172,6 +208,7 @@ $(document).ready(function(){
 		</table>
 	</div>
 	</c:if>
+	 -->
 </center>
 
 </body>
