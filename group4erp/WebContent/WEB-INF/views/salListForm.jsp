@@ -11,6 +11,16 @@
 	$(document).ready(function(){
 	
 		headerSort("salListTable", 0);
+
+		setTableTrBgColor(
+				"salListTable",	//테이블 class 값
+				"${headerColor}",			//헤더 tr 배경색
+				"${oddTrColor}",		//홀수행 배경색
+				"${evenTrColor}",	//짝수행 배경색
+				"${mouseOverColor}"			//마우스 온 시 배경색
+			);
+			
+		
 	
 		$('[name=rowCntPerPage]').change(function(){
 			goSearch();
@@ -50,6 +60,7 @@
 	<h1>${timeDTO.now_year}년도&nbsp;${timeDTO.now_month-1}월분 급여대장</h1>
 	
 	지급일 : ${timeDTO.now_year}년 ${timeDTO.now_month-1}월 25일	&nbsp;&nbsp;단위 [만원]
+	
 	<form name="empSalSearchForm" method="post" action="/group4erp/viewSalList.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 

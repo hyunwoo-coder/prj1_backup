@@ -71,7 +71,7 @@ public class HRController {
 			
 			System.out.println("emp_tot_cnt=="+emp_tot_cnt);
 			
-			List<SalaryDTO> empSalList = this.hrservice.getEmpSalList();
+			List<SalaryDTO> empSalList = this.hrservice.getEmpSalList(salListSearchDTO);
 			
 			if(emp_tot_cnt >0 ) {
 				int selectPageNo = salListSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기

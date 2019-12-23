@@ -45,7 +45,7 @@
 	
 	<select id='getEmpSalList' parameterType="com.group4.erp.SalListSearchDTO" resultType="com.group4.erp.SalaryDTO">
 	
-	
+	select * from(select zzz.*, rownum RNUM from(
 		select 
 		e.emp_no "emp_no",
  	    (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
@@ -56,7 +56,7 @@
     	from employee e   
     	where 1=1
     	order by e.emp_no asc
-	
+	) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	
 	</select>
 	

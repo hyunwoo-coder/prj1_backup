@@ -14,7 +14,7 @@ public interface HrDAO {
 
 	int getEmpListAllCnt(HrListSearchDTO hrListSearchDTO);
 	int getEmpListAllCnt(SalListSearchDTO salListSearchDTO);
-	List<SalaryDTO> getEmpSalList();
+	List<SalaryDTO> getEmpSalList(SalListSearchDTO salListSearchDTO);
 	List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO);
 	TimeDTO getTime();
 	SalaryDTO getSalaryInfo(int emp_no);

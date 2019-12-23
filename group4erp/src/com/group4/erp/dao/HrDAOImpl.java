@@ -20,12 +20,12 @@ public class HrDAOImpl implements HrDAO {
 	String mapper_namespace = "com.group4.erp.dao.HrDAO.";
 
 	@Override
-	public List<SalaryDTO> getEmpSalList() {
+	public List<SalaryDTO> getEmpSalList(SalListSearchDTO salListSearchDTO) {
 
 		// TODO Auto-generated method stub
 
 		System.out.println("getEmpSalList() 메소드 시작");
-		List<SalaryDTO> empSalList = this.sqlSession.selectList(mapper_namespace + "getEmpSalList");
+		List<SalaryDTO> empSalList = this.sqlSession.selectList(mapper_namespace + "getEmpSalList", salListSearchDTO);
 		System.out.println("getEmpSalList() 메소드 끝");
 		
 		return empSalList;

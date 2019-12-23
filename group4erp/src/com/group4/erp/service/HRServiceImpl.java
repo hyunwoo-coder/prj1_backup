@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.SalaryDTO;
+import com.group4.erp.SalListSearchDTO;
 import com.group4.erp.TimeDTO;
 import com.group4.erp.dao.HrDAO;
 
@@ -24,14 +25,13 @@ import com.group4.erp.dao.InvenDAO;
 public class HRServiceImpl implements HRService {
 
 	
-
 	@Autowired
 	HrDAO hrDAO;
 
 	@Override
-	public List<SalaryDTO> getEmpSalList() {
+	public List<SalaryDTO> getEmpSalList(SalListSearchDTO salListSearchDTO) {
 		
-		List<SalaryDTO> empSalList = this.hrDAO.getEmpSalList();
+		List<SalaryDTO> empSalList = this.hrDAO.getEmpSalList(salListSearchDTO);
 		
 		return empSalList;
 	}
