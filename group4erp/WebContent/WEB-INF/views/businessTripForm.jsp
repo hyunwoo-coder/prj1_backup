@@ -44,6 +44,8 @@
 		<input type="button" calss="approval" value="결재" onClick="checkForm()">
 		&nbsp;&nbsp;&nbsp;
 		<input type="button" value="초기화">
+		
+		<input type="button" value="목록보기">
 	</form>
 </body>
 </html>
