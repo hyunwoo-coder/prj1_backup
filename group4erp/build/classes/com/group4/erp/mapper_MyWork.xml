@@ -8,22 +8,62 @@
 	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.myWorkDAO">
-	<select id='getMyCareBookList' parameterType="com.group4.erp.MyCareBookListDTO" resultType="java.util.HashMap">
-		select
-				ISBN13 					as "ISBN13"
-				,book_name 				as "book_name"
-				,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
-							as "cat_name"
-				,book_price  			as "book_price"
-				,book_pages||'' 		as "book_pages"
-				,writer 				as "writer"
-				,publisher 				as "publisher"
-				,size_cd||'' 			as "size_cd"
-				,is_not_print 			as "is_not_print"
-				,emp_no||''				as "emp_no"
-				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
-				,editor					as "editor"
-			from book b	
-			where 1=1
+	<select id='getMyCareBookList' resultType="java.util.HashMap">
+	select * from(select zzz.*, rownum RNUM from(
+			select
+                ISBN13                     as "ISBN13"
+                ,book_name                 as "book_name"
+                ,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
+                            as "cat_name"
+                ,book_price              as "book_price"
+                ,book_pages||''         as "book_pages"
+                ,writer                 as "writer"
+                ,publisher                 as "publisher"
+                ,size_cd||''             as "size_cd"
+                ,is_not_print             as "is_not_print"
+                ,emp_no||''                as "emp_no"
+                ,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
+                ,editor                    as "editor"
+                ,(select si.ISBN_cnt from stock_info si where b.ISBN13 = si.ISBN13) as  "ISBN_cnt"
+                ,(select branch_name from code_branch where branch_cd in(select branch_cd from stock_info where ISBN13 in(b.ISBN13))) as  "branch_name"
+            from book b    
+            where emp_no = 1
+			
+			order by ISBN13 asc
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+        
 	</select>
+	
+	<select id='getCategoryList' resultType="java.util.HashMap">
+		select
+			cat_cd		as	"cat_cd"
+			, cat_name	as	"cat_name"
+		from code_category
+		where 1=1
+	</select>
+	
+	<select id='getBookSizeList' resultType="java.util.HashMap">
+		select
+			size_cd		as	"size_cd"
+			, size_name	as	"size_name"
+		from code_book_size
+		where 1=1
+	</select>
+	
+	<select id='getBranchList' resultType="java.util.HashMap">
+		select
+			branch_cd		as	"branch_cd"
+			, branch_name	as	"branch_name"
+		from code_branch
+		where 1=1
+	</select>
+	
+	<select id='getPublisherList' resultType="java.util.HashMap">
+		select distinct publisher	as	"publisher" from book
+	</select>
+	
+	<select id='getMyWorkListAllCnt' resultType="int">
+		select count(*) from book where emp_no = 1
+	</select>
+	
 </mapper>

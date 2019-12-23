@@ -27,18 +27,41 @@ public class MyWorkController {
 	@RequestMapping(value="/goMyCareBookList.do")
 	public ModelAndView viewEmpListList(
 			HttpSession session
-			,MyCareBookListDTO myCareBookListDTO
+			,MyWorkSearchDTO myWorkSearchDTO
 			) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		
+		//화면에 나의 상품 관리 페이지 띄우는 코드
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewMyCareBookList");
 		try {
-			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myCareBookListDTO);
 
+			//===================================================================================================
+			//검색된 관리 상품 목록 불러오는 코드
+			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myWorkSearchDTO);
 			mav.addObject("MyCareBookList", MyCareBookList);
+
+			//===================================================================================================
+			//검색 항목 불러오는 코드
+			List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
+			mav.addObject("categoryList", categoryList);
+			
+			List<Map<String, String>> bookSize = this.myWorkService.getBookSizeList(myWorkSearchDTO);
+			mav.addObject("bookSize", bookSize);
+			
+			List<Map<String, String>> branchList = this.myWorkService.getBranchList(myWorkSearchDTO);
+			mav.addObject("branchList", branchList);
+			
+			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);
+			mav.addObject("publisherList", publisherList);
+			
+			//===================================================================================================
+			//페이징 처리를 위한 총 검색 개수 불러오는 코드
+			int myWorkListAllCnt = this.myWorkService.getMyWorkListAllCnt(myWorkSearchDTO);
+			mav.addObject("myWorkListAllCnt", myWorkListAllCnt);
+			
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);
