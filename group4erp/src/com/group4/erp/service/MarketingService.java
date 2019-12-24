@@ -1,6 +1,8 @@
 package com.group4.erp.service;
 
 import java.util.List;
+
+import com.group4.erp.AdApplyDTO;
 import com.group4.erp.EventDTO;
 
 public interface MarketingService {
@@ -10,5 +12,7 @@ public interface MarketingService {
 	List<EventDTO> getEventList();
 	
 	int getAdApplyCnt();
+	
+	List<AdApplyDTO> getAdApplyList();
 
 }

@@ -42,12 +42,25 @@
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
-		where 1=1
-			
+		where 1=1			
 	</select>
 	
 	<select id='getAdApplyCnt' resultType="int">
 		select count(*) from ad_apply_info
+	</select>
+	
+		<select id='getAdApplyList' resultType="com.group4.erp.AdApplyDTO">
+		select
+        	ad_apply_no||'' "ad_apply_no",
+        	corp_no "corp_no",
+        	applicant_name "applicant_name",
+        	ad_title "ad_title",
+        	reg_dt "reg_dt",
+        	open_req_dt "open_req_dt",
+        	(select c.open_req_area_name from code_open_req_area c where c.open_req_area_cd = open_req_area_cd) "open_req_area",
+        	(select s.evnt_state_name from code_ad_state s where s.evnt_state_cd = evnt_state_cd) "ad_stat"
+        from ad_apply_info
+		where 1=1			
 	</select>
 	
 		

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.group4.erp.EventDTO;
+import com.group4.erp.AdApplyDTO;
+import com.group4.erp.CorporationDTO;
 import com.group4.erp.service.MarketingService;
 
 
@@ -78,9 +80,54 @@ public class MarketingController {
 		mav.addObject("subMenu", "viewAdApplyList");
 		
 		int ad_apply_cnt = this.marketingService.getAdApplyCnt();
+		List<AdApplyDTO> ad_apply_list = this.marketingService.getAdApplyList();
+		
 		mav.addObject("adApplyCnt", ad_apply_cnt);
+		mav.addObject("adApplyList", ad_apply_list);
 		
 		return mav;
+	}
+	
+	//광고 신청 페이지
+	@RequestMapping(value="/insertAdApply.do")
+	public ModelAndView viewInsertAdApply(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewInsertAdApply");
+		
+		//int ad_apply_cnt = this.marketingService.getAdApplyCnt();
+		//List<AdApplyDTO> ad_apply_list = this.marketingService.getAdApplyList();
+		
+		
+		return mav;
+	}
+	
+	
+	
+	
+	@RequestMapping( 
+			value="/insertAdProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	
+	@ResponseBody
+	public int insertCorp(CorporationDTO corporationDTO) {
+		
+		int insertCorpCnt = 0;
+		try {
+			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
+					
+			//insertCorpCnt = this.accountService.insertCorp(corporationDTO);
+				
+		} catch(Exception e) {
+			System.out.println("insertCorp() 메소드에서 예외 발생>>> "+e);
+			insertCorpCnt = -1;
+		} 
+				
+		return insertCorpCnt;		
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group4.erp.AdApplyDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.dao.MarketingDAO;
 
@@ -37,5 +38,15 @@ public class MarketingServiceImpl implements MarketingService {
 		
 		return ad_apply_cnt;
 	}
+
+	@Override
+	public List<AdApplyDTO> getAdApplyList() {
+		// TODO Auto-generated method stub
+		List<AdApplyDTO> ad_apply_list = this.marketingDAO.getAdApplyList();
+		
+		return ad_apply_list;
+	}
+	
+	
 
 }
