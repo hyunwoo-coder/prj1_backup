@@ -21,7 +21,7 @@ public class MyWorkServiceImpl implements MyWorkService{
 
 		List<Map<String,String>> getMyCareBookList = this.myWorkDAO.getMyCareBookList(myWorkSearchDTO);
 
-		//System.out.println("서비스 : " + getMyCareBookList.size());
+		System.out.println("서비스 : " + getMyCareBookList.size());
 		return getMyCareBookList;
 		
 	}
@@ -65,7 +65,7 @@ public class MyWorkServiceImpl implements MyWorkService{
 
 		int myWorkListAllCnt = this.myWorkDAO.getMyWorkListAllCnt(myWorkSearchDTO);
 
-		System.out.println("서비스 : " + myWorkListAllCnt);
+		//System.out.println("서비스 : " + myWorkListAllCnt);
 		return myWorkListAllCnt;
 		
 	}
