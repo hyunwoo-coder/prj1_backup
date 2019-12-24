@@ -9,33 +9,6 @@
 <title>책 재고관리</title>
 <script>
 
-$(document).ready(function(){	
-	
-	$('[name=rowCntPerPage]').change(function(){
-		goSearchBookInven();
-	});
-	
-	
-	$(".pagingNumber").html(
-			getPagingNumber(
-				"${bookListCnt}"						//검색 결과 총 행 개수
-				,"${invenSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
-				,"${invenSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
-				,"10"										//페이지 당 보여줄 페이지번호 개수
-				,"goSearchBookInven();"						//페이지 번호 클릭 후 실행할 자스코드
-			)
-		);
-	
-
-	inputData('[name=rowCntPerPage]',"${invenSearchDTO.rowCntPerPage}");
-	inputData('[name=selectPageNo]',"${invenSearchDTO.selectPageNo}");
-});
-
-	function goSearchBookInven(){
-		//alert("검색기능 구현중");
-		document.book_inventory_search_form.submit();
-	}
-
 $(document).ready(function(){   
    
    $('[name=rowCntPerPage]').change(function(){
@@ -187,7 +160,7 @@ $(document).ready(function(){
             <td align=center>${book.book_name}
             <td align=center>${book.cat_name}
             <td align=center>${book.publisher}
-            <td align=center>${book.is_not_print}
+            <td align=center>${book.is_print}
             <td align=center>${book.book_price}
             <td align=center>${book.book_cnt}
             <td align=center>${book.branch_name}

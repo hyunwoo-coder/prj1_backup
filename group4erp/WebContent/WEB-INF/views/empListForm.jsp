@@ -133,11 +133,6 @@ $(document).ready(function(){
 	<div id="blankArea"><br></div>
 		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
 			<thead>
-
-			<tr>
-
-				<th style="cursor:pointer">사번<th>성명<th>부서<th style="cursor:pointer">직급
-
 			<tr class="tablesorter-headerRow">
 				<th class="tablesorter-header"><div class="tablesorter-header-inner">사번<i class="tablesorter-icon"></i></div></th>
 				<th class="tablesorter-header"><div class="tablesorter-header-inner">성명<i class="tablesorter-icon"></i></div></th>
