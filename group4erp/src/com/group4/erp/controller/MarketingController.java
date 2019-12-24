@@ -55,7 +55,7 @@ public class MarketingController {
 		return mav;
 	}
 	
-	
+	//이벤트 신청 페이지
 	@RequestMapping(value="/eventScheduling.do")
 	public ModelAndView eventScheduling(HttpSession session) {
 		
@@ -63,6 +63,22 @@ public class MarketingController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "eventReserve");
+		
+		return mav;
+	}
+	
+	
+	//광고 현황 조회
+	@RequestMapping(value="/viewAdApplyList.do")
+	public ModelAndView viewAdApplyList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewAdApplyList");
+		
+		int ad_apply_cnt = this.marketingService.getAdApplyCnt();
+		
 		
 		return mav;
 	}

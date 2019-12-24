@@ -23,8 +23,6 @@
 	
 	 -->  
 	 
-	 
-
 	<select id='getEventCnt' resultType="int">
 		select count(*) from event_info
 	</select>
@@ -38,14 +36,18 @@
             ei.evnt_title "evnt_title",
             ei.tot_est_cost||'' "tot_est_cost",
             ei.tot_cost||'' "tot_cost",
-            to_char(ei.evnt_start_dt, 'yyyy-mm-dd') "evnt_start_dt",
-            to_char(ei.evnt_end_dt, 'yyyy-mm-dd') "evnt_end_dt",
+            to_char(ei.evnt_start_dt, 'yyyy-mm-dd') || '('||to_char(ei.evnt_start_dt, 'dy', 'nls_date_language=Korean' )||')' "evnt_start_dt",
+            to_char(ei.evnt_end_dt, 'yyyy-mm-dd') || '('||to_char(ei.evnt_start_dt, 'dy', 'nls_date_language=Korean' )||')' "evnt_end_dt",
             (select s.evnt_state_name from code_ad_state s where s.evnt_state_cd = ei.evnt_state_cd) "evnt_stat",
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
 		where 1=1
 			
+	</select>
+	
+	<select id='getAdApplyCnt' resultType="int">
+		select count(*) from ad_apply_info
 	</select>
 	
 		

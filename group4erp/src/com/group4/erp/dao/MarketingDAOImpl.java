@@ -31,4 +31,12 @@ public class MarketingDAOImpl implements MarketingDAO {
 		return eventList;
 	}
 
+	@Override
+	public int getAdApplyCnt() {
+		// TODO Auto-generated method stub
+		int ad_apply_cnt = this.sqlSession.selectOne(mapper_namespace+"getAdApplyCnt");
+		
+		return ad_apply_cnt;
+	}
+
 }

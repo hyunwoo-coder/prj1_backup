@@ -30,4 +30,12 @@ public class MarketingServiceImpl implements MarketingService {
 		return eventList;
 	}
 
+	@Override
+	public int getAdApplyCnt() {
+		// TODO Auto-generated method stub
+		int ad_apply_cnt = this.marketingDAO.getAdApplyCnt();
+		
+		return ad_apply_cnt;
+	}
+
 }

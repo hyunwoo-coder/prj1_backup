@@ -8,5 +8,7 @@ public interface MarketingService {
 	int getEventCnt();
 	
 	List<EventDTO> getEventList();
+	
+	int getAdApplyCnt();
 
 }

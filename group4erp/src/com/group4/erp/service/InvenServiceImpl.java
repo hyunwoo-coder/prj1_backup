@@ -1,6 +1,7 @@
 package com.group4.erp.service;
 
 import com.group4.erp.InvenSearchDTO;
+import com.group4.erp.ReturnOrderDTO;
 import com.group4.erp.dao.*;
 import java.util.*;
 
@@ -35,5 +36,17 @@ public class InvenServiceImpl implements InvenService{
 		List<Map<String, String>> publisher = this.invenDAO.getPublisher(invenSearchDTO);
 		
 		return publisher;
+	}
+	
+	public int getReturnOrderCnt() {
+		int returnOrderCnt = this.invenDAO.getReturnOrderCnt();
+		
+		return returnOrderCnt;
+	}
+	
+	public List<ReturnOrderDTO> getReturnOrderList() {
+		List<ReturnOrderDTO> returnOrderList = this.invenDAO.getReturnOrderList();
+		
+		return returnOrderList;
 	}
 }

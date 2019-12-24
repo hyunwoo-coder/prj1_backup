@@ -8,6 +8,8 @@ public interface MarketingDAO {
 	int getEventCnt();
 	
 	List<EventDTO> getEventList();
+	
+	int getAdApplyCnt();
 
 
 }

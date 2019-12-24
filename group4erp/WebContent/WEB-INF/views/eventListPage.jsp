@@ -51,23 +51,29 @@
 </head>
 <body><center>
 
-	<h1>이벤트 현황</h1><br>
-	<< 2019.12.24(화) >> [이벤트 총 횟수] : ${eventCnt}회&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	<h1>이벤트 현황</h1>
+	<label> << 2019.12.24(화) >> [이벤트 총 횟수] : ${eventCnt}회 </label> <br><br>
 	
 	<form name="searchEvntForm" method="post" action="/group4erp/searchEvntInfo.do">
 	
 		[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 		&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();"><br>
 		[종류별] <!-- DB 연동할 것 -->
-		<input type="checkbox" value="01">매대판매
-		<input type="checkbox" value="02">할인전
-		<input type="checkbox" value="03">기부행사
-		<input type="checkbox" value="04">온라인 설문조사
+		<input type="checkbox" value="01" name="evnt_category">매대판매
+		<input type="checkbox" value="02" name="evnt_category">할인전
+		<input type="checkbox" value="03" name="evnt_category">기부행사
+		<input type="checkbox" value="04" name="evnt_category">온라인 설문조사
+		<br>
+		[상태별]
+		<input type="checkbox" value="01" name="evnt_stat">대기중
+		<input type="checkbox" value="02" name="evnt_stat">심사중
+		<input type="checkbox" value="03" name="evnt_stat">진행중
+		<input type="checkbox" value="04" name="evnt_stat">종료
 	
 	</form>
 	
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
-		<table class="eventListTable tbcss2" name="eventListTable" cellpadding="5" cellspacing="5" width="700">
+		<table class="eventListTable tbcss2" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
 			<tr>
 				<th>이벤트 번호</th><th>이벤트 종류</th><th>타이틀</th><th>시작일</th><th>종료일</th><th>상태</th>
 			</tr>
