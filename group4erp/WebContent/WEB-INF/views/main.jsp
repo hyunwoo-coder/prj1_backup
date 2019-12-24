@@ -23,6 +23,11 @@
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
+			
+			<!-- 출고현황목록 -->
+			<c:if test="${subMenu.equals('viewReleaseList') }">
+				<%@ include file="/WEB-INF/views/bookReleaseInfo.jsp" %>
+			</c:if>
 		
 			<!-- 직원현황조회 -->
 			<c:if test="${subMenu.equals('viewEmpList') }">

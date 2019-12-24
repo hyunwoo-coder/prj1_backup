@@ -26,6 +26,13 @@ $(document).ready(function(){
          )
       );
    
+   setTableTrBgColor(
+			"bookTable"								//테이블 class값
+			, "${headerColor}"									//해더 tr 배경색
+			, "${oddTrColor}"									//홀수행 배경색
+			, "${evenColor}"									//짝수행 배경색
+			, "${mouseOverColor}"								//마우스 온 시 배경색
+	);
 
    inputData('[name=rowCntPerPage]',"${invenSearchDTO.rowCntPerPage}");
    inputData('[name=selectPageNo]',"${invenSearchDTO.selectPageNo}");
@@ -46,14 +53,14 @@ $(document).ready(function(){
 
    function goSearchBookInven(){
       //alert("검색기능 구현중");
-      alert(  $("[name=book_inventory_search_form]").serialize()   );
+      //alert(  $("[name=book_inventory_search_form]").serialize()   );
       document.book_inventory_search_form.submit();
    }
 
    function goAllSearchBookInven(){
-      alert("모두검색기능 구현중");
-      //document.book_inventory_search_form.reset();
-      //goSearchBookInven();
+      //alert("모두검색기능 구현중");
+      document.book_inventory_search_form.reset();
+      goSearchBookInven();
    }
    
 </script>
@@ -67,6 +74,8 @@ $(document).ready(function(){
 -->
 </head>
 <body><center>
+<!-- <h5 align="left">재고현황 -> 도서정보조회</h5> -->
+<h1>[재고 관리]</h1>
    <form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
       <div class="table_layout">
       <table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
@@ -102,11 +111,9 @@ $(document).ready(function(){
          <tr>
          <th bgcolor="gray">지역
          <td align=center>
-            <input type="checkbox" name="inventory_loc" value="지역1">지역1
-            <input type="checkbox" name="inventory_loc" value="지역2">지역2
-            <input type="checkbox" name="inventory_loc" value="지역3">지역3
-            <input type="checkbox" name="inventory_loc" value="지역4">지역4
-            <input type="checkbox" name="inventory_loc" value="지역5">지역5
+         	 <c:forEach items="${requestScope.inventory_loc}" var="inven" varStatus="loopTagStatus">
+                    <input type="checkbox" name="inventory_loc" value="${inven.branch_name}">${inven.branch_name}
+               </c:forEach>
          <tr>
          <th bgcolor="gray">출판사
          <td align=center>
@@ -152,11 +159,11 @@ $(document).ready(function(){
       <br>
    <form>
       <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=750>
-         <tr bgcolor="gray"><th>책번호<th>책이름<th>카테고리<th>출판사<th>절판여부<th>가격<th>수량<th>재고위치
+         <tr><th>책번호<th>책이름<th>카테고리<th>출판사<th>절판여부<th>가격<th>수량<th>재고위치
          
          <c:forEach items="${requestScope.BookList}" var="book" varStatus="loopTagStatus">
           <tr style="cursor:pointer" onClick="goInvenContentForm(${book.ISBN13});">
-             <td align=center>${book.ISBN13}
+            <td align=center>${book.ISBN13}
             <td align=center>${book.book_name}
             <td align=center>${book.cat_name}
             <td align=center>${book.publisher}

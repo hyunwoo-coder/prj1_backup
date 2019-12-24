@@ -22,6 +22,14 @@ public class InvenServiceImpl implements InvenService{
 		return getBookList;
 		
 	}
+   
+
+	public List<Map<String, String>> getInvenLoc(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getInventory_loc = this.invenDAO.getInvenLoc(invenSearchDTO);
+		
+		return getInventory_loc;
+	}
 	
 	public int getBookListCnt(InvenSearchDTO invenSearchDTO) {
 		

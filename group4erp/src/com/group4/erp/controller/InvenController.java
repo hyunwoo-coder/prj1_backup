@@ -40,6 +40,9 @@ public class InvenController {
 			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
 			mav.addObject("publisher",publisher);
 			
+			List<Map<String, String>> inventory_loc = this.invenService.getInvenLoc(invenSearchDTO);
+			mav.addObject("inventory_loc", inventory_loc);
+			
 			int bookListCnt = this.invenService.getBookListCnt(invenSearchDTO);
 			mav.addObject("bookListCnt", bookListCnt);
 			
@@ -49,6 +52,16 @@ public class InvenController {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);
 		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/goReleaseList.do")
+	public ModelAndView goBookReleaseInfo() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewReleaseList");
+		
 		return mav;
 	}
 }

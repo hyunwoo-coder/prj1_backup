@@ -114,11 +114,12 @@
 			//alert("재고현황조회 기능 구현 예정");
 			location.replace("/group4erp/goBookInvenList.do");
 		}
-/*  
-		function goMyCareBookList() {
-			alert("출고현황조회 기능 구현");
+ 
+		function goShippingList() {
+			//alert("출고현황조회 기능 구현");
+			location.replace("/group4erp/goReleaseList.do");
 		}
-
+/* 
 		function goMyCareBookList() {
 			alert("입고현황조회 기능 구현");
 		}
@@ -126,7 +127,7 @@
 		function goMyCareBookList() {
 			alert("반품 현황 조회 기능 구현");
 		}
- */
+*/
 		//배송관리 서브메뉴 -->
 		function goOrderList() {
 			alert("주문현황 조회 기능 구현");

@@ -24,6 +24,16 @@ public class InvenDAOImpl implements InvenDAO{
 		
 	}
 	
+	public List<Map<String, String>> getInvenLoc(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getInventory_loc = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getInven_loc"
+				,invenSearchDTO
+			);
+		
+		return getInventory_loc;
+	}
+	
 	public int getBookListCnt(InvenSearchDTO invenSearchDTO) {
 		
 		int bookListCnt = this.sqlSession.selectOne(
