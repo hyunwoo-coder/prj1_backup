@@ -261,7 +261,7 @@
 	
 				<span id="subMenu4">	<!-- 마케팅관리 -->
 					<span id="nowSaleList" style="cursor:pointer" onClick="goNowSaleList();">판매현황&nbsp;&nbsp;&nbsp;</span>
-					<span id="eventSchedulingList" style="cursor:pointer" onClick="eventSchedulingList();">이벤트신청 & 결과보고&nbsp;&nbsp;&nbsp;</span>
+					<span id="eventSchedulingList" style="cursor:pointer" onClick="eventSchedulingList();">이벤트행사 현황&nbsp;&nbsp;&nbsp;</span>
 					<span id="adOrder" style="cursor:pointer" onClick="adOrder();">광고신청현황&nbsp;&nbsp;&nbsp;</span>	
 				</span>
 	
