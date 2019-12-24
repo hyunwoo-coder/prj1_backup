@@ -66,10 +66,10 @@
 	<center>
 	<form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do"><div class="table_layout">
 		<table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
-			<!-- <colgroup>
+			<colgroup>
 				<col width="20%" />
 				<col width="*" />
-			</colgroup> -->
+			</colgroup>
 			<tr bgcolor="gray">
 			<th width=50>구분<th>내용
 			<tr>
