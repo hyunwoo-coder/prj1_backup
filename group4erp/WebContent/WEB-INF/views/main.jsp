@@ -105,6 +105,10 @@
 			<c:if test="${subMenu.equals('viewEmpAvgSalChart') }">
 				<%@ include file="/WEB-INF/views/chartPage.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('viewEventList') }">
+				<%@ include file="/WEB-INF/views/eventListPage.jsp" %>
+			</c:if>
 
 		</td>
 	</tr>

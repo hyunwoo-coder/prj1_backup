@@ -150,11 +150,8 @@
 
 		function eventSchedulingList() {
 			//alert("이벤트 행사 신청 & 결과 보고 기능 구현 예정");
-			location.replace("/group4erp/eventScheduling.do");
-		}
-
-		function eventGoodsOrder() {
-			alert("이벤트굿즈 발주 기능 구현");
+			//location.replace("/group4erp/eventScheduling.do");
+			location.replace("/group4erp/viewEventList.do");
 		}
 
 		function adOrder() {
