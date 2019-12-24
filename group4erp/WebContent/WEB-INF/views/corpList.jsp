@@ -56,6 +56,10 @@ $(document).ready(function(){
 		//alert("거래처 추가");
 		location.replace("/group4erp/goInsertCorpPage.do");
 	}
+
+	function deleteCorp() {
+		alert("거래처 삭제 기능 구현 예정")
+	}
 	
 </script>
 
@@ -91,10 +95,11 @@ $(document).ready(function(){
 
 <table class="corpListTable tbcss1" name="corpListTable" cellpadding="5" cellspacing="5" width="100%">
 	<tr>
-		<th>사업자번호</th><th>거래처명</th><th>사업자명</th><th>사업분야</th><th>소재지</th><th>연락처</th><th>FAX</th>
+		<th></th><th>사업자번호</th><th>거래처명</th><th>사업자명</th><th>사업분야</th><th>소재지</th><th>연락처</th><th>FAX</th>
 	</tr>
 	<c:forEach items='${corpList}' var="corpList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">
+					<td><input type="checkbox" value="${corpList.corp_no}"></td>
 					<td>${corpList.corp_no}</td>
 					<td>${corpList.corp_name}</td>
 					<td>${corpList.ceo_name}</td>

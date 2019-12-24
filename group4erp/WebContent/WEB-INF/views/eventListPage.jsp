@@ -58,7 +58,11 @@
 	
 		[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 		&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();"><br>
-		[종류별]<input type="checkbox" value="01">매대판매
+		[종류별] <!-- DB 연동할 것 -->
+		<input type="checkbox" value="01">매대판매
+		<input type="checkbox" value="02">할인전
+		<input type="checkbox" value="03">기부행사
+		<input type="checkbox" value="04">온라인 설문조사
 	
 	</form>
 	
