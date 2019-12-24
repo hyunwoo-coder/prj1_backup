@@ -2,17 +2,48 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>직원 리스트</title>
+
+<style>
+.roundedCorners {
+  border: #000 1px solid;
+  padding: 2px 8px;
+  border-radius: 1em;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+}
+.tablesorter-headerDesc .roundedCorners {
+  border-color: #fff;
+}
+</style>
+
+<script src="${ctRoot}/resources/jquery.tablesorter.min.js"></script>
+<script src="${ctRoot}/resources/jquery.tablesorter.widgets.min.js"></script>
 <script>
 
-$(document).ready(function(){
+$(document).ready(function(){	
 	
+	$(function(){
+		$('table').tablesorter({
+			widgets        : ['zebra', 'columns'],
+			usNumberFormat : false,
+			sortReset      : true,
+			sortRestart    : true,
+			headerTemplate: '{content} {icon}',
+			onRenderHeader: function(index) {
+			      $(this).find('div').addClass('roundedCorners header' + index );
+			    }
+		});
+	});
 	
-	headerSort("empListTable", 0);
+	//headerSort("empListTable", 0);
 	
 	$('[name=rowCntPerPage]').change(function(){
 		goSearch();
@@ -30,14 +61,43 @@ $(document).ready(function(){
 	
 	inputData('[name=rowCntPerPage]',"${hrListSearchDTO.rowCntPerPage}");
 	inputData('[name=selectPageNo]',"${hrListSearchDTO.selectPageNo}");
+	inputData('[name=searchKeyword]',"${hrListSearchDTO.searchKeyword}");
 });
 
 	function goSearch() {
 		document.empListSearchForm.submit();
 	}
-	
+	function goSearchAll() {
+		document.empListSearchForm.reset();
+		document.empListSearchForm.submit();
+	}
 	function insertNewEmp() {
 		alert("신규 사원 추가 기능 구현");
+	}
+	function goEmpContentForm(emp_no){
+		
+		//alert("emp_no="+emp_no);
+		//return;
+		
+		var str = "emp_no="+emp_no
+		
+		location.href="/group4erp/viewEmpContentForm.do?"+str;
+		/*
+		$.ajax({
+			url : "/group4erp/empViewContantProc.do"
+			, type : "post"
+			, data : "emp_no="+emp_no
+			, success : function(upDelCnt){
+				alert(999);
+				return;
+				location.replace("/group4erp/???????.do");
+			}
+			, error : function(){
+				alert("서버 접속 실패");
+			}
+		});
+		*/
+		//location.replace("......");
 	}
 	
 </script>
@@ -49,14 +109,14 @@ $(document).ready(function(){
 	<form name="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 
-	<form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">
+	<!-- <form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">
+	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();"> -->
 
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 	 <table border=0 width=700>
 	 	<tr>
 	    	<td align=right>
-	        [총 개수] : ${getEmpBoardListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+	        [총 직원수] : ${getEmpBoardListCnt} 명&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
 	               <option value="15">15</option>
@@ -68,23 +128,31 @@ $(document).ready(function(){
       <input type="hidden" name="selectPageNo">
 	</form>
 	
-	<!-- <form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do"> -->
+	<form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
 	
 	<div id="blankArea"><br></div>
 		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
 			<thead>
+
 			<tr>
 
 				<th style="cursor:pointer">사번<th>성명<th>부서<th style="cursor:pointer">직급
+
+			<tr class="tablesorter-headerRow">
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">사번<i class="tablesorter-icon"></i></div></th>
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">성명<i class="tablesorter-icon"></i></div></th>
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">부서<i class="tablesorter-icon"></i></div></th>
+				<th class="tablesorter-header"><div class="tablesorter-header-inner">직급<i class="tablesorter-icon"></i></div></th>
+
 			</tr>
 			</thead>
 			<tbody>
 			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">	
-				<td align=center>${empList.emp_no}
-				<td align=center>${empList.emp_name}
-				<td align=center>${empList.dep_name}
-				<td align=center>${empList.jikup}
+				<td align=center>${empList.emp_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
+				<td align=center>${empList.emp_name}</td>
+				<td align=center>${empList.dep_name}</td>
+				<td align=center>${empList.jikup}</td>
 			</tr>		
 			</c:forEach>
 			</tbody>
@@ -93,8 +161,65 @@ $(document).ready(function(){
 		<input type="button" value="신규사원등록" onClick="insertNewEmp();">
 		<br><br>
 		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
-	<!-- </form>  -->
+	</form>
 
+
+	<!-- 
+	<c:if test="EmployeeDTO.getEmp_no()!=null">
+	<div class="empListContant">
+		<a href="javascript:goClose();">[닫기]</a>
+		<table class="tbcss1" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<tr>
+				<th>이름
+				<td>가나다
+				<th>영어이름
+				<td>rkskek
+				<th colspan=4 width="30%">사원사진
+			<tr>
+				<th>주민등록번호
+				<td colspan=3>111111-2222222
+				<td rowspan=4 colspan=4 width="30%">no image
+			<tr>
+				<th>핸드폰번호
+				<td colspan=3>010-1234-5678
+			<tr>
+				<th>이메일
+				<td colspan=3>naver11@naver.com
+			<tr>
+				<th>회사이메일
+				<td colspan=3>company11@company.com
+			<tr>
+				<th>주소
+				<td colspan=5>전라북도 장수군 장수읍  개정농원길 20-43
+				<th>휴직상태
+				<td>X
+			<tr>
+				<th>입사일
+				<td colspan=2>2019-12-25 수요일
+				
+				<th colspan=2>부서이름
+				<td>총무과
+				<th>성별
+				<td>남
+			<tr>
+				<th>직업형태
+				<td>정규직
+				<th>직급
+				<td>사원
+				<th>연봉
+				<td colspan=3>30,000,000
+			<tr>
+				<th>직속상관
+				<th>부서이름
+				<td>총무과
+				<th>직급
+				<td>대표이사
+				<th>이름
+				<td colspan=2>라마바
+		</table>
+	</div>
+	</c:if>
+	 -->
 </center>
 
 </body>

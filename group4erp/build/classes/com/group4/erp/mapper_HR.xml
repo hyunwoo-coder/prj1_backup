@@ -22,9 +22,47 @@
 		키값에 대응하는 데이터의 종류에 관계없이 데이터를 그대로 삽입
 	
 	 -->  
+	 
+	 <sql id='inout'>
+	 	<if test="(datepicker != null and datepicker.length()>0)">
+	 		and
+	 		 ( eio.dt_work = to_date( #{datepicker}, 'YYYY-MM-DD') )
+	 	</if>
+	 	<if test="keyword1!=null and keyword1.length()>0 ">
+			<!--틀린 코드 :  <if test="keyword1!=null and keyword1.length()>0 and ( keyword2==null or keyword2.length()==0 )"> -->
+				and(
+					upper(to_char(eio.dt_work, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN')) like upper('%${keyword1}%')
+					or upper(eio.emp_no) like upper('%${keyword1}%')
+					or upper((select e.emp_name from employee e where eio.emp_no = e.emp_no)) like upper('%${keyword1}%')
+					or upper((select d.dep_name from dept d, employee e where e.emp_no = eio.emp_no and d.dep_no = e.dep_no)) like upper('%${keyword1}%')
+					or upper((select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = eio.emp_no)) like upper('%${keyword1}%')
+					or upper(to_char(eio.in_time, 'HH24:MI')) like upper('%${keyword1}%')
+					or upper(to_char(eio.out_time, 'HH24:MI')) like upper('%${keyword1}%')	
+					or upper( to_number(to_char(eio.out_time, 'HH24')) - to_number( to_char(eio.in_time, 'HH24')) ) like upper('%${keyword1}%')		
+					or upper( (select check_inout_name from code_check_inout where eio.check_inout_cd = check_inout_cd) ) like upper('%${keyword1}%')
+					or upper(eio.remarks) like upper('%${keyword1}%')
+				)
+		</if>
+		<if test="inout_name!=null and inout_name.length()>0 ">
+			and 
+				(select check_inout_name from code_check_inout where eio.check_inout_cd = check_inout_cd)=#{inout_name}
+		</if>
+	 </sql>
 
+
+	 <sql id="empListWhere">
+	 	<if test="(searchKeyword!=null and searchKeyword.length()>0)">
+			and (
+              upper(emp_name) like upper('%${searchKeyword}%')
+              or upper(emp_eng_name) like upper('%${searchKeyword}%')
+              or upper((select d.dep_name from dept d where d.dep_no=e.dep_no)) like upper('%${searchKeyword}%')
+              or upper((select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd)) like upper('%${searchKeyword}%')
+           	)
+		</if>
+	 </sql>
+	 
 	<select id='getEmpListCnt' resultType="int">
-		select count(*) from employee
+		select count(*) from employee e where 1=1 <include refid="empListWhere" />
 	</select>
 	
 	<select id='getEmpList' parameterType="com.group4.erp.HrListSearchDTO" resultType="java.util.HashMap">
@@ -36,23 +74,51 @@
 				,(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) as "jikup"
 			from employee e	
 			where 1=1 
-			
+			<include refid="empListWhere" />
 			order by emp_no asc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 
 
 	</select>
 	
-	<select id='getEmpSalList' resultType="com.group4.erp.SalaryDTO">
+	<select id='getEmpSalList' parameterType="com.group4.erp.SalListSearchDTO" resultType="com.group4.erp.SalaryDTO">
+	
+	select * from(select zzz.*, rownum RNUM from(
 		select 
-		emp_no "emp_no",
+		e.emp_no "emp_no",
  	    (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
-   		e.emp_name,
+   		e.emp_name "emp_name",
     	trunc(e.salary/12, 5) "salary",
     	(select extract(year from sysdate) from dual) "year",
     	(select extract(month from sysdate) from dual) "month"
     	from employee e   
+    	where 1=1
+    	order by e.emp_no asc
+	) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+	
 	</select>
+	
+	<select id='getEmpSalInfo' parameterType="int" resultType="com.group4.erp.SalaryDTO">
+		select 
+		(select e.emp_name from employee e where e.emp_no = #{emp_no}) "emp_name",
+ 	    (select j.jikup from code_jikup j where j.jikup_cd = (select e.jikup_cd from employee e where e.emp_no=#{emp_no}) ) "jikup",
+ 	    (select trunc(e.salary/12, 5) from employee e where e.emp_no = #{emp_no}) "salary",
+    	to_char(sop.salary_dt, 'yyyy-mm-dd') "salary_dt",
+   		sop.real_sal ||'' "real_sal"
+    	from state_of_payment sop
+    	where 1=1
+    	and sop.emp_no = #{emp_no}   
+	</select>
+	
+	<select id='getAvgSalChart' resultType="com.group4.erp.SalaryDTO">
+		select         
+            (select c.jikup from code_jikup c where c.jikup_cd = e.jikup_cd) "jikup",
+            trunc(avg(salary), 1) "avg_salary"
+        from employee e   
+        group by e.jikup_cd
+        order by e.jikup_cd
+	</select>
+	
 	
 	<select id='getTime' resultType="com.group4.erp.TimeDTO">
 
@@ -61,5 +127,82 @@
 		from dual
 
 	</select>
+
 	
+	<select id='getDayOffListCnt' resultType="int">
+		select count(*) from emp_dayoff where 1=1 and (end_day_off &gt;= sysdate)	
+	</select>
+	
+	
+	
+	<select id='getDayOffList' resultType="java.util.HashMap"> 
+	select * from (select zzz.*, rownum RNUM from(	
+		select 
+		    (select d.dep_name from dept d, employee e where ed.emp_no = e.emp_no and d.dep_no = e.dep_no) as "dep_name"
+		    ,(select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = ed.emp_no) as "jikup" 
+		    ,(select e.emp_name from employee e where ed.emp_no = e.emp_no) as "emp_name" 
+		    ,(select cd.dayoff_name from code_dayoff cd where ed.dayoff_cd = cd.dayoff_cd ) as "dayoff_name" 
+		    ,to_char(ed.end_day_off, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN') as "end_day_off"
+		from emp_dayoff ed
+		where 1=1 and (ed.end_day_off &gt;= sysdate)
+	) zzz ) where <![CDATA[RNUM >= ${selectPageNo * rowCntPerPage - rowCntPerPage + 1} and RNUM <= ${selectPageNo * rowCntPerPage} ]]>
+	</select>
+	
+	<select id='getEmpInoutListCnt' parameterType="com.group4.erp.HrListSearchDTO" resultType="int">
+		select count(*) from emp_inout eio 
+		where 1=1 <include refid="inout"></include>
+
+	</select>
+	
+	<!-- <select id='getEmpInoutList' resultType="java.util.HashMap"> 
+	
+	</select> -->
+
+
+	<select id='getEmpInoutList' parameterType="com.group4.erp.HrListSearchDTO" resultType="java.util.HashMap"> 
+	select * from (select zzz.*, rownum RNUM from(		
+		select
+		    to_char(eio.dt_work, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN') as "DT_WORK"
+	        ,eio.emp_no||'' as  "EMP_NO"
+	        ,(select e.emp_name from employee e where eio.emp_no = e.emp_no) as "EMP_NAME"
+	        ,(select d.dep_name from dept d, employee e where e.emp_no = eio.emp_no and d.dep_no = e.dep_no) as "DEP_NAME"
+	        ,(select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = eio.emp_no)  as "JIKUP"
+	        ,to_char(eio.in_time, 'HH24:MI')    as "IN_TIME"
+	        ,to_char(eio.out_time, 'HH24:MI')   as "OUT_TIME"
+	        ,to_number( to_char(eio.out_time, 'HH24')) - to_number( to_char(eio.in_time, 'HH24') )||' 시간' as "WORKING_HRS"
+	        ,(select check_inout_name from code_check_inout where eio.check_inout_cd = check_inout_cd) as "CHECK_INOUT_NAME"
+	        ,eio.remarks as "REMARKS"
+		from emp_inout eio
+		where 1=1 <include refid="inout"></include>
+		order by eio.dt_work
+	) zzz ) 
+	where <![CDATA[RNUM >= ${selectPageNo * rowCntPerPage - rowCntPerPage + 1} and RNUM <= ${selectPageNo * rowCntPerPage} ]]>
+	</select>
+	
+	
+	
+	<select id="getEmpContantList" parameterType="int" resultType="com.group4.erp.EmployeeInfoDTO">
+		select
+			emp_no		as		"emp_no"
+			,emp_name	as		"emp_name"
+			,emp_eng_name	as	"emp_eng_name"
+			,jumin_num		as	"jumin_num"
+			,phone			as	"phone"
+			,emp_email		as	"emp_email"
+			,emp_email_office	as	"emp_email_office"
+			,emp_addr		as	"emp_addr"
+			,hire_dt		as	"hire_dt"
+			,is_on_leave	as	"is_on_leave"
+			,emp_gender		as	"emp_gender"
+			,salary			as	"salary"
+			,emp_pic		as	"emp_pic"
+			,(select d.dep_name from dept d where e1.dep_no=d.dep_no)	as	"dep_name"
+			,(select w.worktime_name from code_worktime w where e1.worktime_cd=w.worktime_cd)	as	"worktime_name"
+			,(select j.jikup from code_jikup j where j.jikup_cd=e1.jikup_cd)		as		"jikup"
+			,(select jikup from code_jikup where jikup_cd=(select jikup_cd from employee where emp_no=(select mgr_emp_no from employee where emp_no=#{emp_no})))	as	"mgr_emp_jikup"
+			,(select dep_name from dept where dep_no=(select dep_no from employee where emp_no=(select mgr_emp_no from employee where emp_no=#{emp_no})))		as		"mgr_emp_dep_name"
+			,(select e2.emp_name from employee e2 where e2.emp_no=e1.mgr_emp_no)		as		"mgr_emp_name"
+			from employee e1
+			where 1=1 and emp_no=#{emp_no}
+	</select>
 </mapper>

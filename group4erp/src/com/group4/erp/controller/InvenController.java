@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class InvenController {
+
 	
 	@Autowired
 	private InvenService invenService;	
@@ -35,8 +36,14 @@ public class InvenController {
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewInventoryList");	//viewInventoryList 아무 이름이나 설정 가능. 메인 페이지에서 해당 메뉴 뜰 때 해당 페이지를 임포트하기 위해서 붙이는 플래그명
 		try {
+			
+			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
+			mav.addObject("publisher",publisher);
+			
+			int bookListCnt = this.invenService.getBookListCnt(invenSearchDTO);
+			mav.addObject("bookListCnt", bookListCnt);
+			
 			List<Map<String, String>> BookList = this.invenService.getBookList(invenSearchDTO);
-
 			mav.addObject("BookList", BookList);
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
@@ -44,6 +51,6 @@ public class InvenController {
 		}
 		return mav;
 	}
-	
-	
 }
+
+  

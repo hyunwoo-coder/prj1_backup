@@ -2,15 +2,15 @@ package com.group4.erp;
 
 public class SalaryDTO {
 
-
 	private int emp_no;
 	private String emp_name;
 	private String jikup;
 	private String salary_dt;
-	private int salary;
+	private double salary;
 	private double real_sal;
 	private double deduct_sal;
 	private double final_sal;
+	private String avg_salary;
 	
 	private double income;
 	private double resident = 0.1d;
@@ -21,7 +21,12 @@ public class SalaryDTO {
 	private String year;
 	private String month;
 	
-
+	public String getAvg_salary() {
+		return avg_salary;
+	}
+	public void setAvg_salary(String avg_salary) {
+		this.avg_salary = avg_salary;
+	}
 	
 	public double getIncome() {
 		return income;
@@ -91,10 +96,10 @@ public class SalaryDTO {
 	public void setJikup(String jikup) {
 		this.jikup = jikup;
 	}
-	public int getSalary() {
+	public double getSalary() {
 		return salary;
 	}
-	public void setSalary(int salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 	public double getReal_sal() {
