@@ -38,6 +38,7 @@
 		
 		var search_keyword = $('[name=mycarebooklist] [name=search_keyword]').val();
 		search_keyword = $.trim(search_keyword);
+		
 		$('[name=mycarebooklist] [name=search_keyword]').val(search_keyword);
 		
 		$.ajax({
@@ -143,7 +144,7 @@
 				<%-- <td align=center>${MyCareBookList.publisher} --%>
 				
 				<td align=center>${MyCareBookList.book_price}
-				<td align=center>${MyCareBookList.ISBN_cnt}
+				<td align=center>${MyCareBookList.ISBN_Cnt}
 				<td align=center>${MyCareBookList.branch_name}
 				
 				<%-- <td align=center>${MyCareBookList.emp_no} --%>
