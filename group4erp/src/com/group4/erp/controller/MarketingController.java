@@ -78,7 +78,7 @@ public class MarketingController {
 		mav.addObject("subMenu", "viewAdApplyList");
 		
 		int ad_apply_cnt = this.marketingService.getAdApplyCnt();
-		
+		mav.addObject("adApplyCnt", ad_apply_cnt);
 		
 		return mav;
 	}
