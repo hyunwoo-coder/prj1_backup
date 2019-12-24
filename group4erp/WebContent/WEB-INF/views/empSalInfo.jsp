@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file = "/WEB-INF/views/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,11 +10,11 @@
 <body><center>
 	
 	<form name="salInfoForm" method="post" action=" ">
-		<h1>[${timeDTO.now_year}년도 ${timeDTO.now_month-1}월달 급여명세서]</h1><br>
-		직책 : 대표이사	&nbsp;&nbsp;성명 : 김**<br>
+		<h1>${timeDTO.now_year}년도 ${timeDTO.now_month-1}월달 급여명세서</h1><br>
+		직책 : ${salaryDTO.jikup}	&nbsp;&nbsp; 성명 : ${salaryDTO.emp_name} <br>
 		<table class="tbcss1" name="salInfoForm" cellpadding="5" cellspacing="5">
 			<tr>
-				<th rowspan="2">지급일 </th>성명</th><th colspan="6">지급내역</th><th colspan="7">공제내역</th><th rowspan="2">실수령액</th>
+				<th rowspan="2">지급일 </th><th colspan="6">지급내역</th><th colspan="7">공제내역</th><th rowspan="2">실수령액</th>
 			</tr>
 			<tr>
 				<!-- 지급내역 목록 -->
@@ -23,13 +24,11 @@
 			</tr>
 			
 			<tr style="cursor:pointer" onClick="/group4erp/viewEmpSalInfo.do">
-				<td>2019.11.25</td><td>4,250,000</td><td>100,000</td> <td>50,000</td> <td>25,000</td> <td>100,000</td> <td>4,525,000</td>
+				<td>${salaryDTO.salary_dt }</td><td>${salaryDTO.salary}</td><td>100,000</td> <td>50,000</td> <td>25,000</td> <td>100,000</td> <td>4,525,000</td>
 				
-				<td>112,520</td><td>10,250</td><td>35,200</td><td>141,720</td> <td>191,230</td> <td>.</td><td>490,920</td><td>4,034,080</td>
+				<td>112,520</td><td>10,250</td><td>35,200</td><td>141,720</td> <td>191,230</td> <td>.</td><td>490,920</td><td>${salaryDTO.real_sal}</td>
 			</tr>
 	
-		
-		
 		</table>
 		<br>
 				[1][2][3][4][5][6][7][8][9][10]
