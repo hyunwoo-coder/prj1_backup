@@ -9,35 +9,10 @@
 <title>책 재고관리</title>
 <script>
 
-$(document).ready(function(){	
-	
-	$('[name=rowCntPerPage]').change(function(){
-		goSearchBookInven();
-	});
-	
-	
-	$(".pagingNumber").html(
-			getPagingNumber(
-				"${bookListCnt}"						//검색 결과 총 행 개수
-				,"${invenSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
-				,"${invenSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
-				,"10"										//페이지 당 보여줄 페이지번호 개수
-				,"goSearchBookInven();"						//페이지 번호 클릭 후 실행할 자스코드
-			)
-		);
-	
-
-	inputData('[name=rowCntPerPage]',"${invenSearchDTO.rowCntPerPage}");
-	inputData('[name=selectPageNo]',"${invenSearchDTO.selectPageNo}");
-});
-
-	function goSearchBookInven(){
-		//alert("검색기능 구현중");
-		document.book_inventory_search_form.submit();
-	}
 
 $(document).ready(function(){   
-   
+
+
    $('[name=rowCntPerPage]').change(function(){
       goSearchBookInven();
    });
@@ -73,15 +48,19 @@ $(document).ready(function(){
 
    function goSearchBookInven(){
       //alert("검색기능 구현중");
+  
       alert(  $("[name=book_inventory_search_form]").serialize()   );
       document.book_inventory_search_form.submit();
    }
 
+
    function goAllSearchBookInven(){
-      alert("모두검색기능 구현중");
-      //document.book_inventory_search_form.reset();
-      //goSearchBookInven();
-   }
+		document.book_inventory_search_form.reset();
+		$("[name=book_inventory_search_form] [name=selectPageNo]").val(1);
+		$("[name=book_inventory_search_form] [name=rowCntPerPage]").val(10);
+		goSearchBookInven();
+		
+	}
    
 </script>
 <!--
@@ -129,11 +108,10 @@ $(document).ready(function(){
          <tr>
          <th bgcolor="gray">지역
          <td align=center>
-            <input type="checkbox" name="inventory_loc" value="지역1">지역1
-            <input type="checkbox" name="inventory_loc" value="지역2">지역2
-            <input type="checkbox" name="inventory_loc" value="지역3">지역3
-            <input type="checkbox" name="inventory_loc" value="지역4">지역4
-            <input type="checkbox" name="inventory_loc" value="지역5">지역5
+         	<c:forEach items="${requestScope.branch}" var="branch" varStatus="loopTagStatus">
+         		<input type="checkbox" name="inventory_loc" value="${loopTagStatus.index+1}">${branch.branch}
+         	</c:forEach>
+
          <tr>
          <th bgcolor="gray">출판사
          <td align=center>
@@ -176,6 +154,29 @@ $(document).ready(function(){
    </form>   
 
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       <br>
    <form>
       <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=750>
@@ -187,7 +188,7 @@ $(document).ready(function(){
             <td align=center>${book.book_name}
             <td align=center>${book.cat_name}
             <td align=center>${book.publisher}
-            <td align=center>${book.is_not_print}
+            <td align=center>${book.is_print}
             <td align=center>${book.book_price}
             <td align=center>${book.book_cnt}
             <td align=center>${book.branch_name}

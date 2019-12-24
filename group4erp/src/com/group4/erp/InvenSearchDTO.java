@@ -6,13 +6,16 @@ public class InvenSearchDTO {
 	private String[] inventory_loc;
 	private String searchPublisher;
 	private String is_print;
+	private String keyword1;
 	private String book_keyword;
 	private String orAnd;
 	private String[] date;
-	private int selectPageNo=1;
 	private int rowCntPerPage=10;
+	private int selectPageNo=1;
+	
+	private String[] branch;
 	private String[] publisher;
-	private String keyword1;
+	
 	
 	
 	public String getKeyword1() {
@@ -107,6 +110,14 @@ public class InvenSearchDTO {
 	}
 	public void setOrAnd(String orAnd) {
 		this.orAnd = orAnd;
+	}
+
+	public String[] getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String[] branch) {
+		this.branch = branch;
 	}
 	
 	

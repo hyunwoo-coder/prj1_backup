@@ -12,6 +12,28 @@ public class InvenDAOImpl implements InvenDAO{
 
    @Autowired
    private SqlSessionTemplate sqlSession;
+   
+   
+   
+	@Override
+	public List<Map<String, String>> getBranch(InvenSearchDTO invenSearchDTO) {
+		List<Map<String, String>> branch = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getBranch"
+				,invenSearchDTO
+				);
+		//System.out.println("DAO"+branch);
+		return branch;
+	}
+	
+	
+	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
+		List<Map<String, String>> publisher = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getPublisherList"
+				,invenSearchDTO
+				);
+		
+		return publisher;
+	}
 
 	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO){
 		
@@ -34,14 +56,5 @@ public class InvenDAOImpl implements InvenDAO{
 		return bookListCnt;
 	}
 	
-	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
-		
-		List<Map<String, String>> publisher = this.sqlSession.selectList(
-				"com.group4.erp.dao.invenSearchDAO.getPublisherList"
-				,invenSearchDTO
-				);
-		
-		return publisher;
-	}
 
 }
