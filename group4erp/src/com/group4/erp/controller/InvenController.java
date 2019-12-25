@@ -50,17 +50,38 @@ public class InvenController {
 			mav.addObject("BookList", BookList);
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
-			System.out.println("예외발생"+e);
+			System.out.println("예외발생 =>"+e);
 		}
 		return mav;
 	}
 	
 	@RequestMapping(value="/goReleaseList.do")
-	public ModelAndView goBookReleaseInfo() {
+	public ModelAndView goBookReleaseInfo(
+			HttpSession session
+			,InvenSearchDTO invenSearchDTO
+			) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewReleaseList");
+		
+		try {
+			
+			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
+			mav.addObject("publisher",publisher);
+			
+			List<Map<String, String>> inventory_loc = this.invenService.getInvenLoc(invenSearchDTO);
+			mav.addObject("inventory_loc", inventory_loc);
+			
+			int releaseListCnt = this.invenService.getReleaseListCnt(invenSearchDTO);
+			mav.addObject("releaseListCnt", releaseListCnt);
+			
+			List<Map<String, String>> releaseList = this.invenService.getReleaseList(invenSearchDTO);
+			mav.addObject("releaseList", releaseList);
+		}catch(Exception e) {
+			System.out.println("<출고형황 불러오기 실패>");
+			System.out.println("예외발생 =>"+e);
+		}
 		
 		return mav;
 	}

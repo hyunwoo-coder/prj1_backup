@@ -84,10 +84,10 @@ $(document).ready(function(){
             <col width="*" />
          </colgroup> -->
          <tr bgcolor="gray">
-         <th width=50>구분<th>내용
+         <th width=50>구분<th colspan=5>내용
          <tr>
          <th bgcolor="gray">분야
-         <td align=center>
+         <td align=center colspan=5>
             <input type="checkbox" name="category_name" value="소설">소설
             <input type="checkbox" name="category_name" value="사회">사회
             <input type="checkbox" name="category_name" value="과학">과학
@@ -100,7 +100,7 @@ $(document).ready(function(){
             <input type="checkbox" name="category_name" value="요리">요리
          <tr>
          <th bgcolor="gray">판형
-         <td align=center>
+         <td align=center colspan=5>
             <input type="checkbox" name="size_cd" value="01">신국판
             <input type="checkbox" name="size_cd" value="02">국판
             <input type="checkbox" name="size_cd" value="03">46판
@@ -110,11 +110,14 @@ $(document).ready(function(){
             <input type="checkbox" name="size_cd" value="07">타블로이드
          <tr>
          <th bgcolor="gray">지역
-         <td align=center>
+         <td align=center colspan=5>
          	 <c:forEach items="${requestScope.inventory_loc}" var="inven" varStatus="loopTagStatus">
-                    <input type="checkbox" name="inventory_loc" value="${inven.branch_name}">${inven.branch_name}
-               </c:forEach>
+             	<input type="checkbox" name="inventory_loc" value="${inven.branch_name}">${inven.branch_name}
+             </c:forEach>    
          <tr>
+         <th bgcolor="gray">키워드
+         <td>
+            <input type="text" name="book_keyword" size=30>
          <th bgcolor="gray">출판사
          <td align=center>
             <select name="searchPublisher">
@@ -122,18 +125,10 @@ $(document).ready(function(){
                <c:forEach items="${requestScope.publisher}" var="publisher" varStatus="loopTagStatus">
                   <option value="${publisher.publisher}">${publisher.publisher}</option>
                </c:forEach>
-             
-         
-         <tr>
-         <th bgcolor="gray">절판 상황
+         <th bgcolor="gray">판매 상황
          <td align=center>
             <input type="radio" name="is_print" value="n">절판
             <input type="radio" name="is_print" value="y">판매중
-         
-         <tr>
-         <th bgcolor="gray">키워드
-         <td>
-            <input type="text" name="book_keyword" size=40>
       </table>
       <!-- </div> -->
       <br>

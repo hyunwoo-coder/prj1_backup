@@ -132,7 +132,7 @@
 				,writer 				as "writer"
 				,publisher 				as "publisher"
 				,size_cd||'' 			as "size_cd"
-				,is_print 			as "is_print"
+				,is_print 				as "is_print"
 				,emp_no||''				as "emp_no"
 				,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
 				,(select cb.branch_name from code_branch cb where cb.branch_cd=(select s.branch_cd from stock_info s where s.isbn13=b.isbn13))	as "branch_name"
@@ -149,6 +149,28 @@
 	
 	<select id="getInven_loc" parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
 		select branch_name as "branch_name" from code_branch
+	</select>
+	
+	
+	<!-- 출고현황 -->
+	<select id="getReleaseListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
+		select count(*) from release_info b where 1=1 <!-- <include refid="bookList" /> -->
+	</select>
+	
+	
+	<!-- 현재 사업자 주문만 가능함. mybatis써서 일반 고객용 과 사업자 구분 해야함. -->
+	<select id='getReleaseList' parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
+			select
+				(select book_name from book where isbn13 in(select isbn13 from corp_order_info where order_books_no in(b.order_books_no))) as "book_name"
+				,(select isbn13 from corp_order_info where order_books_no in(b.order_books_no) ) 				as "isbn13"
+				,(select publisher from book where isbn13 in(select isbn13 from corp_order_info where order_books_no in(b.order_books_no)))	as "publisher"
+				, (select books_qty from corp_order_info where order_books_no in(b.order_books_no) )  			as "books_qty"
+			from release_info b	
+			where 1=1 and b.order_books_no is not null and release_dt is not null and order_no is null
+			<!-- <include refid="bookList" /> -->
+			order by release_no asc
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
     
 </mapper>

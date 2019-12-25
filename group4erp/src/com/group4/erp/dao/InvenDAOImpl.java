@@ -53,5 +53,25 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return publisher;
 	}
+	
+	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
+		
+		int releaseListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseListCnt"
+				,invenSearchDTO
+				);
+		
+		return releaseListCnt;
+	}
+	
+	public List<Map<String,String>> getReleaseList(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getReleaseList = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseList"
+				,invenSearchDTO
+			);
+	
+		return getReleaseList;
+	}
 
 }

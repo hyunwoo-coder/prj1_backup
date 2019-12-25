@@ -44,4 +44,18 @@ public class InvenServiceImpl implements InvenService{
 		
 		return publisher;
 	}
+	
+	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
+		
+		int releaseListCnt = this.invenDAO.getReleaseListCnt(invenSearchDTO);
+		
+		return releaseListCnt;
+	}
+	
+	public List<Map<String,String>> getReleaseList(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getReleaseList = this.invenDAO.getReleaseList(invenSearchDTO);
+		
+		return getReleaseList;
+	}
 }
