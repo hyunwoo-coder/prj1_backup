@@ -73,5 +73,23 @@ public class InvenDAOImpl implements InvenDAO{
 	
 		return getReleaseList;
 	}
+	
+	public Cus_releaseInfoDTO getReleaseCusInfo(int all_order_no) {
+
+		Cus_releaseInfoDTO cus_order = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseCusInfo"
+				,all_order_no);
+		
+		return cus_order;
+	}
+	
+	public Cus_releaseInfoDTO getReleaseCorpInfo(int all_order_no) {
+
+		Cus_releaseInfoDTO corp_order = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseCorpInfo"
+				,all_order_no);
+		
+		return corp_order;
+	}
 
 }

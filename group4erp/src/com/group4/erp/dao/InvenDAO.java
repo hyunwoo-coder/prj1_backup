@@ -22,5 +22,10 @@ public interface InvenDAO {
 	
 	List<Map<String,String>> getReleaseList(InvenSearchDTO invenSearchDTO);
 
+	Cus_releaseInfoDTO getReleaseCusInfo(int all_order_no);
+	
+	Cus_releaseInfoDTO getReleaseCorpInfo(int all_order_no);
+
+
 
 }

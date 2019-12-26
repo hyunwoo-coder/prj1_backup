@@ -85,6 +85,39 @@ public class InvenController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/goReleaseContentForm.do")
+	public ModelAndView goReleaseContentForm(
+			@RequestParam(value="all_order_no") int all_order_no
+			,Cus_releaseInfoDTO cus_releaseInfoDTO
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewReleaseContent");
+		
+		String orderSize = all_order_no+"";
+		
+		try {
+			
+			if(orderSize.length()==10) {
+				Cus_releaseInfoDTO cus_order = this.invenService.getReleaseCusInfo(all_order_no);
+				mav.addObject("cus_order", cus_order);
+			}else {
+				Cus_releaseInfoDTO corp_order = this.invenService.getReleaseCorpInfo(all_order_no);
+				mav.addObject("corp_order", corp_order);
+			}
+			
+			mav.addObject("orderSize", orderSize);
+		}catch(Exception e) {
+			System.out.println("<출고 상세 정보 불러오기 실패>");
+			System.out.println("예외발생 =>"+e);
+		}
+		
+		
+		return mav;
+		
+	}
 }
 
   

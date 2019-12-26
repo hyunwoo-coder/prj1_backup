@@ -39,13 +39,13 @@ $(document).ready(function(){
    inputData('[name=searchPublisher]',"${invenSearchDTO.searchPublisher}");
    inputData('[name=is_print]',"${invenSearchDTO.is_print}");
    inputData('[name=book_keyword]',"${invenSearchDTO.book_keyword}");
-   	<c:forEach items="${hrListSearchDTO.category_name}" var="cat">
+   	<c:forEach items="${invenSearchDTO.category_name}" var="cat">
 		inputData( "[name=category_name]", "${cat}" );
 	</c:forEach>
-	<c:forEach items="${hrListSearchDTO.size_cd}" var="size_cd">
+	<c:forEach items="${invenSearchDTO.size_cd}" var="size_cd">
 		inputData( "[name=size_cd]", "${size_cd}" );
 	</c:forEach>
-	<c:forEach items="${hrListSearchDTO.inventory_loc}" var="loc">
+	<c:forEach items="${invenSearchDTO.inventory_loc}" var="loc">
 		inputData( "[name=inventory_loc]", "${loc}" );
 	</c:forEach>
    
@@ -98,7 +98,7 @@ $(document).ready(function(){
             <input type="checkbox" name="category_name" value="여행">여행
             <input type="checkbox" name="category_name" value="잡지">잡지
             <input type="checkbox" name="category_name" value="요리">요리
-         <tr>
+         <tr> 
          <th bgcolor="gray">판형
          <td align=center colspan=5>
             <input type="checkbox" name="size_cd" value="01">신국판
@@ -112,7 +112,7 @@ $(document).ready(function(){
          <th bgcolor="gray">지역
          <td align=center colspan=5>
          	 <c:forEach items="${requestScope.inventory_loc}" var="inven" varStatus="loopTagStatus">
-             	<input type="checkbox" name="inventory_loc" value="${inven.branch_name}">${inven.branch_name}
+             	<input type="checkbox" name="inventory_loc" value="${loopTagStatus.index+1}">${inven.branch_name}
              </c:forEach>    
          <tr>
          <th bgcolor="gray">키워드
@@ -153,7 +153,7 @@ $(document).ready(function(){
       
       <br>
    <form>
-      <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=750>
+      <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=850>
          <tr><th>책번호<th>책이름<th>카테고리<th>출판사<th>절판여부<th>가격<th>수량<th>재고위치
          
          <c:forEach items="${requestScope.BookList}" var="book" varStatus="loopTagStatus">

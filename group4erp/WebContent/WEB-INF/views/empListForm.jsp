@@ -11,37 +11,11 @@
 <meta charset="UTF-8">
 <title>직원 리스트</title>
 
-<style>
-.roundedCorners {
-  border: #000 1px solid;
-  padding: 2px 8px;
-  border-radius: 1em;
-  -moz-border-radius: 1em;
-  -webkit-border-radius: 1em;
-}
-.tablesorter-headerDesc .roundedCorners {
-  border-color: #fff;
-}
-</style>
-
-<script src="${ctRoot}/resources/jquery.tablesorter.min.js"></script>
-<script src="${ctRoot}/resources/jquery.tablesorter.widgets.min.js"></script>
 <script>
 
 $(document).ready(function(){	
 	
-	$(function(){
-		$('table').tablesorter({
-			widgets        : ['zebra', 'columns'],
-			usNumberFormat : false,
-			sortReset      : true,
-			sortRestart    : true,
-			headerTemplate: '{content} {icon}',
-			onRenderHeader: function(index) {
-			      $(this).find('div').addClass('roundedCorners header' + index );
-			    }
-		});
-	});
+
 	
 	//headerSort("empListTable", 0);
 	
@@ -133,11 +107,11 @@ $(document).ready(function(){
 	<div id="blankArea"><br></div>
 		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
 			<thead>
-			<tr class="tablesorter-headerRow">
-				<th class="tablesorter-header"><div class="tablesorter-header-inner">사번<i class="tablesorter-icon"></i></div></th>
-				<th class="tablesorter-header"><div class="tablesorter-header-inner">성명<i class="tablesorter-icon"></i></div></th>
-				<th class="tablesorter-header"><div class="tablesorter-header-inner">부서<i class="tablesorter-icon"></i></div></th>
-				<th class="tablesorter-header"><div class="tablesorter-header-inner">직급<i class="tablesorter-icon"></i></div></th>
+			<tr>
+				<th>사번</th>
+				<th>성명</th>
+				<th>부서</th>
+				<th>직급</th>
 
 			</tr>
 			</thead>

@@ -12,6 +12,8 @@ public class InvenSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String keyword1;
+	
+	//DB연동으로 검색조건 가져오는 변수
 	private String[] publisher;
 	private String[] inventory_loc;
 	
