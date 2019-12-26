@@ -25,9 +25,11 @@
 		inputData("[name=selectPageNo]", "${myWorkSearchDTO.selectPageNo}");
 		inputData("[name=rowCntPerPage]", "${myWorkSearchDTO.rowCntPerPage}");
 		inputData("[name=search_keyword]", "${myWorkSearchDTO.search_keyword}");
+/* 
 		<c:forEach items="${myWorkSearchDTO.category}" var="category">
 			inputData("[name=category]", "${category}");
 		</c:forEach>
+		 */
 		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
 	});
 	function goSearchMyWorkList(){

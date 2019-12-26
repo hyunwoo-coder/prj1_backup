@@ -15,6 +15,10 @@ public interface InvenDAO {
 	int getBookListCnt(InvenSearchDTO invenSearchDTO);
 	
 	List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO);
+	
+	int getReturnOrderCnt();
+	
+	List<ReturnOrderDTO> getReturnOrderList();
 
 
 }

@@ -105,7 +105,23 @@
 			<c:if test="${subMenu.equals('viewEmpAvgSalChart') }">
 				<%@ include file="/WEB-INF/views/chartPage.jsp" %>
 			</c:if>
-
+			
+			<c:if test="${subMenu.equals('viewEventList') }">
+				<%@ include file="/WEB-INF/views/eventListPage.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewReturnOrderList') }">
+				<%@ include file="/WEB-INF/views/returnOrderList.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewAdApplyList') }">
+				<%@ include file="/WEB-INF/views/adApplyInfoPage.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewInsertAdApply') }">
+				<%@ include file="/WEB-INF/views/insertAdForm.jsp" %>
+			</c:if>
+				
 		</td>
 	</tr>
 	<tr height="50">
@@ -113,6 +129,7 @@
 	</tr>
 
 </table>
+		
 </center>
 </body>
 </html>

@@ -140,8 +140,9 @@
 			alert("출고지시 기능 구현 예정");
 		}
 
-		function goReturnList() {
-			alert("반품현황 조회기능 구현 예정");
+		function goReturnBookList() {
+			//alert("반품현황 조회기능 구현 예정");
+			location.replace("/group4erp/goReturnOrderList.do");
 		}
 
 		function goNowSaleList() {
@@ -150,15 +151,12 @@
 
 		function eventSchedulingList() {
 			//alert("이벤트 행사 신청 & 결과 보고 기능 구현 예정");
-			location.replace("/group4erp/eventScheduling.do");
+			//location.replace("/group4erp/eventScheduling.do");
+			location.replace("/group4erp/viewEventList.do");
 		}
 
-		function eventGoodsOrder() {
-			alert("이벤트굿즈 발주 기능 구현");
-		}
-
-		function adOrder() {
-			alert("광고신청기능 구현 예정");
+		function adApplyList() {
+			location.replace("/group4erp/viewAdApplyList.do");
 		}
 
 		//인사관리 서브 메뉴-->
@@ -240,7 +238,8 @@
 			
 		</tr>
 		<tr>
-			<td colspan="17">&nbsp;<!-- &nbsp;지우지말것!! -->
+			<td></td>
+			<td colspan="16" width="500">&nbsp;<!-- &nbsp;지우지말것!! -->
 				<span id="subMenu1"> <!-- 업무관리 -->
 					<span id="myCareBookList" style="cursor:pointer" onClick="myCareBookList();">담당 상품 조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&보고&nbsp;&nbsp;&nbsp;</span>
@@ -264,8 +263,8 @@
 	
 				<span id="subMenu4">	<!-- 마케팅관리 -->
 					<span id="nowSaleList" style="cursor:pointer" onClick="goNowSaleList();">판매현황&nbsp;&nbsp;&nbsp;</span>
-					<span id="eventSchedulingList" style="cursor:pointer" onClick="eventSchedulingList();">이벤트신청 & 결과보고&nbsp;&nbsp;&nbsp;</span>
-					<span id="adOrder" style="cursor:pointer" onClick="adOrder();">광고신청현황&nbsp;&nbsp;&nbsp;</span>	
+					<span id="eventSchedulingList" style="cursor:pointer" onClick="eventSchedulingList();">이벤트행사 현황&nbsp;&nbsp;&nbsp;</span>
+					<span id="adOrder" style="cursor:pointer" onClick="adApplyList();">광고신청현황&nbsp;&nbsp;&nbsp;</span>	
 				</span>
 	
 				<span id="subMenu5">	<!-- 인사관리 -->
@@ -290,8 +289,7 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span id="salesChangeReport" style="cursor:pointer" onClick="viewSalesChangeReport();">매출추이분석&nbsp;&nbsp;&nbsp;</span>
 					<span id="cusClaimReport" style="cursor:pointer" onClick="viewCusClaimReport();">고객 클레임 처리 상황&nbsp;&nbsp;&nbsp;</span>
-					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywdReport();">인기 키워드 현황&nbsp;&nbsp;&nbsp;</span>
-					
+					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywdReport();">인기 키워드 현황&nbsp;&nbsp;&nbsp;</span>					
 				</span>
 	
 				<!-- <span id="subMenu8">	거래처관리 
@@ -302,7 +300,11 @@
 						
 				</span>-->
 			
+			
 			</td>
+		</tr>
+		<tr>	
+			<td>현재 위치 : 이벤트현황 >> 이벤트신청</td>
 		</tr>
 	</table> <hr>
 </center>

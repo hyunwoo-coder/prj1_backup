@@ -63,14 +63,13 @@
 				,to_char(si.ISBN_cnt)		as  "ISBN_Cnt"
 				,cb.branch_name				as  "branch_name"
 			from book b, code_category cc, stock_info si, code_branch cb
-			where b.cat_cd = cc.cat_cd and b.ISBN13 = si.ISBN13 and si.branch_cd = cb.branch_cd
+			where b.cat_cd = cc.cat_cd and b.ISBN13 = si.ISBN13(+) and si.branch_cd = cb.branch_cd(+)
 			<include refid="MyWorkSearchWere" />
 			
 			order by ISBN13 asc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>
-	<!-- 
 	
 	<select id='getCategoryList' resultType="java.util.HashMap">
 		select
@@ -100,11 +99,10 @@
 		select distinct publisher	as	"publisher" from book
 	</select>
 	
-	 -->
 	<select id='getMyWorkListAllCnt' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="int">
 		select count(*)from(
 			select b.*, cc.cat_name, si.ISBN_Cnt, cb.branch_name from book b, code_category cc, stock_info si, code_branch cb
-	        	where cc.cat_cd = b.cat_cd and b.ISBN13 = si.ISBN13 and si.branch_cd = cb.branch_cd
+	        	where cc.cat_cd = b.cat_cd and b.ISBN13 = si.ISBN13(+) and si.branch_cd = cb.branch_cd(+)
 				<include refid="MyWorkSearchWere" />
 		)
 	</select>
