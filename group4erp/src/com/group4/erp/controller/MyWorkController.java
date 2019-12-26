@@ -39,29 +39,9 @@ public class MyWorkController {
 		try {
 
 			//===================================================================================================
-			//검색된 관리 상품 목록 불러오는 코드
-			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myWorkSearchDTO);
-			mav.addObject("MyCareBookList", MyCareBookList);
-
-			//===================================================================================================
-			//검색 항목 불러오는 코드
-			List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
-			mav.addObject("categoryList", categoryList);
-			
-			List<Map<String, String>> bookSize = this.myWorkService.getBookSizeList(myWorkSearchDTO);
-			mav.addObject("bookSize", bookSize);
-			
-			List<Map<String, String>> branchList = this.myWorkService.getBranchList(myWorkSearchDTO);
-			mav.addObject("branchList", branchList);
-			
-			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);
-			mav.addObject("publisherList", publisherList);
-			
-			//===================================================================================================
 			//페이징 처리를 위한 총 검색 개수 불러오는 코드
 			int myWorkListAllCnt = this.myWorkService.getMyWorkListAllCnt(myWorkSearchDTO);
-			mav.addObject("myWorkListAllCnt", myWorkListAllCnt);
-			
+
 			if(myWorkListAllCnt>0) {
 				//선택한 페이지 번호 구하기
 				int selectPageNo = myWorkSearchDTO.getSelectPageNo();
@@ -75,6 +55,26 @@ public class MyWorkController {
 					myWorkSearchDTO.setSelectPageNo(1);
 				}
 			}
+			
+			//===================================================================================================
+			//검색된 관리 상품 목록 불러오는 코드
+			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myWorkSearchDTO);
+
+			//===================================================================================================
+			//검색 항목 불러오는 코드
+			List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
+			mav.addObject("categoryList", categoryList);
+			List<Map<String, String>> bookSize = this.myWorkService.getBookSizeList(myWorkSearchDTO);
+			mav.addObject("bookSize", bookSize);
+			List<Map<String, String>> branchList = this.myWorkService.getBranchList(myWorkSearchDTO);
+			mav.addObject("branchList", branchList);
+			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);
+			
+			mav.addObject("publisherList", publisherList);
+			mav.addObject("myWorkListAllCnt", myWorkListAllCnt);
+			mav.addObject("MyCareBookList", MyCareBookList);
+			
+
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);

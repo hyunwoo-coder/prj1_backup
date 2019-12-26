@@ -21,7 +21,7 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 					"com.group4.erp.dao.myWorkDAO.getMyCareBookList"
 					,myWorkSearchDTO
 				);
-		//System.out.println("DAO : " + getMyCareBookList.size());
+		//ystem.out.println("DAO : " + getMyCareBookList.size());
 		return getMyCareBookList;
 		
 	}
@@ -73,7 +73,7 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 					"com.group4.erp.dao.myWorkDAO.getMyWorkListAllCnt"
 					,myWorkSearchDTO
 				);
-		System.out.println("DAO : " + myWorkListAllCnt);
+		//System.out.println("DAO : " + myWorkListAllCnt);
 		return myWorkListAllCnt;
 		
 	}
