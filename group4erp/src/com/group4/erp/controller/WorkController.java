@@ -31,7 +31,7 @@ public class WorkController {
 			//리스트 종개수 구하기
 			int getbusinessTripListAllCnt = this.workService.getbusinessTripListAllCnt(businessTripSearchDTO);
 			
-			System.out.println(businessTripSearchDTO.getSelectPageNo());
+		
 			
 			if(getbusinessTripListAllCnt>0) {
 				//선택한 페이지 번호 구하기
@@ -53,7 +53,6 @@ public class WorkController {
 		
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
-		//mav.addObject("businessTripSearchDTO", businessTripSearchDTO);
 		}catch(Exception e) {
 			System.out.println("<출장리스트 불러오기 실패>");
 			System.out.println("예외발생"+e);
