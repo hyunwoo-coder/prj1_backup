@@ -150,6 +150,8 @@ $(document).ready(function(){
                </select> 행보기
       </table>
       <input type="hidden" name="selectPageNo">
+      <!-- header sort를 하기 위한 hidden Tag -->
+      <input type="hidden" name="sort">
    </form>   
 
       

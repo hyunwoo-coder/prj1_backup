@@ -278,6 +278,7 @@
 		    ,(select b.branch_name from code_branch b where b.branch_cd=c.branch_cd)			as	"branch_name"
 		from corp_order_info c where order_books_no=#{all_order_no}
 	</select>
+	
 	<select id="getReturnOrderCnt" resultType="int">
 		select count(*) from return_sale_info 
 	</select>

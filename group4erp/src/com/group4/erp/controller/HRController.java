@@ -54,7 +54,8 @@ public class HRController {
 			mav.addObject("hrListSearchDTO", hrListSearchDTO);
 
 		}catch(Exception e) {
-			System.out.println("예외발생=="+e);
+			System.out.println("<직원 리스트 조회 실패>");
+			System.out.println("예외발생=>"+e);
 		}
 		
 		return mav;
