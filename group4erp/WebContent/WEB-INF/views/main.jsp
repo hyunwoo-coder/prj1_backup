@@ -15,6 +15,11 @@
 	</tr>
 	<tr valign=top>
 		<td align="center" height="500"><br><br>
+		
+			<c:if test="${empty subMenu}">
+				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
+			</c:if>
+		
 			<c:if test="${subMenu.equals('eventReserve') }">
 				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
 			</c:if>
@@ -120,6 +125,10 @@
 			
 			<c:if test="${subMenu.equals('viewInsertAdApply') }">
 				<%@ include file="/WEB-INF/views/insertAdForm.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewTranSpecList') }">
+				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
 			</c:if>
 				
 		</td>

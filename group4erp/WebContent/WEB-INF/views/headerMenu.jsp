@@ -199,6 +199,10 @@
 		function viewCorpList() {
 			location.replace("/group4erp/viewCorpList.do");
 		}
+
+		function viewTranLog() {
+			location.href("/group4erp/viewTranSpecList.do");
+		}
 		
 
 		//판매추이분석구현예정

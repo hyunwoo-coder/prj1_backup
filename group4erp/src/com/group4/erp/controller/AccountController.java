@@ -137,5 +137,17 @@ public class AccountController {
 	
 		return mav;
 	}
+	
+	@RequestMapping(value="/viewTranSpecList.do")
+	public ModelAndView viewTranSpec(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTranSpecList");
+		
+		return mav;
+		
+	}
 
 }
