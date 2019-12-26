@@ -61,9 +61,6 @@
 			);
 
 
-
-
-
 			$("#datepicker").datepicker({
 			    onSelect: function() { 
 			    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
