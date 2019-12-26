@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.group4.erp.AdApplyDTO;
 import com.group4.erp.EventDTO;
+import com.group4.erp.EventSearchDTO;
 
 public interface MarketingDAO {
 	
-	int getEventCnt();
+	int getEventCnt(EventSearchDTO eventSearchDTO);
 	
-	List<EventDTO> getEventList();
+	List<EventDTO> getEventList(EventSearchDTO eventSearchDTO);
 	
 	int getAdApplyCnt();
 	

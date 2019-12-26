@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group4.erp.AdApplyDTO;
 import com.group4.erp.EventDTO;
+import com.group4.erp.EventSearchDTO;
 
 @Repository
 public class MarketingDAOImpl implements MarketingDAO {
@@ -18,17 +19,17 @@ public class MarketingDAOImpl implements MarketingDAO {
 	String mapper_namespace = "com.group4.erp.dao.MarketingDAO.";
 
 	@Override
-	public int getEventCnt() {
+	public int getEventCnt(EventSearchDTO eventSearchDTO) {
 		// TODO Auto-generated method stub
-		int eventCnt = this.sqlSession.selectOne(mapper_namespace+"getEventCnt");
+		int eventCnt = this.sqlSession.selectOne(mapper_namespace+"getEventCnt", eventSearchDTO);
 		
 		return eventCnt;
 	}
 
 	@Override
-	public List<EventDTO> getEventList() {
+	public List<EventDTO> getEventList(EventSearchDTO eventSearchDTO) {
 		// TODO Auto-generated method stub
-		List<EventDTO> eventList = this.sqlSession.selectList(mapper_namespace+"getEventList");
+		List<EventDTO> eventList = this.sqlSession.selectList(mapper_namespace+"getEventList", eventSearchDTO);
 		
 		return eventList;
 	}

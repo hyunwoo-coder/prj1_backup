@@ -8,27 +8,29 @@
 	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.MarketingDAO">
-	<!-- 로그인 아이디, 암호의 존재 개수를 검색하는 select문을 내포한 <select> 태그 선언 -->
-	<!-- 
-		* <select> 태그 속성 설명
-		id="getAdminCnt" ==> SQL 구문의 고유 아이디값 설정. DAO 클래스의 메소드 이름과 동일
-		parameterType="hashmap" ==> SQL 구문에 삽입될 외부 데이터의 자료형 설정
-		resultType="int" ==> SQL 구문의 실행 후 리턴값 자료형 설정
-		
-		* SQL 구문 안의 #{HashMap객체키값명} 설명
-		키값에 대응하는 데이터가 문자열을 삽입하라는 뜻이다. 만약 문자면 ''(싱글쿼트)로 감싸 삽입하고 아니면 그대로 삽입한다.
-		
-		* SQL 구문 안의 #{HashMap객체키값명} 설명
-		키값에 대응하는 데이터의 종류에 관계없이 데이터를 그대로 삽입
-	
-	 -->  
 	 
-	<select id='getEventCnt' resultType="int">
+
+	 	
+	<sql id="eventWhere">
+		<if test="searchKeyword !=null">
+				and (
+					upper(ei.evnt_no) like upper('%${searchKeyword}%') 
+					or upper(ei.evnt_title) like upper('%${searchKeyword}%')
+					or upper(ei.tot_est_cost) like upper('%${searchKeyword}%')
+					or upper(ei.tot_cost) like upper('%${searchKeyword}%')
+					or upper(ei.evnt_start_dt) like upper('%${searchKeyword}%')
+					or upper(ei.evnt_end_dt) like upper('%${searchKeyword}%')
+				)			
+		</if>
+	</sql>
+	 
+	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
 		select count(*) from event_info
 	</select>
 	
 	
-	<select id='getEventList' resultType="com.group4.erp.EventDTO">
+	<select id='getEventList' parameterType="com.group4.erp.EventSearchDTO" resultType="com.group4.erp.EventDTO">
+	select * from (select zzz.*, rownum RNUM from (
 		select
         	ei.evnt_no "evnt_no",
             (select e.emp_name from employee e where e.emp_no= ei.emp_no) "emp_name",
@@ -42,8 +44,14 @@
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
-		where 1=1			
+		where 1=1		
+		<include refid="eventWhere" />
+		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
+
+	 
+	
+	
 	
 	<select id='getAdApplyCnt' resultType="int">
 		select count(*) from ad_apply_info
