@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.dao.AccountDAO;
@@ -46,6 +47,22 @@ public class AccountServiceImpl implements AccountService {
 		CorporationDTO selectedCorp = this.accountDAO.getCorpInfo(corp_no);
 		
 		return selectedCorp;
+	}
+
+	@Override
+	public int getCorpOrderCnt(CorpSearchDTO corpSearchDTO) {
+		// TODO Auto-generated method stub
+		int corp_order_cnt = this.accountDAO.getCorpOrderCnt(corpSearchDTO);
+		
+		return corp_order_cnt;
+	}
+
+	@Override
+	public List<CorpOrderDTO> getCorpOrderList(CorpSearchDTO corpSearchDTO) {
+		// TODO Auto-generated method stub
+		List<CorpOrderDTO> corp_order_list = this.accountDAO.getCorpOrderList(corpSearchDTO);
+		
+		return corp_order_list;
 	}
 	
 	

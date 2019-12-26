@@ -2,6 +2,7 @@ package com.group4.erp.service;
 
 import com.group4.erp.Cus_releaseInfoDTO;
 import com.group4.erp.InvenSearchDTO;
+import com.group4.erp.ReturnOrderDTO;
 import com.group4.erp.dao.*;
 import java.util.*;
 
@@ -46,6 +47,7 @@ public class InvenServiceImpl implements InvenService{
 		return publisher;
 	}
 	
+
 	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
 		
 		int releaseListCnt = this.invenDAO.getReleaseListCnt(invenSearchDTO);
@@ -73,5 +75,17 @@ public class InvenServiceImpl implements InvenService{
 		Cus_releaseInfoDTO corp_order = this.invenDAO.getReleaseCorpInfo(all_order_no);
 		
 		return corp_order;
+	}
+	public int getReturnOrderCnt() {
+		int returnOrderCnt = this.invenDAO.getReturnOrderCnt();
+		
+		return returnOrderCnt;
+	}
+	
+	public List<ReturnOrderDTO> getReturnOrderList() {
+		List<ReturnOrderDTO> returnOrderList = this.invenDAO.getReturnOrderList();
+		
+		return returnOrderList;
+
 	}
 }

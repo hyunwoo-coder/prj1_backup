@@ -1,6 +1,8 @@
 package com.group4.erp.service;
 import com.group4.erp.Cus_releaseInfoDTO;
 import com.group4.erp.InvenSearchDTO;
+import com.group4.erp.ReturnOrderDTO;
+
 import java.util.*;
 
 public interface InvenService {
@@ -14,6 +16,7 @@ public interface InvenService {
 	
 	List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO);
 	
+
 	int getReleaseListCnt(InvenSearchDTO invenSearchDTO);
 	
 	List<Map<String,String>> getReleaseList(InvenSearchDTO invenSearchDTO);
@@ -21,6 +24,11 @@ public interface InvenService {
 	Cus_releaseInfoDTO getReleaseCusInfo(int all_order_no);
 	
 	Cus_releaseInfoDTO getReleaseCorpInfo(int all_order_no);
+
+	int getReturnOrderCnt();
+	
+	List<ReturnOrderDTO>getReturnOrderList();
+
 
 
 }

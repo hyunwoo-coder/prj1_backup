@@ -54,6 +54,7 @@ public class InvenDAOImpl implements InvenDAO{
 		return publisher;
 	}
 	
+
 	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
 		
 		int releaseListCnt = this.sqlSession.selectOne(
@@ -90,6 +91,17 @@ public class InvenDAOImpl implements InvenDAO{
 				,all_order_no);
 		
 		return corp_order;
+	}
+	public int getReturnOrderCnt() {	
+		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt");
+		
+		return returnOrderCnt;
+	}
+	
+	public List<ReturnOrderDTO> getReturnOrderList() {
+		List<ReturnOrderDTO> returnOrderList = this.sqlSession.selectList("com.group4.erp.dao.invenSearchDAO.getReturnOrderList");
+		
+		return returnOrderList;
 	}
 
 }

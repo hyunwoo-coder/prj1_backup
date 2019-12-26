@@ -15,8 +15,23 @@
 	</tr>
 	<tr valign=top>
 		<td align="center" height="500"><br><br>
+		
+			<c:if test="${empty subMenu}">
+				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
+			</c:if>
+		
 			<c:if test="${subMenu.equals('eventReserve') }">
 				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
+			</c:if>
+			
+			<!-- 출장 리스트 -->
+			<c:if test="${subMenu.equals('businessTripList') }">
+				<%@ include file="/WEB-INF/views/businessTripList.jsp" %>
+			</c:if>
+			
+			<!-- 출장 등록 -->
+			<c:if test="${subMenu.equals('businessTripForm') }">
+				<%@ include file="/WEB-INF/views/businessTripForm.jsp" %>
 			</c:if>
 			
 			<!-- 재고현황목록 -->
@@ -107,14 +122,34 @@
 				<%@ include file="/WEB-INF/views/mySchedule.jsp" %>
 			</c:if>
 			
-			<c:if test="${subMenu.equals('workOutReport') }">
+			<%-- <c:if test="${subMenu.equals('workOutReport') }">
 				<%@ include file="/WEB-INF/views/workOutReport.jsp" %>
-			</c:if>
+			</c:if> --%>
 			
 			<c:if test="${subMenu.equals('viewEmpAvgSalChart') }">
 				<%@ include file="/WEB-INF/views/chartPage.jsp" %>
 			</c:if>
-
+			
+			<c:if test="${subMenu.equals('viewEventList') }">
+				<%@ include file="/WEB-INF/views/eventListPage.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewReturnOrderList') }">
+				<%@ include file="/WEB-INF/views/returnOrderList.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewAdApplyList') }">
+				<%@ include file="/WEB-INF/views/adApplyInfoPage.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewInsertAdApply') }">
+				<%@ include file="/WEB-INF/views/insertAdForm.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewTranSpecList') }">
+				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
+			</c:if>
+				
 		</td>
 	</tr>
 	<tr height="50">
@@ -122,6 +157,7 @@
 	</tr>
 
 </table>
+		
 </center>
 </body>
 </html>

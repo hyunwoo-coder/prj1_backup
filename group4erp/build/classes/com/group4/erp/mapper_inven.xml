@@ -242,5 +242,18 @@
 		    ,(select b.branch_name from code_branch b where b.branch_cd=c.branch_cd)			as	"branch_name"
 		from corp_order_info c where order_books_no=#{all_order_no}
 	</select>
+	<select id="getReturnOrderCnt" resultType="int">
+		select count(*) from return_sale_info 
+	</select>
+	
+	<select id="getReturnOrderList" resultType="com.group4.erp.ReturnOrderDTO">
+		select
+			return_sales_no||'' "return_sales_no",
+			order_no||'' "order_no",
+			isbn13 "isbn13",
+			(select c.return_name from code_return c where c.return_cd = return_sales_cd) "return_cause",
+			return_comment "return_comment" 
+		from return_sale_info 
+	</select>
     
 </mapper>

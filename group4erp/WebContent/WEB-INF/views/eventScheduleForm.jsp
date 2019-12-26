@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이벤트 행사 신청</title>
+<title>이벤트 행사 현황</title>
 <script>
 
 	function checkForm() {
@@ -20,8 +20,7 @@
 	</script>
 </head>
 <body><center>
-
-	<h1>이벤트 신청 페이지</h1>
+<h1>이벤트 신청 페이지</h1>
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 		<table class="tbcss2" cellpadding="5" cellspacing="5">
 			<tr>
@@ -50,6 +49,7 @@
 			<input type="button" value="결재" onClick="checkForm();">
 	<input type="reset" value="초기화">
 	</form>
+
 
 </center>
 </body>

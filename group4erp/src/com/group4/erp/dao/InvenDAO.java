@@ -27,5 +27,9 @@ public interface InvenDAO {
 	Cus_releaseInfoDTO getReleaseCorpInfo(int all_order_no);
 
 
+	int getReturnOrderCnt();
+	
+	List<ReturnOrderDTO> getReturnOrderList();
+
 
 }

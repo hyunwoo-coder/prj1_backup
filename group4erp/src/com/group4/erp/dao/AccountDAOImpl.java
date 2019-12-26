@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 
@@ -48,6 +49,22 @@ public class AccountDAOImpl implements AccountDAO {
 		CorporationDTO selectedCorp = this.sqlSession.selectOne(mapper_namespace+"getCorpInfo", corp_no);
 		// TODO Auto-generated method stub
 		return selectedCorp;
+	}
+
+	@Override
+	public int getCorpOrderCnt(CorpSearchDTO corpSearchDTO) {
+		// TODO Auto-generated method stub
+		int corp_order_cnt = this.sqlSession.selectOne(mapper_namespace+"getCorpOrderCnt", corpSearchDTO);
+		
+		return corp_order_cnt;
+	}
+
+	@Override
+	public List<CorpOrderDTO> getCorpOrderList(CorpSearchDTO corpSearchDTO) {
+		// TODO Auto-generated method stub
+		List<CorpOrderDTO> corp_order_list = this.sqlSession.selectList(mapper_namespace+"getCorpOrderList", corpSearchDTO);
+		
+		return corp_order_list;
 	}
 
 }

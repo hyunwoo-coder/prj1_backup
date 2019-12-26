@@ -10,14 +10,13 @@ public class InvenDTO {
 	private String publisher;
 	private String book_cover;
 	private int size_cd;
+
+	private String is_print;
+
 	private int emp_no;
 	private String published_de;
 	private String planner;
-	private String is_print;
 	
-	public String getIs_print() {
-		return is_print;
-	}
 	public void setIs_print(String is_print) {
 		this.is_print = is_print;
 	}
@@ -75,6 +74,11 @@ public class InvenDTO {
 	public void setSize_cd(int size_cd) {
 		this.size_cd = size_cd;
 	}
+
+	public String getIs_print() {
+		return is_print;
+	}
+
 	public int getEmp_no() {
 		return emp_no;
 	}

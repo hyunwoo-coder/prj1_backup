@@ -53,7 +53,9 @@ $(document).ready(function(){
 
    function goSearchBookInven(){
       //alert("검색기능 구현중");
+
       //alert(  $("[name=book_inventory_search_form]").serialize()   );
+
       document.book_inventory_search_form.submit();
    }
 
@@ -155,7 +157,7 @@ $(document).ready(function(){
    <form>
       <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=850>
          <tr><th>책번호<th>책이름<th>카테고리<th>출판사<th>절판여부<th>가격<th>수량<th>재고위치
-         
+
          <c:forEach items="${requestScope.BookList}" var="book" varStatus="loopTagStatus">
           <tr style="cursor:pointer" onClick="goInvenContentForm(${book.ISBN13});">
             <td align=center>${book.ISBN13}

@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +11,6 @@
 <script>
 
 $(document).ready(function(){	
-	
-
 	
 	//headerSort("empListTable", 0);
 	
@@ -80,7 +75,7 @@ $(document).ready(function(){
 <center>
 	<h1>[직원 리스트]</h1>
 
-	<form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
+	<form name="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 
 	<!-- <form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">
@@ -112,8 +107,6 @@ $(document).ready(function(){
 				<th>성명</th>
 				<th>부서</th>
 				<th>직급</th>
-
-			</tr>
 			</thead>
 			<tbody>
 			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">
