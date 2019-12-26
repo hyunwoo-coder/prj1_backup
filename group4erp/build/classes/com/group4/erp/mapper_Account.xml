@@ -94,4 +94,23 @@
 			)
 	</insert>
 	
+	
+	<select id='getCorpOrderCnt' resultType="int">
+		select count(*) from corp_order_info where corp_no is not null
+	</select>
+	
+	<select id='getCorpOrderList' resultType="com.group4.erp.CorpOrderDTO">
+		select
+    		co.order_books_no||'' "order_books_no",
+    		co.corp_no "corp_no",
+    		(select cc.corp_name from corporation_cus cc where cc.corp_no = co.corp_no) "corp_name",   
+    		(select cc.ceo_name from corporation_cus cc where cc.corp_no = co.corp_no) "ceo_name",
+    		co.books_qty||'' "books_qty",
+    		(select b.book_price from book b where b.isbn13= co.isbn13) "book_price",
+    		(select b.book_price from book b where b.isbn13= co.isbn13) * co.books_qty "tot_cost",
+    		to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
+    	from corp_order_info co
+    	where co.corp_no is not null
+	</select>
+	
 </mapper>

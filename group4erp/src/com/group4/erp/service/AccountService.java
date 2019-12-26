@@ -9,6 +9,7 @@ package com.group4.erp.service;
 
 import java.util.List;
 
+import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 
@@ -21,5 +22,9 @@ public interface AccountService {
 	int insertCorp(CorporationDTO corporationDTO);
 	
 	CorporationDTO getCorpInfo(String corp_no);
+	
+	int getCorpOrderCnt();
+	
+	List<CorpOrderDTO> getCorpOrderList();
 
 }
