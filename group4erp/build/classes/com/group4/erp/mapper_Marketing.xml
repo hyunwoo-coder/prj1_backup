@@ -9,8 +9,6 @@
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.MarketingDAO">
 	 
-
-	 	
 	<sql id="eventWhere">
 		<if test="searchKeyword !=null">
 				and (
@@ -21,6 +19,53 @@
 					or upper(ei.evnt_start_dt) like upper('%${searchKeyword}%')
 					or upper(ei.evnt_end_dt) like upper('%${searchKeyword}%')
 				)			
+		</if>
+		
+		<if test="evnt_stat != null">
+			and
+			<foreach collection="evnt_stat" item="evnt_stat"  open="(" separator=" or " close=")">
+				<if test="evnt_stat.equals('01')">
+					ei.evnt_state_cd='01'
+				</if>
+				<if test="evnt_stat.equals('02')">
+					ei.evnt_state_cd='02'
+				</if>
+				<if test="evnt_stat.equals('03')">
+					ei.evnt_state_cd='03'
+				</if>
+				<if test="evnt_stat.equals('04')">
+					ei.evnt_state_cd='04'
+				</if>
+				
+			</foreach>			
+		</if>
+		
+		<if test="evnt_category != null">
+			and
+			<foreach collection="evnt_category" item="evnt_category"  open="(" separator=" or " close=")">
+				<if test="evnt_category.equals('01')">
+					ei.evnt_cd='01'
+				</if>
+				<if test="evnt_category.equals('02')">
+					ei.evnt_cd='02'
+				</if>
+				<if test="evnt_category.equals('03')">
+					ei.evnt_cd='03'
+				</if>
+				<if test="evnt_category.equals('04')">
+					ei.evnt_cd='04'
+				</if>
+				<if test="evnt_category.equals('05')">
+					ei.evnt_cd='05'
+				</if>
+				<if test="evnt_category.equals('06')">
+					ei.evnt_cd='06'
+				</if>
+				<if test="evnt_category.equals('07')">
+					ei.evnt_cd='07'
+				</if>
+				
+			</foreach>			
 		</if>
 	</sql>
 	 
@@ -57,18 +102,18 @@
 		select count(*) from ad_apply_info
 	</select>
 	
-		<select id='getAdApplyList' resultType="com.group4.erp.AdApplyDTO">
-		select
-        	ad_apply_no||'' "ad_apply_no",
-        	corp_no "corp_no",
-        	applicant_name "applicant_name",
-        	ad_title "ad_title",
-        	reg_dt "reg_dt",
-        	open_req_dt "open_req_dt",
-        	(select c.open_req_area_name from code_open_req_area c where c.open_req_area_cd = open_req_area_cd) "open_req_area",
-        	(select s.evnt_state_name from code_ad_state s where s.evnt_state_cd = evnt_state_cd) "ad_stat"
-        from ad_apply_info
-		where 1=1			
+	<select id='getAdApplyList' resultType="com.group4.erp.AdApplyDTO">
+		    select
+        	ai.ad_apply_no||'' "ad_apply_no",
+        	ai.corp_no "corp_no",
+        	ai.applicant_name "applicant_name",
+        	ai.ad_title "ad_title",
+        	ai.reg_dt "reg_dt",
+        	ai.open_req_dt "open_req_dt",
+        	(select c.open_req_area_name from code_open_req_area c where c.open_req_area_cd = ai.open_req_area_cd) "open_req_area",
+        	(select s.evnt_state_name from code_ad_state s where s.evnt_state_cd = ai.ad_state_cd) "ad_stat"
+        from ad_apply_info ai
+		where 1=1
 	</select>
 	
 		

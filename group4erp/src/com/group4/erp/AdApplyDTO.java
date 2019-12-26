@@ -2,6 +2,7 @@ package com.group4.erp;
 
 public class AdApplyDTO {
 	
+
 	private String ad_apply_no;
 	private String corp_no;
 	private String applicant_name;
@@ -13,8 +14,14 @@ public class AdApplyDTO {
 	private String open_req_area;
 	private String ad_term;
 	private String ad_pay_method;
-	private String ad_state;
+	private String ad_stat;
 	
+	public String getAd_stat() {
+		return ad_stat;
+	}
+	public void setAd_stat(String ad_stat) {
+		this.ad_stat = ad_stat;
+	}
 	
 	public String getAd_apply_no() {
 		return ad_apply_no;
@@ -82,15 +89,6 @@ public class AdApplyDTO {
 	public void setAd_pay_method(String ad_pay_method) {
 		this.ad_pay_method = ad_pay_method;
 	}
-	public String getAd_state() {
-		return ad_state;
-	}
-	public void setAd_state(String ad_state) {
-		this.ad_state = ad_state;
-	}
-	
-	
-	
-	
+
 
 }

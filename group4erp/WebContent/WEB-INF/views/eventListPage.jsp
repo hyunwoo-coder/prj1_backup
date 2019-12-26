@@ -85,15 +85,18 @@
 			</tr>
 			<tr> <!-- DB 연동할 것 -->
 				<td>[종류별]</td><td><input type="checkbox" value="01" name="evnt_category">매대판매
-								<input type="checkbox" value="02" name="evnt_category">할인전
-								<input type="checkbox" value="03" name="evnt_category">기부행사
-								<input type="checkbox" value="04" name="evnt_category">온라인 설문조사
+								<input type="checkbox" value="02" name="evnt_category">야외판매
+								<input type="checkbox" value="03" name="evnt_category">할인전
+								<input type="checkbox" value="04" name="evnt_category">기부행사
+								<input type="checkbox" value="05" name="evnt_category">온라인 설문조사
+								<input type="checkbox" value="06" name="evnt_category">저자강연회
+								<input type="checkbox" value="07" name="evnt_category">선착순증정
 				</td>
 			</tr>
 			<tr>
 				<td>[상태별]</td><td><input type="checkbox" value="01" name="evnt_stat">대기중
-									<input type="checkbox" value="02" name="evnt_stat">심사중
-									<input type="checkbox" value="03" name="evnt_stat">진행중
+									<input type="checkbox" value="03" name="evnt_stat">심사중
+									<input type="checkbox" value="02" name="evnt_stat">진행중
 									<input type="checkbox" value="04" name="evnt_stat">종료
 				</td>
 			</tr>

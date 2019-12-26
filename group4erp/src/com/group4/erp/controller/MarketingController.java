@@ -49,17 +49,6 @@ public class MarketingController {
 		mav.addObject("subMenu", "viewEventList");
 			
 		try {
-			//System.out.println("eventSearchDTO.getSearchKeyword()=="+eventSearchDTO.getSearchKeyword());
-			//System.out.println("eventSearchDTO.getEvnt_category().length=="+eventSearchDTO.getEvnt_category().length);
-			//System.out.println("eventSearchDTO.getEvnt_stat().length=="+eventSearchDTO.getEvnt_stat().length);
-			
-			/*for(int i=0; i<eventSearchDTO.getEvnt_category().length; i++) {
-				System.out.println("eventSearchDTO.getEvnt_category()=="+eventSearchDTO.getEvnt_category()[i]);
-			}
-			
-			for(int i=0; i<eventSearchDTO.getEvnt_stat().length; i++) {
-				System.out.println("eventSearchDTO.getEvnt_stat()=="+eventSearchDTO.getEvnt_stat()[i]);
-			}*/
 			
 			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
 			
@@ -108,6 +97,8 @@ public class MarketingController {
 		
 		int ad_apply_cnt = this.marketingService.getAdApplyCnt();
 		List<AdApplyDTO> ad_apply_list = this.marketingService.getAdApplyList();
+		
+		System.out.println("ad_apply_list.size==="+ad_apply_list.size());
 		
 		mav.addObject("adApplyCnt", ad_apply_cnt);
 		mav.addObject("adApplyList", ad_apply_list);
