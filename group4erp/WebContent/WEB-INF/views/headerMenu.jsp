@@ -88,9 +88,8 @@
 		}
 
 		function businessTripForm() {
-			location.replace("/group4erp/workOutReport.do");
+			location.replace("/group4erp/businessTripList.do");
 		}
-
 		function viewMyWorkTime() {
 			alert("근태조회 구현 예정");
 		}

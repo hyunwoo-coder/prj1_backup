@@ -106,7 +106,7 @@ $(document).ready(function(){
 <center>
 	<h1>[직원 리스트]</h1>
 
-	<form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
+	<form name="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 
 	<!-- <form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">

@@ -34,7 +34,7 @@
 <c:set var="bodyBgColor1" value="#00FFFF" />
 <c:set var="bodyBgColor1" value="#CCF4FF" />
 <!-- ------------------------------ -->
-<c:set var="ctRoot" value="/group4erp"/>
+<c:set var="ctRoot" value="/group4erp" />
 
 
 <!-- css 파일 & jquery 라이브러리 파일 수입 -->
