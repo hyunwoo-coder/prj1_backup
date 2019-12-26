@@ -129,7 +129,7 @@
 				</select>
 				<input type="text" name="search_keyword" size=40>
 		</table>
-		<!-- </div> -->
+		</div>
 		<br>
 		<input type="button" value="  검색  " onclick="goSearchMyWorkList();">&nbsp;&nbsp;
 		<input type="button" value="모두검색" onclick="goAllSearchMyWorkList();">
