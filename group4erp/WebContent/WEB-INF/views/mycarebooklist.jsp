@@ -136,6 +136,7 @@
 		<table border=0 width=700>
 			<tr>
 				<td align=right>
+					총 개수 : ${myWorkListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 					<select name="rowCntPerPage">
 						<option value="10">10</option>
 						<option value="15">15</option>
