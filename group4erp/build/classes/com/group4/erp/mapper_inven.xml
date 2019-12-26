@@ -146,13 +146,49 @@
 
    </sql> 
 
-	<!-- 
+	
 	<sql id="releaseWhere">
-		<if test>
-		
-		</if>
+		<if test="inventory_loc!=null and inventory_loc.length>0">
+     	 and
+         <foreach collection="inventory_loc" item="loc" open="(" separator="or" close=")">
+             <if test="loc.equals('서울 가산점')">
+                 order_books_no=(select order_books_no from corp_order_info where branch_cd = (select branch_cd from code_branch where branch_name='${loc}') ) 
+             </if>
+             <if test="loc.equals('서울 강남점')">
+                 order_books_no=(select order_books_no from corp_order_info where branch_cd = (select branch_cd from code_branch where branch_name='${loc}') ) 
+             </if>
+             <if test="loc.equals('부산점')">
+                 order_books_no=(select order_books_no from corp_order_info where branch_cd = (select branch_cd from code_branch where branch_name='${loc}') ) 
+             </if>
+             <if test="loc.equals('대전점')">
+                 order_books_no=(select order_books_no from corp_order_info where branch_cd = (select branch_cd from code_branch where branch_name='${loc}') ) 
+             </if>
+             <if test="loc.equals('광주점')">
+                 order_books_no=(select order_books_no from corp_order_info where branch_cd = (select branch_cd from code_branch where branch_name='${loc}') ) 
+             </if>
+             <if test="loc.equals('세종점')">
+                 order_books_no=(select order_books_no from corp_order_info where branch_cd = (select branch_cd from code_branch where branch_name='${loc}') ) 
+             </if>
+             <if test="loc.equals('춘천점')">
+                 order_books_no=(select order_books_no from corp_order_info where branch_cd = (select branch_cd from code_branch where branch_name='${loc}') ) 
+             </if>
+         </foreach>
+      </if>
+      <if test="keyword1!=null and keyword1.length()>0">
+      	and(
+      		upper((select book_name from book where isbn13=(select isbn13 from order_info where order_no=r.order_no ))) like upper('%${keyword1}%')
+      		or upper((select book_name from book where isbn13=(select isbn13 from corp_order_info where order_books_no=r.order_books_no ))) like upper('%${keyword1}%')
+           )
+      </if>
+      <if test="searchPublisher != null and searchPublisher.length()>0">
+             and
+              (
+              (select publisher from book where isbn13=(select isbn13 from order_info where order_no=r.order_no)) = #{searchPublisher}
+              or (select publisher from book where isbn13=(select isbn13 from corp_order_info where order_books_no=r.order_books_no)) = #{searchPublisher}
+               )
+      </if>
 	</sql>
-	 -->
+	 
 	<select id="getBookListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
 		select count(*) from book b where 1=1 <include refid="bookList" />
 	</select>
@@ -190,19 +226,19 @@
 	
 	<!-- 출고현황 -->
 	<select id="getReleaseListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
-		select count(*) from release_info b where 1=1  <!-- <include refid="bookList" /> -->
+		select count(*) from release_info r where 1=1  <include refid="releaseWhere" />
 	</select>
 	
 
 	<select id='getReleaseList' parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
 			select
-				release_no||''		as	"release_no"
-				,nvl( to_char(release_dt, 'YYYY-MM-DD DY'), 'X')			as	"release_dt"
-				,(case when order_no is null then order_books_no else order_no end)		as	"all_order_no"
-			from release_info b	
+				r.release_no||''		as	"release_no"
+				,nvl( to_char(r.release_dt, 'YYYY-MM-DD DY'), 'X')			as	"release_dt"
+				,(case when r.order_no is null then r.order_books_no else r.order_no end)		as	"all_order_no"
+			from release_info r	
 			where 1=1
-			<!-- <include refid="bookList" /> -->
+			<include refid="releaseWhere" />
 			order by release_no asc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>

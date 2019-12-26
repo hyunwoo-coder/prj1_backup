@@ -46,6 +46,17 @@ public class InvenController {
 			int bookListCnt = this.invenService.getBookListCnt(invenSearchDTO);
 			mav.addObject("bookListCnt", bookListCnt);
 			
+			if(bookListCnt>0) {
+				//선택한 페이지 번호 구하기
+				int selectPageNo = invenSearchDTO.getSelectPageNo();
+				//한 화면에 보여지는 행의 개수 구하기
+				int rowCntPerPage = invenSearchDTO.getRowCntPerPage();
+				//검색할 시작행 번호 구하기
+				int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
+				//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한페이지 번호를 1로 세팅하기
+				if(bookListCnt<beginRowNo) invenSearchDTO.setSelectPageNo(1);
+			}
+			
 			List<Map<String, String>> BookList = this.invenService.getBookList(invenSearchDTO);
 			mav.addObject("BookList", BookList);
 		}catch(Exception e) {
@@ -76,6 +87,17 @@ public class InvenController {
 			
 			int releaseListCnt = this.invenService.getReleaseListCnt(invenSearchDTO);
 			mav.addObject("releaseListCnt", releaseListCnt);
+			
+			if(releaseListCnt>0) {
+				//선택한 페이지 번호 구하기
+				int selectPageNo = invenSearchDTO.getSelectPageNo();
+				//한 화면에 보여지는 행의 개수 구하기
+				int rowCntPerPage = invenSearchDTO.getRowCntPerPage();
+				//검색할 시작행 번호 구하기
+				int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
+				//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한페이지 번호를 1로 세팅하기
+				if(releaseListCnt<beginRowNo) invenSearchDTO.setSelectPageNo(1);
+			}
 			
 			List<Map<String, String>> releaseList = this.invenService.getReleaseList(invenSearchDTO);
 			mav.addObject("releaseList", releaseList);
