@@ -52,17 +52,17 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public int getCorpOrderCnt() {
+	public int getCorpOrderCnt(CorpSearchDTO corpSearchDTO) {
 		// TODO Auto-generated method stub
-		int corp_order_cnt = this.sqlSession.selectOne(mapper_namespace+"getCorpOrderCnt");
+		int corp_order_cnt = this.sqlSession.selectOne(mapper_namespace+"getCorpOrderCnt", corpSearchDTO);
 		
 		return corp_order_cnt;
 	}
 
 	@Override
-	public List<CorpOrderDTO> getCorpOrderList() {
+	public List<CorpOrderDTO> getCorpOrderList(CorpSearchDTO corpSearchDTO) {
 		// TODO Auto-generated method stub
-		List<CorpOrderDTO> corp_order_list = this.sqlSession.selectList(mapper_namespace+"getCorpOrderList");
+		List<CorpOrderDTO> corp_order_list = this.sqlSession.selectList(mapper_namespace+"getCorpOrderList", corpSearchDTO);
 		
 		return corp_order_list;
 	}

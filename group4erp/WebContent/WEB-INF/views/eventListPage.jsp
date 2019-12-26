@@ -57,11 +57,17 @@
 	}
 
 	function goSearch() {
-		//alert("검색 시작");
-		//location.replace("/group4erp/viewEventList.do");
-		
 		
 		document.searchEvntForm.submit();
+	}
+
+	function goSearchAll() {
+		document.searchEvntForm.reset();
+
+		$('[name=searchEvntForm] [name=selectPageNo]').val("1");
+		$('[name=searchEvntForm] [name=rowCntPerPage]').val("15");
+		
+		goSearch();
 	}
 
 	</script>
@@ -81,7 +87,8 @@
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
 		<table name="searchEvntTable">
 			<tr>
-				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();"></td>
+				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
+									<input type="button" value="모두검색" onClick="goSearchAll();"></td>
 			</tr>
 			<tr> <!-- DB 연동할 것 -->
 				<td>[종류별]</td><td><input type="checkbox" value="01" name="evnt_category">매대판매

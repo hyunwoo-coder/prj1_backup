@@ -26,7 +26,7 @@
 		
 		$(".pagingNumber").html(
 				getPagingNumber(
-					"${corp_tran_Cnt}"						//검색 결과 총 행 개수
+					"${corp_tran_cnt}"						//검색 결과 총 행 개수
 					,"${corpSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
 					,"${corpSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
 					,"10"										//페이지 당 보여줄 페이지번호 개수
@@ -42,20 +42,24 @@
 		alert("주문번호 "+order_no+"로 해당 거래명세서 조회 기능 구현 예정");
 	}
 
+	function goSearch() {
+		document.corpSearchForm.submit();
+	}
+
 </script>
 </head>
 <body><center>
 	<h1>거래 내역</h1><br>
 	<label>기준일 : 2019.12.26(목)</label>
 	
-	<form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
+	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecList.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 	 <table border=0 width=700>
 	 	<tr>
 	    	<td align=right>
-	        [전체] : ${corp_tran_cnt}건&nbsp;&nbsp;&nbsp;&nbsp;
+	        [전체] : ${corp_tran_cnt} 건&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
 	               <option value="15">15</option>
@@ -73,7 +77,7 @@
 		</tr>
 	</table>
 </form> 
-
+	<label>금액 단위 : 원</label>
 	<table class="transactionSpecTb tbcss1" name="transactionSpecTb" cellpadding="5" cellspacing="5">
 		<tr>
 			<th>주문번호</th><th>사업자 번호</th><th>상호명</th><th>사업자명</th><th>주문수량</th><th>단가</th><th>총액</th><th>주문일</th>

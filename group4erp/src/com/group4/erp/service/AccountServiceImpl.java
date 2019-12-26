@@ -50,17 +50,17 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int getCorpOrderCnt() {
+	public int getCorpOrderCnt(CorpSearchDTO corpSearchDTO) {
 		// TODO Auto-generated method stub
-		int corp_order_cnt = this.accountDAO.getCorpOrderCnt();
+		int corp_order_cnt = this.accountDAO.getCorpOrderCnt(corpSearchDTO);
 		
 		return corp_order_cnt;
 	}
 
 	@Override
-	public List<CorpOrderDTO> getCorpOrderList() {
+	public List<CorpOrderDTO> getCorpOrderList(CorpSearchDTO corpSearchDTO) {
 		// TODO Auto-generated method stub
-		List<CorpOrderDTO> corp_order_list = this.accountDAO.getCorpOrderList();
+		List<CorpOrderDTO> corp_order_list = this.accountDAO.getCorpOrderList(corpSearchDTO);
 		
 		return corp_order_list;
 	}

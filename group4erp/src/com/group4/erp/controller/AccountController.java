@@ -140,7 +140,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/viewTranSpecList.do")
-	public ModelAndView viewTranSpec(HttpSession session) {
+	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -148,8 +148,8 @@ public class AccountController {
 		mav.addObject("subMenu", "viewTranSpecList");
 		
 		try {
-			int corp_tran_cnt = this.accountService.getCorpOrderCnt();
-			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList();
+			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
+			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
 			
 			mav.addObject("corp_tran_cnt", corp_tran_cnt);
 			mav.addObject("corp_tran_list", corp_tran_list);

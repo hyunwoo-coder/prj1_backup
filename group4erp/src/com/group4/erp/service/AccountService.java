@@ -23,8 +23,8 @@ public interface AccountService {
 	
 	CorporationDTO getCorpInfo(String corp_no);
 	
-	int getCorpOrderCnt();
+	int getCorpOrderCnt(CorpSearchDTO corpSearchDTO);
 	
-	List<CorpOrderDTO> getCorpOrderList();
+	List<CorpOrderDTO> getCorpOrderList(CorpSearchDTO corpSearchDTO);
 
 }
