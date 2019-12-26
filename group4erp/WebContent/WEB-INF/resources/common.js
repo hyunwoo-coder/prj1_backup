@@ -134,7 +134,12 @@ function getPagingNumber(
 		}
 }	
 
-function setTableTrBgColor(tableClassV, headerColor, oddBgColor, evenBgColor, mouseOnBgColor) {
+function setTableTrBgColor(
+		tableClassV
+		, headerColor
+		, oddBgColor
+		, evenBgColor
+		, mouseOnBgColor){
 	try {
 		//첫 째 tr, 즉 헤더가 되는 tr 태그를 관리하는 JQuery 객체 생성하기
 		var firstTrObj = $("."+tableClassV+" tr:eq(0)");

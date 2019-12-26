@@ -46,13 +46,11 @@ public class WorkController {
 			
 		List<Map<String, String>> getbusinessTripList = this.workService.getbusinessTripList(businessTripSearchDTO);
 		
-		System.out.println(businessTripSearchDTO.getSelectPageNo());
 		
-		if(businessTripSearchDTO.getSelectPageNo()>=0) {
+		/*if(businessTripSearchDTO.getSelectPageNo()>=0) {
 			businessTripSearchDTO.setSelectPageNo(1);
-		}
+		}*/
 		
-		System.out.println(businessTripSearchDTO.getSelectPageNo());
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
 		mav.addObject("businessTripSearchDTO", businessTripSearchDTO);
