@@ -6,10 +6,15 @@
 <html>
 <head>
 <script>
+     
 
 	 function goBusinessTripList(){
 		location.replace("/group4erp/businessTripList.do");
-		}
+	 }
+	 
+	 function reset(){
+			document.businessTripForm.reset();
+	 }
 </script>	
 	
 <meta charset="UTF-8">
@@ -22,7 +27,23 @@
 		<tr>
 			<th colspan="">출장희망일</th>
 				<td>
-					<input type="text" name="outside_start_time" class="outside_start_time">
+					<select id = "outside_start_time">
+						<c:forEach var="i" begin="1990" end="2019">
+    						<option	value="${i}" />${i}</option>
+						</c:forEach>
+					</select>
+					-
+					<select id = "outside_start_time">
+						<c:forEach var="i" begin="1990" end="2019">
+    						<option	value="${i}" />${i}</option>
+						</c:forEach>
+					</select>
+					-
+					<select id = "outside_start_time">
+						<c:forEach var="i" begin="1990" end="2019">
+    						<option	value="${i}" />${i}</option>
+						</c:forEach>
+					</select>
 					~
 					<input type="text" name="outside_end_time" id="outside_end_time">
 					&nbsp;&nbsp;&nbsp;
@@ -47,7 +68,7 @@
 	</table>
 		<input type="button" calss="approval" value="결재" onClick="checkForm()">
 		&nbsp;&nbsp;&nbsp;
-		<input type="button" value="초기화">
+		<input type="button" value="초기화" onClick="reset()">
 		
 		<input type="button" value="목록보기" onClick="goBusinessTripList()">
 	</form>
