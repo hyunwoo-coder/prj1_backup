@@ -37,12 +37,12 @@
 		//$('[name=rowCntPerPage]').val("${businessTripSearchDTO.rowCntPerPage}");
 		inputData('[name=rowCntPerPage]',"${businessTripSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${businessTripSearchDTO.selectPageNo}");
-		inputData('[name=searchKey]',"${businessTripSearchDTO.searchKey}");
-		inputData('[name=keyword]',"${businessTripSearchDTO.keyword}");
+		inputData('#selectSearch',"${businessTripSearchDTO.searchKey}");
+		inputData('#searchKeyword',"${businessTripSearchDTO.keyword}");
 
 
 		
-		
+	
 
 		//alert("${businessTripSearchDTO.rowCntPerPage}");
 		
@@ -60,7 +60,7 @@
 
 		//inputData('[name=selectPageNo]',"${boardSearchDTO.selectPageNo}");
 		
-		//$("#searchForm").submit()
+		$("#searchForm").submit()
 
 		document.getBusinessTripListSearchForm.submit();
 	}
@@ -85,10 +85,7 @@
 <center>
 	<h1>[출장 리스트]</h1>
 	<form name="getBusinessTripListSearchForm" method="post" action="/group4erp/businessTripList.do">
-		<input type= "text" name="searchKey" id="searchKey" >
-		<input type= "text" name="keyword" id="keyword">
-		<input type="text" name="selectPageNo"> 
-        <input type="text" name="rowCntPerPage">
+		
         
 		검색조건<select id = "selectSearch">
 					<option value="jikup">직급</option>
@@ -112,7 +109,12 @@
 	               <option value=30>30</option>
 	            </select> 행보기
       </table>
-      
+     
+        <input type="hidden" name="searchKey" id="searchKey" >
+		<input type="hidden" name="keyword" id="keyword">
+		<input type="hidden" name="selectPageNo"> 
+        <input type="hidden" name="rowCntPerPage">
+        
 	</form>
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 	
