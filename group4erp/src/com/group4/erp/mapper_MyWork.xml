@@ -9,23 +9,46 @@
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.myWorkDAO">
 	<sql id="MyWorkSearchWere">
-		<if test="(search_keyword!=null and search_keyword.length()>0)">
-			and(
-			    upper(b.ISBN13) like upper('%${search_keyword}%')
-			    or upper(b.book_name) like upper('%${search_keyword}%')
-			    or upper(cc.cat_name) like upper('%${search_keyword}%')
-			    or upper(book_price) like upper('%${search_keyword}%')
-			    or upper(si.ISBN_cnt) like upper('%${search_keyword}%')
-			    or upper(cb.branch_name) like upper('%${search_keyword}%')
-		    )
+		<if test="searchCategory=='전체'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and(
+					upper(b.ISBN13) like upper('%${search_keyword}%')
+				    or upper(b.book_name) like upper('%${search_keyword}%')
+				    or upper(cc.cat_name) like upper('%${search_keyword}%')
+				    or upper(book_price) like upper('%${search_keyword}%')
+				    or upper(si.ISBN_cnt) like upper('%${search_keyword}%')
+				    or upper(cb.branch_name) like upper('%${search_keyword}%')
+			    	)
+			</if>
 		</if>
-		
+		<if test="searchCategory=='책번호'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(b.ISBN13) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		<if test="searchCategory=='책이름'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(b.book_name) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		<if test="searchCategory=='카테고리'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(cc.cat_name) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		<if test="searchCategory=='보유지점'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(cb.branch_name) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		 <!-- 
 		<if test="(category!=null and category.length>0)">
 			and
 			<foreach collection="category" item="category" open="(" separator="or" close=")">
 				b.cat_cd = to_number(${category})
 			</foreach>
 		</if>
+		 -->
 	</sql>
 	
 	<select id='getMyCareBookList' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="java.util.HashMap">
@@ -35,9 +58,9 @@
 				,b.book_name 				as "book_name"
 				,cc.cat_name				as "cat_name"
 				,b.book_price  				as "book_price"
-				,b.emp_no||''					as "emp_no"
-				,b.editor						as "editor"
-				,to_char(si.ISBN_cnt)				as  "ISBN_Cnt"
+				,b.emp_no||''				as "emp_no"
+				,b.editor					as "editor"
+				,to_char(si.ISBN_cnt)		as  "ISBN_Cnt"
 				,cb.branch_name				as  "branch_name"
 			from book b, code_category cc, stock_info si, code_branch cb
 			where b.cat_cd = cc.cat_cd and b.ISBN13 = si.ISBN13 and si.branch_cd = cb.branch_cd
@@ -47,6 +70,7 @@
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>
+	<!-- 
 	
 	<select id='getCategoryList' resultType="java.util.HashMap">
 		select
@@ -75,11 +99,8 @@
 	<select id='getPublisherList' resultType="java.util.HashMap">
 		select distinct publisher	as	"publisher" from book
 	</select>
-<!-- 	
-	<select id='getMyWorkListAllCnt' resultType="int">
-		select count(*) from book
-	</select>
- -->
+	
+	 -->
 	<select id='getMyWorkListAllCnt' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="int">
 		select count(*)from(
 			select b.*, cc.cat_name, si.ISBN_Cnt, cb.branch_name from book b, code_category cc, stock_info si, code_branch cb

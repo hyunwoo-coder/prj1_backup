@@ -28,6 +28,7 @@
 		<c:forEach items="${myWorkSearchDTO.category}" var="category">
 			inputData("[name=category]", "${category}");
 		</c:forEach>
+		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
 	});
 	function goSearchMyWorkList(){
 		if( is_empty('[name=mycarebooklist] [name=search_keyword]') ){
@@ -46,6 +47,7 @@
 			, type : "post"
 			, data : document.mycarebooklist.submit()
 		});
+		
 	}
 	
 	function goAllSearchMyWorkList(){
@@ -72,13 +74,14 @@
 			</colgroup>
 			<tr bgcolor="gray">
 			<th width=50>구분<th>내용
+			
+			<%-- 
 			<tr>
 			<th bgcolor="gray">분야
 			<td align=center>
 			<c:forEach items="${requestScope.categoryList}" var="categoryList" varStatus="loopTagStatus">
 				<input type="checkbox" name="category" value="${categoryList.cat_cd}">${categoryList.cat_name}
 			</c:forEach>
-			<%-- 
 			<tr>
 			<th bgcolor="gray">판형
 			<td align=center>
@@ -115,6 +118,13 @@
 			<tr>
 			<th bgcolor="gray">키워드
 			<td>
+				<select name="searchCategory">
+					<option value="전체">전체
+					<option value="책번호">책번호
+					<option value="책이름">책이름
+					<option value="카테고리">카테고리
+					<option value="보유지점">보유지점
+				</select>
 				<input type="text" name="search_keyword" size=40>
 		</table>
 		<!-- </div> -->

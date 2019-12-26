@@ -5,6 +5,7 @@ public class MyWorkSearchDTO {
 	private int rowCntPerPage=10;
 	private String search_keyword;
 	private String[] category;
+	private String searchCategory = "전체";
 	
 	public int getSelectPageNo() {
 		return selectPageNo;
@@ -29,6 +30,12 @@ public class MyWorkSearchDTO {
 	}
 	public void setCategory(String[] category) {
 		this.category = category;
+	}
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
 	}
 	
 }
