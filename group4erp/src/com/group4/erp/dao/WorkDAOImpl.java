@@ -25,4 +25,13 @@ public class WorkDAOImpl implements WorkDAO{
 		return getbusinessList;
 		
 	}
+	public int getbusinessTripListAllCnt(BusinessTripSearchDTO businessTripSearchDTO) {
+		
+		int getbusinessTripListAllCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.WorkDAO.getbusinessTripListAllCnt"		//실행할 SQL구문의 위치 지정
+				,businessTripSearchDTO									//실행할 SQL구문에서 사용할 데이터 지정
+				);
+
+		return getbusinessTripListAllCnt;
+	}
 }

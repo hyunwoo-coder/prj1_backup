@@ -7,7 +7,9 @@ import com.group4.erp.BusinessTripSearchDTO;
 
 public interface WorkService {
 	
-
+	//출장 리스트
 	List<Map<String, String>> getbusinessTripList(BusinessTripSearchDTO businessTripSearchDTO);
 	
+	//출장 리스트 총개수
+	int getbusinessTripListAllCnt(BusinessTripSearchDTO businessTripSearchDTO);
 }

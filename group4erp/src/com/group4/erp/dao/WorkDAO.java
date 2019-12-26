@@ -12,4 +12,5 @@ public interface WorkDAO {
 	
 	List<Map<String,String>> getbusinessList(BusinessTripSearchDTO businessTripSearchDTO);
 
+	int getbusinessTripListAllCnt(BusinessTripSearchDTO businessTripSearchDTO);
 }

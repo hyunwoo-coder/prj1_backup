@@ -24,5 +24,11 @@ public class WokrServiceImpl implements WorkService {
 
 	}
 
+	public int getbusinessTripListAllCnt(BusinessTripSearchDTO businessTripSearchDTO) {
+		
+		int getbusinessTripListAllCnt = this.workDAO.getbusinessTripListAllCnt(businessTripSearchDTO);
+		
+		return getbusinessTripListAllCnt;
+	}
 
 }
