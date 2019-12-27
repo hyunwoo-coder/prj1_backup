@@ -105,6 +105,14 @@
 			<c:if test="${subMenu.equals('viewEmpAvgSalChart') }">
 				<%@ include file="/WEB-INF/views/chartPage.jsp" %>
 			</c:if>
+			
+			<!-- 입고 관리 페이지 -->
+			<c:if test="${subMenu.equals('viewWarehousingList') }">
+				<%@ include file="/WEB-INF/views/warehousing.jsp" %>
+			</c:if>
+			
+			
+			
 
 		</td>
 	</tr>

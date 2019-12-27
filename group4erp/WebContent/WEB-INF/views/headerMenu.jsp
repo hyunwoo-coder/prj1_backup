@@ -218,6 +218,10 @@
 			location.replace("/group4erp/viewBestKeywdAnalysis.do");
 			
 		}
+
+		function goMyIntoList(){
+			location.replace("/group4erp/goWarehousingList.do");
+		}
 		
 		
 	</script>

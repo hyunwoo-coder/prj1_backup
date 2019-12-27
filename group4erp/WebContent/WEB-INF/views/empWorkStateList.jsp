@@ -7,6 +7,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link href="/resources/common.css" rel="stylesheet" type="text/css"> 
 <title>직원 근무 현황</title>
 <style>
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
@@ -29,6 +30,95 @@
    height: 20px;
    border-width: thin;
 }
+
+
+
+
+@charset "UTF-8";
+	
+/*-----------------------------------------------------------------------*/ 
+body,form,td,th,pre { 
+	font-size: 9pt; 
+	color: black; 
+	line-height: 160%; 
+	font-family: 굴림,tahoma,돋움,verdana; 
+} 
+
+/*-----------------------------------------------------------------------*/ 
+input { 
+	font-size: 9pt; 
+	color:black; 
+	font-family: 굴림,tahoma,돋움,verdana; 
+	height: 20px; 
+} 
+a:link {text-decoration:none;color:#696969} 
+a:hover{text-decoration:none;color:#66ccff} 
+a:visited {text-decoration:none;color:#330066} 
+/*body,td,a,div,p,pre,input,textarea {font-family:굴림;font-size:9pt;}*/
+
+/*-----------------------------------------------------------------------*/ 
+/* <table class="tbcss0"> ~</table>안의 테이블에 가로,세로 선이 모두 없게 보이기. */
+/* 경계선 색상은 직접 table 태그에 직접 설정. */ 
+/*-----------------------------------------------------------------------*/ 
+.tbcss0, .tbcss0 td, .tbcss0 th{ 
+	border-collapse: collapse; 
+	border:0px solid gray;         /*padding:5;*/
+	font-size: 9pt;
+	font-family: tahoma,굴림,돋움,verdana; 
+ }
+ 
+/*-----------------------------------------------------------------------*/ 
+/* <table class="tbcss1"> ~</table>안의 테이블에 가로,세로 선이 모두 단일선으로 보이기. */
+/* 경계선 색상은 직접 table 태그에 직접 설정. */ 
+/*-----------------------------------------------------------------------*/ 
+.tbcss1, .tbcss1 td, .tbcss1 th{ 
+	border-collapse: collapse; 
+	border:1px solid black;         /*padding:5;*/
+	font-size: 9pt;
+	font-family: tahoma,굴림,돋움,verdana; 
+ }
+ 
+/*-----------------------------------------------------------------------*/ 
+/* <table class="tbcss2"> ~</table>안의 가로선은 단일선으로 보이고 세로 선은 안 보이기. */
+/* 경계선 색상은 직접 table 테그에 직접 설정*/ 
+/*-----------------------------------------------------------------------*/ 
+.tbcss2, .tbcss2 td, .tbcss2 th{ 
+	 /*border-spacing:0;*/
+	border-collapse:collapse;  
+	border-top:1px solid gray;
+	border-bottom:1px solid gray; 
+	border-left:0px;
+	border-right:0px;
+	font-size: 9pt;
+	font-family: tahoma,굴림,돋움,verdana;  	
+	/* border-collapse:collapse;  
+	border:0px;
+	font-size: 9pt;
+	font-family: tahoma,굴림,돋움,verdana; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+
+
+
+
+
 </style>
 	<script>
 		/* var picker = new Pikaday({ 
@@ -47,6 +137,14 @@
 			$('[name=rowCntPerPage]').change(function(){
 				goSearch();
 			});
+
+			setTableTrBgColor(
+					"inoutListTable",		//테이블 class 값
+					"${headerColor}",		//헤더 tr 배경색
+					"${oddTrColor}",		//홀수행 배경색
+					"${evenTrColor}",		//짝수행 배경색
+					"${mouseOverColor}"		//마우스 온 시 배경색
+			);
 
 			
 			
@@ -191,7 +289,7 @@
 	    
 	    
 	   <form name="getEmpInoutList" method="post" action="/group4erp/viewEmpWorkStateList.do">
-		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
+		<table class="inoutListTable tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
 			<thead>
 				<tr>
 					<th style="cursor:pointer">날짜

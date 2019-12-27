@@ -8,6 +8,7 @@ public class InvenSearchDTO {
 	private String is_print;
 	private String keyword1;
 	private String book_keyword;
+	private String wh_keyword;
 	private String orAnd;
 	private String[] date;
 	private int rowCntPerPage=10;
@@ -18,6 +19,16 @@ public class InvenSearchDTO {
 	
 	
 	
+	
+	
+	public String getWh_keyword() {
+		return wh_keyword;
+	}
+
+	public void setWh_keyword(String wh_keyword) {
+		this.wh_keyword = wh_keyword;
+	}
+
 	public String getKeyword1() {
 		return keyword1;
 	}
