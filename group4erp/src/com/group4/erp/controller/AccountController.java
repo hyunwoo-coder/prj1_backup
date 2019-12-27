@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.service.AccountService;
@@ -136,6 +137,29 @@ public class AccountController {
 		}
 	
 		return mav;
+	}
+	
+	@RequestMapping(value="/viewTranSpecList.do")
+	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTranSpecList");
+		
+		try {
+			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
+			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
+			
+			mav.addObject("corp_tran_cnt", corp_tran_cnt);
+			mav.addObject("corp_tran_list", corp_tran_list);
+			
+		} catch(Exception e) {
+			System.out.println("예외 발생=="+e);
+		}
+		
+		return mav;
+		
 	}
 
 }

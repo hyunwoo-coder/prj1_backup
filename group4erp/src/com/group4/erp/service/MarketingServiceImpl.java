@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.group4.erp.AdApplyDTO;
 import com.group4.erp.EventDTO;
+import com.group4.erp.EventSearchDTO;
 import com.group4.erp.dao.MarketingDAO;
 
 @Service
@@ -16,17 +17,17 @@ public class MarketingServiceImpl implements MarketingService {
 	MarketingDAO marketingDAO;
 
 	@Override
-	public int getEventCnt() {
+	public int getEventCnt(EventSearchDTO eventSearchDTO) {
 		// TODO Auto-generated method stub
-		int eventCnt = this.marketingDAO.getEventCnt();
+		int eventCnt = this.marketingDAO.getEventCnt(eventSearchDTO);
 		
 		return eventCnt;
 	}
 
 	@Override
-	public List<EventDTO> getEventList() {
+	public List<EventDTO> getEventList(EventSearchDTO eventSearchDTO) {
 		// TODO Auto-generated method stub
-		List<EventDTO> eventList = this.marketingDAO.getEventList();
+		List<EventDTO> eventList = this.marketingDAO.getEventList(eventSearchDTO);
 		
 		return eventList;
 	}

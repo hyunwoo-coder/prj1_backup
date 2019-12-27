@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.group4.erp.EventDTO;
+import com.group4.erp.EventSearchDTO;
 import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.service.MarketingService;
@@ -40,19 +41,34 @@ public class MarketingController {
 	
 	//이벤트 현황 조회
 	@RequestMapping(value="/viewEventList.do")
-	public ModelAndView viewEvnetList(HttpSession session) {
+	public ModelAndView viewEventList(HttpSession session, EventSearchDTO eventSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEventList");
-		
-		int eventCnt = this.marketingService.getEventCnt();
-		
-		List<EventDTO> eventList = this.marketingService.getEventList();
-		
-		mav.addObject("eventCnt", eventCnt);
-		mav.addObject("eventList", eventList);
+			
+		try {
+			
+			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
+			
+			if(eventCnt >0 ) {
+				int selectPageNo = eventSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
+				int rowCntPerPage = eventSearchDTO.getRowCntPerPage();	//한 화면에 보여지는 행의 개수 구하기
+				int beginRowNo = selectPageNo * rowCntPerPage - rowCntPerPage +1;	//검색할 시작행 번호 구하기
+				if(eventCnt < beginRowNo) {		//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한 페이지 번호를 1로 지정
+					eventSearchDTO.setSelectPageNo(1);
+				}
+			}
+			
+			List<EventDTO> eventList = this.marketingService.getEventList(eventSearchDTO);
+			
+			mav.addObject("eventCnt", eventCnt);
+			mav.addObject("eventList", eventList);
+			
+		} catch(Exception e) {
+			System.out.println("viewEventList() 메소드에서 예외발생=="+e);
+		}
 		
 		return mav;
 	}
@@ -81,6 +97,8 @@ public class MarketingController {
 		
 		int ad_apply_cnt = this.marketingService.getAdApplyCnt();
 		List<AdApplyDTO> ad_apply_list = this.marketingService.getAdApplyList();
+		
+		System.out.println("ad_apply_list.size==="+ad_apply_list.size());
 		
 		mav.addObject("adApplyCnt", ad_apply_cnt);
 		mav.addObject("adApplyList", ad_apply_list);

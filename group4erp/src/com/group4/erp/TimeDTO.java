@@ -8,8 +8,6 @@ public class TimeDTO {
 	private String hour;
 	private String minute;
 	private String seconds;
-	
-
 
 	
 	public String getNow_year() {

@@ -88,9 +88,8 @@
 		}
 
 		function businessTripForm() {
-			location.replace("/group4erp/workOutReport.do");
+			location.replace("/group4erp/businessTripList.do");
 		}
-
 		function viewMyWorkTime() {
 			location.replace("/group4erp/goMyWorkTime.do");
 			//alert("근태조회 구현 예정");
@@ -199,6 +198,10 @@
 
 		function viewCorpList() {
 			location.replace("/group4erp/viewCorpList.do");
+		}
+
+		function viewTranLog() {
+			location.href("/group4erp/viewTranSpecList.do");
 		}
 		
 
