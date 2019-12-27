@@ -169,11 +169,9 @@ public class AccountController {
 		mav.addObject("subMenu", "viewTranSpecInfo");
 		
 		try {
-			System.out.println("order_no=="+order_no);
 			
 			int tranSpec_cnt = this.accountService.getTranSpecCnt(order_no);
 			List<TranSpecDTO> tranSpecList = this.accountService.getTranSpecList(order_no);
-			System.out.println("tranSpec_list size==="+tranSpecList.size());
 			
 			mav.addObject("tranSpec_cnt", tranSpec_cnt);
 			mav.addObject("tranSpecList", tranSpecList);

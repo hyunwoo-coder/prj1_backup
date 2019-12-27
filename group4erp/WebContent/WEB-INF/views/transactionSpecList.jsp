@@ -147,7 +147,6 @@
 		</tr>
 	</table>
 </form> 
-	<label>금액 단위 : 원</label>
 	
 	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
 		<table class="transactionSpecTb tbcss1" name="transactionSpecTb" cellpadding="5" cellspacing="5" width="700">
