@@ -41,7 +41,9 @@
 	});
 
 	function viewTranSpec(order_no) {
-		alert("주문번호 "+order_no+"로 해당 거래명세서 조회 기능 구현 예정");
+		//alert("주문번호 "+order_no+"로 해당 거래명세서 조회 기능 구현 예정");
+		$("[name=order_no]").val(order_no);
+		document.tranSpecTable.submit();
 	}
 
 	function goSearch() {
@@ -146,7 +148,9 @@
 	</table>
 </form> 
 	<label>금액 단위 : 원</label>
-	<table class="transactionSpecTb tbcss1" name="transactionSpecTb" cellpadding="5" cellspacing="5" width="700">
+	
+	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
+		<table class="transactionSpecTb tbcss1" name="transactionSpecTb" cellpadding="5" cellspacing="5" width="700">
 		<tr>
 		<c:choose>
 			<c:when test="${param.sort=='1 desc'}">
@@ -184,7 +188,7 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<c:choose>
+		<%-- <c:choose>
 			<c:when test="${param.sort=='4 desc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  "> ▼ 사업자명</th>
 			</c:when>
@@ -194,7 +198,7 @@
 			<c:otherwise>
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  ">사업자명</th>
 			</c:otherwise>
-		</c:choose>
+		</c:choose>--%>
 		
 		<c:choose>
 			<c:when test="${param.sort=='5 desc'}">
@@ -208,7 +212,7 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<c:choose>
+		<%--<c:choose>
 			<c:when test="${param.sort=='6 desc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('6 asc'); goSearch();  "> ▼ 단가</th>
 			</c:when>
@@ -230,7 +234,7 @@
 			<c:otherwise>
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  ">총액</th>
 			</c:otherwise>
-		</c:choose>
+		</c:choose>  --%>
 		
 		<c:choose>
 			<c:when test="${param.sort=='8 desc'}">
@@ -245,21 +249,24 @@
 		</c:choose>
 		
 		</tr>
-		
-			<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
+	
+		<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" onClick="viewTranSpec('${tranList.order_books_no}');">
 				<td>${tranList.order_books_no}</td>
 				<td>${tranList.corp_no}</td>
 				<td>${tranList.corp_name}</td>
-				<td>${tranList.ceo_name}</td>
+				<%--<td>${tranList.ceo_name}</td> --%>
 				<td>${tranList.books_qty}</td>
-				<td>${tranList.book_price}</td>
-				<td>${tranList.tot_cost}</td>
+				<%--<td>${tranList.book_price}</td>
+				<td>${tranList.tot_cost}</td> --%>
 				<td>${tranList.order_dt}</td>
 			</tr>
 		</c:forEach>
-		
 	</table>
+	<input type="hidden" name="order_no">
+	</form>
+	
+	
 
 </center>
 

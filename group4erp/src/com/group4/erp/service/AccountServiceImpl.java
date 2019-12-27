@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.TranSpecDTO;
 import com.group4.erp.dao.AccountDAO;
 
 @Service
@@ -71,6 +72,22 @@ public class AccountServiceImpl implements AccountService {
 		CorporationDTO selectedCorp = this.accountDAO.selectCorp(corp_no);
 		
 		return selectedCorp;
+	}
+
+	@Override
+	public int getTranSpecCnt(int order_no) {
+		// TODO Auto-generated method stub
+		int tranSpecCnt = this.accountDAO.getTranSpecCnt(order_no); 
+		
+		return tranSpecCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecList(int order_no) {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecList = this.accountDAO.getTranSpecList(order_no);
+		
+		return tranSpecList;
 	}
 	
 	
