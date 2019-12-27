@@ -91,7 +91,8 @@
 			location.replace("/group4erp/businessTripList.do");
 		}
 		function viewMyWorkTime() {
-			alert("근태조회 구현 예정");
+			location.replace("/group4erp/goMyWorkTime.do");
+			//alert("근태조회 구현 예정");
 		}
 
 		function overTimeWork() {

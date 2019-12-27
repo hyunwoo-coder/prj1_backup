@@ -37,5 +37,14 @@ public class MyWorkSearchDTO {
 	public void setSearchCategory(String searchCategory) {
 		this.searchCategory = searchCategory;
 	}
+
+	private int searchEmpNo=0;
+
+	public int getSearchEmpNo() {
+		return searchEmpNo;
+	}
+	public void setSearchEmpNo(int searchEmpNo) {
+		this.searchEmpNo = searchEmpNo;
+	}
 	
 }
