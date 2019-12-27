@@ -53,7 +53,7 @@ public class InvenController {
 	}
 	
 	@RequestMapping(value="/goReturnOrderList.do")
-	public ModelAndView goReturnOrderList(HttpSession session) {
+	public ModelAndView goReturnOrderList(HttpSession session, ReturnSearchDTO returnSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -61,8 +61,8 @@ public class InvenController {
 		mav.addObject("subMenu", "viewReturnOrderList");
 		
 		try {
-			int returnOrderCnt = this.invenService.getReturnOrderCnt();
-			List<ReturnOrderDTO> returnOrderList = this.invenService.getReturnOrderList();
+			int returnOrderCnt = this.invenService.getReturnOrderCnt(returnSearchDTO);
+			List<ReturnOrderDTO> returnOrderList = this.invenService.getReturnOrderList(returnSearchDTO);
 			
 			mav.addObject("returnOrderCnt", returnOrderCnt);
 			mav.addObject("returnOrderList", returnOrderList);

@@ -2,12 +2,20 @@ package com.group4.erp;
 
 public class ReturnOrderDTO {
 	
+
 	private String return_sales_no;
 	private String order_no;
 	private String isbn13;
 	private String return_cause;
 	private String return_comment;
+	private String sort;
 
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	
 	public String getReturn_sales_no() {
 		return return_sales_no;

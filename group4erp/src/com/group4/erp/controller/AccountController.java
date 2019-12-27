@@ -93,7 +93,7 @@ public class AccountController {
 	}
 	
 	
-	@RequestMapping(value="/viewSearchCorp.do")
+	/*@RequestMapping(value="/viewSearchCorp.do")
 	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -111,9 +111,9 @@ public class AccountController {
 		}
 	
 		return mav;
-	}
+	}*/
 	
-	@RequestMapping(value="/selectCorp.do")
+	/*@RequestMapping(value="/selectCorp.do")
 	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -135,7 +135,7 @@ public class AccountController {
 		}
 	
 		return mav;
-	}
+	}*/
 	
 	@RequestMapping(value="/viewTranSpecList.do")
 	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO) {

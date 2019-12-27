@@ -1,6 +1,7 @@
 package com.group4.erp.service;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.ReturnOrderDTO;
+import com.group4.erp.ReturnSearchDTO;
 
 import java.util.*;
 
@@ -13,9 +14,9 @@ public interface InvenService {
 	
 	List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO);
 	
-	int getReturnOrderCnt();
+	int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO);
 	
-	List<ReturnOrderDTO>getReturnOrderList();
+	List<ReturnOrderDTO>getReturnOrderList(ReturnSearchDTO returnSearchDTO);
 
 
 }
