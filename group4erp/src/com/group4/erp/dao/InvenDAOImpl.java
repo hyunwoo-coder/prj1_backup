@@ -103,5 +103,15 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return returnOrderList;
 	}
+	
+	public int getSignUpCnt(InvenDTO invenDTO) {
+		
+		int insertSignUpBookCnt = this.sqlSession.insert(
+				"com.group4.erp.dao.invenSearchDAO.getSignUpBook"
+				,invenDTO
+				);
+		
+		return insertSignUpBookCnt;
+	}
 
 }

@@ -1,6 +1,7 @@
 package com.group4.erp.service;
 
 import com.group4.erp.Cus_releaseInfoDTO;
+import com.group4.erp.InvenDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.ReturnOrderDTO;
 import com.group4.erp.dao.*;
@@ -87,5 +88,12 @@ public class InvenServiceImpl implements InvenService{
 		
 		return returnOrderList;
 
+	}
+	
+	public int getSignUpCnt(InvenDTO invenDTO) {
+		
+		int insertSignUpBookCnt = this.invenDAO.getSignUpCnt(invenDTO);
+		
+		return insertSignUpBookCnt;
 	}
 }

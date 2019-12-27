@@ -38,6 +38,10 @@
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
+			<!-- 책 등록 화면 -->
+			<c:if test="${subMenu.equals('viewSignUpBook') }">
+				<%@ include file="/WEB-INF/views/bookSignUpForm.jsp" %>
+			</c:if>
 			
 			<!-- 출고현황목록 -->
 			<c:if test="${subMenu.equals('viewReleaseList') }">

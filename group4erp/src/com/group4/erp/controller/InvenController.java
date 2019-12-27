@@ -160,9 +160,39 @@ public class InvenController {
 		} catch(Exception e) {
 			System.out.println("예외발생"+e);
 		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/viewSignUpBook.do")
+	public ModelAndView viewSignUpBook() {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewSignUpBook");
 		
 		return mav;
-
+	}
+	
+	@RequestMapping(value="/goSignUpBookProc.do")
+	@ResponseBody
+	public int goSignUpBook(
+			InvenDTO invenDTO
+			) {
+		
+		int insertSignUpBookCnt = 0;
+		System.out.println("controller시작");
+		try {
+			
+			insertSignUpBookCnt = this.invenService.getSignUpCnt(invenDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<책 등록 실패>");
+			System.out.println("예외 발생=>"+e);
+			insertSignUpBookCnt = -1;
+		}
+		
+		return insertSignUpBookCnt;
 	}
 }
 

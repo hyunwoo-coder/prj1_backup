@@ -137,5 +137,5 @@
          <br>
          <input type="button" value=" 등록 " onclick="goJoinMember();">
    </form>
-</body
+</body>
 </html>

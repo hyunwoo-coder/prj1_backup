@@ -298,4 +298,12 @@
 		from return_sale_info 
 	</select>
     
+    <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">
+    	insert into book (
+			isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, publisher_dt, editor
+			) values (
+				'${isbn13}', '${book_name}', ${cat_cd}, '${book_price}', ${book_pages}, '${writer}', '${publisher}', ${size_cd}, '${is_print}'
+				,(select emp_no from emp_name='${emp_name}')
+				,to_date('${datepicker}', 'YYYY-MM-DD'), '${editor}' )
+    </insert>
 </mapper>

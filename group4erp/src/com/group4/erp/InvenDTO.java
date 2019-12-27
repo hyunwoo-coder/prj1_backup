@@ -1,30 +1,31 @@
 package com.group4.erp;
 
 public class InvenDTO {
-	private int ISBN13;
+	private int isbn13;
 	private String book_name;
-	private int category_cd;
+	private int cat_cd;
 	private String book_price;
 	private int book_pages;
 	private String writer;
 	private String publisher;
 	private String book_cover;
 	private int size_cd;
-
 	private String is_print;
-
-	private int emp_no;
-	private String published_de;
-	private String planner;
+	private String emp_name;
+	private String datepicker;
+	private String editor;
 	
-	public void setIs_print(String is_print) {
-		this.is_print = is_print;
+	public int getIsbn13() {
+		return isbn13;
 	}
-	public int getISBN13() {
-		return ISBN13;
+	public void setIsbn13(int isbn13) {
+		this.isbn13 = isbn13;
 	}
-	public void setISBN13(int iSBN13) {
-		ISBN13 = iSBN13;
+	public String getDatepicker() {
+		return datepicker;
+	}
+	public void setDatepicker(String datepicker) {
+		this.datepicker = datepicker;
 	}
 	public String getBook_name() {
 		return book_name;
@@ -32,11 +33,11 @@ public class InvenDTO {
 	public void setBook_name(String book_name) {
 		this.book_name = book_name;
 	}
-	public int getCategory_cd() {
-		return category_cd;
+	public int getCat_cd() {
+		return cat_cd;
 	}
-	public void setCategory_cd(int category_cd) {
-		this.category_cd = category_cd;
+	public void setCat_cd(int cat_cd) {
+		this.cat_cd = cat_cd;
 	}
 	public String getBook_price() {
 		return book_price;
@@ -74,28 +75,25 @@ public class InvenDTO {
 	public void setSize_cd(int size_cd) {
 		this.size_cd = size_cd;
 	}
-
 	public String getIs_print() {
 		return is_print;
 	}
-
-	public int getEmp_no() {
-		return emp_no;
+	public void setIs_print(String is_print) {
+		this.is_print = is_print;
 	}
-	public void setEmp_no(int emp_no) {
-		this.emp_no = emp_no;
+	public String getEmp_name() {
+		return emp_name;
 	}
-	public String getPublished_de() {
-		return published_de;
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
-	public void setPublished_de(String published_de) {
-		this.published_de = published_de;
+	public String getEditor() {
+		return editor;
 	}
-	public String getPlanner() {
-		return planner;
+	public void setEditor(String editor) {
+		this.editor = editor;
 	}
-	public void setPlanner(String planner) {
-		this.planner = planner;
-	}
+	
+	
 	
 }

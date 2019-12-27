@@ -65,6 +65,12 @@ $(document).ready(function(){
       goSearchBookInven();
    }
    
+   function goNewBookInfo(){
+	   alert("책등록 구현중");
+	   //return;
+	   location.replace("/group4erp/viewSignUpBook.do")
+   }
+   
 </script>
 <!--
 <style>
@@ -229,7 +235,9 @@ $(document).ready(function(){
 
       <div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
      
-   </form>
+     
+     <input type="button" value=" 책 등록 " onclick="goNewBookInfo();">
+     </form>
    
 
 </body>
