@@ -77,12 +77,13 @@
 					$("#thindexno").val(thindexno);
 					$("#ascdesc").val(ascdesc);
 					
-					alert(thindexno);
-					alert(ascdesc);
+					//alert(thindexno);
+					//alert(ascdesc);
 					
-					alert("${businessTripSearchDTO.thindexno}");
-					alert("${businessTripSearchDTO.ascdesc}");
-	
+					//alert("${businessTripSearchDTO.thindexno}");
+					//alert("${businessTripSearchDTO.ascdesc}");
+					
+					goSearch()
 	});
 });
 
@@ -93,8 +94,6 @@
 		var  searchKey = $("#selectSearch").val();
 		var  keyword = $("#searchKeyword").val();
 
-		  
-		
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
 
@@ -158,8 +157,8 @@
 		<input type="hidden" name="keyword" id="keyword">
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="rowCntPerPage">
-        <input type="hidden" id="thindexno">
-        <input type="hidden" id="ascdesc">
+        <input type="hidden" name="thindexno" id="thindexno">
+        <input type="hidden" name="ascdesc" id="ascdesc">
         
 	</form>
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>

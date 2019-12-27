@@ -97,84 +97,75 @@
      		</if> 
      		<if test="thindexno!=null and ascdesc!=null">
      			order by
-	     	 	 	<if test="thindexno=1">
-	     				    case c.jikup 
-	     				    	when '대표이사' then 1 
-						        when '전무이사' then 2
-						        when '상무이사' then 3
-						        when '부장' then 4
-						        when '차장' then 5
-						        when '대리' then 7
-						        when '주임' then 8
-						        when '사원' then 9
-						        when '기타' then 10 end  
-									<if test="ascdesc=asc">
+	     	 	 	<if test="thindexno.equals(1) and ascdesc!=null">
+	     				    jikup_cd
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
-	     		 	<if test="thindexno=2">
+	     		 	<if test="thindexno.equals(2) and ascdesc!=null">
 	     				    e1.emp_name
-									<if test="ascdesc=asc">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
-	     		 	<if test="thindexno=3">
+	     		 	<if test="thindexno.equals(3) and ascdesc!=null">
 	     				    d.dep_name
-									<if test="ascdesc=asc">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
-	     		 	<if test="thindexno=4">
+	     		 	<if test="thindexno.equals(4) and ascdesc!=null">
 	     				    w.destination 
-									<if test="ascdesc=asc">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
-	     		 	<if test="thindexno=5">
+	     		 	<if test="thindexno.equals(5) and ascdesc!=null">
 	     				    w.work_outside_reason 
-									<if test="ascdesc=asc">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
-	     		 	<if test="thindexno=6">
+	     		 	<if test="thindexno.equals(6) and ascdesc!=null">
 	     				    outside_start_time 
-									<if test="ascdesc=asc">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
-	     		 	<if test="thindexno=7">
+	     		 	<if test="thindexno.equals(7) and ascdesc!=null">
 	     				    outside_end_time 
-									<if test="ascdesc=asc">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
-	     		 	<if test="thindexno=8">
+	     		 	<if test="thindexno.equals(8) and ascdesc!=null">
 	     				    nvl(e2.emp_name,' ') 
-									<if test="ascdesc=asc">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if>
-									<if test="ascdesc=desc">
+									<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 	     		 	</if>
@@ -185,11 +176,11 @@
      	
      		order by RNUM	
      			<if test="thindexno!=null and ascdesc!=null">
-     				  		<if test="thindexno=0">
-									<if test="ascdesc=asc">
+     				  		<if test="thindexno.equals(0) and ascdesc!=null">
+									<if test="ascdesc.equals('asc')">
 										asc
 									</if> 
-										<if test="ascdesc=desc">
+										<if test="ascdesc.equals('desc')">
 										desc
 									</if>
 							</if>
