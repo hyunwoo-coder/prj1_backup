@@ -41,6 +41,7 @@
 		inputData('[name=rowCntPerPage]',"${eventSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${eventSearchDTO.selectPageNo}");
 		inputData("[name=searchKeyword]", "${eventSearchDTO.searchKeyword}");
+		inputData("[name=sort]", "${eventSearchDTO.sort}");
 
 		<c:forEach items="${eventSearchDTO.evnt_category}" var="evnt_category">
 			inputData("[name=evnt_category]", "${evnt_category}");
@@ -109,6 +110,7 @@
 			</tr>
 		</table>
 		<input type="hidden" name="selectPageNo" >
+		<input type="hidden" name="sort" >
 	</form>
 	
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
@@ -121,7 +123,78 @@
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 		<table class="eventListTable tbcss2" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
 			<tr>
-				<th>이벤트 번호</th><th>이벤트 종류</th><th>타이틀</th><th>시작일</th><th>종료일</th><th>상태</th>
+				<c:choose>
+					<c:when test="${param.sort=='1 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 이벤트 번호</th>
+					</c:when>
+					<c:when test="${param.sort=='1 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 이벤트 번호</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  ">이벤트 번호</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='3 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 이벤트 종류</th>
+					</c:when>
+					<c:when test="${param.sort=='3 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 이벤트 종류</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  ">이벤트 종류</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='4 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  "> ▼ 타이틀</th>
+					</c:when>
+					<c:when test="${param.sort=='4 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 desc'); goSearch(); "> ▲ 타이틀</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  ">타이틀</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='7 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  "> ▼ 시작일</th>
+					</c:when>
+					<c:when test="${param.sort=='7 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 desc'); goSearch(); "> ▲ 시작일</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  ">시작일</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='8 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 종료일</th>
+					</c:when>
+					<c:when test="${param.sort=='8 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 종료일</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">종료일</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='9 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  "> ▼ 상태</th>
+					</c:when>
+					<c:when test="${param.sort=='9 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 desc'); goSearch(); "> ▲ 상태</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  ">상태</th>
+					</c:otherwise>
+				</c:choose>
+			
 			</tr>
 			<tr>
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">

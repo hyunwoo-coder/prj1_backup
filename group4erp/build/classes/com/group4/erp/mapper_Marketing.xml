@@ -68,9 +68,22 @@
 			</foreach>			
 		</if>
 	</sql>
+	
+	<sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null">
+			order by 1
+		</if>
+	</sql>
+	
 	 
 	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
-		select count(*) from event_info
+		select count(*) from event_info ei
+		where 1=1
+		<include refid="eventWhere" />
 	</select>
 	
 	
@@ -91,6 +104,7 @@
         from event_info ei
 		where 1=1		
 		<include refid="eventWhere" />
+		<include refid="headerSort" />
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
 
