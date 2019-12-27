@@ -1,14 +1,14 @@
 package com.group4.erp;
 
 public class TranSpecDTO {
-	
-
 
 	private int order_books_no;
 	private String order_no;
 	private String corp_no;
+	private String corp_name;
 	private String ceo_name;
 	private String corp_tel;
+	private String corp_fax;
 	private String corp_addr;
 	private String isbn13;
 	private String book_name;
@@ -16,8 +16,32 @@ public class TranSpecDTO {
 	private String books_qty;
 	private String tot_cost;
 	private String order_dt;
+	private String tax;
 	
+	public String getTax() {
+		return tax;
+	}
+
+	public void setTax(String tax) {
+		this.tax = tax;
+	}
 	
+	public String getCorp_fax() {
+		return corp_fax;
+	}
+
+	public void setCorp_fax(String corp_fax) {
+		this.corp_fax = corp_fax;
+	}
+
+
+	public String getCorp_name() {
+		return corp_name;
+	}
+
+	public void setCorp_name(String corp_name) {
+		this.corp_name = corp_name;
+	}
 
 
 	public String getOrder_no() {

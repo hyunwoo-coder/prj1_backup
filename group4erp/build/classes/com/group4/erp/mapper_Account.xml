@@ -150,8 +150,10 @@
 		select 
     		co.order_books_no,  
     		co.corp_no "corp_no",  
+    		(select c.corp_name from corporation_cus c where c.corp_no = co.corp_no) "corp_name",   
     		(select c.ceo_name from corporation_cus c where c.corp_no = co.corp_no) "ceo_name",   
-    		(select c.corp_tel from corporation_cus c where c.corp_no = co.corp_no) "corp_tel",         
+    		(select c.corp_tel from corporation_cus c where c.corp_no = co.corp_no) "corp_tel",
+    		(select c.corp_fax from corporation_cus c where c.corp_no = co.corp_no) "corp_fax",              
     		(select c.corp_addr from corporation_cus c where c.corp_no = co.corp_no) "corp_addr",
     		co.isbn13 "isbn13",
     		(select b.book_name from book b where b.isbn13=co.isbn13) "book_name",
@@ -159,6 +161,7 @@
     		(select b.book_price from book b where b.isbn13=co.isbn13) "book_price",
     		co.books_qty "books_qty",
     		(select b.book_price from book b where b.isbn13=co.isbn13) * co.books_qty "tot_cost",
+    		((select b.book_price from book b where b.isbn13=co.isbn13) * co.books_qty)*0.1||'' "tax",
     		co.order_dt "order_dt"
     	from corp_order_info co
     	where co.order_books_no = #{order_books_no}

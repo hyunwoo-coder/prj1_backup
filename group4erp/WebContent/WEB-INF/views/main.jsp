@@ -148,7 +148,6 @@
 			
 			<c:if test="${subMenu.equals('viewMyWorkTime') }">
 				<%@ include file="/WEB-INF/views/workTimeList.jsp" %>
-
 			</c:if>
 				
 		</td>
