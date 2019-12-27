@@ -84,6 +84,12 @@
 					<if test ="searchKey.equals('destination')">
 						and w.destination like '%'||#{keyword}||'%'
 					</if>
+					<if test ="searchKey.equals('outside_start_time')">
+						and to_char(w.outside_start_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
+					</if>
+					<if test ="searchKey.equals('outside_end_time')">
+						and to_char(w.outside_end_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
+					</if>
 					<if test ="searchKey.equals('mgr_name')">
 						and mgr_name like '%'||#{keyword}||'%'
 					</if>

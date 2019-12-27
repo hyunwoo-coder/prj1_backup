@@ -60,19 +60,29 @@
 					var txt = thisThObj.text();
 					if(txt.indexOf("▲") >= 0){
 						txt = txt.replace("▲" , "▼");
-						ascDesc = "desc";
+						ascdesc = "desc";
 					}
 					else if(txt.indexOf("▼") >= 0){
 						txt = txt.replace("▼" , "▲");
-						ascDesc = "asc";
+						ascdesc = "asc";
 					}
 					else{
 						txt = txt + "▲";
-						ascDesc = "asc";
+						ascdesc = "asc";
 					}
 					thisThObj.text(txt);
 
 					var thindexno = thisThObj.index();
+
+					$("#thindexno").val(thindexno);
+					$("#ascdesc").val(ascdesc);
+					
+					alert(thindexno);
+					alert(ascdesc);
+					
+					alert("${businessTripSearchDTO.thindexno}");
+					alert("${businessTripSearchDTO.ascdesc}");
+	
 	});
 });
 
@@ -82,6 +92,9 @@
 		//alert("tdtdtd");
 		var  searchKey = $("#selectSearch").val();
 		var  keyword = $("#searchKeyword").val();
+
+		  
+		
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
 
@@ -121,6 +134,8 @@
 					<option value="emp_name">성명</option>
 					<option value="dep_name">부서</option>
 					<option value="destination">출장지</option>
+					<option value="outside_start_time">출발 날짜</option>
+					<option value="outside_end_time">복귀 날짜</option>
 					<option value="mgr_name">담당자 성함</option>
 				</select>
 		<input type="text" id="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">
@@ -143,6 +158,8 @@
 		<input type="hidden" name="keyword" id="keyword">
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="rowCntPerPage">
+        <input type="hidden" id="thindexno">
+        <input type="hidden" id="ascdesc">
         
 	</form>
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
