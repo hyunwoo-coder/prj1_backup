@@ -24,6 +24,7 @@ public class MyWorkController {
 	@Autowired
 	MyWorkService myWorkService;
 	
+	//담당 상품 조회
 	@RequestMapping(value="/goMyCareBookList.do")
 	public ModelAndView viewEmpListList(
 			HttpSession session
@@ -75,6 +76,49 @@ public class MyWorkController {
 			mav.addObject("MyCareBookList", MyCareBookList);
 			
 
+		}catch(Exception e) {
+			System.out.println("<게시글 불러오기 실패>");
+			System.out.println("예외발생"+e);
+		}
+		return mav;
+	}
+	
+	//근태조회
+	@RequestMapping(value="/goMyWorkTime.do")
+	public ModelAndView viewMyWorkTime(
+			HttpSession session
+			,MyWorkSearchDTO myWorkSearchDTO
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		
+		//화면에 나의 상품 관리 페이지 띄우는 코드
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewMyWorkTime");
+		try {
+			//검색 총 개수 리턴(추후 접속 계정을 가져오면 연동시킬 예정)
+			int workDaysListAllCnt = this.myWorkService.getWorkDaysListAllCnt(myWorkSearchDTO);
+			mav.addObject("workDaysListAllCnt", workDaysListAllCnt);
+				if(workDaysListAllCnt>0) {
+					//선택한 페이지 번호 구하기
+					int selectPageNo = myWorkSearchDTO.getSelectPageNo();
+					// 한 화면에 보여지는 행의 개수 구하기
+					int rowCntPerPage = myWorkSearchDTO.getRowCntPerPage();
+					// 검색할 시작행 번호 구하기
+					int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
+					// 만약 검색 한 총 개수가 검색할 시작행 번호 보다 작으면
+					// 선택한 페이지 번호를 1로 세팅하기
+					if(workDaysListAllCnt<beginRowNo) {
+						myWorkSearchDTO.setSelectPageNo(1);
+					}
+				}
+			
+			List<Map<String, String>> searchEmpNo = this.myWorkService.getSearchEmpNo(myWorkSearchDTO);
+			mav.addObject("searchEmpNo", searchEmpNo);
+			//테이블 가져오는 부분
+			List<Map<String, String>> getWorkDaysList = this.myWorkService.getWorkDaysList(myWorkSearchDTO);
+			mav.addObject("getWorkDaysList", getWorkDaysList);
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);

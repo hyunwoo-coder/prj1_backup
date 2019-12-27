@@ -10,6 +10,7 @@ import com.group4.erp.*;
 public interface MyWorkDAO {
 
 
+	//담담 상품 조회
 	//===================================================================================================
 	//검색 항목 불러오는 코드
 	List<Map<String,String>> getMyCareBookList(MyWorkSearchDTO myWorkSearchDTO);
@@ -22,4 +23,13 @@ public interface MyWorkDAO {
 	//페이징 처리를 위한 총 검색 개수 불러오는 코드
 	int getMyWorkListAllCnt(MyWorkSearchDTO myWorkSearchDTO);
 
+	//근태조회
+	//===================================================================================================
+	//검색 총 개수 리턴
+	int getWorkDaysListAllCnt(MyWorkSearchDTO myWorkSearchDTO);
+	//===================================================================================================
+	//검색된 테이블 자료 리턴
+	List<Map<String,String>> getWorkDaysList(MyWorkSearchDTO myWorkSearchDTO);
+	
+	List<Map<String,String>> getSearchEmpNo(MyWorkSearchDTO myWorkSearchDTO);
 }
