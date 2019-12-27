@@ -137,7 +137,7 @@
     		to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
     	from corp_order_info co
     	where co.corp_no is not null
- 
+ 		<include refid="headerSort" />
     	<include refid="CorpCondition" />
 	</select>
 
