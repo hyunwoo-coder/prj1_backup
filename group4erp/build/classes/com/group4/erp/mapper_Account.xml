@@ -47,9 +47,21 @@
 				)			
 		</if>
 	</sql>
+	
+	<sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null">
+			order by corp_no
+		</if>
+	</sql>
 
 	<select id='getCorpListCnt' resultType="int">
 		select count(*) from corporation_cus
+		where 1=1
+		<include refid="WhereCondition" />
 	</select>
 	
 	
@@ -65,6 +77,7 @@
 				corp_business_area "corp_business_area"
 			from corporation_cus
 			where 1=1 
+			<include refid="headerSort" />
 			<include refid="WhereCondition" />
 			
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
@@ -124,10 +137,9 @@
     		to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
     	from corp_order_info co
     	where co.corp_no is not null
+ 
     	<include refid="CorpCondition" />
 	</select>
-
-
 
 
 </mapper>

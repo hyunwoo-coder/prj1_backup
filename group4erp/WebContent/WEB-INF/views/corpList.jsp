@@ -9,35 +9,38 @@
 <title>거래처 관리</title>
 <script>
 
-$(document).ready(function(){
+	$(document).ready(function(){
 	
-	headerSort("corpListTable", 0);
+		headerSort("corpListTable", 0);
 
-	setTableTrBgColor(
-			"corpListTable",	//테이블 class 값
-			"${headerColor}",			//헤더 tr 배경색
-			"${oddTrColor}",		//홀수행 배경색
-			"${evenTrColor}",	//짝수행 배경색
-			"${mouseOverColor}"			//마우스 온 시 배경색
-		);
+		setTableTrBgColor(
+				"corpListTable",	//테이블 class 값
+				"${headerColor}",			//헤더 tr 배경색
+				"${oddTrColor}",		//홀수행 배경색
+				"${evenTrColor}",	//짝수행 배경색
+				"${mouseOverColor}"			//마우스 온 시 배경색
+			);
 		
-	$('[name=rowCntPerPage]').change(function(){
-		goSearch();
-	});
+		$('[name=rowCntPerPage]').change(function(){
+			goSearch();
+		});
 	
-	$(".pagingNumber").html(
-			getPagingNumber(
-				"${corpListCnt}"						//검색 결과 총 행 개수
-				,"${corpSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
-				,"${corpSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
-				,"10"										//페이지 당 보여줄 페이지번호 개수
-				,"goSearch();"						//페이지 번호 클릭 후 실행할 자스코드
-			)
-		);
+		$(".pagingNumber").html(
+				getPagingNumber(
+					"${corpListCnt}"						//검색 결과 총 행 개수
+					,"${corpSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
+					,"${corpSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
+					,"10"										//페이지 당 보여줄 페이지번호 개수
+					,"goSearch();"						//페이지 번호 클릭 후 실행할 자스코드
+				)
+			);
 
-	inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
-	inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
-});
+		inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
+		inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
+		inputData('[name=sort]').val("${corpSearchDTO.sort}");
+
+		//$('[name=sort]').val("${corpSearchDTO.sort}");
+	});
 
 
 	function goSearch() {
@@ -69,7 +72,7 @@ $(document).ready(function(){
 	<h1>거래처 현황</h1>
 <form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
-
+	
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 	 <table border=0 width=700>
 	 	<tr>
@@ -84,6 +87,7 @@ $(document).ready(function(){
 	            </select> 행보기
       </table>
      <input type="hidden" name="selectPageNo">
+     <input type="hidden" name="sort">
 		
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -95,7 +99,96 @@ $(document).ready(function(){
 
 <table class="corpListTable tbcss1" name="corpListTable" cellpadding="5" cellspacing="5" width="100%">
 	<tr>
-		<th></th><th>사업자번호</th><th>거래처명</th><th>사업자명</th><th>사업분야</th><th>소재지</th><th>연락처</th><th>FAX</th>
+		<th></th>
+		<c:choose>
+			<c:when test="${param.sort=='corp_no desc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_no asc'); goSearch();  "> ▲ 사업자번호</th>
+			</c:when>
+			<c:when test="${param.sort=='corp_no asc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_no desc'); goSearch(); "> ▼ 사업자번호</th>
+			</c:when>			
+			<c:otherwise>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_no asc'); goSearch();  ">사업자번호</th>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${param.sort=='corp_name desc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_name asc'); goSearch(); "> ▲ 거래처명</th>
+			</c:when>
+			<c:when test="${param.sort=='corp_name asc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_name desc'); goSearch(); "> ▼ 거래처명</th>
+			</c:when>			
+			<c:otherwise>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_name asc'); goSearch(); ">거래처명</th>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${param.sort=='ceo_name desc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('ceo_name asc'); goSearch(); "> ▲ 사업자명</th>
+			</c:when>
+			<c:when test="${param.sort=='ceo_name asc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('ceo_name desc'); goSearch(); "> ▼ 사업자명</th>
+			</c:when>			
+			<c:otherwise>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('ceo_name asc'); goSearch(); ">사업자명</th>
+			</c:otherwise>
+		
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${param.sort=='corp_business_area desc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_business_area asc'); goSearch(); "> ▲ 사업분야</th>
+			</c:when>
+			<c:when test="${param.sort=='corp_business_area asc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_business_area desc'); goSearch(); "> ▼ 사업분야</th>
+			</c:when>			
+			<c:otherwise>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_business_area asc'); goSearch(); ">사업분야</th>
+			</c:otherwise>
+		
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${param.sort=='corp_addr desc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_addr asc'); goSearch(); "> ▲ 소재지</th>
+			</c:when>
+			<c:when test="${param.sort=='corp_addr asc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_addr desc'); goSearch(); "> ▼ 소재지</th>
+			</c:when>			
+			<c:otherwise>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_addr asc'); goSearch(); ">소재지</th>
+			</c:otherwise>
+		
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${param.sort=='corp_tel desc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_tel asc'); goSearch(); "> ▲ 연락처</th>
+			</c:when>
+			<c:when test="${param.sort=='corp_tel asc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_tel desc'); goSearch(); "> ▼ 연락처</th>
+			</c:when>			
+			<c:otherwise>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_tel asc'); goSearch(); ">연락처</th>
+			</c:otherwise>
+		
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${param.sort=='corp_fax desc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_fax asc'); goSearch(); "> ▲ FAX</th>
+			</c:when>
+			<c:when test="${param.sort=='corp_fax asc'}">
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_fax desc'); goSearch(); "> ▼ FAX</th>
+			</c:when>			
+			<c:otherwise>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_fax asc'); goSearch(); ">FAX</th>
+			</c:otherwise>
+		
+		</c:choose>
+		
 	</tr>
 	<c:forEach items='${corpList}' var="corpList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">

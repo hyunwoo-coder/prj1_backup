@@ -42,8 +42,6 @@ public class AccountController {
 			int corpListCnt = this.accountService.getCorpListCnt();
 			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
 			
-			System.out.println("corpListCnt=="+corpListCnt);
-			
 			mav.addObject("corpListCnt", corpListCnt);
 			mav.addObject("corpList", corpList);
 						
