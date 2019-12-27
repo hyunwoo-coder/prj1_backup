@@ -7,8 +7,9 @@ public class BusinessTripSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String searchKey;
+	private String ascdesc;
+	private int thindexno;
 	
-
 	public String getKeyword() {
 		return keyword;
 	}
@@ -38,5 +39,17 @@ public class BusinessTripSearchDTO {
 	}
 	public void setRowCntPerPage(int rowCntPerPage) {
 		this.rowCntPerPage = rowCntPerPage;
+	}
+	public String getAscdesc() {
+		return ascdesc;
+	}
+	public void setAscdesc(String ascdesc) {
+		this.ascdesc = ascdesc;
+	}
+	public int getThindexno() {
+		return thindexno;
+	}
+	public void setThindexno(int thindexno) {
+		this.thindexno = thindexno;
 	}
 }
