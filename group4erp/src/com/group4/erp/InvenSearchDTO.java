@@ -17,6 +17,15 @@ public class InvenSearchDTO {
 	private String[] publisher;
 	private String[] inventory_loc;
 	
+	//headerSort 변수
+	private String sort;
+	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public String[] getSearch_inventory_loc() {
 		return search_inventory_loc;
 	}

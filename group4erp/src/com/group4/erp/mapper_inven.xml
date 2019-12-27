@@ -211,7 +211,12 @@
 			from book b	
 			where 1=1 
 			<include refid="bookList" />
-			order by ISBN13 asc
+			<if test="sort!=null and sort.length()>0">
+	 			order by ${sort}
+	 		</if>
+	 		<if test="sort==null or sort.length()==0">
+	 			order by ISBN13 asc
+	 		</if>
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
 	
@@ -239,7 +244,7 @@
 			from release_info r	
 			where 1=1
 			<include refid="releaseWhere" />
-			order by release_no asc
+			order by release_no desc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
 	

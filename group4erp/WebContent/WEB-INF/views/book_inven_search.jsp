@@ -79,7 +79,7 @@ $(document).ready(function(){
 <!-- <h5 align="left">재고현황 -> 도서정보조회</h5> -->
 <h1>[재고 관리]</h1>
    <form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
-      <div class="table_layout">
+      <!-- <div class="table_layout">  -->
       <table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
          <!-- <colgroup>
             <col width="20%" />
@@ -158,10 +158,60 @@ $(document).ready(function(){
       <br>
    <form>
       <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=850>
-         <tr><th>책번호<th>책이름<th>카테고리<th>출판사<th>절판여부<th>가격<th>수량<th>재고위치
+         <tr>
+         	<th>번호
+         	<c:choose>
+				<c:when test="${param.sort=='isbn13 desc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('isbn13 asc'); goSearchBookInven();">▼책번호
+				</c:when>
+				<c:when test="${param.sort=='isbn13 asc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('isbn13 desc'); goSearchBookInven();">▲책번호
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('isbn13 asc'); goSearchBookInven();">책번호
+				</c:otherwise>
+			</c:choose>
+         	<th>책이름<th>카테고리<th>출판사
+         	<c:choose>
+				<c:when test="${param.sort=='is_print desc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('is_print asc'); goSearchBookInven();">▼절판여부
+				</c:when>
+				<c:when test="${param.sort=='is_print asc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('is_print desc'); goSearchBookInven();">▲절판여부
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('is_print asc'); goSearchBookInven();">절판여부
+				</c:otherwise>
+			</c:choose>
+         	<c:choose>
+				<c:when test="${param.sort=='to_number(book_price) desc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('to_number(book_price) asc'); goSearchBookInven();">▼가격
+				</c:when>
+				<c:when test="${param.sort=='to_number(book_price) asc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('to_number(book_price) desc'); goSearchBookInven();">▲가격
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('to_number(book_price) asc'); goSearchBookInven();">가격
+				</c:otherwise>
+			</c:choose>
+         	<c:choose>
+				<c:when test="${param.sort=='(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) desc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) asc'); goSearchBookInven();">▼수량
+				</c:when>
+				<c:when test="${param.sort=='(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) asc'}">
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) desc'); goSearchBookInven();">▲수량
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer" onclick="$('[name=sort]').val('(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) asc'); goSearchBookInven();">수량
+				</c:otherwise>
+			</c:choose>
+         	<th>재고위치
 
          <c:forEach items="${requestScope.BookList}" var="book" varStatus="loopTagStatus">
           <tr style="cursor:pointer" onClick="goInvenContentForm(${book.ISBN13});">
+          	<td align=center>${bookListCnt-
+                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
+                  +1}
             <td align=center>${book.ISBN13}
             <td align=center>${book.book_name}
             <td align=center>${book.cat_name}

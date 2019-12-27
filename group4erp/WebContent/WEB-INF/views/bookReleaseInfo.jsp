@@ -56,7 +56,7 @@ $(document).ready(function(){
 	}
 	
 	function goReleaseContentForm(all_order_no){
-		alert("all_order_no="+all_order_no);
+		//alert("all_order_no="+all_order_no);
 		//return;
 		var str = "all_order_no="+all_order_no;
 		location.href="/group4erp/goReleaseContentForm.do?"+str;
@@ -108,9 +108,12 @@ $(document).ready(function(){
 		<br><br><br>
 		<table class="releaseListTable" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
-				<th>출고번호<th>출고일시<th>주문번호
+				<th>번호<th>출고번호<th>출고일시<th>주문번호
 			<c:forEach items="${requestScope.releaseList}" var="release" varStatus="loopTagStatus">
           	<tr style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});">
+          	<td align=center>${releaseListCnt-
+                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
+                  +1}
             <td align=center>${release.release_no}
             <td align=center>${release.release_dt}
             <td align=center>${release.all_order_no}

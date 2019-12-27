@@ -31,17 +31,11 @@ public class MyWorkController {
 			) {
 		
 		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
 		
 		//화면에 나의 상품 관리 페이지 띄우는 코드
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewMyCareBookList");
 		try {
-
-			//===================================================================================================
-			//검색된 관리 상품 목록 불러오는 코드
-			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myWorkSearchDTO);
-			mav.addObject("MyCareBookList", MyCareBookList);
 
 			//===================================================================================================
 			//검색 항목 불러오는 코드
@@ -75,6 +69,12 @@ public class MyWorkController {
 					myWorkSearchDTO.setSelectPageNo(1);
 				}
 			}
+			
+			//===================================================================================================
+			//검색된 관리 상품 목록 불러오는 코드
+			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myWorkSearchDTO);
+			mav.addObject("MyCareBookList", MyCareBookList);
+			
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);

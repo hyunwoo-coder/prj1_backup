@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.service.HRService;
 
@@ -285,4 +286,32 @@ public class HRController {
 		
 	}
 	
+	@RequestMapping(value="/viewNewEmpJoin.do")
+	public ModelAndView newEmpjoinMemberForm(
+			) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpJoinMember");
+		
+		return mav;	
+	}
+	
+	@RequestMapping(value="/newEmpInfoProc.do")
+	@ResponseBody
+	public int newEmpjoinMemberProc(
+			EmployeeDTO employeeDTO
+			) {
+		int newEmpInsertCnt = 0;
+		
+		try {
+			
+			newEmpInsertCnt = this.hrservice.getNewEmpInsertCnt(employeeDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<사원 등록 실패>");
+			System.out.println("예외 발생=>"+e);
+		}
+		
+		return newEmpInsertCnt;
+	}
 }

@@ -101,7 +101,11 @@
 		</table>
 		<table class="mycarebookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=700>
 			<tr>
-				<th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점
+				<th>책번호
+				<th>책 이름<th>카테고리
+				<th>가격
+				<th>수량
+				<th>보유지점
 			<c:forEach items="${requestScope.MyCareBookList}" var="MyCareBookList" varStatus="loopTagStatus">
 			<tr>	
 				<td align=center>${MyCareBookList.ISBN13}

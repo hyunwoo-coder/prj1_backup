@@ -131,6 +131,7 @@
 
 </head>
 <body><center>
+	<b>추후 메뉴 이동해야함</b>
 	<h1>[직원 근무 현황]</h1><br>
 	<form name="InoutListDate" method="post" action="/group4erp/viewEmpWorkStateList.do">
 		
