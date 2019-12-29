@@ -66,9 +66,19 @@ $(document).ready(function(){
    }
    
    function goNewBookInfo(){
-	   alert("책등록 구현중");
+	   //alert("책등록 구현중");
 	   //return;
 	   location.replace("/group4erp/viewSignUpBook.do")
+   }
+   
+   function goBookContentForm(isbn13){
+	   
+	   var str = "isbn13="+isbn13;
+	   
+	   alert("상세보기 구현중"+str);
+	   return;
+	   
+	   location.href="/group4erp/viewBookContentForm.do?"+str;
    }
    
 </script>
@@ -214,7 +224,7 @@ $(document).ready(function(){
          	<th>재고위치
 
          <c:forEach items="${requestScope.BookList}" var="book" varStatus="loopTagStatus">
-          <tr style="cursor:pointer" onClick="goInvenContentForm(${book.ISBN13});">
+          <tr style="cursor:pointer" onClick="goBookContentForm(${book.ISBN13});">
           	<td align=center>${bookListCnt-
                   (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
                   +1}

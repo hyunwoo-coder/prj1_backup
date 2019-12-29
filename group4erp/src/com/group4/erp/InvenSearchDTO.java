@@ -20,6 +20,29 @@ public class InvenSearchDTO {
 	//headerSort 변수
 	private String sort;
 	
+	private String searchToday;
+	private String dateFrom;
+	private String dateTill;
+	
+	
+	public String getSearchToday() {
+		return searchToday;
+	}
+	public void setSearchToday(String searchToday) {
+		this.searchToday = searchToday;
+	}
+	public String getDateFrom() {
+		return dateFrom;
+	}
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+	public String getDateTill() {
+		return dateTill;
+	}
+	public void setDateTill(String dateTill) {
+		this.dateTill = dateTill;
+	}
 	public String getSort() {
 		return sort;
 	}

@@ -187,6 +187,24 @@
               or (select publisher from book where isbn13=(select isbn13 from corp_order_info where order_books_no=r.order_books_no)) = #{searchPublisher}
                )
       </if>
+      <if test="searchToday!=null and searchToday.length()>0">
+            and ( to_char(r.release_dt,'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD') )
+      </if>
+       <if test="( dateFrom != null and dateFrom.length()>0 )  or  ( dateTill != null and dateTill.length()>0 )">
+          and( 
+       </if>   
+       <if test="( dateFrom!=null and dateFrom.length()>0 ) and ( dateTill.equals('') )">
+          r.release_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') 
+       </if>
+       <if test="( dateTill!=null and dateTill.length()>0 ) and ( dateFrom.equals('')  )">
+          r.release_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') 
+       </if>
+       <if test="( dateFrom!=null and dateFrom.length()>0 )and ( dateTill != null and dateTill.length()>0 )">
+          ( r.release_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') )  and ( r.release_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') ) 
+       </if>
+       <if test="( dateFrom != null and dateFrom.length()>0 )  or  ( dateTill != null and dateTill.length()>0 )">
+          ) 
+       </if>
 	</sql>
 	 
 	<select id="getBookListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
@@ -299,11 +317,7 @@
 	</select>
     
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">
-    	insert into book (
-			isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, publisher_dt, editor
-			) values (
-				'${isbn13}', '${book_name}', ${cat_cd}, '${book_price}', ${book_pages}, '${writer}', '${publisher}', ${size_cd}, '${is_print}'
-				,(select emp_no from emp_name='${emp_name}')
-				,to_date('${datepicker}', 'YYYY-MM-DD'), '${editor}' )
+    	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor ) values
+    		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor} )
     </insert>
 </mapper>

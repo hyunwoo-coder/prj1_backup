@@ -174,14 +174,15 @@ public class InvenController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/goSignUpBookProc.do")
+	@RequestMapping(value="/goSignUpBookProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public int goSignUpBook(
 			InvenDTO invenDTO
 			) {
 		
 		int insertSignUpBookCnt = 0;
-		System.out.println("controller시작");
 		try {
 			
 			insertSignUpBookCnt = this.invenService.getSignUpCnt(invenDTO);

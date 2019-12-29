@@ -6,10 +6,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <title>출고 현황 </title>
+<style>
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+
+ input[type="date"]::-webkit-calendar-picker-indicator,
+ input[type="date"]::-webkit-inner-spin-button {
+     display: none;
+     appearance: none;
+ }
+ 
+ input[type="date"]::-webkit-calendar-picker-indicator {
+   color: rgba(0, 0, 0, 0); /* 숨긴다 */
+   opacity: 1;
+   display: block;
+   background: url(https://mywildalberta.ca/images/GFX-MWA-Parks-Reservations.png) no-repeat; /* 대체할 아이콘 */
+   width: 20px;
+   height: 20px;
+   border-width: thin;
+}
+</style>
 <script>
 
 $(document).ready(function(){  
+	
+	
+	$("#datepicker1").datepicker({
+		
+	    onSelect: function() { 
+	        var dateObject = $(this).datepicker('getDate');
+	    }
+	});
+	$("#datepicker2").datepicker({
+	    onSelect: function() { 
+	        var dateObject = $(this).datepicker('getDate');
+	    }
+	});
 	
 	 $('[name=rowCntPerPage]').change(function(){
 		 goSearchRelease();
@@ -46,6 +84,10 @@ $(document).ready(function(){
 		//alert("검색 기능 구현중");
 		//alert( $("[name=bookReleaseSearch]").serialize() );
 		//return;
+		
+		//alert($('[name=dateFrom]').val());
+		//return;
+		
 		document.bookReleaseSearch.submit();
 	}
 
@@ -61,6 +103,12 @@ $(document).ready(function(){
 		var str = "all_order_no="+all_order_no;
 		location.href="/group4erp/goReleaseContentForm.do?"+str;
 	}
+	
+	function searchToday(){
+		
+		$('[name=searchToday]').val('y');
+		goSearchRelease();
+	}
 
 </script>
 
@@ -68,7 +116,7 @@ $(document).ready(function(){
 <body><center>
 <h1>[출고 현황]</h1>
 		<form name="bookReleaseSearch" method="post" action="/group4erp/goReleaseList.do">
-		<table width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 			<th>지역
 			<td align=center colspan=3>
@@ -76,8 +124,10 @@ $(document).ready(function(){
              		<input type="checkbox" name="inventory_loc" value="${inven.branch_name}">${inven.branch_name}
             	</c:forEach>
 			<tr>
-			<th>키워드
-			<td width=300><input type="text" name="keyword1" size=40>
+			<th>일자
+			<td width=300>
+				<input type="text" id="datepicker1" name="dateFrom">&nbsp;~&nbsp;
+				<input type="text" id="datepicker2" name="dateTill">
 			<th>출판사
 			<td align=center>
 				<select name="searchPublisher">
@@ -86,6 +136,16 @@ $(document).ready(function(){
                   		<option value="${publisher.publisher}">${publisher.publisher}</option>
                		</c:forEach>
 				</select>
+			<tr>
+			<th>키워드
+			<td colspan=4><input type="text" name="keyword1" size=40>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a style="cursor:pointer" onclick="searchToday();">[금일 검색]</a>
+			<input type="hidden" name="searchToday">
+			<script>
+				 $("#datepicker1").datepicker({ dateFormat: 'yy-mm-dd' });
+				 $("#datepicker2").datepicker({ dateFormat: 'yy-mm-dd' });
+			</script>
 		</table>
 		<br>
 			<input type="button" value="  검색  " onclick="goSearchRelease();">&nbsp;&nbsp;

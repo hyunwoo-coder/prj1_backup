@@ -10,13 +10,14 @@
 <script>
 
 	function bookjSignUp(){
-		alert("등록 기능 구현중");
+		//alert("등록 기능 구현중");
+		//alert($('[name=newSignUpBookProc]').serialize());
 		
 		$.ajax({
 			//호출할 서버쪽 URL주소 설정
 			url : "/group4erp/goSignUpBookProc.do"
 			//전송 방법 설정
-			, type : "post"
+			, type : "POST"
 			//서버로 보낼 파라미터명과 파라미터값을 설정
 			, data : $('[name=newSignUpBookProc]').serialize()
 			//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
@@ -27,7 +28,7 @@
 					location.replace("/group4erp/goBookList.do")
 				}else if(insertCnt==0){
 					alert("등록 실패");
-				}else alert("서버쪽 DB연동 실패!");
+				}else alert("서버 오류!");
 			}
 			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
 			, error : function(){
@@ -42,11 +43,12 @@
 </head>
 <body>
 <cneter>
-   <form name = "newSignUpBookProc" method="post" action="/group4erp/goSignUpBookProc.do">
+	<b>[서적 등록]</b>
+   <form name="newSignUpBookProc" method="post" action="/group4erp/goSignUpBookProc.do">
          <table cellpadding=5 class="tbcss1">
             <tr>
                <th bgcolor=#DBDBDB >ISBN13
-               <td><input type="text" name="ISBN13" class="ISBN13" size="10" maxlength=20>
+               <td><input type="text" name="isbn13" class="isbn13" size="10" maxlength=20>
             </tr>
             <tr>
                <th bgcolor=#DBDBDB >책 이름
