@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file = "/WEB-INF/views/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link href="/resources/common.css" rel="stylesheet" type="text/css"> 
+
 <title>직원 근무 현황</title>
 <style>
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
@@ -30,94 +31,6 @@
    height: 20px;
    border-width: thin;
 }
-
-
-
-
-@charset "UTF-8";
-	
-/*-----------------------------------------------------------------------*/ 
-body,form,td,th,pre { 
-	font-size: 9pt; 
-	color: black; 
-	line-height: 160%; 
-	font-family: 굴림,tahoma,돋움,verdana; 
-} 
-
-/*-----------------------------------------------------------------------*/ 
-input { 
-	font-size: 9pt; 
-	color:black; 
-	font-family: 굴림,tahoma,돋움,verdana; 
-	height: 20px; 
-} 
-a:link {text-decoration:none;color:#696969} 
-a:hover{text-decoration:none;color:#66ccff} 
-a:visited {text-decoration:none;color:#330066} 
-/*body,td,a,div,p,pre,input,textarea {font-family:굴림;font-size:9pt;}*/
-
-/*-----------------------------------------------------------------------*/ 
-/* <table class="tbcss0"> ~</table>안의 테이블에 가로,세로 선이 모두 없게 보이기. */
-/* 경계선 색상은 직접 table 태그에 직접 설정. */ 
-/*-----------------------------------------------------------------------*/ 
-.tbcss0, .tbcss0 td, .tbcss0 th{ 
-	border-collapse: collapse; 
-	border:0px solid gray;         /*padding:5;*/
-	font-size: 9pt;
-	font-family: tahoma,굴림,돋움,verdana; 
- }
- 
-/*-----------------------------------------------------------------------*/ 
-/* <table class="tbcss1"> ~</table>안의 테이블에 가로,세로 선이 모두 단일선으로 보이기. */
-/* 경계선 색상은 직접 table 태그에 직접 설정. */ 
-/*-----------------------------------------------------------------------*/ 
-.tbcss1, .tbcss1 td, .tbcss1 th{ 
-	border-collapse: collapse; 
-	border:1px solid black;         /*padding:5;*/
-	font-size: 9pt;
-	font-family: tahoma,굴림,돋움,verdana; 
- }
- 
-/*-----------------------------------------------------------------------*/ 
-/* <table class="tbcss2"> ~</table>안의 가로선은 단일선으로 보이고 세로 선은 안 보이기. */
-/* 경계선 색상은 직접 table 테그에 직접 설정*/ 
-/*-----------------------------------------------------------------------*/ 
-.tbcss2, .tbcss2 td, .tbcss2 th{ 
-	 /*border-spacing:0;*/
-	border-collapse:collapse;  
-	border-top:1px solid gray;
-	border-bottom:1px solid gray; 
-	border-left:0px;
-	border-right:0px;
-	font-size: 9pt;
-	font-family: tahoma,굴림,돋움,verdana;  	
-	/* border-collapse:collapse;  
-	border:0px;
-	font-size: 9pt;
-	font-family: tahoma,굴림,돋움,verdana; */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-
-
-
-
 
 </style>
 	<script>
@@ -232,10 +145,10 @@ a:visited {text-decoration:none;color:#330066}
 
 </head>
 <body><center>
-	<h1>[직원 근무 현황]</h1><br>
+	<h1 class="fontBold">[직원 근무 현황]</h1><br>
 	<form name="InoutListDate" method="post" action="/group4erp/viewEmpWorkStateList.do">
 		
-		<div style="width:800">
+		<div class="fontLight" style="width:800">
 			[키워드] : <input type="text" name="keyword1" >
 			[일자] : <input type="text" id="datepicker" name="datepicker"><br>
 			<table><tr height=10><td></table>
@@ -247,10 +160,13 @@ a:visited {text-decoration:none;color:#330066}
 			<input type="checkbox" name="inout_name" class="inout_name" value="지각">지각
 			<input type="checkbox" name="inout_name" class="inout_name" value="외근">외근
 			
-			<input type="button" value="검색" onClick="goSearch();"
-					style="width:75; font-family:돋움; background-color:#FFFFFF; border:1 solid #A0DBE4">&nbsp;
+			<table><tr height=10><td></table>
+			<button onClick="goSearch();">검색</button>
+			<button onClick="goSearchAll();">모두검색</button>
+			<!-- <input type="button" value="검색" onClick="goSearch();"
+				 style="width:75;  background-color:#FFFFFF; border:1 solid #A0DBE4">&nbsp;
 			<input type="button" value="모두검색" onClick="goSearchAll();"
-					style="width:75; font-family:돋움; background-color:#FFFFFF; border:1 solid #A0DBE4">
+				style="width:75; background-color:#FFFFFF; border:1 solid #A0DBE4"> -->
 		</div>
 	    
 	    <script>
@@ -261,7 +177,7 @@ a:visited {text-decoration:none;color:#330066}
 	    &nbsp;&nbsp;
 		<table border=0 width=70%>
 			<tr>
-				<td align=right>
+				<td class="fontLight" align=right>
 					[총 개수] : ${getEmpInoutListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 					<select name="rowCntPerPage">
 						<option value="10">10
@@ -289,28 +205,27 @@ a:visited {text-decoration:none;color:#330066}
 	    
 	    
 	   <form name="getEmpInoutList" method="post" action="/group4erp/viewEmpWorkStateList.do">
-		<table class="inoutListTable tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
-			<thead>
+		<table class="inoutListTable tab" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
+
 				<tr>
-					<th style="cursor:pointer">날짜
-					<th style="cursor:pointer">사원번호
-					<th width=100 style="cursor:pointer">성명
-					<th style="cursor:pointer">부서
-					<th style="cursor:pointer">직급
-					<th style="cursor:pointer">출근시간
-					<th style="cursor:pointer">퇴근시간
-					<th style="cursor:pointer">근무시간
-					<th style="cursor:pointer">구분
-					<th style="cursor:pointer">비고
+					<th class="thset" style="cursor:pointer">NO
+					<th class="thset" style="cursor:pointer">날짜
+					<th class="thset" style="cursor:pointer">사원번호
+					<th class="thset" width=100 style="cursor:pointer">성명
+					<th class="thset" style="cursor:pointer">부서
+					<th class="thset" style="cursor:pointer">직급
+					<th class="thset" style="cursor:pointer">출근시간
+					<th class="thset" style="cursor:pointer">퇴근시간
+					<th class="thset" style="cursor:pointer">근무시간
+					<th class="thset" style="cursor:pointer">구분
+					<th class="thset" style="cursor:pointer">비고
 				</tr>
-			</thead>
+
 			
-			<tbody>
+
 				<c:forEach items="${requestScope.getEmpInoutList}" var="inout" varStatus="loopTagStatus">
 					<tr style="cursor:pointer">
-						<%-- <td align=center>
-							${boardListAllCnt - 
-								(boardSearchDTO.selectPageNo*boardSearchDTO.rowCntPerPage-boardSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1} --%>
+						<td align=center> ${loopTagStatus.index+1}
 						<td align=center> ${inout.DT_WORK}
 						<td align=center> ${inout.EMP_NO}
 						<td align=center> ${inout.EMP_NAME}
@@ -323,7 +238,7 @@ a:visited {text-decoration:none;color:#330066}
 						<td align=center> ${inout.REMARKS}
 					</tr>
 				</c:forEach>
-			</tbody>
+
 		
 			
 			

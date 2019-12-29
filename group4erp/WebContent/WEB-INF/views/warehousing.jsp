@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8"%>
+<%@ include file = "/WEB-INF/views/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,8 +57,12 @@ a:hover{text-decoration:none;color:#66ccff}
 a:visited {text-decoration:none;color:#330066} 
 /*body,td,a,div,p,pre,input,textarea {font-family:굴림;font-size:9pt;}*/
 
-.trcolor {
-	background-color: yellow;
+.thcolor {
+	background-color: #1AAB8A;
+}
+
+td{
+	text-align:center;
 }
 
 
@@ -114,6 +119,11 @@ a:visited {text-decoration:none;color:#330066}
 			        var dateObject = $(this).datepicker('getDate');
 			        alert(dateObject.val()); 
 			    }
+	 			/* onClose: function( selectedDate ) {    
+	                // 시작일(fromDate) datepicker가 닫힐때
+	                // 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+	                $("#dateTill").datepicker( "option", "minDate", selectedDate );
+	            }   */              
 			});
  			$("#dateTill").datepicker({
 			    onSelect: function() { 
@@ -121,8 +131,12 @@ a:visited {text-decoration:none;color:#330066}
 			        var dateObject = $(this).datepicker('getDate');
 			        alert(dateObject.val()); 
 			    }
+	 			/* onClose: function( selectedDate ) {
+	                // 종료일(toDate) datepicker가 닫힐때
+	                // 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+	                $("#dateFrom").datepicker( "option", "maxDate", selectedDate );
+	            }  */        
 			});
-
 
 			inputData( "[name=selectPageNo]", "${warehousingSearchDTO.selectPageNo}" );	
 			inputData( "[name=rowCntPerPage]", "${warehousingSearchDTO.rowCntPerPage}" );
@@ -141,9 +155,20 @@ a:visited {text-decoration:none;color:#330066}
 			//var keyword1 = $("[name=InoutListDate] [name=keyword1]").val();
 			//keyword1 = $.trim(keyword1);
 			//$("[name=InoutListDate] [name=keyword1]").val(keyword1);
-			alert( $('[name=searchToday]').val() );
+			//alert( $('[name=searchToday]').val() );
 			//return;
+			alert( $("[name=dateFrom]").val() );
+			alert( $("[name=dateTill]").val() );
 			document.warehousingSearchForm.submit();
+		}
+
+		function goTodaySearch(){
+			$('[name=searchToday]').val('y'); 
+			inputData( "[name=dateFrom]", null );
+		    inputData( "[name=dateTill]", null );
+		    /* alert( $("[name=dateFrom]").val() );
+		    alert( $("[name=dateTill]").val() ); */
+			goWhSearch();
 		}
 
 		function goWhSearchAll(){
@@ -217,6 +242,11 @@ a:visited {text-decoration:none;color:#330066}
 			$("#thisTable tr").removeAttr("bgcolor");
 	    }
 
+
+
+
+	    
+
 		
 
 		
@@ -224,14 +254,15 @@ a:visited {text-decoration:none;color:#330066}
 
 </head>
 <body><center>
-	<h1>[입고 현황]</h1><br>
+	<h1 class="fontNormal">[입고 현황]</h1><br>
 	
 	<form name="warehousingSearchForm" method="post" action="/group4erp/goWarehousingList.do">
-			<table width="700" border=1 bordercolor="#000000" cellpadding=5align=center>
+			<table class="tab" width="510" border=1 bordercolor="#000000" cellpadding=5 align=center>
 
 				<tr>
 					<th>지역
-					<td colspan=3 align=center><c:forEach
+					<td style="text-align:left" colspan=3 >
+					<c:forEach
 							items="${requestScope.branch}" var="branch"
 							varStatus="loopTagStatus">
 							<input type="checkbox" name="wh_loc"
@@ -247,7 +278,7 @@ a:visited {text-decoration:none;color:#330066}
 	         --%>
 				<tr>
 					<th>출판사
-					<td><select name="searchPublisher">
+					<td style="text-align:left"><select name="searchPublisher">
 							<option value="">--------</option>
 							<c:forEach items="${requestScope.publisher}" var="publisher"
 								varStatus="loopTagStatus">
@@ -256,7 +287,7 @@ a:visited {text-decoration:none;color:#330066}
 					</select></td>
 
 					<th>키워드
-					<td><input type="text" name="wh_keyword"></td>
+					<td style="text-align:left"><input type="text" name="wh_keyword"></td>
 
 				</tr>
 
@@ -265,29 +296,38 @@ a:visited {text-decoration:none;color:#330066}
 
 				<tr>
 					<th>일자
-					<td colspan=3><input type="text" id="dateFrom" name="dateFrom">
+					<td colspan=3 style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
 						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a style="cursor:pointer" onclick="$('[name=searchToday]').val('y'); goWhSearch();">[금일 검색]</a>
+						&nbsp;&nbsp;
+						<a style="cursor:pointer" onclick="goTodaySearch();">[금일 검색]</a>
 				</tr>
 
 			</table>
 			<br>
 
 			<script>
-	        $("#dateFrom").datepicker({ dateFormat: 'yy-mm-dd' });
-	        $("#dateTill").datepicker({ dateFormat: 'yy-mm-dd' });
-	        
-	    </script>
+	        $("#dateFrom").datepicker({ dateFormat: 'yy-mm-dd', onClose: function( selectedDate ) {    
+                // 시작일(fromDate) datepicker가 닫힐때
+                // 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                $("#dateTill").datepicker( "option", "minDate", selectedDate );
+            }       });
+	        $("#dateTill").datepicker({ dateFormat: 'yy-mm-dd', onClose: function( selectedDate ) {
+                // 종료일(toDate) datepicker가 닫힐때
+                // 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+                $("#dateFrom").datepicker( "option", "maxDate", selectedDate );
+            }  });
+	    	</script>
       
-      <input type="button" value="검색" onclick="goWhSearch();">
-      <input type="button" value="모두검색" onclick="goWhSearchAll();">
+      
+      <table><tr height=5><td></table>
+      
+		<button onClick="goWhSearch();">검색</button>
+		<button onClick="goWhSearchAll();">모두검색</button>
+    
       <table border=0 width=70%>
 			<tr>
-				<td align=right>
+				<td width=50%> &nbsp;
+				<td class="fontLight" align=right>
 					[총 개수] : ${warehousingListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 					<select name="rowCntPerPage">
 						<option value="10">10
@@ -296,6 +336,7 @@ a:visited {text-decoration:none;color:#330066}
 						<option value="25">25
 						<option value="30">30
 					</select> 행보기
+				</td>
 	  </table>
       <input type="hidden" name="selectPageNo">
       <input type="hidden" name="searchToday">
@@ -304,42 +345,37 @@ a:visited {text-decoration:none;color:#330066}
 
 
 	<div id="contecnt" style="display:none;">
-		<table id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="tab" width="600" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		
 			<tr>
-				<th>주문자 <th>발주수량 <th>공급률 <th>발주금액 <th>발주신청일
+				<th class="thcolor">주문자 <th class="thcolor">발주수량 <th class="thcolor">공급률 <th class="thcolor">발주금액 <th class="thcolor">발주신청일
 			<tr>
 				<td><td><td><td><td>
 				
 			<tr>
-				<th>지사 <th>입고요청일 <th>책이름 <th>출판사 <th>카테고리
+				<th class="thcolor">지사 <th class="thcolor">입고요청일 <th class="thcolor">책이름 <th class="thcolor">출판사 <th class="thcolor">카테고리
 			<tr>
 				<td><td><td><td><td>
 		</table>
 		<table><tr height=5><td></table>
-		<input type="button" value="닫기" onclick="closeDiv();">
+		<button onclick="closeDiv();">닫기</button>
 	</div>
 	
 	
 	<table><tr height=10><td></table>
 	
-
-	<div style="border:2px solid gray; background-color:#22A685; width:70; height:335; padding:10; position:absolute; top:418; left:200; z-index:5; display:none;">
-			[급보]
-	</div>
 	
 	<form name="warehousingList" method="post" action="/group4erp/goWarehousingList.do">
-      <table class="tableColor" id="thisTable" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+      <table class="tableColor tab" id="thisTable" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
          <tr>
-            <th style="cursor:pointer">입고일<th style="cursor:pointer">입고번호<th style="cursor:pointer">주문발주번호
+            <th style="cursor:pointer">NO<th style="cursor:pointer">입고일<th style="cursor:pointer">입고번호<th style="cursor:pointer">주문발주번호
          
             <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
 					<tr class="trcolor" style="cursor:pointer" onClick="goWarehousingContent( ${warehousing.order_inven_no} );">
 						
 					<%-- <tr style="cursor:pointer" onClick="goWarehousingContent( ${warehousing.order_inven_no} );"> --%>
 					<!-- <tr style="cursor:pointer" onClick="alert(123456);"> -->
-						<%-- <td align=center>
-							${boardListAllCnt - 
-								(boardSearchDTO.selectPageNo*boardSearchDTO.rowCntPerPage-boardSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1} --%>
+						<td align=center> ${(loopTagStatus.index)+1}
 						<td align=center> ${warehousing.wh_dt}
 						<td align=center> ${warehousing.wh_no}
 						<td align=center> ${warehousing.order_inven_no}

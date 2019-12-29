@@ -43,11 +43,11 @@
  		<if test="( dateFrom != null and dateFrom.length()>0 )  or  ( dateTill != null and dateTill.length()>0 )">
 	 		and( 
 	 	</if>	
-	 	<if test="( dateFrom!=null and dateFrom.length()>0 )">
-	 		w.wh_dt = to_date( #{dateFrom}, 'YYYY-MM-DD') 
+	 	<if test="(dateFrom!=null and dateFrom.length()>0 ) and (dateTill==null or dateFrom.length()==0)">
+	 		w.wh_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') 
 	 	</if>
-	 	<if test="( dateTill!=null and dateTill.length()>0 )">
-	 		w.wh_dt = to_date( #{dateTill}, 'YYYY-MM-DD') 
+	 	<if test="(dateTill!=null and dateTill.length()>0 ) and (dateFrom==null or dateFrom.length()==0)">
+	 		w.wh_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') 
 	 	</if>
 	 	<if test="( dateFrom!=null and dateFrom.length()>0 )and ( dateTill != null and dateTill.length()>0 )">
 	 		( w.wh_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') )  and ( w.wh_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') ) 
@@ -63,27 +63,21 @@
 		</if>
 		
 	
-		<!-- <if test="wh_keyword!=null and wh_keyword.length()>0 ">
+		<if test="wh_keyword!=null and wh_keyword.length()>0 ">
 	      and(
 	      	upper((select emp_name from employee where emp_no = (select emp_no from books_inven_order_info where order_inven_no = w.order_inven_no))) like upper('%${wh_keyword}%')
-	        or upper( (select order_stock_cnt from books_inven_order_info where order_inven_no = w.order_inven_no )||'' ) like upper('%${wh_keyword}%')
-	        or upper( to_char(w.wh_dt,'YYYY-MM-DD') ) like upper('%${wh_keyword}%')
-	        or upper((select isbn13  from books_inven_order_info where order_inven_no = w.order_inven_no)) like upper('%${wh_keyword}%')
-	        or upper((select book_name  from book  where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no)  )) like upper ('%${wh_keyword}%')
-	        or upper((select publisher  from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no)  )) like upper('%${wh_keyword}%')
-	        or upper((select order_stock_cnt from books_inven_order_info where order_inven_no = w.order_inven_no))
+	        or upper( (select order_stock_cnt from books_inven_order_info where order_inven_no = w.order_inven_no ) ) like upper('%${wh_keyword}%')
+	        or upper((select supply_rate from books_inven_order_info where order_inven_no = w.order_inven_no )) like upper('%${wh_keyword}%')
+	        or upper((select cost from books_inven_order_info where order_inven_no = w.order_inven_no)) like upper('%${wh_keyword}%')
+	        or upper((select order_dt from books_inven_order_info where order_inven_no = w.order_inven_no)) like upper ('%${wh_keyword}%')
+	        or upper((select branch_name from code_branch where branch_cd = (select branch_cd from books_inven_order_info where order_inven_no = w.order_inven_no))) like upper('%${wh_keyword}%')
+	        or upper((select store_req_dt from books_inven_order_info where order_inven_no = w.order_inven_no)) like upper('%${wh_keyword}%')
+	        or upper((select book_name from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no)  )) like upper('%${wh_keyword}%')
+	        or upper((select publisher from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no)  )) like upper('%${wh_keyword}%')
+	        or upper((select cat_name from CODE_CATEGORY where cat_cd = (select cat_cd from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no )) )) like upper('%${wh_keyword}%')
 	      )
 		</if>
-		(select emp_name from employee where emp_no = (select emp_no from books_inven_order_info where order_inven_no = w.order_inven_no)) as "emp_name"
-		    ,(select order_stock_cnt from books_inven_order_info where order_inven_no = w.order_inven_no )||''  as "order_stock_cnt"
-		    ,(select supply_rate from books_inven_order_info where order_inven_no = w.order_inven_no )||''  as "supply_rate"
-		    ,(select cost from books_inven_order_info where order_inven_no = w.order_inven_no)||'' as "cost" 
-		    ,(select order_dt from books_inven_order_info where order_inven_no = w.order_inven_no)||''  as "order_dt"          
-		    ,(select branch_name from code_branch where branch_cd = (select branch_cd from books_inven_order_info where order_inven_no = w.order_inven_no))||''  as "branch_name"  
-		    ,(select store_req_dt from books_inven_order_info where order_inven_no = w.order_inven_no)||'' as "store_req_dt"
-		    ,(select book_name from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no)  ) as "book_name"
-		    ,(select publisher from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no)  ) as "book_publisher" 
-		    ,(select cat_name from CODE_CATEGORY where cat_cd = (select cat_cd from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no )) ) as "cat_name" -->
+		
 	</sql> 
     
 

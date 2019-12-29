@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file = "/WEB-INF/views/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,14 @@
 					,"goSearch();"							//페이지 번호 클릭 후 실행할 자스 코드
 				)
 			);
+
+			setTableTrBgColor(
+					"dayOffList",			//테이블 class 값
+					"${headerColor}",		//헤더 tr 배경색
+					"${oddTrColor}",		//홀수행 배경색
+					"${evenTrColor}",		//짝수행 배경색
+					"${mouseOverColor}"		//마우스 온 시 배경색
+			);
 		});
 	
 		function goSearch(){
@@ -27,27 +36,24 @@
 	</script>
 </head>
 <body><center>
-	<h1>[직원 휴가 현황]</h1><br>
+	<h1 class="fontBold">[직원 휴가 현황]</h1><br>
 	<!-- 기준일 : 2019년 12월 19일 -->
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		
-		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width="500">
-			<thead>
-				<tr>
+		<table class="dayOffList tab" name="dayOffList" cellpadding="5" cellspacing="5" width="500">
+
+				<tr class="thset">
+					<th style="cursor:pointer">NO
 					<th style="cursor:pointer">소속 부서
 					<th style="cursor:pointer">직급
 					<th style="cursor:pointer">성명
 					<th style="cursor:pointer">휴가 종류
 					<th style="cursor:pointer">복귀 예정일
 				</tr>
-			</thead>
-			
-			<tbody>
+
 				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">
 					<tr style="cursor:pointer">
-						<%-- <td align=center>
-							${boardListAllCnt - 
-								(boardSearchDTO.selectPageNo*boardSearchDTO.rowCntPerPage-boardSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1} --%>
+						<td align=center> ${loopTagStatus.index+1}
 						<td align=center> ${dayoff.dep_name}
 						<td align=center> ${dayoff.jikup}
 						<td align=center> ${dayoff.emp_name}
@@ -55,7 +61,7 @@
 						<td align=center> ${dayoff.end_day_off}
 					</tr>
 				</c:forEach>
-			</tbody>
+
 		
 		
 		</table>

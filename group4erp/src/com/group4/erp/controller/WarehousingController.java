@@ -5,6 +5,8 @@
 
 package com.group4.erp.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +51,14 @@ public class WarehousingController {
 			List<Map<String, String>> warehousingList = this.warehousingService
 					.getWarehousingList(warehousingSearchDTO);
 			mav.addObject("warehousingList", warehousingList);
+			String setToday = warehousingSearchDTO.getSearchToday();
+			if (setToday != null && setToday.length()>0) {
+				 Date d = new Date();
+				 SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+				 String s = sdf.format(d).toString();
+				 warehousingSearchDTO.setDateFrom(s);
+				 warehousingSearchDTO.setDateTill(s);
+			}
 
 		} catch (Exception e) {
 			System.out.println("<입고목록 불러오기 실패>");
