@@ -52,7 +52,8 @@
 	<< 2019년 12월 24일(화) >>
 	
 	<form name="returnSearchForm" method="post" action="/group4erp/goReturnOrderList.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
+	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;
+		<select name=""></select><input type="button" value="검색" onClick="goSearch();">
 	
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 	 <table border=0 width=700>

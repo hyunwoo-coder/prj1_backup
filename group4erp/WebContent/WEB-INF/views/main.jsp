@@ -136,7 +136,14 @@
 			<c:if test="${subMenu.equals('viewInsertAdApply') }">
 				<%@ include file="/WEB-INF/views/adInsertForm.jsp" %>
 			</c:if>
+		
+			<c:if test="${subMenu.equals('viewInsertAdApply') }">	
+				<%@ include file="/WEB-INF/views/adInsertForm.jsp" %>
+			</c:if>
 			
+			<c:if test="${subMenu.equals('viewMyWorkTime') }">
+				<%@ include file="/WEB-INF/views/workTimeList.jsp" %>
+			</c:if>
 
 			<c:if test="${subMenu.equals('viewTranSpecList') }">
 				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
