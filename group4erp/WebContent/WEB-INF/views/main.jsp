@@ -134,7 +134,7 @@
 			</c:if>
 			
 			<c:if test="${subMenu.equals('viewInsertAdApply') }">
-				<%@ include file="/WEB-INF/views/insertAdForm.jsp" %>
+				<%@ include file="/WEB-INF/views/adInsertForm.jsp" %>
 			</c:if>
 			
 

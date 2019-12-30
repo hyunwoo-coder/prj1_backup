@@ -78,7 +78,7 @@
 	</table>
 </form> 
 	
-	<table class="returnOrderTable tbcss1" name="returnOrderTable" cellpadding="5" cellspacing="5" width="600">
+	<table class="returnOrderTable tbcss1" name="returnOrderTable" cellpadding="5" cellspacing="5">
 		<tr>
 		<c:choose>
 			<c:when test="${param.sort=='1 desc'}">

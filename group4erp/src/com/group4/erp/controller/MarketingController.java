@@ -106,8 +106,7 @@ public class MarketingController {
 		
 		int insertEventCnt = 0;
 		try {
-			System.out.println("EventDTO.getEvnt_no==="+eventDTO.getEvnt_no());
-			System.out.println("EventDTO.getEmp_no==="+eventDTO.getEmp_no());
+
 			System.out.println("EventDTO.getAtchd_data==="+eventDTO.getAtchd_data());
 			
 			insertEventCnt = this.marketingService.insertEvent(eventDTO);
@@ -133,8 +132,6 @@ public class MarketingController {
 		int ad_apply_cnt = this.marketingService.getAdApplyCnt();
 		List<AdApplyDTO> ad_apply_list = this.marketingService.getAdApplyList();
 		
-		System.out.println("ad_apply_list.size==="+ad_apply_list.size());
-		
 		mav.addObject("adApplyCnt", ad_apply_cnt);
 		mav.addObject("adApplyList", ad_apply_list);
 		
@@ -150,14 +147,23 @@ public class MarketingController {
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewInsertAdApply");
 		
+		try {
+			
+			int ad_apply_cnt = this.marketingService.getAdApplyCnt();
+			int adNum = ad_apply_cnt+1;
+			mav.addObject("adNum", adNum);
+			
+		} catch(Exception e) {
+			System.out.println("viewInsertAdApply() 메소드에서 예외 발생==="+e);
+		}
+		
+		
 		//int ad_apply_cnt = this.marketingService.getAdApplyCnt();
 		//List<AdApplyDTO> ad_apply_list = this.marketingService.getAdApplyList();
 		
 		
 		return mav;
 	}
-	
-	
 	
 	
 	@RequestMapping( 
@@ -167,20 +173,20 @@ public class MarketingController {
 	)
 	
 	@ResponseBody
-	public int insertCorp(CorporationDTO corporationDTO) {
+	public int insertAd(AdApplyDTO adApplyDTO) {
 		
-		int insertCorpCnt = 0;
+		int insertAdCnt = 0;
 		try {
 			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
 					
 			//insertCorpCnt = this.accountService.insertCorp(corporationDTO);
 				
 		} catch(Exception e) {
-			System.out.println("insertCorp() 메소드에서 예외 발생>>> "+e);
-			insertCorpCnt = -1;
+			System.out.println("insertAd() 메소드에서 예외 발생>>> "+e);
+			insertAdCnt = -1;
 		} 
 				
-		return insertCorpCnt;		
+		return insertAdCnt;		
 	}
 	
 	
