@@ -145,7 +145,7 @@
 
 				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
 
-				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
+				<%-- <%@ include file="/WEB-INF/views/transactionSpecList.jsp" %> --%>
 			</c:if>
 			
 			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
