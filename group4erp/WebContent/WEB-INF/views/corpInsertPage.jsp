@@ -70,7 +70,6 @@
 
 			return;
 		}
-
 		
 		$.ajax({
 			url : "/group4erp/insertCorpProc.do"	//접속할 서버쪽 url 주소 지정

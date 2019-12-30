@@ -28,17 +28,18 @@
 </head>
 <body><center>
 	<h1>[직원 휴가 현황]</h1><br>
-	<!-- 기준일 : 2019년 12월 19일 -->
+	 기준일 : 2019년 12월 24일(getTime 함수 사용 예정)
+	 
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		
 		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width="500">
 			<thead>
 				<tr>
-					<th style="cursor:pointer">소속 부서
-					<th style="cursor:pointer">직급
-					<th style="cursor:pointer">성명
-					<th style="cursor:pointer">휴가 종류
-					<th style="cursor:pointer">복귀 예정일
+					<th bgcolor="gray" style="cursor:pointer">소속 부서
+					<th bgcolor="gray" style="cursor:pointer">직급
+					<th bgcolor="gray" style="cursor:pointer">성명
+					<th bgcolor="gray" style="cursor:pointer">휴가 종류
+					<th bgcolor="gray" style="cursor:pointer">복귀 예정일
 				</tr>
 			</thead>
 			
@@ -63,7 +64,10 @@
 		<table><tr height=10><td></table>
 		<input type="hidden" name="selectPageNo">
 		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
-		
+		<br><br><br>
+		<c:if test="${empty getDayOffList}">
+			금일은 휴가자가 없습니다.
+		</c:if>
 	
 	</form>
 

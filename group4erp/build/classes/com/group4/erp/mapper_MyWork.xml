@@ -8,30 +8,75 @@
 	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.myWorkDAO">
-	<select id='getMyCareBookList' resultType="java.util.HashMap">
-	select * from(select zzz.*, rownum RNUM from(
+	<sql id="MyCareBookSearchWere">
+		<if test="searchCategory=='전체'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and(
+					upper(b.ISBN13) like upper('%${search_keyword}%')
+				    or upper(b.book_name) like upper('%${search_keyword}%')
+				    or upper(cc.cat_name) like upper('%${search_keyword}%')
+				    or upper(book_price) like upper('%${search_keyword}%')
+				    or upper(si.ISBN_cnt) like upper('%${search_keyword}%')
+				    or upper(cb.branch_name) like upper('%${search_keyword}%')
+			    	)
+			</if>
+		</if>
+		<if test="searchCategory=='책번호'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(b.ISBN13) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		<if test="searchCategory=='책이름'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(b.book_name) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		<if test="searchCategory=='카테고리'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(cc.cat_name) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		<if test="searchCategory=='보유지점'">
+			<if test="(search_keyword!=null and search_keyword.length()>0)">
+				and upper(cb.branch_name) like upper('%${search_keyword}%')
+			</if>
+		</if>
+		 <!-- 
+		<if test="(category!=null and category.length>0)">
+			and
+			<foreach collection="category" item="category" open="(" separator="or" close=")">
+				b.cat_cd = to_number(${category})
+			</foreach>
+		</if>
+		 -->
+	</sql>
+	<sql id="WorkDaysListSearchWere">
+		<if test="searchEmpNo!=0">
+			and w.emp_no = ${searchEmpNo}
+		</if>
+	</sql>
+	
+	<!--=============================================================================================================================================-->
+	<!-- 담당 상품 조회 -->
+	<!--=============================================================================================================================================-->
+	<select id='getMyCareBookList' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
 			select
-                ISBN13                     as "ISBN13"
-                ,book_name                 as "book_name"
-                ,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
-                            as "cat_name"
-                ,book_price              as "book_price"
-                ,book_pages||''         as "book_pages"
-                ,writer                 as "writer"
-                ,publisher                 as "publisher"
-                ,size_cd||''             as "size_cd"
-                ,is_not_print             as "is_not_print"
-                ,emp_no||''                as "emp_no"
-                ,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
-                ,editor                    as "editor"
-                ,(select si.ISBN_cnt from stock_info si where b.ISBN13 = si.ISBN13) as  "ISBN_cnt"
-                ,(select branch_name from code_branch where branch_cd in(select branch_cd from stock_info where ISBN13 in(b.ISBN13))) as  "branch_name"
-            from book b    
-            where emp_no = 1
+				b.ISBN13 					as	"ISBN13"
+				,b.book_name 				as	"book_name"
+				,cc.cat_name				as	"cat_name"
+				,b.book_price  				as	"book_price"
+				,b.emp_no||''				as	"emp_no"
+				,b.editor					as	"editor"
+				,to_char(si.ISBN_cnt)		as  "ISBN_Cnt"
+				,cb.branch_name				as  "branch_name"
+			from book b, code_category cc, stock_info si, code_branch cb
+			where b.cat_cd = cc.cat_cd and b.ISBN13 = si.ISBN13(+) and si.branch_cd = cb.branch_cd(+)
+			<include refid="MyCareBookSearchWere" />
 			
 			order by ISBN13 asc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
-        
+			
 	</select>
 	
 	<select id='getCategoryList' resultType="java.util.HashMap">
@@ -62,8 +107,49 @@
 		select distinct publisher	as	"publisher" from book
 	</select>
 	
-	<select id='getMyWorkListAllCnt' resultType="int">
-		select count(*) from book where emp_no = 1
+	<select id='getMyWorkListAllCnt' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="int">
+		select count(*)from(
+			select b.*, cc.cat_name, si.ISBN_Cnt, cb.branch_name from book b, code_category cc, stock_info si, code_branch cb
+	        	where cc.cat_cd = b.cat_cd and b.ISBN13 = si.ISBN13(+) and si.branch_cd = cb.branch_cd(+)
+				<include refid="MyCareBookSearchWere" />
+		)
+	</select>
+	
+	<!--=============================================================================================================================================-->
+	<!-- 근태조회 -->
+	<!--=============================================================================================================================================-->
+	<select id='getWorkDaysListAllCnt' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="int">
+		select count(*) from(
+			select
+			    w.*, e.emp_name, d.dep_name, cj.jikup, w.days_attended
+			from work_days_mng w, employee e, dept d, code_jikup cj
+			where w.emp_no=e.emp_no and e.dep_no=d.dep_no and e.jikup_cd=cj.jikup_cd
+			<include refid="WorkDaysListSearchWere" />
+		)
+	</select>
+	
+	<select id='getWorkDaysList' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
+			select
+			    w.emp_no                as  "EMP_NO"
+			    , e.emp_name            as  "emp_name"
+			    , d.dep_name            as  "dep_name"
+			    , cj.jikup              as  "jikup"
+			    , w.days_attended       as  "days_attended"
+			    , w.days_absent         as  "days_absent"
+			    , w.days_leaving_early  as  "days_leaving_early"
+			    , w.days_outduty        as  "days_outduty"
+			    , w.days_late           as  "days_late"
+			from work_days_mng w, employee e, dept d, code_jikup cj
+			where w.emp_no=e.emp_no and e.dep_no=d.dep_no and e.jikup_cd=cj.jikup_cd
+			<include refid="WorkDaysListSearchWere" />
+			order by emp_no asc
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+			
+	</select>
+	
+	<select id='getSearchEmpNo' resultType="java.util.HashMap">
+		select e.emp_no	as	"emp_no" from employee e, work_days_mng w where e.emp_no = w.emp_no
 	</select>
 	
 </mapper>

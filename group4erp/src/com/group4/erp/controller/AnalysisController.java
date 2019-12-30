@@ -40,8 +40,4 @@ public class AnalysisController {
 		return mav;
 	}
 	
-	
-	
-	
-
 }

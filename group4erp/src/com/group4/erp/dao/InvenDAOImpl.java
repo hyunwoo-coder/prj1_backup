@@ -43,5 +43,17 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return publisher;
 	}
+	
+	public int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO) {	
+		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt", returnSearchDTO);
+		
+		return returnOrderCnt;
+	}
+	
+	public List<ReturnOrderDTO> getReturnOrderList(ReturnSearchDTO returnSearchDTO) {
+		List<ReturnOrderDTO> returnOrderList = this.sqlSession.selectList("com.group4.erp.dao.invenSearchDAO.getReturnOrderList", returnSearchDTO);
+		
+		return returnOrderList;
+	}
 
 }

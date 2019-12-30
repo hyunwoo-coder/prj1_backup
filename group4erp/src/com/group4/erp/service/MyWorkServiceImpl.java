@@ -16,6 +16,7 @@ public class MyWorkServiceImpl implements MyWorkService{
 	@Autowired
 	private MyWorkDAO myWorkDAO;
 
+	//담담 상품 조회
 	//검색된 관리 상품 목록 불러오는 코드
 	public List<Map<String,String>> getMyCareBookList(MyWorkSearchDTO myWorkSearchDTO) {
 
@@ -65,8 +66,34 @@ public class MyWorkServiceImpl implements MyWorkService{
 
 		int myWorkListAllCnt = this.myWorkDAO.getMyWorkListAllCnt(myWorkSearchDTO);
 
-		System.out.println("서비스 : " + myWorkListAllCnt);
+		//System.out.println("서비스 : " + myWorkListAllCnt);
 		return myWorkListAllCnt;
+		
+	}
+	
+	//근태 조회
+	//===================================================================================================
+	//검색 총 개수 리턴
+	public int getWorkDaysListAllCnt(MyWorkSearchDTO myWorkSearchDTO) {
+
+		int workDaysListAllCnt = this.myWorkDAO.getWorkDaysListAllCnt(myWorkSearchDTO);
+
+		//System.out.println("서비스 : " + workDaysListAllCnt);
+		return workDaysListAllCnt;
+		
+	}
+	//===================================================================================================
+	//검색된 테이블 자료 리턴
+	public List<Map<String,String>> getWorkDaysList(MyWorkSearchDTO myWorkSearchDTO){
+		List<Map<String,String>> getWorkDaysList = this.myWorkDAO.getWorkDaysList(myWorkSearchDTO);
+		
+		//System.out.println("서비스 : " + getWorkDaysList.size());
+		return getWorkDaysList;
+	}
+	public List<Map<String, String>> getSearchEmpNo(MyWorkSearchDTO myWorkSearchDTO) {
+
+		List<Map<String, String>> searchEmpNo = this.myWorkDAO.getSearchEmpNo(myWorkSearchDTO);
+		return searchEmpNo;
 		
 	}
 }

@@ -1,11 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ include file="/WEB-INF/views/common.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>세금계산서</title>
 <script>
+
+	$(document).ready(function() {
+
+		$("[name=corpList]").change(function() {
+			var corp_no = $('[name=corpList]').val();
+			$('[name=corp_no]').val(corp_no);
+			
+			searchCorp();
+		});
+			
+
+	});
 
 	function saveTaxInvoiceTemp() {
 		alert("세금계산서 임시 저장");
@@ -23,12 +38,28 @@
 	}
 
 	function searchCorp() {
-		//alert("거래처 검색");
-		var url = "/group4erp/viewSearchCorp.do";
-		var name = "업체 검색";
-		var option = "width=300, height=500, top=200, left=200, scrollbars=yes";
+		document.buyerInfoForm.submit();
+		/*$.ajax({			
+			url : "/group4erp/selectCorp.do"	
+			, type : "post"					
+			, data : $("[name=buyerInfoForm]").serialize()	
+			, success : function(corp_cnt) {	
+											
+				if(corp_cnt != null) {				
+					location.replace("/group4erp/viewTaxInvoiceForm.do");
+					
+				} else if(corp_cnt==null) {		
+					alert("해당 업체가 존재하지 않습니다.");
+				} else {
+					alert("서버 오류 발생! 관리자에게 문의 바람!");
+				}				
+			}
+			
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}			
+		}); */
 		
-		window.open(url, name, option);
 	}
 
 </script>
@@ -38,7 +69,7 @@
 	<form name="taxInvoiceForm" method="post" action="/group4erp/insertTaxInvoice.do" >
 		<table class="ourCompanyInfoForm tbcss1" name="ourCompanyInfoForm" cellpadding="5" cellspacing="5" width="800">
 			<tr>
-				<td rowspan="5" width="100">공급자</td><td>사업자번호</td><td>110-11-98765</td>
+				<td rowspan="5" width="150" align="center">공급자</td><td width="100">사업자번호</td><td>110-11-98765</td>
 			</tr>
 			<tr>
 				<td width="10">상호(법인명)</td><td>(주)아이즈북스&nbsp;&nbsp;</td>
@@ -53,10 +84,18 @@
 				<td>업종</td><td>출판&nbsp;&nbsp;</td>
 			</tr>
 		</table><br>
-		
-		<table class="BuyerInfoForm tbcss1" name="BuyerInfoForm" cellpadding="5" cellspacing="5" width="800">
+	</form>	
+	
+	<form name="buyerInfoForm" method="post" action="/group4erp/selectCorp.do">
+		<table class="BuyerInfoTable tbcss1" name="BuyerInfoForm" cellpadding="5" cellspacing="5" width="800">
 			<tr>
-				<td rowspan="5" width="100">공급받는자<input type="button" value="검색" onClick="searchCorp();"></td><td>사업자번호</td><td> ${selectedCorp.corp_no} </td>
+				<td rowspan="5" width="100" align="center">공급받는자
+					<select name="corpList">
+						<option value="00">-------</option>			
+						<c:forEach items="${corpList}" var="corp" varStatus="loopTagStatus">
+							<option value="${corp.corp_no}">${corp.corp_name}</option>			
+						</c:forEach>					
+					</select><!-- <input type="button" value="검색" onClick="searchCorp();"></td> --><td width="100">사업자번호</td><td> ${selectedCorp.corp_no} </td>
 			<tr>
 				<td width="10">상호(법인명)</td><td>${selectedCorp.corp_name}</td>
 			</tr>
@@ -70,7 +109,8 @@
 				<td>업종</td><td>${selectedCorp.corp_business_area}</td>
 			</tr>
 		</table>
-	
+		<input type="hidden" name="corp_no" >
+	</form>
 	<br>				
 	<table class="invoice_body tbcss1" name="invoice_body" cellpadding="5" cellspacing="5" width="800">
 		<tr>

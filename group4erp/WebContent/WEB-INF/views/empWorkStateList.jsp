@@ -65,7 +65,7 @@
 			    onSelect: function() { 
 			    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
 			        var dateObject = $(this).datepicker('getDate');
-			        alert(dateObject.val()); 
+			        //alert(dateObject.val()); 
 			    }
 			});
 
@@ -87,7 +87,7 @@
 	
 		function goSearch(){
 			//alert($("[name=datepicker]").val());
-			alert($("[name=InoutListDate]").serialize());
+			//alert($("[name=InoutListDate]").serialize());
 			var keyword1 = $("[name=InoutListDate] [name=keyword1]").val();
 			keyword1 = $.trim(keyword1);
 			$("[name=InoutListDate] [name=keyword1]").val(keyword1);
@@ -105,7 +105,7 @@
 		
 
 		function InoutbyDt(){
-			alert( $("[name=getEmpInoutList]").serialize() );
+			//alert( $("[name=getEmpInoutList]").serialize() );
 			/* 
 			$.ajax({
 				url : "/group4erp/viewEmpWorkStateList.do"

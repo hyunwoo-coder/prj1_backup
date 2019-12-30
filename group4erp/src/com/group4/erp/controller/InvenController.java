@@ -51,6 +51,28 @@ public class InvenController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="/goReturnOrderList.do")
+	public ModelAndView goReturnOrderList(HttpSession session, ReturnSearchDTO returnSearchDTO) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewReturnOrderList");
+		
+		try {
+			int returnOrderCnt = this.invenService.getReturnOrderCnt(returnSearchDTO);
+			List<ReturnOrderDTO> returnOrderList = this.invenService.getReturnOrderList(returnSearchDTO);
+			
+			mav.addObject("returnOrderCnt", returnOrderCnt);
+			mav.addObject("returnOrderList", returnOrderList);
+			
+		} catch(Exception e) {
+			System.out.println("예외발생"+e);
+		}
+		
+		return mav;
+	}
 }
 
   

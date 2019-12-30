@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.TranSpecDTO;
 import com.group4.erp.service.AccountService;
 
 
@@ -40,8 +42,6 @@ public class AccountController {
 			
 			int corpListCnt = this.accountService.getCorpListCnt();
 			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
-			
-			System.out.println("corpListCnt=="+corpListCnt);
 			
 			mav.addObject("corpListCnt", corpListCnt);
 			mav.addObject("corpList", corpList);
@@ -94,7 +94,7 @@ public class AccountController {
 	}
 	
 	
-	@RequestMapping(value="/viewSearchCorp.do")
+	/*@RequestMapping(value="/viewSearchCorp.do")
 	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -112,9 +112,9 @@ public class AccountController {
 		}
 	
 		return mav;
-	}
+	}*/
 	
-	@RequestMapping(value="/selectCorp.do")
+	/*@RequestMapping(value="/selectCorp.do")
 	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -136,6 +136,51 @@ public class AccountController {
 		}
 	
 		return mav;
+	}*/
+	
+	@RequestMapping(value="/viewTranSpecList.do")
+	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTranSpecList");
+		
+		try {
+			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
+			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
+			
+			mav.addObject("corp_tran_cnt", corp_tran_cnt);
+			mav.addObject("corp_tran_list", corp_tran_list);
+			
+		} catch(Exception e) {
+			System.out.println("예외 발생=="+e);
+		}
+		
+		return mav;		
+	}
+	
+	@RequestMapping(value="/viewTranSpecInfo.do")
+	public ModelAndView viewTranSpecInfo(HttpSession session, int order_no) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTranSpecInfo");
+		
+		try {
+			
+			int tranSpec_cnt = this.accountService.getTranSpecCnt(order_no);
+			List<TranSpecDTO> tranSpecList = this.accountService.getTranSpecList(order_no);
+			
+			mav.addObject("tranSpec_cnt", tranSpec_cnt);
+			mav.addObject("tranSpecList", tranSpecList);
+			
+		} catch(Exception e) {
+			System.out.println("예외 발생=="+e);
+		} 
+		
+		return mav;		
 	}
 
 }
