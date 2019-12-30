@@ -65,6 +65,7 @@
 		</table>
 		<input type="hidden" name="selectPageNo">
 	</form>
+	
 	<form name="workDaysMng" method="post" action="/group4erp/workDaysList.do">
 		<table class="tbcss1" name="workDayStateList" cellpadding="5" cellspacing="5" width=70%>
 			<thead>

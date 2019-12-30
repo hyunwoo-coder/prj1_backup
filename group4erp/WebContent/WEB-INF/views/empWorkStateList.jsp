@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ include file = "/WEB-INF/views/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,6 +133,7 @@
 
 </head>
 <body><center>
+	<b>추후 메뉴 이동해야함</b>
 	<h1>[직원 근무 현황]</h1><br>
 	<form name="InoutListDate" method="post" action="/group4erp/viewEmpWorkStateList.do">
 		

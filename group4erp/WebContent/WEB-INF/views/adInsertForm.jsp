@@ -63,8 +63,6 @@
 		<input type="button" value="광고신청" onClick="reserveAd();">
 	
 	</form>
-
 </center>
-
 </body>
 </html>

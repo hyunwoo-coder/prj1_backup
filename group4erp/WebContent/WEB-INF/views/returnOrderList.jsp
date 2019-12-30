@@ -49,7 +49,6 @@
 </head>
 <body><center>
 	<h1>반품 현황</h1>
-	<< 2019년 12월 24일(화) >>
 	
 	<form name="returnSearchForm" method="post" action="/group4erp/goReturnOrderList.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;

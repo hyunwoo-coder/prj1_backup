@@ -47,6 +47,7 @@ public class MarketingController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEventList");
+		mav.addObject("navigator", "[마케팅관리]-[이벤트행사 현황]");
 			
 		try {
 			
@@ -82,6 +83,7 @@ public class MarketingController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "eventReserve");
+		mav.addObject("navigator", "[마케팅관리]-[이벤트행사 현황]-[이벤트신청]");
 		
 		try {
 			int eventAllCnt = this.marketingService.getEventAllCnt();
@@ -128,6 +130,7 @@ public class MarketingController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewAdApplyList");
+		mav.addObject("navigator", "[마케팅관리]-[광고신청현황]");
 		
 		int ad_apply_cnt = this.marketingService.getAdApplyCnt();
 		List<AdApplyDTO> ad_apply_list = this.marketingService.getAdApplyList();
@@ -146,6 +149,7 @@ public class MarketingController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewInsertAdApply");
+		mav.addObject("navigator", "[마케팅관리]-[광고신청현황]-[광고신청]");
 		
 		try {
 			

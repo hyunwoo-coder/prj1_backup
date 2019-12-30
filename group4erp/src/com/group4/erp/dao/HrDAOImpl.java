@@ -150,5 +150,15 @@ public class HrDAOImpl implements HrDAO {
 		
 		return avgSalInfo;
 	}
+	
+	public int getNewEmpInsertCnt(EmployeeDTO employeeDTO) {
+		
+		int newEmpInsertCnt = this.sqlSession.insert(
+				mapper_namespace+"getNewEmpInsert"
+				,employeeDTO
+				);
+				
+		return newEmpInsertCnt;
+	}
 
 }

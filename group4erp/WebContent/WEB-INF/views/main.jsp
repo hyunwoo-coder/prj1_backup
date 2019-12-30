@@ -38,6 +38,19 @@
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
 			</c:if>
+			<!-- 책 등록 화면 -->
+			<c:if test="${subMenu.equals('viewSignUpBook') }">
+				<%@ include file="/WEB-INF/views/bookSignUpForm.jsp" %>
+			</c:if>
+			
+			<!-- 출고현황목록 -->
+			<c:if test="${subMenu.equals('viewReleaseList') }">
+				<%@ include file="/WEB-INF/views/bookReleaseInfo.jsp" %>
+			</c:if>
+			<!-- 출고 세부정보 조회 -->
+			<c:if test="${subMenu.equals('viewReleaseContent') }">
+				<%@ include file="/WEB-INF/views/bookReleaseContentInfo.jsp" %>
+			</c:if>
 		
 			<!-- 직원현황조회 -->
 			<c:if test="${subMenu.equals('viewEmpList') }">
@@ -46,6 +59,10 @@
 			<!-- 직원 상세보기 -->
 			<c:if test="${subMenu.equals('viewEmpContentInfo') }">
 				<%@ include file="/WEB-INF/views/empListContentForm.jsp" %>
+			</c:if>
+			<!-- 직원 등록화면 -->
+			<c:if test="${subMenu.equals('viewEmpJoinMember') }">
+				<%@ include file="/WEB-INF/views/empListJoinForm.jsp" %>
 			</c:if>
 			
 			<!-- 급여지급현황(인사팀 조회 & 직원 전체 목록) -->
@@ -136,10 +153,6 @@
 			<c:if test="${subMenu.equals('viewInsertAdApply') }">
 				<%@ include file="/WEB-INF/views/adInsertForm.jsp" %>
 			</c:if>
-		
-			<c:if test="${subMenu.equals('viewInsertAdApply') }">	
-				<%@ include file="/WEB-INF/views/adInsertForm.jsp" %>
-			</c:if>
 			
 			<c:if test="${subMenu.equals('viewMyWorkTime') }">
 				<%@ include file="/WEB-INF/views/workTimeList.jsp" %>
@@ -152,10 +165,7 @@
 			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
 				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
 			</c:if>
-			
-			<c:if test="${subMenu.equals('viewMyWorkTime') }">
-				<%@ include file="/WEB-INF/views/workTimeList.jsp" %>
-			</c:if>
+
 				
 		</td>
 	</tr>

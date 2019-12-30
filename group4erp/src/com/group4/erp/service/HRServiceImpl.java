@@ -119,5 +119,13 @@ public class HRServiceImpl implements HRService {
 		
 		return avgSalInfo;
 	}
+	
+
+	public int getNewEmpInsertCnt(EmployeeDTO employeeDTO) {
+		
+		int newEmpInsertCnt = this.hrDAO.getNewEmpInsertCnt(employeeDTO);
+		
+		return newEmpInsertCnt;
+	}
 
 }

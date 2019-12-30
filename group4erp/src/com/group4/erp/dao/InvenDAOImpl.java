@@ -24,6 +24,16 @@ public class InvenDAOImpl implements InvenDAO{
 		
 	}
 	
+	public List<Map<String, String>> getInvenLoc(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getInventory_loc = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getInven_loc"
+				,invenSearchDTO
+			);
+		
+		return getInventory_loc;
+	}
+	
 	public int getBookListCnt(InvenSearchDTO invenSearchDTO) {
 		
 		int bookListCnt = this.sqlSession.selectOne(
@@ -43,9 +53,48 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return publisher;
 	}
+
+	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
+		
+		int releaseListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseListCnt"
+				,invenSearchDTO
+				);
+		
+		return releaseListCnt;
+	}
 	
-	public int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO) {	
-		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt", returnSearchDTO);
+	public List<Map<String,String>> getReleaseList(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getReleaseList = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseList"
+				,invenSearchDTO
+			);
+	
+		return getReleaseList;
+	}
+	
+	public Cus_releaseInfoDTO getReleaseCusInfo(int all_order_no) {
+
+		Cus_releaseInfoDTO cus_order = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseCusInfo"
+				,all_order_no);
+		
+		return cus_order;
+	}
+	
+	public Cus_releaseInfoDTO getReleaseCorpInfo(int all_order_no) {
+
+		Cus_releaseInfoDTO corp_order = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseCorpInfo"
+				,all_order_no);
+		
+		return corp_order;
+	}
+	
+	public int getReturnOrderCnt() {	
+		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt");
+
 		
 		return returnOrderCnt;
 	}
@@ -54,6 +103,22 @@ public class InvenDAOImpl implements InvenDAO{
 		List<ReturnOrderDTO> returnOrderList = this.sqlSession.selectList("com.group4.erp.dao.invenSearchDAO.getReturnOrderList", returnSearchDTO);
 		
 		return returnOrderList;
+	}
+	
+
+	public int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO) {	
+		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt", returnSearchDTO);
+		return returnOrderCnt;
+	}
+	
+	public int getSignUpCnt(InvenDTO invenDTO) {
+		
+		int insertSignUpBookCnt = this.sqlSession.insert(
+				"com.group4.erp.dao.invenSearchDAO.getSignUpBook"
+				,invenDTO
+				);
+		
+		return insertSignUpBookCnt;
 	}
 
 }

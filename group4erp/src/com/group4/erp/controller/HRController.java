@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.service.HRService;
 
@@ -32,6 +33,7 @@ public class HRController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpList");
+		mav.addObject("navigator", "[인사관리]-[직원정보]");
 		
 		try {
 			
@@ -54,7 +56,8 @@ public class HRController {
 			mav.addObject("hrListSearchDTO", hrListSearchDTO);
 
 		}catch(Exception e) {
-			System.out.println("예외발생=="+e);
+			System.out.println("<직원 리스트 조회 실패>");
+			System.out.println("예외발생=>"+e);
 		}
 		
 		return mav;
@@ -143,6 +146,7 @@ public class HRController {
 			mav.addObject("car_care", car_care);
 			mav.addObject("emp_tot_cnt", emp_tot_cnt);
 			mav.addObject("subMenu", "viewSalList");
+			mav.addObject("navigator", "[인사관리]-[급여지급현황]");
 			
 		} catch(Exception e) {
 			System.out.println("예외발생=="+e);
@@ -218,6 +222,7 @@ public class HRController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewDayOffList");
+		mav.addObject("navigator", "[인사관리]-[직원 휴가 현황]");
 		
 		try {
 			
@@ -247,6 +252,7 @@ public class HRController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpWorkStateList");
+		mav.addObject("navigator", "[인사관리]-[직원별 근무현황조회]");
 		
 		try {
 			
@@ -273,15 +279,51 @@ public class HRController {
 			) {
 		
 		ModelAndView mav = new ModelAndView();
-		
-		EmployeeInfoDTO getEmpContentInfo = this.hrservice.getEmpContant(emp_no);
-				
 		mav.setViewName("main.jsp");
-		mav.addObject("employeeInfoDTO", getEmpContentInfo);
 		mav.addObject("subMenu", "viewEmpContentInfo");
+		mav.addObject("navigator", "[인사관리]-[직원정보]-[상세보기]");
 		
+		try {
+			
+			EmployeeInfoDTO getEmpContentInfo = this.hrservice.getEmpContant(emp_no);
+			
+			mav.addObject("employeeInfoDTO", getEmpContentInfo);
+			
+		}catch(Exception e) {
+			
+		}
+
 		return mav;
 		
 	}
 	
+	@RequestMapping(value="/viewNewEmpJoin.do")
+	public ModelAndView newEmpjoinMemberForm(
+			) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpJoinMember");
+		mav.addObject("navigator", "[인사관리]-[직원정보]-[직원등록]");
+		
+		return mav;	
+	}
+	
+	@RequestMapping(value="/newEmpInfoProc.do")
+	@ResponseBody
+	public int newEmpjoinMemberProc(
+			EmployeeDTO employeeDTO
+			) {
+		int newEmpInsertCnt = 0;
+		
+		try {
+			
+			newEmpInsertCnt = this.hrservice.getNewEmpInsertCnt(employeeDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<사원 등록 실패>");
+			System.out.println("예외 발생=>"+e);
+		}
+		
+		return newEmpInsertCnt;
+	}
 }

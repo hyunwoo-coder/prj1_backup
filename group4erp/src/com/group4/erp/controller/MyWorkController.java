@@ -32,14 +32,29 @@ public class MyWorkController {
 			) {
 		
 		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
 		
 		//화면에 나의 상품 관리 페이지 띄우는 코드
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewMyCareBookList");
+		mav.addObject("navigator", "[업무관리]-[담당 상품 조회]");
 		try {
 
 			//===================================================================================================
+			//검색 항목 불러오는 코드
+			List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
+			mav.addObject("categoryList", categoryList);
+			
+			List<Map<String, String>> bookSize = this.myWorkService.getBookSizeList(myWorkSearchDTO);
+			mav.addObject("bookSize", bookSize);
+			
+			List<Map<String, String>> branchList = this.myWorkService.getBranchList(myWorkSearchDTO);
+			mav.addObject("branchList", branchList);
+			
+			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);
+			mav.addObject("publisherList", publisherList);
+			
+			//===================================================================================================
+
 			//페이징 처리를 위한 총 검색 개수 불러오는 코드
 			int myWorkListAllCnt = this.myWorkService.getMyWorkListAllCnt(myWorkSearchDTO);
 
@@ -63,13 +78,13 @@ public class MyWorkController {
 
 			//===================================================================================================
 			//검색 항목 불러오는 코드
-			List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
+			/*List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
 			mav.addObject("categoryList", categoryList);
 			List<Map<String, String>> bookSize = this.myWorkService.getBookSizeList(myWorkSearchDTO);
 			mav.addObject("bookSize", bookSize);
 			List<Map<String, String>> branchList = this.myWorkService.getBranchList(myWorkSearchDTO);
 			mav.addObject("branchList", branchList);
-			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);
+			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);*/
 			
 			mav.addObject("publisherList", publisherList);
 			mav.addObject("myWorkListAllCnt", myWorkListAllCnt);
@@ -119,6 +134,8 @@ public class MyWorkController {
 			//테이블 가져오는 부분
 			List<Map<String, String>> getWorkDaysList = this.myWorkService.getWorkDaysList(myWorkSearchDTO);
 			mav.addObject("getWorkDaysList", getWorkDaysList);
+			//mav.addObject("MyCareBookList", MyCareBookList);
+			
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);
