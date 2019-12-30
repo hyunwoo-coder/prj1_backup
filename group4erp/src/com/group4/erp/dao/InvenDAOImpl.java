@@ -132,4 +132,15 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return insertSignUpBookCnt;
 	}
+	
+	public BookInfoDTO getBookInfo(String isbn13_search) {
+		
+		BookInfoDTO bookInfo = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getBookInfo"
+				,isbn13_search
+				);
+		
+		return bookInfo;
+		
+	}
 }

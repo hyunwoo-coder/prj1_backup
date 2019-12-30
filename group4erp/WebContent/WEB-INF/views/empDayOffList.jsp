@@ -57,7 +57,6 @@
 					<th bgcolor="gray" style="cursor:pointer">휴가 종류
 					<th bgcolor="gray" style="cursor:pointer">복귀 예정일
 					<th bgcolor="gray" style="cursor:pointer">비고
-
 				<!-- <tr >
 					<th style="cursor:pointer">NO
 					<th style="cursor:pointer">소속 부서
@@ -66,7 +65,6 @@
 					<th style="cursor:pointer">휴가 종류
 					<th style="cursor:pointer">복귀 예정일
 					<th style="cursor:pointer">수정/삭제 -->
-
 				</tr>
 
 				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">

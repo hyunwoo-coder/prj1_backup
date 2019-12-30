@@ -206,6 +206,33 @@ public class InvenController {
 		
 		return insertSignUpBookCnt;
 	}
+	
+	@RequestMapping(value="/viewBookContentForm.do")
+	public ModelAndView viewBookContentForm(
+			@RequestParam(value="isbn13_search") String isbn13_search
+			,BookInfoDTO bookInfoDTO
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewBookContentForm");
+		mav.addObject("navigator", "[재고현황]-[도서정보조회]-[상세정보]");
+		
+		//System.out.println(isbn13_search);
+		
+		try {
+			
+			BookInfoDTO bookInfo = this.invenService.getBookInfo(isbn13_search);
+			mav.addObject("bookInfo", bookInfo);
+			
+		}catch(Exception e) {
+			System.out.println("<서적 상세정보 불러오기 실패>");
+			System.out.println("에러 발생=>"+e);
+		}
+		
+		return mav;
+	}
 }
 
   

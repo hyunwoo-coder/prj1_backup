@@ -36,4 +36,6 @@ public interface InvenDAO {
 
 	int getSignUpCnt(InvenDTO invenDTO);
 	
+	BookInfoDTO getBookInfo(String isbn13_search);
+	
 }

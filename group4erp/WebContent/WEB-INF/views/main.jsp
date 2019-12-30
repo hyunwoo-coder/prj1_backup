@@ -42,6 +42,10 @@
 			<!-- 책 등록 화면 -->
 			<c:if test="${subMenu.equals('viewSignUpBook') }">
 				<%@ include file="/WEB-INF/views/bookSignUpForm.jsp" %>
+			</c:if>	
+			<!-- 책 상세 정보 화면 -->
+			<c:if test="${subMenu.equals('viewBookContentForm') }">
+				<%@ include file="/WEB-INF/views/bookContentForm.jsp" %>
 			</c:if>
 			
 			<!-- 출고현황목록 -->

@@ -351,5 +351,25 @@
     	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor ) values
     		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor} )
     </insert>
+    
+    <select id="getBookInfo" parameterType="String" resultType="com.group4.erp.BookInfoDTO">
+    	select
+    		b.isbn13	"isbn13"
+    		,b.book_name	"book_name"
+    		,(select c.cat_name from code_category c where c.cat_cd=(select bk.cat_cd from book bk where bk.isbn13=b.isbn13))		"cat_name"
+    		,b.book_price	"book_price"
+    		,b.book_pages	"book_pages"
+    		,b.writer		"writer"
+    		,b.publisher	"publisher"
+    		,(select cs.size_name from code_book_size cs where cs.size_cd=(select bk.size_cd from book bk where bk.isbn13=b.isbn13))	"size_name"
+    		,b.is_print	"is_print"
+    		,b.published_dt	"published_dt"
+    		,(select e.emp_name from employee e where e.emp_no=(select bk.emp_no from book bk where bk.isbn13=b.isbn13)) "emp_name"
+    		,(select cb.branch_name from code_branch cb where cb.branch_cd=(select si.branch_cd from stock_info si where si.isbn13=b.isbn13)) "branch_name"
+    		,(select si.isbn_cnt from stock_info si where si.isbn13=b.isbn13) "isbn_cnt"
+    		from book b 
+    		where 1=1 
+    		and b.isbn13=#{isbn13_search}
+    </select>
 
 </mapper>

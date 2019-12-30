@@ -1,4 +1,5 @@
 package com.group4.erp.service;
+import com.group4.erp.BookInfoDTO;
 import com.group4.erp.Cus_releaseInfoDTO;
 import com.group4.erp.InvenDTO;
 import com.group4.erp.InvenSearchDTO;
@@ -36,5 +37,6 @@ public interface InvenService {
 
 	int getSignUpCnt(InvenDTO invenDTO);
 
+	BookInfoDTO getBookInfo(String isbn13_search);
 
 }
