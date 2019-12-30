@@ -6,14 +6,14 @@ public class ReturnSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;	
 	private String sort;
-	private int return_cd;
+	private String return_cd[];
 	
-	
-	public int getReturn_cd() {
+
+	public String[] getReturn_cd() {
 		return return_cd;
 	}
 
-	public void setReturn_cd(int return_cd) {
+	public void setReturn_cd(String[] return_cd) {
 		this.return_cd = return_cd;
 	}
 

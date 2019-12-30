@@ -51,10 +51,21 @@
 	<h1>반품 현황</h1>
 	
 	<form name="returnSearchForm" method="post" action="/group4erp/goReturnOrderList.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;
-		<select name=""></select><input type="button" value="검색" onClick="goSearch();">
-	
-	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+	<table class="tab1" name="tab1" cellpadding="5" cellspacing="5">
+		<tr>
+			<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;</td>
+		</tr>
+		<tr>
+			<td>[사유별]</td><td><input type="checkbox" value="01" name="return_cd">파손
+									<input type="checkbox" value="03" name="return_cd">변심
+									<input type="checkbox" value="02" name="return_cd">오배송
+									<input type="checkbox" value="04" name="return_cd">제작사 요청
+									<input type="checkbox" value="05" name="return_cd">기타</td>
+		</tr>
+	</table>
+	<br>
+	<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
+	<input type="button" value="모두검색" onClick="goSearchAll();">
 	 <table border=0 width=700>
 	 	<tr>
 	    	<td align=right>
