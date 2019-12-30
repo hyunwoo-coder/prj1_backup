@@ -153,8 +153,7 @@
 		</div>
 	    
 	    <script>
-	        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
-	        
+	        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });    
 	    </script>
 	    
 	    &nbsp;&nbsp;

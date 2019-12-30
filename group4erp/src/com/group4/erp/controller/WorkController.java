@@ -54,9 +54,13 @@ public class WorkController {
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
 		mav.addObject("businessTripSearchDTO", businessTripSearchDTO);
+
+		System.out.println(businessTripSearchDTO.getThindexno());
+		System.out.println(businessTripSearchDTO.getAscdesc());
 		}catch(Exception e) {
 			System.out.println("<출장리스트 불러오기 실패>");
-			System.out.println("예외발생"+e);
+			System.out.println("예외발생"+'='+e);
+
 		}
 		return mav;
 		

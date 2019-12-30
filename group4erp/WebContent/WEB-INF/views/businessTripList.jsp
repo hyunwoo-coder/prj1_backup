@@ -46,7 +46,46 @@
 
 		//alert("${businessTripSearchDTO.rowCntPerPage}");
 		
+		$('.businessTripListTable thead:eq(0) tr:eq(0) th').click(function(){
+					var thisThObj = $(this);
+					var ascdesc = "";
+					thisThObj.siblings().each(function(){
+						var txt = $(this).text();
+						txt = $.trim(txt);
+						txt = txt.replace("▲","");
+						txt = txt.replace("▼","");
+						$(this).text(txt);
+		});
+	
+					var txt = thisThObj.text();
+					if(txt.indexOf("▲") >= 0){
+						txt = txt.replace("▲" , "▼");
+						ascdesc = "desc";
+					}
+					else if(txt.indexOf("▼") >= 0){
+						txt = txt.replace("▼" , "▲");
+						ascdesc = "asc";
+					}
+					else{
+						txt = txt + "▲";
+						ascdesc = "asc";
+					}
+					thisThObj.text(txt);
+
+					var thindexno = thisThObj.index();
+
+					$("#thindexno").val(thindexno);
+					$("#ascdesc").val(ascdesc);
+					
+					//alert(thindexno);
+					//alert(ascdesc);
+					
+					//alert("${businessTripSearchDTO.thindexno}");
+					//alert("${businessTripSearchDTO.ascdesc}");
+					
+					goSearch()
 	});
+});
 
 	
 	
@@ -54,6 +93,7 @@
 		//alert("tdtdtd");
 		var  searchKey = $("#selectSearch").val();
 		var  keyword = $("#searchKeyword").val();
+
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
 
@@ -80,6 +120,7 @@
 			
 	
 </script>
+
 </head>
 <body>
 <center>
@@ -92,6 +133,8 @@
 					<option value="emp_name">성명</option>
 					<option value="dep_name">부서</option>
 					<option value="destination">출장지</option>
+					<option value="outside_start_time">출발 날짜</option>
+					<option value="outside_end_time">복귀 날짜</option>
 					<option value="mgr_name">담당자 성함</option>
 				</select>
 		<input type="text" id="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">
@@ -114,6 +157,8 @@
 		<input type="hidden" name="keyword" id="keyword">
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="rowCntPerPage">
+        <input type="hidden" name="thindexno" id="thindexno">
+        <input type="hidden" name="ascdesc" id="ascdesc">
         
 	</form>
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
@@ -121,17 +166,17 @@
 	<div id="blankArea"><br></div>
 		<table class="businessTripListTable tbcss1" name="businessTripListTable" cellpadding="5" cellspacing="5" width="1000">		
 			<thead>
-			<tr>
-				<th>NO</th>
-				<th width="100">직급</th>
-				<th width="60">성명</th>
-				<th width="70">부서</th>
-				<th width="100">출장지</th>
-				<th width="120">출장사유</th>
-				<th width="150">출발시각</th>
-				<th width="150">복귀 예정 시각</th>
-				<th width="80">담당자 성함</th>
-			</tr>
+				<tr>
+					<th style="cursor:pointer">NO</th>
+					<th width="100" style="cursor:pointer">직급</th>
+					<th width="60"  style="cursor:pointer">성명</th>
+					<th width="70"  style="cursor:pointer">부서</th>
+					<th width="100" style="cursor:pointer">출장지</th>
+					<th width="120" style="cursor:pointer">출장사유</th>
+					<th width="150" style="cursor:pointer">출발 날짜</th>
+					<th width="150" style="cursor:pointer">복귀 예정 날짜</th>
+					<th width="80"  style="cursor:pointer">담당자 성함</th>
+				</tr>
 			</thead>
 			<tbody>
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
