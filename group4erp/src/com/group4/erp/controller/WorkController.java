@@ -46,17 +46,13 @@ public class WorkController {
 			
 		List<Map<String, String>> getbusinessTripList = this.workService.getbusinessTripList(businessTripSearchDTO);
 		
-		
-		/*if(businessTripSearchDTO.getSelectPageNo()>=0) {
-			businessTripSearchDTO.setSelectPageNo(1);
-		}*/
-		
+
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
-		mav.addObject("businessTripSearchDTO", businessTripSearchDTO);
+		//mav.addObject("businessTripSearchDTO", businessTripSearchDTO);
 
-		System.out.println(businessTripSearchDTO.getThindexno());
-		System.out.println(businessTripSearchDTO.getAscdesc());
+		//System.out.println(businessTripSearchDTO.getThindexno());
+		//System.out.println(businessTripSearchDTO.getAscdesc());
 		}catch(Exception e) {
 			System.out.println("<출장리스트 불러오기 실패>");
 			System.out.println("예외발생"+'='+e);

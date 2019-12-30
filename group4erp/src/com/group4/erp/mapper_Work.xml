@@ -27,7 +27,7 @@
 						and mgr_name like '%'||#{keyword}||'%'
 					</if>
      			</if>
-     		</if>
+     	</if>
 	</sql>
 	
 	 
@@ -94,96 +94,47 @@
 						and mgr_name like '%'||#{keyword}||'%'
 					</if>
      			</if>
-     		</if> 
-     		<if test="thindexno!=null and ascdesc!=null">
-     			order by
-	     	 	 	<if test="thindexno.equals(1) and ascdesc!=null">
-	     				    jikup_cd
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		 	<if test="thindexno.equals(2) and ascdesc!=null">
-	     				    e1.emp_name
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		 	<if test="thindexno.equals(3) and ascdesc!=null">
-	     				    d.dep_name
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		 	<if test="thindexno.equals(4) and ascdesc!=null">
-	     				    w.destination 
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		 	<if test="thindexno.equals(5) and ascdesc!=null">
-	     				    w.work_outside_reason 
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		 	<if test="thindexno.equals(6) and ascdesc!=null">
-	     				    outside_start_time 
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		 	<if test="thindexno.equals(7) and ascdesc!=null">
-	     				    outside_end_time 
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		 	<if test="thindexno.equals(8) and ascdesc!=null">
-	     				    nvl(e2.emp_name,' ') 
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if>
-									<if test="ascdesc.equals('desc')">
-										desc
-									</if>
-	     		 	</if>
-	     		</if>
-     	 ) zzz )
-     	 where
-     		<![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
-     	
-     		order by RNUM	
-     			<if test="thindexno!=null and ascdesc!=null">
-     				  		<if test="thindexno.equals(0) and ascdesc!=null">
-									<if test="ascdesc.equals('asc')">
-										asc
-									</if> 
-										<if test="ascdesc.equals('desc')">
-										desc
-									</if>
+     		</if>
+	     <if test="sort!=null and sort.length()>0">
+	     	order by ${sort}
+		     	 	 	<!-- <if test="thindexno.equals(1) and ascdesc!=null">
+		     				    jikup_cd
+		     		 	</if>
+		     		 	<if test="thindexno.equals(2) and ascdesc!=null">
+		     				    e1.emp_name
+		     		 	</if>
+		     		 	<if test="thindexno.equals(3) and ascdesc!=null">
+		     				    d.dep_name
+		     		 	</if>
+		     		 	<if test="thindexno.equals(4) and ascdesc!=null">
+		     				    w.destination 
+		     		 	</if>
+		     		 	<if test="thindexno.equals(5) and ascdesc!=null">
+		     				    w.work_outside_reason 
+		     		 	</if>
+		     		 	<if test="thindexno.equals(6) and ascdesc!=null">
+		     				    outside_start_time 
+		     		 	</if>
+		     		 	<if test="thindexno.equals(7) and ascdesc!=null">
+		     				    outside_end_time 
+		     		 	</if>
+		     		 	<if test="thindexno.equals(8) and ascdesc!=null">
+		     				    nvl(e2.emp_name,' ') 
+		     		 	</if>
+		     		 		<if test="ascdesc.equals('asc')">
+									asc
 							</if>
-	     		 	 </if>	     	
+							<if test="ascdesc.equals('desc')">
+									desc
+							</if> -->
+		     		</if>
+		     <if test="sort==null">
+		     	order by 1
+		     </if>
+     	 ) zzz )
+     	 where	1=1 
+     	 		and 
+     	 		<![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+		    order by RNUM	
 	</select>
 </mapper>
