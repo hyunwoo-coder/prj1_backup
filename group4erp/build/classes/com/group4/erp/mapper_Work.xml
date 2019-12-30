@@ -65,6 +65,7 @@
     		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
     		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
     		,nvl(e2.emp_name,' ')  as "mgr_name"
+  			,c.jikup_cd			   as "jikup_cd"
 	    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 	    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
 	    	 inner join dept d on d.dep_no=e1.dep_no
@@ -91,50 +92,20 @@
 						and to_char(w.outside_end_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
 					</if>
 					<if test ="searchKey.equals('mgr_name')">
-						and mgr_name like '%'||#{keyword}||'%'
+						and nvl(e2.emp_name,' ') like '%'||#{keyword}||'%'
 					</if>
      			</if>
      		</if>
 	     <if test="sort!=null and sort.length()>0">
 	     	order by ${sort}
-		     	 	 	<!-- <if test="thindexno.equals(1) and ascdesc!=null">
-		     				    jikup_cd
-		     		 	</if>
-		     		 	<if test="thindexno.equals(2) and ascdesc!=null">
-		     				    e1.emp_name
-		     		 	</if>
-		     		 	<if test="thindexno.equals(3) and ascdesc!=null">
-		     				    d.dep_name
-		     		 	</if>
-		     		 	<if test="thindexno.equals(4) and ascdesc!=null">
-		     				    w.destination 
-		     		 	</if>
-		     		 	<if test="thindexno.equals(5) and ascdesc!=null">
-		     				    w.work_outside_reason 
-		     		 	</if>
-		     		 	<if test="thindexno.equals(6) and ascdesc!=null">
-		     				    outside_start_time 
-		     		 	</if>
-		     		 	<if test="thindexno.equals(7) and ascdesc!=null">
-		     				    outside_end_time 
-		     		 	</if>
-		     		 	<if test="thindexno.equals(8) and ascdesc!=null">
-		     				    nvl(e2.emp_name,' ') 
-		     		 	</if>
-		     		 		<if test="ascdesc.equals('asc')">
-									asc
-							</if>
-							<if test="ascdesc.equals('desc')">
-									desc
-							</if> -->
-		     		</if>
-		     <if test="sort==null">
-		     	order by 1
-		     </if>
+		 </if>	
+		 <if test="sort==null">
+		    order by outside_start_time desc
+		 </if>
      	 ) zzz )
      	 where	1=1 
      	 		and 
      	 		<![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
-		    order by RNUM	
+     	 
 	</select>
 </mapper>

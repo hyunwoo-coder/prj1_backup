@@ -7,8 +7,6 @@ public class BusinessTripSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String searchKey;
-	//private String ascdesc;
-	//private int thindexno;
 	private String sort;
 	
 	public String getKeyword() {
