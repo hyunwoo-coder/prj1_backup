@@ -112,9 +112,31 @@
 	        or upper(to_char(b.published_dt,'YYYY-MM-DD')) like upper('%${book_keyword}%')
 	        or upper((select cb.branch_name from code_branch cb where cb.branch_cd=(select s.branch_cd from stock_info s where s.isbn13=b.isbn13))) like upper('%${book_keyword}%')
 	      )
+		</if>		
+	</sql> 
+	
+	<sql id="returnWhere">
+		<if test="searchKeyword !=null and searchKeyword.length() > 0" >
+			and (
+					upper(return_sales_no) like upper('%${searchKeyword}%') 
+					or upper(order_no) like upper('%${searchKeyword}%')
+					or upper(isbn13) like upper('%${searchKeyword}%')
+					or upper(return_comment) like upper('%${searchKeyword}%')
+				)	
+		</if>
+	</sql>
+	
+
+	
+	<sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
 		</if>
 		
-	</sql> 
+		<if test="sort==null">
+			order by 1
+		</if>
+	</sql>
 
 	
 	<select id="getBookListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
@@ -147,11 +169,13 @@
 		select distinct publisher as "publisher" from book
 	</select>
 	
-	<select id="getReturnOrderCnt" resultType="int">
+	<select id="getReturnOrderCnt" parameterType="com.group4.erp.ReturnSearchDTO" resultType="int">
 		select count(*) from return_sale_info 
+		where 1=1
+		<include refid="returnWhere" />
 	</select>
 	
-	<select id="getReturnOrderList" resultType="com.group4.erp.ReturnOrderDTO">
+	<select id="getReturnOrderList" parameterType="com.group4.erp.ReturnSearchDTO" resultType="com.group4.erp.ReturnOrderDTO">
 		select
 			return_sales_no||'' "return_sales_no",
 			order_no||'' "order_no",
@@ -159,6 +183,8 @@
 			(select c.return_name from code_return c where c.return_cd = return_sales_cd) "return_cause",
 			return_comment "return_comment" 
 		from return_sale_info 
+		where 1=1
+		<include refid="headerSort" />
+		<include refid="returnWhere" />
 	</select>
-    
 </mapper>

@@ -1,7 +1,7 @@
 package com.group4.erp;
 
 public class CorpSearchDTO {
-	
+
 	private String searchKeyword;
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
@@ -11,7 +11,16 @@ public class CorpSearchDTO {
 	private String ceo_name;
 	private int books_qty;
 	private String order_dt;
+	private String sort;
 	
+	
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}	
 
 	public String getSearchKeyword() {
 		return searchKeyword;

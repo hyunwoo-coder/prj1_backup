@@ -142,7 +142,18 @@
 			</c:if>
 
 			<c:if test="${subMenu.equals('viewTranSpecList') }">
+
 				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
+
+				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
+				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewMyWorkTime') }">
+				<%@ include file="/WEB-INF/views/workTimeList.jsp" %>
 			</c:if>
 				
 		</td>
