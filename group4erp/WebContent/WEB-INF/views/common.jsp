@@ -40,7 +40,7 @@
 
 
 <!-- css 파일 & jquery 라이브러리 파일 수입 -->
-<link href="${ctRoot}/resources/test.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/test.css" rel="stylesheet" type="text/css">
 <link href="${ctRoot}/resources/common.css" rel="stylesheet" type="text/css">
 <link href="${ctRoot}/resources/test.css" rel="stylesheet" type="text/css">
 <script src = "${ctRoot}/resources/jquery-1.11.0.min.js" type="text/javascript"></script>

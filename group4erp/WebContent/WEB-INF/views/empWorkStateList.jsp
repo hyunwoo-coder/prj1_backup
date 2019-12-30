@@ -145,10 +145,10 @@
 
 </head>
 <body><center>
-	<h1 class="fontBold">[직원 근무 현황]</h1><br>
+	<h1 class="fontBold" style="font-size:15pt">[직원 근무 현황]</h1><br>
 	<form name="InoutListDate" method="post" action="/group4erp/viewEmpWorkStateList.do">
 		
-		<div class="fontLight" style="width:800">
+		<div class="fontLight" style="width:800; font-size:9pt">
 			[키워드] : <input type="text" name="keyword1" >
 			[일자] : <input type="text" id="datepicker" name="datepicker"><br>
 			<table><tr height=10><td></table>
@@ -177,7 +177,7 @@
 	    &nbsp;&nbsp;
 		<table border=0 width=70%>
 			<tr>
-				<td class="fontLight" align=right>
+				<td class="fontLight" align=right style="font-size:9pt">
 					[총 개수] : ${getEmpInoutListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 					<select name="rowCntPerPage">
 						<option value="10">10

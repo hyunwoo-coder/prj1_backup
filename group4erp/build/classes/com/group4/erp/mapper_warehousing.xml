@@ -40,19 +40,19 @@
 		</if>
 		
 		
- 		<if test="( dateFrom != null and dateFrom.length()>0 )  or  ( dateTill != null and dateTill.length()>0 )">
+ 		<if test="(dateFrom!=null and dateFrom.length()>0)  or  (dateTill!=null and dateTill.length()>0)">
 	 		and( 
 	 	</if>	
-	 	<if test="(dateFrom!=null and dateFrom.length()>0 ) and (dateTill==null or dateFrom.length()==0)">
+	 	<if test="((dateFrom!=null and dateFrom.length()>0) and (dateTill==null or dateTill.length()==0))">
 	 		w.wh_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') 
 	 	</if>
 	 	<if test="(dateTill!=null and dateTill.length()>0 ) and (dateFrom==null or dateFrom.length()==0)">
 	 		w.wh_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') 
 	 	</if>
-	 	<if test="( dateFrom!=null and dateFrom.length()>0 )and ( dateTill != null and dateTill.length()>0 )">
+	 	<if test="(dateFrom!=null and dateFrom.length()>0)and (dateTill != null and dateTill.length()>0)">
 	 		( w.wh_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') )  and ( w.wh_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') ) 
 	 	</if>
-	 	<if test="( dateFrom != null and dateFrom.length()>0 )  or  ( dateTill != null and dateTill.length()>0 )">
+	 	<if test="(dateFrom != null and dateFrom.length()>0)  or  (dateTill != null and dateTill.length()>0)">
 	 		) 
 	 	</if> 	
 	 	

@@ -49,6 +49,7 @@
 					<th style="cursor:pointer">성명
 					<th style="cursor:pointer">휴가 종류
 					<th style="cursor:pointer">복귀 예정일
+					<th style="cursor:pointer">수정/삭제
 				</tr>
 
 				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">
@@ -59,6 +60,7 @@
 						<td align=center> ${dayoff.emp_name}
 						<td align=center> ${dayoff.dayoff_name}
 						<td align=center> ${dayoff.end_day_off}
+						<td align=center> <button>수정</button>
 					</tr>
 				</c:forEach>
 
