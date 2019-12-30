@@ -8,9 +8,20 @@
 <meta charset="UTF-8">
 <title>YES4조 전사적자원관리 시스템 </title>
 <script>
+function CheckLoginInfo(){
+	document.loginInfo.submit();
+}
+
+function CheckLoginInfo(){
+	document.loginInfo.submit();
+	
+}
+alert("비밀번호는 영어,숫자,특수문자 조합으로 해주세요.(글자수는 6~12)")
+check.emp_pwd.focus();
+return false;
 
 
-
+}
 </script>
 
 </head>
