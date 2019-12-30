@@ -17,6 +17,7 @@ public class ReportController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewSalesReport");
+		mav.addObject("navigator", "[회계관리]-[매출정보]");
 		
 		return mav;
 	}
@@ -30,6 +31,7 @@ public class ReportController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewPromiNoteList");
+		mav.addObject("navigator", "[회계관리]-[전자어음]");
 		
 		return mav;
 	}
@@ -41,6 +43,7 @@ public class ReportController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTaxInvoiceList");
+		mav.addObject("navigator", "[회계관리]-[세금계산서]");
 		
 		return mav;
 	}
@@ -52,6 +55,7 @@ public class ReportController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTaxInvoiceForm");
+		mav.addObject("navigator", "[회계관리]-[세금계산서]-[발급하기]");
 		
 		return mav;
 	}

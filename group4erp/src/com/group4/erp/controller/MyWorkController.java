@@ -35,6 +35,7 @@ public class MyWorkController {
 		//화면에 나의 상품 관리 페이지 띄우는 코드
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewMyCareBookList");
+		mav.addObject("navigator", "[업무관리]-[담당 상품 조회]");
 		try {
 
 			//===================================================================================================
