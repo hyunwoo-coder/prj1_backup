@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.group4.erp.EmployeeDTO;
 import com.group4.erp.dao.LoginDAO;
 
 //[서비스클래스]인 [LoginServiceImpl 클래스]선언
@@ -33,5 +34,15 @@ public class LoginServiceImpl implements LoginService {
 		//아이디, 암호의 존재개수 리턴하기
 		return emp_idCnt;
 	}
+
+	@Override
+	public EmployeeDTO getLoginEmpInfo(String emp_id) {
+		// TODO Auto-generated method stub
+		EmployeeDTO loginEmpInfo = this.loginDAO.getLoginEmpInfo(emp_id);
+		
+		return loginEmpInfo;
+	}
+	
+	
 
 }

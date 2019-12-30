@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.group4.erp.EmployeeDTO;
+
 
 //[DAO 클래스]인 [LoginDAOImpl 클래스]선언
 	//@Repository를 붙임으로써 DAO클래스 임을 지정하게되고, bean 태그로 자동 등록된다
@@ -32,6 +34,15 @@ public class LoginDAOImpl implements LoginDAO {
 		System.out.println("DAO : " + emp_idCnt);
 		//로그인 정보의 개수를 리턴
 		return emp_idCnt;
+	}
+
+	@Override
+	public EmployeeDTO getLoginEmpInfo(String emp_id) {
+		// TODO Auto-generated method stub
+		
+		EmployeeDTO loginEmpInfo = this.sqlSession.selectOne("com.group4.erp.dao.loginDAO.getLoginEmpInfo", emp_id);
+		
+		return loginEmpInfo;
 	}
 
 }

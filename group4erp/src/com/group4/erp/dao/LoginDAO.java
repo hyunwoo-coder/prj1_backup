@@ -2,11 +2,15 @@ package com.group4.erp.dao;
 
 import java.util.Map;
 
-//�α��� ���� �޼ҵ� �̸��� �����ϴ� 'DAO �������̽�' ����
+import com.group4.erp.EmployeeDTO;
+
+
 
 public interface LoginDAO {
-	//�α��� ���̵�, ��ȣ ���� ������ �˻��ϴ� �޼ҵ� ����
+
 	
 	int getEmpIdCnt(Map<String, String> emp_id_pwd);
+	
+	EmployeeDTO getLoginEmpInfo(String emp_id);
 
 }

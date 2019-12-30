@@ -25,6 +25,26 @@
 	<select id='getEmpIdCnt' parameterType="hashmap" resultType="int">
 		select count(*) from employee where emp_no=#{emp_id} and emp_pwd=#{emp_pwd}
 	</select>
+	
+	<select id="getLoginEmpInfo" parameterType="String" resultType="com.group4.erp.EmployeeDTO">
+		select
+			e.emp_no||'' "emp_no",
+			e.emp_name "emp_name",
+			e.emp_eng_name "emp_eng_name",
+			e.dep_no "dep_no",
+			(select d.dep_name from dept d where d.dep_no=e.dep_no) "dep_name",
+			e.jikup_cd "jikup_cd",
+			(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) "jikup",
+			e.hire_dt "hire_dt",
+			e.phone "phone",
+			e.emp_email "emp_email",
+			e.emp_email_office "emp_email_office",
+			e.emp_addr "emp_addr"
+		from employee e
+		where 1=1
+		and e.emp_no=#{emp_id}
+	</select>
+	
 </mapper>
 
 

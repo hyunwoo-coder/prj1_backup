@@ -10,4 +10,6 @@ import com.group4.erp.HrListSearchDTO;
 
 public interface LoginService {
 	int getEmpIdCnt(Map<String, String> emp_id_pwd);
+	
+	EmployeeDTO getLoginEmpInfo(String emp_id);
 }

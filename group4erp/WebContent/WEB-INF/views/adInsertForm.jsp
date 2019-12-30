@@ -10,6 +10,17 @@
 <title>광고신청 페이지</title>
 <script>
 
+	$(document).ready(function() {
+		$("[name=open_req_dt]").datepicker({
+   		 	onSelect: function() { 
+   	 		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
+   	    	 var dateObject = $(this).datepicker('getDate');
+   	    	 //alert(dateObject.val()); 
+   			}
+		});
+
+	});
+
 	function reserveAd() {
 		alert("광고신청접수");
 	}

@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
+
+<% String emp_name = (String)session.getAttribute("emp_name"); %>
+
 <html>
 <head>
+
 	<script>
 		$(document).ready(function() {
 			$("#subMenu1").hide();
@@ -232,6 +236,10 @@
 		function goMyIntoList(){
 			location.replace("/group4erp/goWarehousingList.do");
 		}
+
+		function logout() {
+			location.replace("/group4erp/logout.do");
+		}
 		
 		
 	</script>
@@ -249,8 +257,7 @@
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewAccoutingMenu();">회계관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewBigDataMenu();">전략분석</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<!-- <th style="cursor:pointer" onMouseOver="javascirpt:viewBuyerMenu();">거래처관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> -->
-			<td align="right" colspan="2">OOO 사원님 로그인하셨습니다. &nbsp;<input type="button" value="로그아웃" onClick="logout()"></td>
-			
+			<td align="right" colspan="2"><h6>${emp_name} ${jikup}님 안녕하세요.^^</h6><input type="button" value="로그아웃" onClick="logout();"></td>
 			
 		</tr>
 		<tr>

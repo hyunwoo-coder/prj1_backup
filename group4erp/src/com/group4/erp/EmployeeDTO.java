@@ -1,7 +1,7 @@
 package com.group4.erp;
 
 public class EmployeeDTO {
-	
+
 	//수정중
 	private String emp_name;
 	private String emp_eng_name;
@@ -15,9 +15,17 @@ public class EmployeeDTO {
 	private String mgr_emp_name;
 	private String emp_addr;
 	private String emp_pwd;
+	private String jikup;
 	private int jikup_cd;
 	private int worktime_cd;
 	
+	
+	public String getJikup() {
+		return jikup;
+	}
+	public void setJikup(String jikup) {
+		this.jikup = jikup;
+	}
 	
 	public int getWorktime_cd() {
 		return worktime_cd;
