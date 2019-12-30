@@ -68,9 +68,22 @@
 			</foreach>			
 		</if>
 	</sql>
+	
+	<sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null">
+			order by 1 desc
+		</if>
+	</sql>
+	
 	 
 	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
-		select count(*) from event_info
+		select count(*) from event_info ei
+		where 1=1
+		<include refid="eventWhere" />
 	</select>
 	
 	
@@ -91,11 +104,14 @@
         from event_info ei
 		where 1=1		
 		<include refid="eventWhere" />
+		<include refid="headerSort" />
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
 
 	 
-	
+	<select id='getEventAllCnt' resultType="int">
+		select count(*) from event_info
+	</select>
 	
 	
 	<select id='getAdApplyCnt' resultType="int">
@@ -115,6 +131,35 @@
         from ad_apply_info ai
 		where 1=1
 	</select>
+	
+	<insert id="insertEvent" parameterType="com.group4.erp.EventDTO">
+		insert into event_info(
+			evnt_no, 
+			emp_no, 
+			evnt_cd, 
+			evnt_title, 
+			tot_est_cost, 
+			tot_cost, 
+			evnt_start_dt,
+			evnt_end_dt,
+			evnt_state_cd,
+			evnt_comment, 
+			atchd_data
+			)
+			values (
+			  #{evnt_no},	
+			  #{emp_no},
+			  #{evnt_cd},
+			  #{evnt_title},
+			  #{tot_est_cost},
+			  #{tot_est_cost},
+			  #{evnt_start_dt},
+			  #{evnt_end_dt},
+			  1,
+			  #{evnt_comment},
+			  null
+			)
+	</insert>
 	
 		
 </mapper>

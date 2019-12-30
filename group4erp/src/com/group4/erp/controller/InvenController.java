@@ -38,6 +38,10 @@ public class InvenController {
 		mav.addObject("navigator", "[재고현황]-[도서정보조회]");
 		try {
 			
+			List<Map<String, String>> branch = this.invenService.getBranch(invenSearchDTO);
+			//System.out.println("controller"+branch);
+			mav.addObject("branch",branch);
+			
 			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
 			mav.addObject("publisher",publisher);
 			
@@ -60,6 +64,8 @@ public class InvenController {
 			
 			List<Map<String, String>> BookList = this.invenService.getBookList(invenSearchDTO);
 			mav.addObject("BookList", BookList);
+			
+			
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생 =>"+e);
@@ -146,7 +152,7 @@ public class InvenController {
 		
 
 	@RequestMapping(value="/goReturnOrderList.do")
-	public ModelAndView goReturnOrderList(HttpSession session) {
+	public ModelAndView goReturnOrderList(HttpSession session, ReturnSearchDTO returnSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -155,8 +161,8 @@ public class InvenController {
 		mav.addObject("navigator", "[재고현황]-[반품현황조회]");
 		
 		try {
-			int returnOrderCnt = this.invenService.getReturnOrderCnt();
-			List<ReturnOrderDTO> returnOrderList = this.invenService.getReturnOrderList();
+			int returnOrderCnt = this.invenService.getReturnOrderCnt(returnSearchDTO);
+			List<ReturnOrderDTO> returnOrderList = this.invenService.getReturnOrderList(returnSearchDTO);
 			
 			mav.addObject("returnOrderCnt", returnOrderCnt);
 			mav.addObject("returnOrderList", returnOrderList);

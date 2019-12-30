@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <title>직원 근무 현황</title>
 <style>
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
@@ -31,6 +32,7 @@
    height: 20px;
    border-width: thin;
 }
+
 </style>
 	<script>
 		/* var picker = new Pikaday({ 
@@ -49,6 +51,14 @@
 			$('[name=rowCntPerPage]').change(function(){
 				goSearch();
 			});
+
+			setTableTrBgColor(
+					"inoutListTable",		//테이블 class 값
+					"${headerColor}",		//헤더 tr 배경색
+					"${oddTrColor}",		//홀수행 배경색
+					"${evenTrColor}",		//짝수행 배경색
+					"${mouseOverColor}"		//마우스 온 시 배경색
+			);
 
 			
 			
@@ -79,11 +89,6 @@
 			<c:forEach items="${hrListSearchDTO.inout_name}" var="inout">
 				inputData( "[name=inout_name]", "${inout}" );
 			</c:forEach>
-
-
-
-			
-
 			
 		});
 	
@@ -103,9 +108,7 @@
 			goSearch();
 			
 		}
-
 		
-
 		function InoutbyDt(){
 			//alert( $("[name=getEmpInoutList]").serialize() );
 			/* 
@@ -133,11 +136,15 @@
 
 </head>
 <body><center>
+
 	<b>추후 메뉴 이동해야함</b>
 	<h1>[직원 근무 현황]</h1><br>
+
+	<h1 class="fontBold" style="font-size:15pt">[직원 근무 현황]</h1><br>
+
 	<form name="InoutListDate" method="post" action="/group4erp/viewEmpWorkStateList.do">
 		
-		<div style="width:800">
+		<div class="fontLight" style="width:800; font-size:9pt">
 			[키워드] : <input type="text" name="keyword1" >
 			[일자] : <input type="text" id="datepicker" name="datepicker"><br>
 			<table><tr height=10><td></table>
@@ -149,21 +156,23 @@
 			<input type="checkbox" name="inout_name" class="inout_name" value="지각">지각
 			<input type="checkbox" name="inout_name" class="inout_name" value="외근">외근
 			
-			<input type="button" value="검색" onClick="goSearch();"
-					style="width:75; font-family:돋움; background-color:#FFFFFF; border:1 solid #A0DBE4">&nbsp;
+			<table><tr height=10><td></table>
+			<button onClick="goSearch();">검색</button>
+			<button onClick="goSearchAll();">모두검색</button>
+			<!-- <input type="button" value="검색" onClick="goSearch();"
+				 style="width:75;  background-color:#FFFFFF; border:1 solid #A0DBE4">&nbsp;
 			<input type="button" value="모두검색" onClick="goSearchAll();"
-					style="width:75; font-family:돋움; background-color:#FFFFFF; border:1 solid #A0DBE4">
+				style="width:75; background-color:#FFFFFF; border:1 solid #A0DBE4"> -->
 		</div>
 	    
 	    <script>
-	        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
-	        
+	        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });    
 	    </script>
 	    
 	    &nbsp;&nbsp;
 		<table border=0 width=70%>
 			<tr>
-				<td align=right>
+				<td class="fontLight" align=right style="font-size:9pt">
 					[총 개수] : ${getEmpInoutListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 					<select name="rowCntPerPage">
 						<option value="10">10
@@ -178,41 +187,29 @@
 	    
 	    
 	  </form>
-	    
-	    
-	    
-	    
-	    
+	        
 	    <table><tr height=10><td></table>
-	    
-	    
-	    
-	    
-	    
-	    
+  
 	   <form name="getEmpInoutList" method="post" action="/group4erp/viewEmpWorkStateList.do">
-		<table class="tbcss1" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
-			<thead>
+		<table class="inoutListTable tab" name="dayOffList" cellpadding="5" cellspacing="5" width=70%>
+
 				<tr>
-					<th style="cursor:pointer">날짜
-					<th style="cursor:pointer">사원번호
-					<th width=100 style="cursor:pointer">성명
-					<th style="cursor:pointer">부서
-					<th style="cursor:pointer">직급
-					<th style="cursor:pointer">출근시간
-					<th style="cursor:pointer">퇴근시간
-					<th style="cursor:pointer">근무시간
-					<th style="cursor:pointer">구분
-					<th style="cursor:pointer">비고
+					<th class="thset" style="cursor:pointer">NO
+					<th class="thset" style="cursor:pointer">날짜
+					<th class="thset" style="cursor:pointer">사원번호
+					<th class="thset" width=100 style="cursor:pointer">성명
+					<th class="thset" style="cursor:pointer">부서
+					<th class="thset" style="cursor:pointer">직급
+					<th class="thset" style="cursor:pointer">출근시간
+					<th class="thset" style="cursor:pointer">퇴근시간
+					<th class="thset" style="cursor:pointer">근무시간
+					<th class="thset" style="cursor:pointer">구분
+					<th class="thset" style="cursor:pointer">비고
 				</tr>
-			</thead>
-			
-			<tbody>
+
 				<c:forEach items="${requestScope.getEmpInoutList}" var="inout" varStatus="loopTagStatus">
 					<tr style="cursor:pointer">
-						<%-- <td align=center>
-							${boardListAllCnt - 
-								(boardSearchDTO.selectPageNo*boardSearchDTO.rowCntPerPage-boardSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1} --%>
+						<td align=center> ${loopTagStatus.index+1}
 						<td align=center> ${inout.DT_WORK}
 						<td align=center> ${inout.EMP_NO}
 						<td align=center> ${inout.EMP_NAME}
@@ -225,8 +222,6 @@
 						<td align=center> ${inout.REMARKS}
 					</tr>
 				</c:forEach>
-			</tbody>
-		
 			
 			
 			<!-- <tr>

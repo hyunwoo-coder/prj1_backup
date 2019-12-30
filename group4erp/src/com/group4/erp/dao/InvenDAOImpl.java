@@ -12,6 +12,28 @@ public class InvenDAOImpl implements InvenDAO{
 
    @Autowired
    private SqlSessionTemplate sqlSession;
+   
+   
+   
+	@Override
+	public List<Map<String, String>> getBranch(InvenSearchDTO invenSearchDTO) {
+		List<Map<String, String>> branch = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getBranch"
+				,invenSearchDTO
+				);
+		//System.out.println("DAO"+branch);
+		return branch;
+	}
+	
+	
+	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
+		List<Map<String, String>> publisher = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getPublisherList"
+				,invenSearchDTO
+				);
+		
+		return publisher;
+	}
 
 	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO){
 		
@@ -43,17 +65,6 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return bookListCnt;
 	}
-	
-	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
-		
-		List<Map<String, String>> publisher = this.sqlSession.selectList(
-				"com.group4.erp.dao.invenSearchDAO.getPublisherList"
-				,invenSearchDTO
-				);
-		
-		return publisher;
-	}
-	
 
 	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
 		
@@ -92,16 +103,24 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return corp_order;
 	}
+	
 	public int getReturnOrderCnt() {	
 		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt");
+
 		
 		return returnOrderCnt;
 	}
 	
-	public List<ReturnOrderDTO> getReturnOrderList() {
-		List<ReturnOrderDTO> returnOrderList = this.sqlSession.selectList("com.group4.erp.dao.invenSearchDAO.getReturnOrderList");
+	public List<ReturnOrderDTO> getReturnOrderList(ReturnSearchDTO returnSearchDTO) {
+		List<ReturnOrderDTO> returnOrderList = this.sqlSession.selectList("com.group4.erp.dao.invenSearchDAO.getReturnOrderList", returnSearchDTO);
 		
 		return returnOrderList;
+	}
+	
+
+	public int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO) {	
+		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt", returnSearchDTO);
+		return returnOrderCnt;
 	}
 	
 	public int getSignUpCnt(InvenDTO invenDTO) {
@@ -113,5 +132,4 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return insertSignUpBookCnt;
 	}
-
 }

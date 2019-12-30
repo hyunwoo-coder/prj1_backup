@@ -62,16 +62,16 @@
     		,d.dep_name             as "dep_name"
     		,w.destination         as "destination"
     		,w.work_outside_reason as "work_outside_reason"
-    		,to_char(w.outside_start_time,'yyyy-mm-dd am hh12:mi:ss (dy)','NLS_DATE_LANGUAGE=korean')  as "outside_start_time"
-    		,to_char(w.outside_end_time,'yyyy-mm-dd am hh12:mi:ss (dy)','NLS_DATE_LANGUAGE=korean')    as "outside_end_time"
+    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
+    		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
     		,nvl(e2.emp_name,' ')  as "mgr_name"
 	    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 	    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
 	    	 inner join dept d on d.dep_no=e1.dep_no
      		 left outer join employee e2 on e2.emp_no=e1.mgr_emp_no 
      	 where 1=1
-     	 	<if test="searchKey!=null and !searchKey.equals('')">
-     			<if test="keyword!=null and !keyword.equals('')">
+     	 	<if test="searchKey!=null and !searchKey.isEmpty()">
+     			<if test="keyword!= null and !keyword.isEmpty()">
 					<if test ="searchKey.equals('jikup')">
 						and c.jikup like '%'||#{keyword}||'%'
 					</if>
@@ -84,16 +84,106 @@
 					<if test ="searchKey.equals('destination')">
 						and w.destination like '%'||#{keyword}||'%'
 					</if>
+					<if test ="searchKey.equals('outside_start_time')">
+						and to_char(w.outside_start_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
+					</if>
+					<if test ="searchKey.equals('outside_end_time')">
+						and to_char(w.outside_end_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
+					</if>
 					<if test ="searchKey.equals('mgr_name')">
 						and mgr_name like '%'||#{keyword}||'%'
 					</if>
      			</if>
      		</if> 
+     		<if test="thindexno!=null and ascdesc!=null">
+     			order by
+	     	 	 	<if test="thindexno.equals(1) and ascdesc!=null">
+	     				    jikup_cd
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		 	<if test="thindexno.equals(2) and ascdesc!=null">
+	     				    e1.emp_name
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		 	<if test="thindexno.equals(3) and ascdesc!=null">
+	     				    d.dep_name
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		 	<if test="thindexno.equals(4) and ascdesc!=null">
+	     				    w.destination 
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		 	<if test="thindexno.equals(5) and ascdesc!=null">
+	     				    w.work_outside_reason 
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		 	<if test="thindexno.equals(6) and ascdesc!=null">
+	     				    outside_start_time 
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		 	<if test="thindexno.equals(7) and ascdesc!=null">
+	     				    outside_end_time 
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		 	<if test="thindexno.equals(8) and ascdesc!=null">
+	     				    nvl(e2.emp_name,' ') 
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if>
+									<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+	     		 	</if>
+	     		</if>
      	 ) zzz )
      	 where
      		<![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
-     	 	
-     		
-     		
+     	
+     		order by RNUM	
+     			<if test="thindexno!=null and ascdesc!=null">
+     				  		<if test="thindexno.equals(0) and ascdesc!=null">
+									<if test="ascdesc.equals('asc')">
+										asc
+									</if> 
+										<if test="ascdesc.equals('desc')">
+										desc
+									</if>
+							</if>
+	     		 	 </if>	     	
 	</select>
 </mapper>

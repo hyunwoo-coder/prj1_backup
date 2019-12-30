@@ -41,6 +41,7 @@
 		inputData('[name=rowCntPerPage]',"${eventSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${eventSearchDTO.selectPageNo}");
 		inputData("[name=searchKeyword]", "${eventSearchDTO.searchKeyword}");
+		inputData("[name=sort]", "${eventSearchDTO.sort}");
 
 		<c:forEach items="${eventSearchDTO.evnt_category}" var="evnt_category">
 			inputData("[name=evnt_category]", "${evnt_category}");
@@ -70,12 +71,72 @@
 		goSearch();
 	}
 
+
+	function showTime() {
+		//현재 날짜를 관리하는 Date 객체 생성
+		var today = new Date();
+		//----------------------------------------
+		//Date 객체에서 날짜 관련 각 데이터를 꺼내어 저장하는 변수 선언
+		var amPm = "오후";
+		var year = today.getFullYear();
+		var month = today.getMonth()+1;
+		var week = today.getDay();
+		var date = today.getDate();
+		var hour = today.getHours();
+		var minute = today.getMinutes();
+		var second = today.getSeconds();
+
+		var week = ["일", "월", "화", "수", "목", "금", "토"][today.getDay()];
+		//날짜 관련 각 데이터가 10 미만이면 앞에 0 붙이기
+		//오전, 오후 여부 판단해서 저장하기
+		
+		if(month<10) {
+			month = "0"+month;
+		}
+
+		if(date<10) {
+			date = "0"+date;
+		}
+
+		if(hour<12) {
+			amPm = "오전";
+		}
+
+		if(hour>12) {
+			hour=hour-12;
+		}
+
+		if(hour<10) {
+			hour="0"+hour;
+		}
+
+		if(minute<10) {
+			minute = "0"+minute;
+		}
+
+		if(second<10) {
+			second = "0" + second;
+		}
+		//id="nowTime"가 있는 태그영역 내부에 시간 문자열 삽입
+
+		document.getElementById("nowTime").innerHTML = year+"년"+month+"월"+date+"일("+week+")"+amPm+" "+hour+"시 "+minute+"분 "+second+"초";
+		
+	}
+
+	function startTime() {
+		showTime();		//1초 딜레이 되어 시간이 표시되는 현상을 제거하기 위해 showTime() 함수를 한 번 호출한다.
+		//-----------------------------------
+		//1초마다 showTime() 함수를 호출하기
+		//-----------------------------------
+		window.setInterval("showTime()", 1000);		//window.setInterval(function() { showTime(); }, 1000);
+	}
+
 	</script>
 </head>
-<body><center>
+<body onLoad="startTime();"><center>
 
 	<h1>이벤트 현황</h1>
-	<label> << 2019.12.24(화) >> [이벤트 총 횟수] : ${eventCnt}회 </label>
+	<label> <span id="nowTime"> </span> [이벤트 총 횟수] : ${eventCnt}회 </label>
 					<select name="rowCntPerPage">
 						<option value="10">10
 						<option value="15">15
@@ -83,7 +144,7 @@
 						<option value="25">25
 						<option value="30">30
 					</select>행보기 <br><br>
-	
+
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
 		<table name="searchEvntTable">
 			<tr>
@@ -109,7 +170,10 @@
 			</tr>
 		</table>
 		<input type="hidden" name="selectPageNo" >
+		<input type="hidden" name="sort" >
 	</form>
+	
+	<input type="button" value="이벤트 신청" onClick="reserveEvent();">
 	
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -121,7 +185,78 @@
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 		<table class="eventListTable tbcss2" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
 			<tr>
-				<th>이벤트 번호</th><th>이벤트 종류</th><th>타이틀</th><th>시작일</th><th>종료일</th><th>상태</th>
+				<c:choose>
+					<c:when test="${param.sort=='1 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 이벤트 번호</th>
+					</c:when>
+					<c:when test="${param.sort=='1 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 이벤트 번호</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  ">이벤트 번호</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='3 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 이벤트 종류</th>
+					</c:when>
+					<c:when test="${param.sort=='3 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 이벤트 종류</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  ">이벤트 종류</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='4 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  "> ▼ 타이틀</th>
+					</c:when>
+					<c:when test="${param.sort=='4 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 desc'); goSearch(); "> ▲ 타이틀</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  ">타이틀</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='7 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  "> ▼ 시작일</th>
+					</c:when>
+					<c:when test="${param.sort=='7 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 desc'); goSearch(); "> ▲ 시작일</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  ">시작일</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='8 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 종료일</th>
+					</c:when>
+					<c:when test="${param.sort=='8 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 종료일</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">종료일</th>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='9 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  "> ▼ 상태</th>
+					</c:when>
+					<c:when test="${param.sort=='9 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 desc'); goSearch(); "> ▲ 상태</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  ">상태</th>
+					</c:otherwise>
+				</c:choose>
+			
 			</tr>
 			<tr>
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">
@@ -137,7 +272,7 @@
 		</table><br>
 	
 	</form>
-	<input type="button" value="이벤트 신청" onClick="reserveEvent();">
+	
 	
 </center>
 </body>

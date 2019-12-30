@@ -18,7 +18,8 @@
 
 </head>
 <body><center>
-	<h1>광고신청 페이지</h1>
+	<h1>광고신청 페이지</h1><br>
+	광고번호 : ${adNum}
 	<form name="insertAdForm" method="post" action="/group4erp/insertAdProc.do">
 		<table class="insertAdTable tbcss1" name="insertAdTable" cellpadding="5" cellspacing="5">
 			<tr>
@@ -62,8 +63,6 @@
 		<input type="button" value="광고신청" onClick="reserveAd();">
 	
 	</form>
-
 </center>
-
 </body>
 </html>

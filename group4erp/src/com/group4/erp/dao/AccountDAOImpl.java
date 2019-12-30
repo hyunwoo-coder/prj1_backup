@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.TranSpecDTO;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -65,6 +66,30 @@ public class AccountDAOImpl implements AccountDAO {
 		List<CorpOrderDTO> corp_order_list = this.sqlSession.selectList(mapper_namespace+"getCorpOrderList", corpSearchDTO);
 		
 		return corp_order_list;
+	}
+
+	@Override
+	public CorporationDTO selectCorp(String corp_no) {
+		// TODO Auto-generated method stub
+		CorporationDTO selectedCorp = this.sqlSession.selectOne(mapper_namespace+"getCorpInfo", corp_no);
+		
+		return selectedCorp;
+	}
+
+	@Override
+	public int getTranSpecCnt(int order_no) {
+		// TODO Auto-generated method stub
+		int tranSpecCnt = this.sqlSession.selectOne(mapper_namespace+"getTranSpecCnt", order_no);
+		
+		return tranSpecCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecList(int order_no) {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecList = this.sqlSession.selectList(mapper_namespace+"getTranSpecList", order_no);
+		
+		return tranSpecList;
 	}
 
 }

@@ -13,6 +13,7 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	//담담 상품 조회
 	//===================================================================================================
 	//검색 항목 불러오는 코드
 	public List<Map<String,String>> getMyCareBookList(MyWorkSearchDTO myWorkSearchDTO){
@@ -21,7 +22,7 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 					"com.group4.erp.dao.myWorkDAO.getMyCareBookList"
 					,myWorkSearchDTO
 				);
-		//System.out.println("DAO : " + getMyCareBookList.size());
+		//ystem.out.println("DAO : " + getMyCareBookList.size());
 		return getMyCareBookList;
 		
 	}
@@ -73,8 +74,44 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 					"com.group4.erp.dao.myWorkDAO.getMyWorkListAllCnt"
 					,myWorkSearchDTO
 				);
-		System.out.println("DAO : " + myWorkListAllCnt);
+		//System.out.println("DAO : " + myWorkListAllCnt);
 		return myWorkListAllCnt;
 		
 	}
+	
+	//근태 조회
+	//===================================================================================================
+	//검색 총 개수 리턴
+	public int getWorkDaysListAllCnt(MyWorkSearchDTO myWorkSearchDTO){
+		
+		int workDaysListAllCnt = this.sqlSession.selectOne(
+					"com.group4.erp.dao.myWorkDAO.getWorkDaysListAllCnt"
+					,myWorkSearchDTO
+				);
+		//System.out.println("DAO : " + workDaysListAllCnt);
+		return workDaysListAllCnt;
+		
+	}
+	//===================================================================================================
+	//검색된 테이블 자료 리턴
+	public List<Map<String,String>> getWorkDaysList(MyWorkSearchDTO myWorkSearchDTO){
+		
+		List<Map<String,String>> getWorkDaysList = this.sqlSession.selectList(
+					"com.group4.erp.dao.myWorkDAO.getWorkDaysList"
+					,myWorkSearchDTO
+				);
+		//System.out.println("DAO : " + getWorkDaysList.size());
+		return getWorkDaysList;
+		
+	}
+	public List<Map<String,String>> getSearchEmpNo(MyWorkSearchDTO myWorkSearchDTO){
+		
+		List<Map<String,String>> getSearchEmpNo = this.sqlSession.selectList(
+					"com.group4.erp.dao.myWorkDAO.getSearchEmpNo"
+					,myWorkSearchDTO
+				);
+		return getSearchEmpNo;
+		
+	}
+	
 }

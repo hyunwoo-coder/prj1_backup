@@ -10,12 +10,11 @@
 <%--<header width=95%><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></header> --%>
 <body><center>
 
-
-<table border="0" cellpadding=5 cellspacing=0 width="95%" >
+<table border="0" cellpadding=5 cellspacing=0 width="100%" height="100%" >
 	<tr height="50">
 		<td align="center"><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></td>
 	</tr>
-	<tr valign=top>
+	<tr height="90%" valign=top>
 		<td align="center" height="500"><br><br>
 		<!-- <section> -->
 			<c:if test="${empty subMenu}">
@@ -153,15 +152,26 @@
 			</c:if>
 			
 			<c:if test="${subMenu.equals('viewInsertAdApply') }">
-				<%@ include file="/WEB-INF/views/insertAdForm.jsp" %>
+				<%@ include file="/WEB-INF/views/adInsertForm.jsp" %>
 			</c:if>
 			
+			<c:if test="${subMenu.equals('viewMyWorkTime') }">
+				<%@ include file="/WEB-INF/views/workTimeList.jsp" %>
+			</c:if>
+
+			<!-- 입고 관리 페이지 -->
+			<c:if test="${subMenu.equals('viewWarehousingList') }">
+				<%@ include file="/WEB-INF/views/warehousing.jsp" %>
+			</c:if>
+
 			<c:if test="${subMenu.equals('viewTranSpecList') }">
 				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
 			</c:if>
 			
+			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
+				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
+			</c:if>
 			<!-- </section> -->	
-			
 		</td>
 	</tr>
 	<tr height="50">

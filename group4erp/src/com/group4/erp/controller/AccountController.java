@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.TranSpecDTO;
 import com.group4.erp.service.AccountService;
 
 
@@ -36,13 +37,12 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewCorpList");
+		mav.addObject("navigator", "[회계관리]-[거래처 현황]");
 		
 		try {
 			
 			int corpListCnt = this.accountService.getCorpListCnt();
 			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
-			
-			System.out.println("corpListCnt=="+corpListCnt);
 			
 			mav.addObject("corpListCnt", corpListCnt);
 			mav.addObject("corpList", corpList);
@@ -96,7 +96,7 @@ public class AccountController {
 	}
 	
 	
-	@RequestMapping(value="/viewSearchCorp.do")
+	/*@RequestMapping(value="/viewSearchCorp.do")
 	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -114,9 +114,9 @@ public class AccountController {
 		}
 	
 		return mav;
-	}
+	}*/
 	
-	@RequestMapping(value="/selectCorp.do")
+	/*@RequestMapping(value="/selectCorp.do")
 	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -138,7 +138,7 @@ public class AccountController {
 		}
 	
 		return mav;
-	}
+	}*/
 	
 	@RequestMapping(value="/viewTranSpecList.do")
 	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO) {
@@ -160,8 +160,30 @@ public class AccountController {
 			System.out.println("예외 발생=="+e);
 		}
 		
-		return mav;
+		return mav;		
+	}
+	
+	@RequestMapping(value="/viewTranSpecInfo.do")
+	public ModelAndView viewTranSpecInfo(HttpSession session, int order_no) {
 		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTranSpecInfo");
+		
+		try {
+			
+			int tranSpec_cnt = this.accountService.getTranSpecCnt(order_no);
+			List<TranSpecDTO> tranSpecList = this.accountService.getTranSpecList(order_no);
+			
+			mav.addObject("tranSpec_cnt", tranSpec_cnt);
+			mav.addObject("tranSpecList", tranSpecList);
+			
+		} catch(Exception e) {
+			System.out.println("예외 발생=="+e);
+		} 
+		
+		return mav;		
 	}
 
 }

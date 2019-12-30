@@ -3,11 +3,12 @@ import com.group4.erp.Cus_releaseInfoDTO;
 import com.group4.erp.InvenDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.ReturnOrderDTO;
+import com.group4.erp.ReturnSearchDTO;
 
 import java.util.*;
 
 public interface InvenService {
-
+	List<Map<String, String>> getBranch(InvenSearchDTO invenSearchDTO);
 
 	List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO);
 	
@@ -17,6 +18,7 @@ public interface InvenService {
 	
 	List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO);
 	
+	int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO);
 
 	int getReleaseListCnt(InvenSearchDTO invenSearchDTO);
 	
@@ -27,9 +29,12 @@ public interface InvenService {
 	Cus_releaseInfoDTO getReleaseCorpInfo(int all_order_no);
 
 	int getReturnOrderCnt();
-	
+
+	List<ReturnOrderDTO>getReturnOrderList(ReturnSearchDTO returnSearchDTO);
+
 	List<ReturnOrderDTO>getReturnOrderList();
 
 	int getSignUpCnt(InvenDTO invenDTO);
+
 
 }
