@@ -228,6 +228,10 @@
 			location.replace("/group4erp/viewBestKeywdAnalysis.do");
 			
 		}
+
+		function goMyIntoList(){
+			location.replace("/group4erp/goWarehousingList.do");
+		}
 		
 		
 	</script>
@@ -322,7 +326,7 @@
 			
 		</tr>
 		<tr>	
-			<td colspan="14">현재 위치 : <span id="navigator">${navigator}</span></td>
+			<td colspan="14" align="left">현재 위치 : <span id="navigator">${navigator}</span></td>
 		</tr>
 	</table> <hr>
 </center>

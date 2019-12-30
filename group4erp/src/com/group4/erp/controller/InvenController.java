@@ -38,6 +38,10 @@ public class InvenController {
 		mav.addObject("navigator", "[재고현황]-[도서정보조회]");
 		try {
 			
+			List<Map<String, String>> branch = this.invenService.getBranch(invenSearchDTO);
+			//System.out.println("controller"+branch);
+			mav.addObject("branch",branch);
+			
 			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
 			mav.addObject("publisher",publisher);
 			
@@ -60,6 +64,8 @@ public class InvenController {
 			
 			List<Map<String, String>> BookList = this.invenService.getBookList(invenSearchDTO);
 			mav.addObject("BookList", BookList);
+			
+			
 		}catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생 =>"+e);

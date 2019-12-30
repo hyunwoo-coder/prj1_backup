@@ -18,6 +18,20 @@ public class InvenServiceImpl implements InvenService{
 
    @Autowired
    private InvenDAO invenDAO;
+   
+   
+	@Override
+	public List<Map<String, String>> getBranch(InvenSearchDTO invenSearchDTO) {
+		List<Map<String, String>> branch = this.invenDAO.getBranch(invenSearchDTO);
+		return branch;
+	}
+
+	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String, String>> publisher = this.invenDAO.getPublisher(invenSearchDTO);
+		
+		return publisher;
+	}
 
    public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO) {
 
@@ -41,14 +55,6 @@ public class InvenServiceImpl implements InvenService{
 		
 		return bookListCnt;
 	}
-	
-	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
-		
-		List<Map<String, String>> publisher = this.invenDAO.getPublisher(invenSearchDTO);
-		
-		return publisher;
-	}
-	
 
 	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
 		
@@ -114,7 +120,5 @@ public class InvenServiceImpl implements InvenService{
 		
 		return null;
 	}
-
-
 
 }

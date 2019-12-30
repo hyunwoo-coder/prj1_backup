@@ -10,7 +10,8 @@
 <script>
 
 $(document).ready(function(){   
-   
+
+
    $('[name=rowCntPerPage]').change(function(){
       goSearchBookInven();
    });
@@ -55,14 +56,23 @@ $(document).ready(function(){
       //alert("검색기능 구현중");
 
       //alert(  $("[name=book_inventory_search_form]").serialize()   );
+  
+      //alert(  $("[name=book_inventory_search_form]").serialize()   );
 
       document.book_inventory_search_form.submit();
    }
 
+
    function goAllSearchBookInven(){
       //alert("모두검색기능 구현중");
-      document.book_inventory_search_form.reset();
-      goSearchBookInven();
+      //document.book_inventory_search_form.reset();
+      //goSearchBookInven();
+
+
+		document.book_inventory_search_form.reset();
+		$("[name=book_inventory_search_form] [name=selectPageNo]").val(1);
+		$("[name=book_inventory_search_form] [name=rowCntPerPage]").val(10);
+		goSearchBookInven();
    }
    
    function goNewBookInfo(){
@@ -80,7 +90,7 @@ $(document).ready(function(){
 	   
 	   location.href="/group4erp/viewBookContentForm.do?"+str;
    }
-   
+
 </script>
 <!--
 <style>
@@ -128,6 +138,7 @@ $(document).ready(function(){
             <input type="checkbox" name="size_cd" value="07">타블로이드
          <tr>
          <th bgcolor="gray">지역
+
          <td align=center colspan=5>
          	 <c:forEach items="${requestScope.inventory_loc}" var="inven" varStatus="loopTagStatus">
              	<input type="checkbox" name="inventory_loc" value="${loopTagStatus.index+1}">${inven.branch_name}
@@ -169,8 +180,7 @@ $(document).ready(function(){
       <!-- header sort를 하기 위한 hidden Tag -->
       <input type="hidden" name="sort">
    </form>   
-
-      
+    
       <br>
    <form>
       <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=850>

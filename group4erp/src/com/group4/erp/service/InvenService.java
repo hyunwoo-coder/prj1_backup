@@ -8,7 +8,7 @@ import com.group4.erp.ReturnSearchDTO;
 import java.util.*;
 
 public interface InvenService {
-
+	List<Map<String, String>> getBranch(InvenSearchDTO invenSearchDTO);
 
 	List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO);
 	

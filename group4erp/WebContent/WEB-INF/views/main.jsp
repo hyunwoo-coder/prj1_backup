@@ -158,6 +158,11 @@
 				<%@ include file="/WEB-INF/views/workTimeList.jsp" %>
 			</c:if>
 
+			<!-- 입고 관리 페이지 -->
+			<c:if test="${subMenu.equals('viewWarehousingList') }">
+				<%@ include file="/WEB-INF/views/warehousing.jsp" %>
+			</c:if>
+
 			<c:if test="${subMenu.equals('viewTranSpecList') }">
 				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
 			</c:if>
