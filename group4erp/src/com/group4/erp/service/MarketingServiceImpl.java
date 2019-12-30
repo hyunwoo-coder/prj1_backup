@@ -47,6 +47,22 @@ public class MarketingServiceImpl implements MarketingService {
 		
 		return ad_apply_list;
 	}
+
+	@Override
+	public int insertEvent(EventDTO eventDTO) {
+		// TODO Auto-generated method stub
+		int eventCnt = this.marketingDAO.insertEvent(eventDTO);
+		
+		return eventCnt;
+	}
+
+	@Override
+	public int getEventAllCnt() {
+		// TODO Auto-generated method stub
+		int eventAllCnt = this.marketingDAO.getEventAllCnt();
+		
+		return eventAllCnt;
+	}
 	
 	
 

@@ -10,11 +10,15 @@ public interface MarketingDAO {
 	
 	int getEventCnt(EventSearchDTO eventSearchDTO);
 	
+	int getEventAllCnt();
+	
 	List<EventDTO> getEventList(EventSearchDTO eventSearchDTO);
 	
 	int getAdApplyCnt();
 	
 	List<AdApplyDTO> getAdApplyList();
+	
+	int insertEvent(EventDTO eventDTO);
 
 
 }

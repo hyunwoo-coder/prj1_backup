@@ -75,7 +75,7 @@
 		</if>
 		
 		<if test="sort==null">
-			order by 1
+			order by 1 desc
 		</if>
 	</sql>
 	
@@ -109,7 +109,9 @@
 	</select>
 
 	 
-	
+	<select id='getEventAllCnt' resultType="int">
+		select count(*) from event_info
+	</select>
 	
 	
 	<select id='getAdApplyCnt' resultType="int">
@@ -129,6 +131,35 @@
         from ad_apply_info ai
 		where 1=1
 	</select>
+	
+	<insert id="insertEvent" parameterType="com.group4.erp.EventDTO">
+		insert into event_info(
+			evnt_no, 
+			emp_no, 
+			evnt_cd, 
+			evnt_title, 
+			tot_est_cost, 
+			tot_cost, 
+			evnt_start_dt,
+			evnt_end_dt,
+			evnt_state_cd,
+			evnt_comment, 
+			atchd_data
+			)
+			values (
+			  #{evnt_no},	
+			  #{emp_no},
+			  #{evnt_cd},
+			  #{evnt_title},
+			  #{tot_est_cost},
+			  #{tot_est_cost},
+			  #{evnt_start_dt},
+			  #{evnt_end_dt},
+			  1,
+			  #{evnt_comment},
+			  null
+			)
+	</insert>
 	
 		
 </mapper>

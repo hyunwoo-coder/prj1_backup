@@ -61,6 +61,7 @@ public class MarketingController {
 				}
 			}
 			
+			
 			List<EventDTO> eventList = this.marketingService.getEventList(eventSearchDTO);
 			
 			mav.addObject("eventCnt", eventCnt);
@@ -73,7 +74,7 @@ public class MarketingController {
 		return mav;
 	}
 	
-	//이벤트 신청 페이지
+	//이벤트 신청 페이지 보기
 	@RequestMapping(value="/eventScheduling.do")
 	public ModelAndView eventScheduling(HttpSession session) {
 		
@@ -82,7 +83,41 @@ public class MarketingController {
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "eventReserve");
 		
+		try {
+			int eventAllCnt = this.marketingService.getEventAllCnt();
+			int eventNo = eventAllCnt+1;
+			
+			mav.addObject("eventNo", eventNo);
+		} catch(Exception e) {
+			System.out.println("eventScheduling() 메소드에서 예외 발생");
+		} 
+		
 		return mav;
+	}
+	
+	@RequestMapping( 
+			value="/insertEventProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	
+	@ResponseBody
+	public int insertEvent(EventDTO eventDTO) {
+		
+		int insertEventCnt = 0;
+		try {
+			System.out.println("EventDTO.getEvnt_no==="+eventDTO.getEvnt_no());
+			System.out.println("EventDTO.getEmp_no==="+eventDTO.getEmp_no());
+			System.out.println("EventDTO.getAtchd_data==="+eventDTO.getAtchd_data());
+			
+			insertEventCnt = this.marketingService.insertEvent(eventDTO);
+				
+		} catch(Exception e) {
+			System.out.println("insertEvent() 메소드에서 예외 발생>>> "+e);
+			insertEventCnt = -1;
+		} 
+				
+		return insertEventCnt;		
 	}
 	
 	

@@ -1,9 +1,11 @@
 package com.group4.erp;
 
 public class EventDTO {
-	
+
 	private String evnt_no;
 	private String emp_name;
+	private int emp_no;
+	private int evnt_cd;
 	private String evnt_category;
 	private String evnt_title;
 	private String tot_est_cost;
@@ -14,6 +16,22 @@ public class EventDTO {
 	private String evnt_comment;
 	private String atchd_data;
 
+	
+	public int getEmp_no() {
+		return emp_no;
+	}
+
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
+	}
+
+	public int getEvnt_cd() {
+		return evnt_cd;
+	}
+
+	public void setEvnt_cd(int evnt_cd) {
+		this.evnt_cd = evnt_cd;
+	}
 	
 	public String getEvnt_no() {
 		return evnt_no;

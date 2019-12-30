@@ -9,11 +9,11 @@
 </head>
 <body><center>
 
-<table border="0" cellpadding=5 cellspacing=0 width="95%" >
+<table border="0" cellpadding=5 cellspacing=0 width="100%" height="100%" >
 	<tr height="50">
 		<td align="center"><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></td>
 	</tr>
-	<tr valign=top>
+	<tr height="90%" valign=top>
 		<td align="center" height="500"><br><br>
 		
 			<c:if test="${empty subMenu}">

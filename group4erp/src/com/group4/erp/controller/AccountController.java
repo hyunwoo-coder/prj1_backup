@@ -37,6 +37,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewCorpList");
+		mav.addObject("navigator", "[회계관리]-[거래처 현황]");
 		
 		try {
 			

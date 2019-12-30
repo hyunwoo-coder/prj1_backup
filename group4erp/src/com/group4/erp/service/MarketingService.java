@@ -7,6 +7,8 @@ import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 
 public interface MarketingService {
+
+	int getEventAllCnt();
 	
 	int getEventCnt(EventSearchDTO eventSearchDTO);
 	
@@ -15,5 +17,7 @@ public interface MarketingService {
 	int getAdApplyCnt();
 	
 	List<AdApplyDTO> getAdApplyList();
+	
+	int insertEvent(EventDTO eventDTO);
 
 }
