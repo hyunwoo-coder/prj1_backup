@@ -13,8 +13,7 @@
 			select
                 ISBN13                     as "ISBN13"
                 ,book_name                 as "book_name"
-                ,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd)
-                            as "cat_name"
+                ,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd) as "cat_name"
                 ,book_price              as "book_price"
                 ,book_pages||''         as "book_pages"
                 ,writer                 as "writer"

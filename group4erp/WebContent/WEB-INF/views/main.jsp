@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>YES4조 ERP 메인 페이지</title>
 </head>
+<%--<header width=95%><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></header> --%>
 <body><center>
+
 
 <table border="0" cellpadding=5 cellspacing=0 width="95%" >
 	<tr height="50">
@@ -15,7 +17,7 @@
 	</tr>
 	<tr valign=top>
 		<td align="center" height="500"><br><br>
-		
+		<!-- <section> -->
 			<c:if test="${empty subMenu}">
 				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
 			</c:if>
@@ -157,15 +159,18 @@
 			<c:if test="${subMenu.equals('viewTranSpecList') }">
 				<%@ include file="/WEB-INF/views/transactionSpecList.jsp" %>
 			</c:if>
-				
+			
+			<!-- </section> -->	
+			
 		</td>
 	</tr>
 	<tr height="50">
-		<td align="center"><%@ include file ="/WEB-INF/views/footer.jsp" %></td>
+		<td align="center"><%@ include file ="/WEB-INF/views/footer.jsp" %></td> 
 	</tr>
 
 </table>
-		
+
 </center>
 </body>
+<%--<footer><%@ include file ="/WEB-INF/views/footer.jsp" %></footer> --%>
 </html>
