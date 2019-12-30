@@ -144,7 +144,7 @@
 						<option value="25">25
 						<option value="30">30
 					</select>행보기 <br><br>
-	
+
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
 		<table name="searchEvntTable">
 			<tr>
@@ -172,6 +172,8 @@
 		<input type="hidden" name="selectPageNo" >
 		<input type="hidden" name="sort" >
 	</form>
+	
+	<input type="button" value="이벤트 신청" onClick="reserveEvent();">
 	
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -270,7 +272,7 @@
 		</table><br>
 	
 	</form>
-	<input type="button" value="이벤트 신청" onClick="reserveEvent();">
+	
 	
 </center>
 </body>

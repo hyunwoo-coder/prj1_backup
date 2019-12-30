@@ -35,23 +35,122 @@ public class InvenController {
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewInventoryList");	//viewInventoryList 아무 이름이나 설정 가능. 메인 페이지에서 해당 메뉴 뜰 때 해당 페이지를 임포트하기 위해서 붙이는 플래그명
+		mav.addObject("navigator", "[재고현황]-[도서정보조회]");
+		try {
+			
+			List<Map<String, String>> branch = this.invenService.getBranch(invenSearchDTO);
+			//System.out.println("controller"+branch);
+			mav.addObject("branch",branch);
+			
+			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
+			mav.addObject("publisher",publisher);
+			
+			List<Map<String, String>> inventory_loc = this.invenService.getInvenLoc(invenSearchDTO);
+			mav.addObject("inventory_loc", inventory_loc);
+			
+			int bookListCnt = this.invenService.getBookListCnt(invenSearchDTO);
+			mav.addObject("bookListCnt", bookListCnt);
+			
+			if(bookListCnt>0) {
+				//선택한 페이지 번호 구하기
+				int selectPageNo = invenSearchDTO.getSelectPageNo();
+				//한 화면에 보여지는 행의 개수 구하기
+				int rowCntPerPage = invenSearchDTO.getRowCntPerPage();
+				//검색할 시작행 번호 구하기
+				int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
+				//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한페이지 번호를 1로 세팅하기
+				if(bookListCnt<beginRowNo) invenSearchDTO.setSelectPageNo(1);
+			}
+			
+			List<Map<String, String>> BookList = this.invenService.getBookList(invenSearchDTO);
+			mav.addObject("BookList", BookList);
+			
+			
+		}catch(Exception e) {
+			System.out.println("<게시글 불러오기 실패>");
+			System.out.println("예외발생 =>"+e);
+		}
+		return mav;
+	}
+	
+
+	@RequestMapping(value="/goReleaseList.do")
+	public ModelAndView goBookReleaseInfo(
+			HttpSession session
+			,InvenSearchDTO invenSearchDTO
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewReleaseList");
+		mav.addObject("navigator", "[재고현황]-[출고현황조회]");
+		
 		try {
 			
 			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
 			mav.addObject("publisher",publisher);
 			
-			int bookListCnt = this.invenService.getBookListCnt(invenSearchDTO);
-			mav.addObject("bookListCnt", bookListCnt);
+			List<Map<String, String>> inventory_loc = this.invenService.getInvenLoc(invenSearchDTO);
+			mav.addObject("inventory_loc", inventory_loc);
 			
-			List<Map<String, String>> BookList = this.invenService.getBookList(invenSearchDTO);
-			mav.addObject("BookList", BookList);
+			int releaseListCnt = this.invenService.getReleaseListCnt(invenSearchDTO);
+			mav.addObject("releaseListCnt", releaseListCnt);
+			
+			if(releaseListCnt>0) {
+				//선택한 페이지 번호 구하기
+				int selectPageNo = invenSearchDTO.getSelectPageNo();
+				//한 화면에 보여지는 행의 개수 구하기
+				int rowCntPerPage = invenSearchDTO.getRowCntPerPage();
+				//검색할 시작행 번호 구하기
+				int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
+				//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한페이지 번호를 1로 세팅하기
+				if(releaseListCnt<beginRowNo) invenSearchDTO.setSelectPageNo(1);
+			}
+			
+			List<Map<String, String>> releaseList = this.invenService.getReleaseList(invenSearchDTO);
+			mav.addObject("releaseList", releaseList);
 		}catch(Exception e) {
-			System.out.println("<게시글 불러오기 실패>");
-			System.out.println("예외발생"+e);
+			System.out.println("<출고형황 불러오기 실패>");
+			System.out.println("예외발생 =>"+e);
 		}
+		
 		return mav;
 	}
 	
+	@RequestMapping(value="/goReleaseContentForm.do")
+	public ModelAndView goReleaseContentForm(
+			@RequestParam(value="all_order_no") int all_order_no
+			,Cus_releaseInfoDTO cus_releaseInfoDTO
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewReleaseContent");
+		mav.addObject("navigator", "[재고현황]-[출고현황조회]-[상세보기]");
+		
+		String orderSize = all_order_no+"";
+		
+		try {
+			
+			if(orderSize.length()==10) {
+				Cus_releaseInfoDTO cus_order = this.invenService.getReleaseCusInfo(all_order_no);
+				mav.addObject("cus_order", cus_order);
+			}else {
+				Cus_releaseInfoDTO corp_order = this.invenService.getReleaseCorpInfo(all_order_no);
+				mav.addObject("corp_order", corp_order);
+			}
+			
+			mav.addObject("orderSize", orderSize);
+		}catch(Exception e) {
+			System.out.println("<출고 상세 정보 불러오기 실패>");
+			System.out.println("예외발생 =>"+e);
+		}
+		
+		
+		return mav;
+	}
+		
+
 	@RequestMapping(value="/goReturnOrderList.do")
 	public ModelAndView goReturnOrderList(HttpSession session, ReturnSearchDTO returnSearchDTO) {
 		
@@ -59,6 +158,7 @@ public class InvenController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewReturnOrderList");
+		mav.addObject("navigator", "[재고현황]-[반품현황조회]");
 		
 		try {
 			int returnOrderCnt = this.invenService.getReturnOrderCnt(returnSearchDTO);
@@ -70,8 +170,41 @@ public class InvenController {
 		} catch(Exception e) {
 			System.out.println("예외발생"+e);
 		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/viewSignUpBook.do")
+	public ModelAndView viewSignUpBook() {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewSignUpBook");
+		mav.addObject("navigator", "[재고현황]-[도서정보조회]-[도서등록]");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="/goSignUpBookProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goSignUpBook(
+			InvenDTO invenDTO
+			) {
+		
+		int insertSignUpBookCnt = 0;
+		try {
+			
+			insertSignUpBookCnt = this.invenService.getSignUpCnt(invenDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<책 등록 실패>");
+			System.out.println("예외 발생=>"+e);
+			insertSignUpBookCnt = -1;
+		}
+		
+		return insertSignUpBookCnt;
 	}
 }
 

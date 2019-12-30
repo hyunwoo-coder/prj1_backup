@@ -7,9 +7,15 @@ public class HrListSearchDTO {
 	private String datepicker;
 	private String inout_name;
 	private String keyword1;
-
-	//private String rsoss = "2019-12-25";
+	private String sort;
 	
+	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}

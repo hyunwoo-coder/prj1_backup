@@ -69,13 +69,20 @@
 		select * from(select zzz.*, rownum RNUM from(
 			select
 				emp_no||'' 					as "emp_no"
-				,emp_name 				as "emp_name"
+				,emp_name 					as "emp_name"
 				,(select d.dep_name from dept d where d.dep_no=e.dep_no) as "dep_name"
 				,(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) as "jikup"
 			from employee e	
-			where 1=1 
+			where 1=1
 			<include refid="empListWhere" />
-			order by emp_no asc
+			
+			<if test="sort!=null and sort.length()>0">
+	 			order by ${sort}
+	 		</if>
+	 		<if test="sort==null or sort.length()==0">
+	 			order by emp_no asc
+	 		</if>
+			
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 
 
@@ -205,4 +212,25 @@
 			from employee e1
 			where 1=1 and emp_no=#{emp_no}
 	</select>
+	
+	<insert id="getNewEmpInsert" parameterType="com.group4.erp.EmployeeDTO">
+		insert into employee (emp_no, emp_name, emp_eng_name, dep_no, jikup_cd, salary, jumin_num, emp_gender, phone, emp_email, emp_email_office, mgr_emp_no, emp_addr, worktime_cd, emp_pwd
+		) values (
+		(select nvl(max(emp_no), 0)+1 from employee)
+		,'${emp_name}'
+		,'${emp_eng_name}'
+		,${dep_no}
+		,${jikup_cd}
+		,${salary}
+		,'${jumin_num}'
+		,'${emp_gender}'
+		,'${phone}'
+		,'${emp_email}'
+		,'${emp_email_office}'
+		,(select emp_no from employee where emp_name='${mgr_emp_name}')
+		,'${emp_addr}'
+		,${worktime_cd}
+		,'${emp_pwd}'
+		)
+	</insert>
 </mapper>

@@ -13,10 +13,12 @@
 
 <!-- 변수 thColor1을 선언하고 문자열 "#eaeaea" 저장 -->
 <c:set var="thColor1" value="#eaeaea"/>
+<c:set var="thColor1" value="darkgray"/>
 
 <!-- 변수 headerColor를 선언하고 문자열 "#cecece" 저장 -->
 <c:set var="headerColor" value="#cecece"/>
-
+<c:set var="headerColor" value="#323232"/>
+<c:set var="headerColor" value="gray"/>
 <!-- 변수 oddTrColor를 선언하고 문자열 "white" 저장 -->
 <c:set var="oddTrColor" value="white"/>
 
@@ -38,9 +40,12 @@
 
 
 <!-- css 파일 & jquery 라이브러리 파일 수입 -->
-<link href="${ctRoot}/resources/common.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/test.css" rel="stylesheet" type="text/css">
+<!-- <link href="${ctRoot}/resources/common.css" rel="stylesheet" type="text/css"> -->
+<link href="${ctRoot}/resources/test.css" rel="stylesheet" type="text/css">
 <script src = "${ctRoot}/resources/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src = "${ctRoot}/resources/common.js"></script>
+
 
 
 <script>

@@ -97,7 +97,7 @@
 	</table>
 </form> 
 
-<table class="corpListTable tbcss1" name="corpListTable" cellpadding="5" cellspacing="5" width="100%">
+<table class="corpListTable tbcss1" name="corpListTable" cellpadding="5" cellspacing="5">
 	<tr>
 		<th></th>
 		<c:choose>

@@ -20,6 +20,11 @@
 	
 	function empInfoUp(){
 		alert("수정 기능 구현중");
+		var tableTd = $('.empContentInfo td:eq(0)');
+		tableTd.html('<input type=text value=');
+		tableTd.text('value값입니다');
+		tableTd.html('>');
+		
 	}
 	function empInfoDel(emp_no){
 		alert("삭제 기능 구현중");
@@ -50,7 +55,7 @@
 	 	<td align=right>
 			<a href="javascript:goBack();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[닫기]</a>
 	</table>
-		<table class="tbcss1" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="empContentInfo tbcss1" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 				<th>이름
 				<td>${employeeInfoDTO.emp_name}

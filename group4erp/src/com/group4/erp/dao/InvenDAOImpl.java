@@ -12,6 +12,28 @@ public class InvenDAOImpl implements InvenDAO{
 
    @Autowired
    private SqlSessionTemplate sqlSession;
+   
+   
+   
+	@Override
+	public List<Map<String, String>> getBranch(InvenSearchDTO invenSearchDTO) {
+		List<Map<String, String>> branch = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getBranch"
+				,invenSearchDTO
+				);
+		//System.out.println("DAO"+branch);
+		return branch;
+	}
+	
+	
+	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
+		List<Map<String, String>> publisher = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getPublisherList"
+				,invenSearchDTO
+				);
+		
+		return publisher;
+	}
 
 	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO){
 		
@@ -24,6 +46,16 @@ public class InvenDAOImpl implements InvenDAO{
 		
 	}
 	
+	public List<Map<String, String>> getInvenLoc(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getInventory_loc = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getInven_loc"
+				,invenSearchDTO
+			);
+		
+		return getInventory_loc;
+	}
+	
 	public int getBookListCnt(InvenSearchDTO invenSearchDTO) {
 		
 		int bookListCnt = this.sqlSession.selectOne(
@@ -33,19 +65,48 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return bookListCnt;
 	}
-	
-	public List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO){
+
+	public int getReleaseListCnt(InvenSearchDTO invenSearchDTO) {
 		
-		List<Map<String, String>> publisher = this.sqlSession.selectList(
-				"com.group4.erp.dao.invenSearchDAO.getPublisherList"
+		int releaseListCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseListCnt"
 				,invenSearchDTO
 				);
 		
-		return publisher;
+		return releaseListCnt;
 	}
 	
-	public int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO) {	
-		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt", returnSearchDTO);
+	public List<Map<String,String>> getReleaseList(InvenSearchDTO invenSearchDTO){
+		
+		List<Map<String,String>> getReleaseList = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseList"
+				,invenSearchDTO
+			);
+	
+		return getReleaseList;
+	}
+	
+	public Cus_releaseInfoDTO getReleaseCusInfo(int all_order_no) {
+
+		Cus_releaseInfoDTO cus_order = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseCusInfo"
+				,all_order_no);
+		
+		return cus_order;
+	}
+	
+	public Cus_releaseInfoDTO getReleaseCorpInfo(int all_order_no) {
+
+		Cus_releaseInfoDTO corp_order = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseCorpInfo"
+				,all_order_no);
+		
+		return corp_order;
+	}
+	
+	public int getReturnOrderCnt() {	
+		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt");
+
 		
 		return returnOrderCnt;
 	}
@@ -55,5 +116,20 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return returnOrderList;
 	}
+	
 
+	public int getReturnOrderCnt(ReturnSearchDTO returnSearchDTO) {	
+		int returnOrderCnt = this.sqlSession.selectOne("com.group4.erp.dao.invenSearchDAO.getReturnOrderCnt", returnSearchDTO);
+		return returnOrderCnt;
+	}
+	
+	public int getSignUpCnt(InvenDTO invenDTO) {
+		
+		int insertSignUpBookCnt = this.sqlSession.insert(
+				"com.group4.erp.dao.invenSearchDAO.getSignUpBook"
+				,invenDTO
+				);
+		
+		return insertSignUpBookCnt;
+	}
 }

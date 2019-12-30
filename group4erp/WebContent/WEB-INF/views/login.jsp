@@ -8,8 +8,29 @@
 <meta charset="UTF-8">
 <title>YES4조 전사적자원관리 시스템 </title>
 <script>
+
 	function checkLoginInfo() {
-		document.login_form.submit();
+		$.ajax({
+			
+			url : "/group4erp/loginProc.do"
+			, type : "post"
+			, data : $('[name=login_form]').serialize()
+			, success : function(loginCnt){
+				
+				if(loginCnt==1){
+					alert("회원 로그인 성공!");
+					location.replace("/group4erp/goMainPage.do");
+				}
+				else{
+					alert("회원 로그인 실패! 관리자에게 문의 바람.");
+				}
+			}
+			, error : function(){
+				alert("서버 접속 실패");
+			}
+		});
+				
+		
 	}
 
 	function joinMembership(){
@@ -19,6 +40,7 @@
 	function deleteMembership(){
 		location.replace("/group4erp/godelete.do");
 	}
+
 </script>
 
 </head>

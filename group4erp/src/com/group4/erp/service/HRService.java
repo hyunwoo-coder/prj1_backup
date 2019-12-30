@@ -36,5 +36,7 @@ public interface HRService {
 	EmployeeInfoDTO getEmpContant(int emp_no);
 	
 	List<SalaryDTO> getAvgSalChart();
+	
+	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
 
 }

@@ -41,7 +41,8 @@ $(document).ready(function(){
 		document.empListSearchForm.submit();
 	}
 	function insertNewEmp() {
-		alert("신규 사원 추가 기능 구현");
+		//alert("신규 사원 추가 기능 구현");
+		location.href="/group4erp/viewNewEmpJoin.do"
 	}
 	function goEmpContentForm(emp_no){
 		
@@ -75,7 +76,7 @@ $(document).ready(function(){
 <center>
 	<h1>[직원 리스트]</h1>
 
-	<form name="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
+	<form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 
 	<!-- <form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">
@@ -95,6 +96,7 @@ $(document).ready(function(){
 	            </select> 행보기
       </table>
       <input type="hidden" name="selectPageNo">
+      <input type="hidden" name="sort">
 	</form>
 	
 	<form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
@@ -102,21 +104,39 @@ $(document).ready(function(){
 	<div id="blankArea"><br></div>
 		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
 			<thead>
-			<tr>
-				<th style="cursor:pointer">사번
-				<th>성명
-				<th>부서
-				<th style="cursor:pointer">직급
-			</tr>
+				<tr>
+				<c:choose>
+					<c:when test="${param.sort=='emp_no desc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_no asc'); goSearch();">▼사번
+					</c:when>
+					<c:when test="${param.sort=='emp_no asc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_no desc'); goSearch();">▲사번
+					</c:when>
+					<c:otherwise>
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_no asc'); goSearch();">사번
+					</c:otherwise>
+				</c:choose>
+					<th>성명<th>부서
+				<c:choose>
+					<c:when test="${param.sort=='(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) desc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) asc'); goSearch();">▼직급
+					</c:when>
+					<c:when test="${param.sort=='(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) asc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) desc'); goSearch();">▲직급
+					</c:when>
+					<c:otherwise>
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) asc'); goSearch();">직급
+					</c:otherwise>
+				</c:choose>
 			</thead>
 			<tbody>
 			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">
-			<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">	
-				<td align=center>${empList.emp_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
-				<td align=center>${empList.emp_name}</td>
-				<td align=center>${empList.dep_name}</td>
-				<td align=center>${empList.jikup}</td>
-			</tr>		
+				<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">	
+					<td align=center>${empList.emp_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
+					<td align=center>${empList.emp_name}</td>
+					<td align=center>${empList.dep_name}</td>
+					<td align=center>${empList.jikup}</td>
+				</tr>		
 			</c:forEach>
 			</tbody>
 		</table>
