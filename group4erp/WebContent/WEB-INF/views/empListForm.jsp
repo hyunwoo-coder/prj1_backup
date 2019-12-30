@@ -41,7 +41,7 @@ $(document).ready(function(){
 		document.empListSearchForm.submit();
 	}
 	function insertNewEmp() {
-		alert("신규 사원 추가 기능 구현");
+		//alert("신규 사원 추가 기능 구현");
 		location.href="/group4erp/viewNewEmpJoin.do"
 	}
 	function goEmpContentForm(emp_no){

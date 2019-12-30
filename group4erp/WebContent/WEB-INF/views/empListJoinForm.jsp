@@ -19,7 +19,7 @@
 <script>
 
 	function goJoinMember(){
-		alert("등록 화면 구현중입니다.");
+		//alert("등록 화면 구현중입니다.");
 		
 		$.ajax({
 			//호출할 서버쪽 URL주소 설정

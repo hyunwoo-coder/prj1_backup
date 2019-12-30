@@ -60,7 +60,6 @@
             </foreach>
       </if>
       
-      
       <if test="size_cd!=null and size_cd.length>0">
       and
          <foreach collection="size_cd" item="size_cd" open="(" separator="or" close=")">
@@ -114,8 +113,6 @@
              </if>
          </foreach>
       </if>
-      
-      
 
       <if test="searchPublisher != null and searchPublisher.length()>0">
              and
@@ -145,7 +142,6 @@
       </if>
 
    </sql> 
-
 	
 	<sql id="releaseWhere">
 		<if test="inventory_loc!=null and inventory_loc.length>0">
@@ -245,7 +241,6 @@
 	<select id="getInven_loc" parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
 		select branch_name as "branch_name" from code_branch
 	</select>
-	
 	
 	<!-- 출고현황 -->
 	<select id="getReleaseListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
