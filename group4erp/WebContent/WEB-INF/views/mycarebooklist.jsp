@@ -44,12 +44,12 @@
 		
 		$('[name=mycarebooklist] [name=search_keyword]').val(search_keyword);
 
-		document.mycarebooklist.submit()
+		document.mycarebooklist.submit();
 		
 		//$.ajax({
 		//	url : "/group4erp/goMyCareBookList.do"
 		//	, type : "post"
-		//	, data : document.mycarebooklist.submit()
+		//  , data : document.mycarebooklist.submit()
 		//});
 		
 	}
@@ -65,15 +65,15 @@
 	}
 
 	function booKInvenFill(isbn) {
-		
-		alert("도서 발주 기능 구현중 "+isbn);
+
+		alert("도서 발주 기능 구현중 "+isbn +"/"+td);
 	}
 </script>
 
 </head>
 <body>
 	<center>
-	<h1>담당도서조회</h1>
+	<h1>담당 상품 조회</h1>
 	<form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do"><div class="table_layout">
 	<input type="hidden" name="emp_no" value="<%=(String)session.getAttribute("emp_id") %>">
 		<table class="tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
@@ -117,13 +117,13 @@
 					<option value="출판사3">출판사3
 					<option value="출판사4">출판사4
 					<option value="출판사5">출판사5
-					 -->
+					 --> --%>
 			<tr>
 			<th bgcolor="gray">절판 상황
-			<td align=center>
+			<td align=left>
 				<input type="radio" name="is_not_print" value="절판">절판
 				<input type="radio" name="is_not_print" value="판매중">판매중
-			 --%>
+			
 			<tr>
 			<th bgcolor="gray">키워드
 			<td>
@@ -152,7 +152,7 @@
 						<option value="30">30</option>
 					</select> 행보기
 		</table>
-		<table class="mycarebookTable tab" border=0 cellspacing=0 cellpadding=5 >
+		<table class="mycarebookTable tab" border=0 cellspacing=5 cellpadding=5 >
 			<tr bgcolor="gray">
 				<th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
 			<tr>
@@ -171,6 +171,9 @@
 				<td align=center>
 					<c:if test="${MyCareBookList.ISBN_cnt < 100}">
 						<input type="button" value="발주" onClick="booKInvenFill('${MyCareBookList.ISBN13}');" >
+					</c:if>
+					<c:if test="${MyCareBookList.ISBN_cnt >= 100}">
+						--
 					</c:if>
 				</td>
 				<%-- <td align=center>${MyCareBookList.emp_no} --%>

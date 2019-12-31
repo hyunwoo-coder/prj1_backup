@@ -98,6 +98,7 @@
 		function myCareBookList() {
 			location.replace("/group4erp/goMyCareBookList.do");
 			//alert("담당상품조회");
+			$('#subMenu1').show();
 		}
 
 		function businessTripForm() {
@@ -106,14 +107,6 @@
 		function viewMyWorkTime() {
 			location.replace("/group4erp/goMyWorkTime.do");
 			//alert("근태조회 구현 예정");
-		}
-
-		function overTimeWork() {
-			alert("야간&주말근무 신청 기능 구현");
-		}
-
-		function takeCharge() {
-			alert("경비청구 기능 구현 예정");
 		}
 
 		// 재고관리 서브메뉴 -->
