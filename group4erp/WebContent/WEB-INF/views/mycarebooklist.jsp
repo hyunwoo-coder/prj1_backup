@@ -43,12 +43,14 @@
 		search_keyword = $.trim(search_keyword);
 		
 		$('[name=mycarebooklist] [name=search_keyword]').val(search_keyword);
+
+		document.mycarebooklist.submit()
 		
-		$.ajax({
-			url : "/group4erp/goMyCareBookList.do"
-			, type : "post"
-			, data : document.mycarebooklist.submit()
-		});
+		//$.ajax({
+		//	url : "/group4erp/goMyCareBookList.do"
+		//	, type : "post"
+		//	, data : document.mycarebooklist.submit()
+		//});
 		
 	}
 	
@@ -57,19 +59,24 @@
 		//name=boardListForm을 가진 form 태그 내부의 모든 입력양식에 value값을 비우거나 체크를 푼다.
 		document.mycarebooklist.reset();
 		
-		//선택페이지 번호와 페이지당 보여지는 행의 개수는 비우면 안되므로 기본값을 넣어준다.
-		//이게 없으면 DB연동을 할 수 없다.
 		$('[name=mycarebooklist] [name=rowCntPerPage]').val('10');
 		$('[name=mycarebooklist] [name=selectPageNo]').val('1');
 		goSearchMyWorkList();
+	}
+
+	function booKInvenFill(isbn) {
+		
+		alert("도서 발주 기능 구현중 "+isbn);
 	}
 </script>
 
 </head>
 <body>
 	<center>
+	<h1>담당도서조회</h1>
 	<form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do"><div class="table_layout">
-		<table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+	<input type="hidden" name="emp_no" value="<%=(String)session.getAttribute("emp_id") %>">
+		<table class="tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<colgroup>
 				<col width="20%" />
 				<col width="*" />
@@ -145,9 +152,9 @@
 						<option value="30">30</option>
 					</select> 행보기
 		</table>
-		<table class="mycarebookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=700>
+		<table class="mycarebookTable tab" border=0 cellspacing=0 cellpadding=5 >
 			<tr bgcolor="gray">
-				<th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점
+				<th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
 			<tr>
 				
 			<c:forEach items="${requestScope.MyCareBookList}" var="MyCareBookList" varStatus="loopTagStatus">
@@ -159,9 +166,13 @@
 				<%-- <td align=center>${MyCareBookList.publisher} --%>
 				
 				<td align=center>${MyCareBookList.book_price}
-				<td align=center>${MyCareBookList.ISBN_Cnt}
+				<td align=center>${MyCareBookList.ISBN_cnt}
 				<td align=center>${MyCareBookList.branch_name}
-				
+				<td align=center>
+					<c:if test="${MyCareBookList.ISBN_cnt < 100}">
+						<input type="button" value="발주" onClick="booKInvenFill('${MyCareBookList.ISBN13}');" >
+					</c:if>
+				</td>
 				<%-- <td align=center>${MyCareBookList.emp_no} --%>
 			</tr>		
 			</c:forEach>

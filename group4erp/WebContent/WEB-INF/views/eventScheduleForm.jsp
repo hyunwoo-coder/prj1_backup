@@ -122,10 +122,12 @@ $(document).ready(function() {
 <body><center>
 <h1>이벤트 신청 페이지</h1>
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
-		이벤트 넘버 : <span id="event_no">EV00-00${eventNo}</span>
-		<table class="tbcss2" cellpadding="5" cellspacing="5">
+		<table class="tab" cellpadding="5" cellspacing="5">
 			<tr>
-				<td colspan="2">담당자 </td><td colspan="2">session에서 사원명 연동 예정 </td>
+				<td colspan="2">이벤트 일련번호</td><td colspan="2"> <span id="event_no">EV00-00${eventNo}</span> </td>
+			</tr>
+			<tr>
+				<td colspan="2">담당자 </td><td colspan="2">${emp_name} </td>
 			</tr>
 			<tr>
 				<td>행사종류</td><td><select name="evnt_cd"><option value="1">매대판매행사</option>

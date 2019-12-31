@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -93,6 +94,38 @@ public class AccountController {
 		} 
 				
 		return insertCorpCnt;		
+	}
+	
+	
+	@RequestMapping(value="/deleteCorpProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int deleteCorpProc(@RequestParam(value="corp_no") String[] corp_no) {
+		int delCnt = 0;
+		
+		try {
+			
+			for(int i=0; i<corp_no.length; i++) {
+				System.out.println("corp_no==="+corp_no[i]);
+			}
+			
+			delCnt = this.accountService.deleteCorp(corp_no);
+			
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
+			
+		} catch(Exception e) {
+			System.out.println("deleteCorpProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return delCnt;
 	}
 	
 	

@@ -19,7 +19,7 @@
 <body><center>
 	<h1>2019년도 11월 세금계산서 발급 내역</h1>
 	<form name="issue_list" method="post" action="/group4erp/viewTaxInvoiceForm.do">
-		<table class="issue_no tbcss1" name="issue_no" cellpadding="5" cellspacing="5" width="700">
+		<table class="issue_no tab" name="issue_no" cellpadding="5" cellspacing="5" width="700">
 			<thead>
 				<th>발급번호</th><th>공급받는 자</th><th>사업자명</th><th>거래일시</th><th>총액</th><th>비고</th>
 			</thead>

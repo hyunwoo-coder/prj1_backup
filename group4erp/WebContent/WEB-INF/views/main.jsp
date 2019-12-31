@@ -170,6 +170,10 @@
 			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
 				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('viewSalesInfoList') }">
+				<%@ include file="/WEB-INF/views/salesInfoList.jsp" %>
+			</c:if>
 
 				
 		</td>

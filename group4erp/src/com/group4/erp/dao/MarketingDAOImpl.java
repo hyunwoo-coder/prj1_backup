@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.group4.erp.AdApplyDTO;
+import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 
@@ -64,6 +65,22 @@ public class MarketingDAOImpl implements MarketingDAO {
 		int eventAllCnt = this.sqlSession.selectOne(mapper_namespace+"getEventAllCnt");
 		
 		return eventAllCnt;
+	}
+
+	@Override
+	public List<CorporationDTO> getCorpList() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> corpList = this.sqlSession.selectList(mapper_namespace+"getCorpList");
+		
+		return corpList;
+	}
+
+	@Override
+	public int insertAd(AdApplyDTO adApplyDTO) {
+		// TODO Auto-generated method stub
+		int insertAdCnt = this.sqlSession.insert(mapper_namespace+"insertAd", adApplyDTO);
+		
+		return insertAdCnt;
 	}
 
 }

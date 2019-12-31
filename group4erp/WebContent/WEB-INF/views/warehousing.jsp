@@ -33,8 +33,6 @@
 }
 
 
-
-
 @charset "UTF-8";
 	
 /*-----------------------------------------------------------------------*/ 
@@ -117,7 +115,7 @@ td{
 			    onSelect: function() { 
 			    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
 			        var dateObject = $(this).datepicker('getDate');
-			        alert(dateObject.val()); 
+			        //alert(dateObject.val()); 
 			    }
 	 			/* onClose: function( selectedDate ) {    
 	                // 시작일(fromDate) datepicker가 닫힐때
@@ -129,7 +127,7 @@ td{
 			    onSelect: function() { 
 			    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
 			        var dateObject = $(this).datepicker('getDate');
-			        alert(dateObject.val()); 
+			        //alert(dateObject.val()); 
 			    }
 	 			/* onClose: function( selectedDate ) {
 	                // 종료일(toDate) datepicker가 닫힐때
@@ -157,8 +155,8 @@ td{
 			//$("[name=InoutListDate] [name=keyword1]").val(keyword1);
 			//alert( $('[name=searchToday]').val() );
 			//return;
-			alert( $("[name=dateFrom]").val() );
-			alert( $("[name=dateTill]").val() );
+			//alert( $("[name=dateFrom]").val() );
+			//alert( $("[name=dateTill]").val() );
 			document.warehousingSearchForm.submit();
 		}
 
@@ -230,26 +228,13 @@ td{
                    alert("서버 접속 실패");
                 }
              });
-
-
-
-            
-
 		}
 
 		function closeDiv(){
 			$("#contecnt").css("display", "none");	
 			$("#thisTable tr").removeAttr("bgcolor");
 	    }
-
-
-
-
-	    
-
-		
-
-		
+	
 	</script>
 
 </head>
@@ -257,7 +242,7 @@ td{
 	<h1 class="fontNormal">[입고 현황]</h1><br>
 	
 	<form name="warehousingSearchForm" method="post" action="/group4erp/goWarehousingList.do">
-			<table class="tab" width="510" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<table class="tab" bordercolor="#000000" cellpadding=5 align=center>
 
 				<tr>
 					<th>지역
@@ -290,10 +275,6 @@ td{
 					<td style="text-align:left"><input type="text" name="wh_keyword"></td>
 
 				</tr>
-
-
-
-
 				<tr>
 					<th>일자
 					<td colspan=3 style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
@@ -345,7 +326,7 @@ td{
 
 
 	<div id="contecnt" style="display:none;">
-		<table class="tab" width="600" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="tab" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
 		
 			<tr>
 				<th class="thcolor">주문자 <th class="thcolor">발주수량 <th class="thcolor">공급률 <th class="thcolor">발주금액 <th class="thcolor">발주신청일

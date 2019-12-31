@@ -26,5 +26,7 @@ public interface AccountDAO {
 	int getTranSpecCnt(int order_no);
 	
 	List<TranSpecDTO> getTranSpecList(int order_no);
+	
+	int deleteCorp(String[] corp_no);
 
 }

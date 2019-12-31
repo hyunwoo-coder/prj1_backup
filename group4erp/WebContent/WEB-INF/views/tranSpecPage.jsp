@@ -21,7 +21,7 @@
 <body><center>
 	<h1>거래명세서</h1>
 	
-	<table class="tranSpecTable tbcss1" style="background:white;" name="tranSpecTable" cellpadding="5" cellspacing="5" width="500">
+	<table class="tranSpecTable tab" style="background:white;" name="tranSpecTable" cellpadding="5" cellspacing="5" width="500">
 
 		<c:forEach items="${tranSpecList}" var="tranSpecList" varStatus="loopTagStatus">
 			<tr>

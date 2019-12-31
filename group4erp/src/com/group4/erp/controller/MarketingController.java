@@ -28,6 +28,20 @@ public class MarketingController {
 	//private LoginService loginService;	
 	MarketingService marketingService;
 	
+	
+	@RequestMapping(value="/viewSalesInfoList.do")
+	public ModelAndView viewSalesInfoList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewSalesInfoList");
+		mav.addObject("navigator", "[마케팅관리]-[판매현황]");
+		
+		return mav;
+	}
+	
+	
 	@RequestMapping(value="/viewNewBooksList.do")
 	public ModelAndView viewNewBookList(HttpSession session) {
 		
@@ -154,8 +168,11 @@ public class MarketingController {
 		try {
 			
 			int ad_apply_cnt = this.marketingService.getAdApplyCnt();
+			List<CorporationDTO> corpList = this.marketingService.getCorpList();
+			
 			int adNum = ad_apply_cnt+1;
 			mav.addObject("adNum", adNum);
+			mav.addObject("corpList", corpList);
 			
 		} catch(Exception e) {
 			System.out.println("viewInsertAdApply() 메소드에서 예외 발생==="+e);
@@ -177,13 +194,17 @@ public class MarketingController {
 	)
 	
 	@ResponseBody
-	public int insertAd(AdApplyDTO adApplyDTO) {
+	public int insertAdProc(AdApplyDTO adApplyDTO) {
 		
 		int insertAdCnt = 0;
 		try {
-			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
 					
-			//insertCorpCnt = this.accountService.insertCorp(corporationDTO);
+			System.out.println("adApplyDTO.getEmp_no()==="+adApplyDTO.getEmp_no());
+			System.out.println("adApplyDTO.getImgDoc()==="+adApplyDTO.getImg_doc());
+			if(adApplyDTO.getImg_doc()==null) {
+				adApplyDTO.setImg_doc("temporary");
+			}
+			insertAdCnt = this.marketingService.insertAd(adApplyDTO);
 				
 		} catch(Exception e) {
 			System.out.println("insertAd() 메소드에서 예외 발생>>> "+e);

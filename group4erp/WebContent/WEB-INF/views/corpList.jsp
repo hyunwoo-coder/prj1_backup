@@ -61,7 +61,54 @@
 	}
 
 	function deleteCorp() {
-		alert("거래처 삭제 기능 구현 예정")
+		//alert("거래처 삭제 기능 구현 예정")
+		//체크된 checkbox의 value 값을 Array 객체에 저장하기
+		var corp_no = [];
+		var cnt=0;
+
+		$("[name=delCheckBox]").each(function() {
+		
+			var thisObj = $(this);
+
+			if(thisObj.is(":checked")) {
+				//alert(thisObj.val());
+				corp_no.push(thisObj.val());
+			}
+		});
+					//Array 객체안의 배열변수가 0개면, 즉 체크된 학점이 없으면 함수 중단
+		if(corp_no.length==0) {
+			alert("선택된 업체가 없습니다.");
+		}
+
+		$("[name=corp_no]").val(corp_no);
+
+		//alert($('[name=deleteCorpForm]').serialize());
+		$.ajax({
+			url : "/group4erp/deleteCorpProc.do",				//호출할 서버쪽 URL 주소 설정
+			type : "post",										//전송 방법 설정
+			data : $('[name=deleteCorpForm]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정
+			
+			success : function(delCnt) {
+				if(delCnt>=1) {
+					alert("삭제 성공!");
+					
+					location.replace("/group4erp/viewCorpList.do");
+				} else if(delCnt==-1) {	
+					alert("업체가 이미 삭제되었습니다!");
+					
+					location.replace("/group4erp/viewCorpList.do");
+
+				} else {
+					alert("서버쪽 DB 연동 실패!");
+				}
+			}
+
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}	
+		});
+		
 	}
 	
 </script>
@@ -71,10 +118,10 @@
 <body><center>
 	<h1>거래처 현황</h1>
 <form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
+	[검색어]&nbsp;<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 	
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
-	 <table border=0 width=700>
+	 <table border=0>
 	 	<tr>
 	    	<td align=right>
 	        [전체] : ${corpListCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
@@ -97,7 +144,7 @@
 	</table>
 </form> 
 
-<table class="corpListTable tbcss1" name="corpListTable" cellpadding="5" cellspacing="5">
+<table class="corpListTable tab" name="corpListTable" cellpadding="5" cellspacing="5">
 	<tr>
 		<th></th>
 		<c:choose>
@@ -192,7 +239,7 @@
 	</tr>
 	<c:forEach items='${corpList}' var="corpList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">
-					<td><input type="checkbox" value="${corpList.corp_no}"></td>
+					<td class="delCheckBox"><input type="checkbox" name="delCheckBox" value="${corpList.corp_no}"></td>
 					<td>${corpList.corp_no}</td>
 					<td>${corpList.corp_name}</td>
 					<td>${corpList.ceo_name}</td>
@@ -206,6 +253,10 @@
 <br>
 <input type="button" value="거래처 추가" onClick="insertCorp();">
 <input type="button" value="거래처 삭제" onClick="deleteCorp();">
+
+<form name="deleteCorpForm" method="post" action="/group4erp/deleteCorpProc.do">
+	<input type="hidden" name="corp_no">
+</form>
 
 </center>
 

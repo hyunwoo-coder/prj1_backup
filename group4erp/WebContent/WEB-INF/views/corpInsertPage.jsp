@@ -22,6 +22,17 @@
 			$("[name = corp_no]").focus();
 
 			return;
+		} else {
+
+			var corp_no = $("[name=corp_no]").val();
+			
+			var regExp = new RegExp(/^[0-9]{3}-[0-9]{2}-[0-9]{5}$/);
+			var flag = regExp.test(corp_no);
+
+			if(flag==false) {
+				alert("사업자 번호 형태는 OOO-OO-OOOOO입니다.");
+				$("[name=corp_no]").val("");
+			}
 		}
 
 		if(is_empty("[name = corp_name]")) {
