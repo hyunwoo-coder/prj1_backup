@@ -9,8 +9,8 @@
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.WorkDAO">
 	<sql id="WorkSearchKey">
-		<if test="searchKey!=null and !searchKey.equals('')">
-     			<if test="keyword!=null and !keyword.equals('')">
+			<if test="searchKey!=null and !searchKey.isEmpty()">
+     			<if test="keyword!= null and !keyword.isEmpty()">
 					<if test ="searchKey.equals('jikup')">
 						and c.jikup like '%'||#{keyword}||'%'
 					</if>
@@ -23,11 +23,17 @@
 					<if test ="searchKey.equals('destination')">
 						and w.destination like '%'||#{keyword}||'%'
 					</if>
+					<if test ="searchKey.equals('outside_start_time')">
+						and to_char(w.outside_start_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
+					</if>
+					<if test ="searchKey.equals('outside_end_time')">
+						and to_char(w.outside_end_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
+					</if>
 					<if test ="searchKey.equals('mgr_name')">
-						and mgr_name like '%'||#{keyword}||'%'
+						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
      			</if>
-     	</if>
+     		</if>
 	</sql>
 	
 	 
@@ -39,8 +45,8 @@
 	    		,d.dep_name             as "dep_name"
 	    		,w.destination         as "destination"
 	    		,w.work_outside_reason as "work_outside_reason"
-	    		,to_char(w.outside_start_time,'yyyy-mm-dd am hh12:mi:ss (dy)','NLS_DATE_LANGUAGE=korean')  as "outside_start_time"
-	    		,to_char(w.outside_end_time,'yyyy-mm-dd am hh12:mi:ss (dy)','NLS_DATE_LANGUAGE=korean')    as "outside_end_time"
+	    		,to_char(w.outside_start_time,'yyyy-mm-dd ')  as "outside_start_time"
+	    		,to_char(w.outside_end_time,'yyyy-mm-dd ')    as "outside_end_time"
 	    		,nvl(e2.emp_name,' ')  as "mgr_name"
 		    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 		    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
@@ -49,7 +55,7 @@
 	     	where 1=1
 	     		<include refid="WorkSearchKey"/>
 	     	)
-			
+
 		where 1=1
 			
 	</select>
@@ -57,9 +63,10 @@
 	<select id="getBusinessTripList"  parameterType="com.group4.erp.BusinessTripSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
 			select
-    		c.jikup               as "jikup"
+			work_outside_seq	   as "work_outside_seq"
+    		,c.jikup               as "jikup"
     		,e1.emp_name           as "emp_name"
-    		,d.dep_name             as "dep_name"
+    		,d.dep_name            as "dep_name"
     		,w.destination         as "destination"
     		,w.work_outside_reason as "work_outside_reason"
     		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
@@ -92,7 +99,7 @@
 						and to_char(w.outside_end_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
 					</if>
 					<if test ="searchKey.equals('mgr_name')">
-						and nvl(e2.emp_name,' ') like '%'||#{keyword}||'%'
+						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
      			</if>
      		</if>

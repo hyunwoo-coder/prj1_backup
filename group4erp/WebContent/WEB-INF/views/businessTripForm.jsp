@@ -43,14 +43,6 @@
 		        alert(dateObject.val()); 
 		    }
 		});
-
-		$("#datepicker").datepicker2({
-		    onSelect: function() { 
-		    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
-		        var dateObject2 = $(this).datepicker2('getDate');
-		        alert(dateObject2.val()); 
-		    }
-		});
 	
 	});
 	
@@ -75,13 +67,13 @@
 				<td>
 					<input type="text" id="datepicker" name="datepicker">
 					~
-					<input type="text" id="datepicker2" name="datepicker2">
+					<input type="text" id="datepicker" name="datepicker">
 					&nbsp;&nbsp;&nbsp;
 				</td>
 		</tr>
 			<script>
 	        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }); 
-	        $("#datepicker").datepicker2({ dateFormat: 'yy-mm-dd' });    
+	        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });    
 	    	</script>
 		
 		<tr>

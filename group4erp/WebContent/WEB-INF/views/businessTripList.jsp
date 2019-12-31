@@ -128,100 +128,100 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-					
+						
 					<c:choose>
-						<c:when test="${param.sort=='9 desc'}">
-							<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  "> ▼ 직급</th>
+						<c:when test="${param.sort=='10 desc'}">
+							<th style="cursor:pointer" onClick="$('[name=sort]').val('10 asc'); goSearch();  "> ▼ 직급</th>
 						</c:when>
-						<c:when test="${param.sort=='9 asc'}">
-							<th style="cursor:pointer" onClick="$('[name=sort]').val('9 desc'); goSearch(); "> ▲ 직급</th>
+						<c:when test="${param.sort=='10 asc'}">
+							<th style="cursor:pointer" onClick="$('[name=sort]').val('10 desc'); goSearch(); "> ▲ 직급</th>
 						</c:when>			
 						<c:otherwise>
-							<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  ">직급</th>
+							<th style="cursor:pointer" onClick="$('[name=sort]').val('10 asc'); goSearch();  ">직급</th>
 						</c:otherwise>
 				    </c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='2 desc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('2 asc'); goSearch();">▼성명</th>
+						<c:when test="${param.sort=='3 desc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('3 asc'); goSearch();">▼성명</th>
 						</c:when>
-						<c:when test="${param.sort=='2 asc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('2 desc'); goSearch();">▲성명</th>
+						<c:when test="${param.sort=='3 asc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('3 desc'); goSearch();">▲성명</th>
 						</c:when>
 						<c:otherwise>
-							<th max-width: 100%; height: auto style="cursor:pointer" onclick="$('[name=sort]').val('2 asc'); goSearch();">성명</th>
+							<th max-width: 100%; height: auto style="cursor:pointer" onclick="$('[name=sort]').val('3 asc'); goSearch();">성명</th>
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>	
-						<c:when test="${param.sort=='3 desc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('3 asc'); goSearch();">▼부서명</th>
+						<c:when test="${param.sort=='4 desc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goSearch();">▼부서명</th>
 						</c:when>
-						<c:when test="${param.sort=='3 asc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('3 desc'); goSearch();">▲부서명</th>
+						<c:when test="${param.sort=='4 asc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('4 desc'); goSearch();">▲부서명</th>
 						</c:when>
 						<c:otherwise>
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('3 asc'); goSearch();">부서명</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goSearch();">부서명</th>
 						</c:otherwise>
 					</c:choose>	
 					
 					<c:choose>
-						<c:when test="${param.sort=='4 desc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goSearch();">▼출장지</th>
-						</c:when>
-						<c:when test="${param.sort=='4 asc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('4 desc'); goSearch();">▲출장지</th>
-						</c:when>
-						<c:otherwise>
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goSearch();">출장지</th>
-						</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
 						<c:when test="${param.sort=='5 desc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('5 asc'); goSearch();">▼출장사유</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('5 asc'); goSearch();">▼출장지</th>
 						</c:when>
 						<c:when test="${param.sort=='5 asc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('5 desc'); goSearch();">▲출장사유</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('5 desc'); goSearch();">▲출장지</th>
 						</c:when>
 						<c:otherwise>
-							<th max-width: 100%; height: auto style="cursor:pointer" onclick="$('[name=sort]').val('5 asc'); goSearch();">출장사유</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('5 asc'); goSearch();">출장지</th>
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
 						<c:when test="${param.sort=='6 desc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('6 asc'); goSearch();">▼출발 날짜</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('6 asc'); goSearch();">▼출장사유</th>
 						</c:when>
 						<c:when test="${param.sort=='6 asc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('6 desc'); goSearch();">▲출발 날짜</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('6 desc'); goSearch();">▲출장사유</th>
 						</c:when>
 						<c:otherwise>
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('6 asc'); goSearch();">출발 날짜</th>
+							<th max-width: 100%; height: auto style="cursor:pointer" onclick="$('[name=sort]').val('6 asc'); goSearch();">출장사유</th>
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='7  desc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('7  asc'); goSearch();">▼복귀 예정 날짜</th>
+						<c:when test="${param.sort=='7 desc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('7 asc'); goSearch();">▼출발 날짜</th>
 						</c:when>
-						<c:when test="${param.sort=='7  asc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('7  desc'); goSearch()">▲복귀 예정 날짜</th>
+						<c:when test="${param.sort=='7 asc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('7 desc'); goSearch();">▲출발 날짜</th>
 						</c:when>
 						<c:otherwise>
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('7  asc'); goSearch();">복귀 예정 날짜</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('7 asc'); goSearch();">출발 날짜</th>
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='8  desc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('8  asc'); goSearch();">▼담당자 성함</th>
+						<c:when test="${param.sort=='8 desc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('8 asc'); goSearch();">▼복귀 예정 날짜</th>
 						</c:when>
-						<c:when test="${param.sort=='8  asc'}">
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('8  desc'); goSearch();">▲담당자 성함</th>
+						<c:when test="${param.sort=='8 asc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('8 desc'); goSearch()">▲복귀 예정 날짜</th>
 						</c:when>
 						<c:otherwise>
-							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('8  asc'); goSearch();">담당자 성함</th>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('8 asc'); goSearch();">복귀 예정 날짜</th>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${param.sort=='9  desc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('9  asc'); goSearch();">▼담당자 성함</th>
+						</c:when>
+						<c:when test="${param.sort=='9  asc'}">
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('9  desc'); goSearch();">▲담당자 성함</th>
+						</c:when>
+						<c:otherwise>
+							<th max-width: 100%; height: auto  style="cursor:pointer" onclick="$('[name=sort]').val('9  asc'); goSearch();">담당자 성함</th>
 						</c:otherwise>
 					</c:choose>
 				</tr>
