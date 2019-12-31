@@ -233,6 +233,43 @@ public class InvenController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/goReleaseUp.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goReleaseUp(
+			@RequestParam(value="all_order_no") String all_order_no
+			) {
+		
+		int releaseUpCnt = 0;
+		int isbn_cnt = 0;
+		int order_cnt = 0;
+		
+		try {
+			
+			order_cnt = this.invenService.getOrderCnt(all_order_no);
+			
+			isbn_cnt = this.invenService.getIsbnCnt(all_order_no);
+			
+			if(isbn_cnt>order_cnt) {
+				
+				releaseUpCnt = this.invenService.getReleaseUpCnt(all_order_no);
+				
+			}else{
+				
+				return releaseUpCnt = -1;
+				
+			}
+			
+		}catch(Exception e) {
+			System.out.println("<출고 날짜 등록 실패>");
+			System.out.println("예외 발생=>"+e);
+			releaseUpCnt = -2;
+		}
+		
+		return releaseUpCnt;
+	}
 }
 
   

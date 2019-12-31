@@ -39,4 +39,9 @@ public interface InvenService {
 
 	BookInfoDTO getBookInfo(String isbn13_search);
 
+	int getOrderCnt(String all_order_no);
+	
+	int getIsbnCnt(String all_order_no);
+	
+	int getReleaseUpCnt(String all_order_no);
 }

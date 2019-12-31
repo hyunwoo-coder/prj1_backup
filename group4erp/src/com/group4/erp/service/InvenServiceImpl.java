@@ -129,4 +129,66 @@ public class InvenServiceImpl implements InvenService{
 		return bookInfo;
 		
 	}
+	
+	public int getOrderCnt(String all_order_no) {
+		
+		int orderCnt = 0;
+		
+		String orderSize = all_order_no+"";
+		
+		if(orderSize.length()==10) {
+			
+			orderCnt = this.invenDAO.getOrderCnt(all_order_no);
+			
+		}else {
+			
+			orderCnt = this.invenDAO.getOrderCnts(all_order_no);
+			
+		}
+		
+		return orderCnt;
+	}
+	
+	public int getIsbnCnt(String all_order_no) {
+		
+		int isbnCnt = 0;
+		
+		String orderSize = all_order_no+"";
+		
+		if(orderSize.length()==10) {
+			
+			isbnCnt = this.invenDAO.getIsbnCnt(all_order_no);
+			
+		}else { 
+			
+			isbnCnt = this.invenDAO.getIsbnCnts(all_order_no);
+			
+		}
+		
+		return isbnCnt;
+	}
+	
+	public int getReleaseUpCnt(String all_order_no) {
+		
+		int releaseUpCnt = 0;
+		
+		String orderSize = all_order_no+"";
+		
+
+		if(orderSize.length()==10) {
+			
+			releaseUpCnt = this.invenDAO.getReleaseUpCnt(all_order_no);
+			
+			int isbnCntUpdate = this.invenDAO.getisbnCntUpdate(all_order_no);
+			
+		}else { 
+			
+			releaseUpCnt = this.invenDAO.getReleaseUpCnts(all_order_no);
+			
+			int isbnCntUpdate = this.invenDAO.getisbnCntUpdates(all_order_no);
+		}
+		
+		
+		return releaseUpCnt;
+	}
 }

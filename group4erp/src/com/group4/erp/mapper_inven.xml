@@ -371,5 +371,30 @@
     		where 1=1 
     		and b.isbn13=#{isbn13_search}
     </select>
+    
+    <select id="getOrderCnt" parameterType="String" resultType="int">
+    	select book_qty from order_info where order_no=#{all_order_no}
+    </select>
+    <select id="getOrderCnts" parameterType="String" resultType="int">
+    	select books_qty from corp_order_info where order_books_no=#{all_order_no}
+    </select>
+    <select id="getIsbnCnt" parameterType="String" resultType="int">
+    	select isbn_cnt from stock_info where isbn13=(select isbn13 from order_info where order_no=#{all_order_no})
+    </select>
+    <select id="getIsbnCnts" parameterType="String" resultType="int">
+    	select isbn_cnt from stock_info where isbn13=(select isbn13 from corp_order_info where order_books_no=#{all_order_no})
+    </select>
+    <update id="getReleaseUpCnt" parameterType="String">
+    	update release_info set release_dt=to_date(sysdate, 'YYYY-MM-DD') where order_no=#{all_order_no}
+    </update>
+     <update id="getReleaseUpCnts" parameterType="String">
+    	update release_info set release_dt=to_date(sysdate, 'YYYY-MM-DD') where order_books_no=#{all_order_no}
+    </update>
+    <update id="getIsbnCntUpdate" parameterType="String">
+    	update stock_info set isbn_cnt=isbn_cnt-(select book_qty from order_info where order_no=#{all_order_no}) where isbn13=(select isbn13 from order_info where order_no=#{all_order_no})
+    </update>
+     <update id="getIsbnCntUpdates" parameterType="String">
+    	update stock_info set isbn_cnt=isbn_cnt-(select books_qty from corp_order_info where order_books_no=#{all_order_no}) where isbn13=(select isbn13 from corp_order_info where order_books_no=#{all_order_no})
+    </update>
 
 </mapper>
