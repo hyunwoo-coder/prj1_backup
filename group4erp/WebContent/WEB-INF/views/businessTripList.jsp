@@ -124,7 +124,7 @@
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 	
 	<div id="blankArea"><br></div>
-		<table class="businessTripListTable tbcss1" name="businessTripListTable" cellpadding="5" cellspacing="5" width="1000">		
+		<table class="businessTripListTable tbcss1" name="businessTripListTable" cellpadding="5" cellspacing="5">		
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -253,7 +253,11 @@
 		<br>
 		<input type="button" value="등록" onClick="goBusinessTripForm();">
 		<br><br>
-	<!-- </form>  -->
+		
+		
+<c:if test=" ${boardListAllCnt==0}">
+   		검색 결과가 없습니다
+</c:if>
 
 </center>
 
