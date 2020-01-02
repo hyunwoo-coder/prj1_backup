@@ -35,9 +35,6 @@
 
 </style>
 <script>
-<<<<<<< HEAD
-
-	//goSearchMyWorkList();
 
 	$(document).ready(function(){	
 
@@ -100,18 +97,7 @@
 		$('[name=mycarebooklist] [name=selectPageNo]').val('1');
 		goSearchMyWorkList();
 	}
-
    
-   function goAllSearchMyWorkList(){
-      
-      //name=boardListForm을 가진 form 태그 내부의 모든 입력양식에 value값을 비우거나 체크를 푼다.
-      document.mycarebooklist.reset();
-      
-      $('[name=mycarebooklist] [name=rowCntPerPage]').val('10');
-      $('[name=mycarebooklist] [name=selectPageNo]').val('1');
-      goSearchMyWorkList();
-   }
-
    function booKInvenFill(idx,isbn) {
 
       alert("도서 발주 기능 구현중 "+isbn+"/"+idx);
@@ -272,76 +258,7 @@
                </select> 행보기
       </table>
       </form>
-      <!-- 
-     	<div class="qqq" style="display:none">
-      		<div class="www">
-      			<form name="wareHousingForm" method=post action="/group4erp/wareHousingProc.do">
-				<table align=center>
-					<tr>
-						<th>발주수량</th>
-						<td><input type="text" name="isbn_cnt">권</td>
-					</tr>
-					<tr>
-						<th>입고요청일</th>
-						<td><input type="text" name="datepicker"></td>
-					</tr>
-					<tr>
-						<th>공급률</th>
-						<td><input tyep="text" name="supply_rate" value="60">%&nbsp;&nbsp;&nbsp;*(기본 60%)</td>
-					</tr>
-				</table>
-				</form>
-				<input type="button" value="발주신청" name="wareHousing">
-			</div>
->>>>>>> refs/remotes/b_kth/b_kth
-		</div>
-<<<<<<< HEAD
-		<br>
-		<input type="button" value="  검색  " onclick="goSearchMyWorkList();">&nbsp;&nbsp;
-		<input type="button" value="모두검색" onclick="goAllSearchMyWorkList();">
-		<table border=0 width=700>
-			<tr>
-				<td align=right>
-					총 개수 : ${myWorkListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
-					<select name="rowCntPerPage">
-						<option value="10">10</option>
-						<option value="15">15</option>
-						<option value="20">20</option>
-						<option value="25">25</option>
-						<option value="30">30</option>
-					</select> 행보기
-		</table>
-		<table class="mycarebookTable tab" border=0 cellspacing=5 cellpadding=5 >
-			<tr bgcolor="gray">
-				<th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
-			<tr>
-				
-			<c:forEach items="${requestScope.MyCareBookList}" var="MyCareBookList" varStatus="loopTagStatus">
-			<tr>	
-				<td align=center>${MyCareBookList.ISBN13}
-				<td align=center>${MyCareBookList.book_name}
-				<td align=center>${MyCareBookList.cat_name}
-				
-				<%-- <td align=center>${MyCareBookList.publisher} --%>
-				
-				<td align=center>${MyCareBookList.book_price}
-				<td align=center>${MyCareBookList.ISBN_cnt}
-				<td align=center>${MyCareBookList.branch_name}
-				<td align=center>
-					<c:if test="${MyCareBookList.ISBN_cnt < 100}">
-						<input type="button" value="발주" onClick="booKInvenFill('${MyCareBookList.ISBN13}');" >
-					</c:if>
-					<c:if test="${MyCareBookList.ISBN_cnt >= 100}">
-						--
-					</c:if>
-				</td>
-				<%-- <td align=center>${MyCareBookList.emp_no} --%>
-			</tr>		
-			</c:forEach>
-		</table>
-		<br>
-=======
-       -->
+      
       
       <table class="mycarebookTable tab" border=0 cellspacing=5 cellpadding=5 >
       	<thead>
