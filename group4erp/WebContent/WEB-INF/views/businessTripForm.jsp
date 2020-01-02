@@ -31,7 +31,6 @@
    border-width: thin;
 }
 
-<<<<<<< HEAD
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
 .ui-datepicker2-trigger{cursor: pointer;}
 /*datepicer input 롤오버 시 손가락 모양 표시*/
@@ -51,9 +50,7 @@
    width: 20px;
    height: 20px;
    border-width: thin;
-}	
-=======
->>>>>>> refs/remotes/master/master
+}
 </style>
 <script>
 	$(document).ready(function(){

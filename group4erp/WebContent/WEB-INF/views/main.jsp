@@ -29,10 +29,15 @@
 				<%@ include file="/WEB-INF/views/businessTripList.jsp" %>
 			</c:if>
 			
-			<!-- 출장 등록 -->
+			<!-- 출장 신청 -->
 			<c:if test="${subMenu.equals('businessTripForm') }">
 				<%@ include file="/WEB-INF/views/businessTripForm.jsp" %>
 			</c:if>
+			
+			<!-- 출장 상세페이지 -->
+			<%-- <c:if test="${subMenu.equals('businessTripContentsForm') }">
+				<%@ include file="/WEB-INF/views/businessTripContentsForm.jsp" %>
+			</c:if> --%>
 			
 			
 			

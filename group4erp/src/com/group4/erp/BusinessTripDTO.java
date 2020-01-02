@@ -3,6 +3,7 @@ package com.group4.erp;
 public class BusinessTripDTO {
 	
 	private int rownum;
+	private int work_outside_seq;
 	private String jikup;
 	private String dep_name;
 	private String destination;
@@ -10,12 +11,20 @@ public class BusinessTripDTO {
 	private String outside_start_time;
 	private String outside_end_time;
 	private String mgr_name;
+	private int travel_payment;
+	private int jikup_cd;
 	
 	public int getRownum() {
 		return rownum;
 	}
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
+	}
+	public int getWork_outside_seq() {
+		return work_outside_seq;
+	}
+	public void setWork_outside_seq(int work_outside_seq) {
+		this.work_outside_seq = work_outside_seq;
 	}
 	public String getJikup() {
 		return jikup;
@@ -58,5 +67,17 @@ public class BusinessTripDTO {
 	}
 	public void setMgr_name(String mgr_name) {
 		this.mgr_name = mgr_name;
+	}
+	public int getJikup_cd() {
+		return jikup_cd;
+	}
+	public void setJikup_cd(int jikup_cd) {
+		this.jikup_cd = jikup_cd;
+	}
+	public int getTravel_payment() {
+		return travel_payment;
+	}
+	public void setTravel_payment(int travel_payment) {
+		this.travel_payment = travel_payment;
 	}
 }

@@ -8,6 +8,7 @@ public class BusinessTripSearchDTO {
 	private int rowCntPerPage=10;
 	private String searchKey;
 	private String sort;
+	private int work_outside_seq;
 	
 	public String getKeyword() {
 		return keyword;
@@ -44,5 +45,11 @@ public class BusinessTripSearchDTO {
 	}
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+	public int getWork_outside_seq() {
+		return work_outside_seq;
+	}
+	public void setWork_outside_seq(int work_outside_seq) {
+		this.work_outside_seq = work_outside_seq;
 	}
 }

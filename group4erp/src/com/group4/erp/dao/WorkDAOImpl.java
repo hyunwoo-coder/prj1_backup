@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.group4.erp.BusinessTripDTO;
 import com.group4.erp.BusinessTripSearchDTO;
 
 @Repository
@@ -18,8 +19,8 @@ public class WorkDAOImpl implements WorkDAO{
 	public List<Map<String,String>> getbusinessList(BusinessTripSearchDTO businessTripSearchDTO){
 		
 		List<Map<String,String>> getbusinessList = this.sqlSession.selectList(
-					"com.group4.erp.dao.WorkDAO.getBusinessTripList"
-					,businessTripSearchDTO
+				"com.group4.erp.dao.WorkDAO.getBusinessTripList"
+				,businessTripSearchDTO
 				);
 		
 		return getbusinessList;
@@ -33,5 +34,14 @@ public class WorkDAOImpl implements WorkDAO{
 				);
 
 		return getbusinessTripListAllCnt;
+	}
+	
+	public BusinessTripDTO getbusinessTripDTO(int work_outside_seq) {
+		//[SqlSessionTemplate 객체]의 selectOne(~,~)을 호출하여 [1개 게시판 글 정보] 얻기
+		BusinessTripDTO businessTripDTO = this.sqlSession.selectOne(
+				"com.group4.erp.dao.WorkDAO.getbusinessTripDTO"
+				,work_outside_seq
+				);
+		return businessTripDTO;
 	}
 }

@@ -32,6 +32,9 @@
 					<if test ="searchKey.equals('mgr_name')">
 						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
+					<if test ="searchKey.equals('travel_payment')">
+						and travel_payment like '%'||#{keyword}||'%'
+					</if>
      			</if>
      		</if>
 	</sql>
@@ -72,6 +75,7 @@
     		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
     		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
     		,nvl(e2.emp_name,' ')  as "mgr_name"
+    		,travel_payment		   as "travel_payment"
   			,c.jikup_cd			   as "jikup_cd"
 	    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 	    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
@@ -101,6 +105,9 @@
 					<if test ="searchKey.equals('mgr_name')">
 						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
+					<if test ="searchKey.equals('travel_payment')">
+						and travel_payment like '%'||#{keyword}||'%'
+					</if>
      			</if>
      		</if>
 	     <if test="sort!=null and sort.length()>0">
@@ -115,4 +122,23 @@
      	 		<![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
      	 
 	</select>
+		
+	<!--  <select id="getbusinessTripDTO" parameterType="int" resultType="com.naver.erp.BusinessTripDTO">
+		select
+				work_outside_seq	   as "work_outside_seq"
+	    		,c.jikup               as "jikup"
+	    		,e1.emp_name           as "emp_name"
+	    		,d.dep_name            as "dep_name"
+	    		,w.destination         as "destination"
+	    		,w.work_outside_reason as "work_outside_reason"
+	    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
+	    		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
+	    		,nvl(e2.emp_name,' ')  as "mgr_name"
+	  			,c.jikup_cd			   as "jikup_cd"
+		from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
+	    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
+	    	 inner join dept d on d.dep_no=e1.dep_no
+     		 left outer join employee e2 on e2.emp_no=e1.mgr_emp_no
+     	where work_outside_seq=#{work_outside_seq}
+	</select> -->
 </mapper>
