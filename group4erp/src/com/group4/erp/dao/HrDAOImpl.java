@@ -10,6 +10,7 @@ import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
+import com.group4.erp.HrDayoffDTO;
 import com.group4.erp.HrListSearchDTO;
 import com.group4.erp.SalListSearchDTO;
 
@@ -160,5 +161,17 @@ public class HrDAOImpl implements HrDAO {
 				
 		return newEmpInsertCnt;
 	}
+
+
+	@Override
+	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdateCnt = this.sqlSession.update(
+				mapper_namespace+"dayoffUpdateProc"
+				,hrDayoffDTO
+				);		
+		return dayoffUpdateCnt;
+	}
+	
+	
 
 }

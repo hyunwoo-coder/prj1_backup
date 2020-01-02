@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
+import com.group4.erp.HrDayoffDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.SalListSearchDTO;
 import com.group4.erp.TimeDTO;
@@ -38,5 +39,7 @@ public interface HRService {
 	List<SalaryDTO> getAvgSalChart();
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
+	
+	int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO);
 
 }

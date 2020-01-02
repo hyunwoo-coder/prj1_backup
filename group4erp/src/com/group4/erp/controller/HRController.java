@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -325,5 +326,20 @@ public class HRController {
 		}
 		
 		return newEmpInsertCnt;
+	}
+	
+	
+	
+	@RequestMapping(value="/dayoffUpdateProc.do" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdateCnt = 0;
+		try {
+			dayoffUpdateCnt = this.hrservice.dayoffUpdateProc(hrDayoffDTO);
+		}catch(Exception e) {
+			System.out.println("<휴가 현황 수정 실패>");
+			System.out.println("예외 발생=>"+e);
+		}
+		return dayoffUpdateCnt;
 	}
 }

@@ -64,7 +64,6 @@ public class WarehousingDAOImpl implements WarehousingDAO{
 
 	@Override
 	public WarehousingSearchDTO warehousingProc(String order_inven_no) {
-		System.out.println("DAO 시작"+order_inven_no);
 		WarehousingSearchDTO warehContent = this.sqlSession.selectOne(
 				"com.group4.erp.dao.WarehousingDAO.warehContent"
 				,order_inven_no);
@@ -72,6 +71,28 @@ public class WarehousingDAOImpl implements WarehousingDAO{
 		//System.out.println(warehContent.getBook_name());
 		return warehContent;
 	}
+
+	
+	
+	public int warehousingStock(int wh_no) {
+		int whStockCnt = this.sqlSession.update(
+				"com.group4.erp.dao.WarehousingDAO.whStockCnt"	
+				,(Integer)wh_no);
+		return whStockCnt;
+	}
+
+	@Override
+	public int warehousingConfirm(int wh_no) {
+		int whConfirmCnt = this.sqlSession.update(
+				"com.group4.erp.dao.WarehousingDAO.whConfirmCnt"	
+				,(Integer)wh_no);
+		return whConfirmCnt;
+	}
+	
+	
+	
+	
+	
 	
 	
 

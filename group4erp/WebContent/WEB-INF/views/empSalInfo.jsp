@@ -12,7 +12,7 @@
 	<form name="salInfoForm" method="post" action=" ">
 		<h1>${timeDTO.now_year}년도 ${timeDTO.now_month-1}월달 급여명세서</h1><br>
 		직책 : ${salaryDTO.jikup}	&nbsp;&nbsp; 성명 : ${salaryDTO.emp_name} <br>
-		<table class="tbcss1" name="salInfoForm" cellpadding="5" cellspacing="5">
+		<table class="tbcss1" name="salInfoForm">
 			<tr>
 				<th rowspan="2">지급일 </th><th colspan="6">지급내역</th><th colspan="7">공제내역</th><th rowspan="2">실수령액</th>
 			</tr>
