@@ -77,7 +77,20 @@
 		location.replace("/group4erp/businessTripForm.do");
 	}
 
-
+	function goBoardContentForm(work_outside_seq){
+		//var selectPageNo = $('[name=boardListForm] [name=selectPageNo]').val();
+		//var rowCntPerPage = $('[name=boardListForm] [name=rowCntPerPage]').val();
+		//location.replace("/z_spring/boardContentForm.do?b_no="+b_no+"&selectPageNo="+selectPageNo+"&rowCntPerPage="+rowCntPerPage)
+		//위 코딩과 아래 코딩은 동일한 값을 넘긴다.
+		//상세보기 화면으로 이동할때 가져갈 파라미터값을 만든다.
+		var str = "work_outside_seq="+work_outside_seq+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
+		/*
+		$(".xxx").remove();
+		$("body").prepend("<div class=xxx><hr>"+str+"<hr></div>");
+		return;
+		*/
+		location.replace("${ctRoot}/businessTripContentsForm.do?"+str )
+	}
 			
 	
 </script>
@@ -119,6 +132,7 @@
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="rowCntPerPage">
         <input type="hidden" name="sort" id="sort">
+        <input type="hidden" name="work_outside_seq" id="work_outside_seq">
         
 	</form>
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>

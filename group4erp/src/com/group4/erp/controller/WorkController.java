@@ -71,6 +71,15 @@ public class WorkController {
 		
 	}
 	
+	@RequestMapping(value="/businessTripContentsForm.do")
+	public ModelAndView goBusinessTripContentsForm(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "businessTripContentsForm");
+
+		return mav;
+		
+	}
 	
 	
 	

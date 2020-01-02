@@ -34,6 +34,8 @@
 				<%@ include file="/WEB-INF/views/businessTripForm.jsp" %>
 			</c:if>
 			
+			
+			
 			<!-- 재고현황목록 -->
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
