@@ -66,10 +66,14 @@
 	지급일 : ${timeDTO.now_year}년 ${timeDTO.now_month-1}월 25일	&nbsp;&nbsp;단위 [만원]
 	
 	<form name="empSalSearchForm" method="post" action="/group4erp/viewSalList.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
+	<table class="tab">
+		<tr>
+			<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();"></td>
+		</tr>
+	</table>
 
-	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
-	 <table border=0 width=700>
+	
+	 <table border=0>
 	 	<tr>
 	    	<td align=right>
 	        [총원] : ${emp_tot_cnt} 명&nbsp;&nbsp;&nbsp;&nbsp;
@@ -80,13 +84,15 @@
 	               <option value="25">25</option>
 	               <option value="30">30</option>
 	            </select> 행보기
+			</td>
+		</tr>
       </table>
      <input type="hidden" name="selectPageNo">
     </form>
       
 	<div id="blankArea"><br></div>
 	
-		<table class="salListTable tbcss1" name="salListTable" cellpadding="5" cellspacing="5">			
+		<table class="salListTable tab" name="salListTable" cellpadding="5" cellspacing="5">			
 			<tr>
 				<th rowspan="2">직책 </th><th rowspan="2">성명</th><th colspan="6">지급내역</th><th colspan="7">공제내역</th><th rowspan="2">실수령액</th>
 			</tr>

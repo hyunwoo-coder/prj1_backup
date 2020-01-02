@@ -119,13 +119,12 @@
 </head>
 <body onLoad="startTime();"><center>
 	<h1>거래 내역</h1><br>
-	<label>기준일 :<span id="nowTime"> </span></label>
 	
 	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecList.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
-	 <table border=0 width=700>
+	 <table border=0 >
 	 	<tr>
 	    	<td align=right>
 	        [전체] : ${corp_tran_cnt} 건&nbsp;&nbsp;&nbsp;&nbsp;
@@ -149,7 +148,7 @@
 </form> 
 	
 	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
-		<table class="transactionSpecTb tbcss1" name="transactionSpecTb" cellpadding="5" cellspacing="5" width="700">
+		<table class="transactionSpecTb tab" name="transactionSpecTb" cellpadding="5" cellspacing="5">
 		<tr>
 		<c:choose>
 			<c:when test="${param.sort=='1 desc'}">

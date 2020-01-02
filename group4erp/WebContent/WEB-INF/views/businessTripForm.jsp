@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ include file = "/WEB-INF/views/common.jsp" %>
@@ -31,6 +31,7 @@
    border-width: thin;
 }
 
+<<<<<<< HEAD
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
 .ui-datepicker2-trigger{cursor: pointer;}
 /*datepicer input 롤오버 시 손가락 모양 표시*/
@@ -51,11 +52,11 @@
    height: 20px;
    border-width: thin;
 }	
+=======
+>>>>>>> refs/remotes/master/master
 </style>
 <script>
 	$(document).ready(function(){
-	
-	
 		$("#datepicker").datepicker({
 		    onSelect: function() { 
 		    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
@@ -71,16 +72,16 @@
 		        alert(dateObject2.val()); 
 		    }
 		});
-	
 	});
 	
-		 function goBusinessTripList(){
-			location.replace("/group4erp/businessTripList.do");
-		 }
+	function goBusinessTripList(){
+		location.replace("/group4erp/businessTripList.do");
+	}
 		 
-		 function reset(){
-				document.businessTripForm.reset();
-		 }
+	function reset(){
+		document.businessTripForm.reset();
+	}
+	
 </script>	
 	
 <meta charset="UTF-8">
@@ -136,7 +137,7 @@
 		<tr>
 			<th >출장 사유</th>
 				<td >
-				<textarea name="work_outside_reason"  cols="50" rows="10" id="work_outside_reason" maxlanght="500"></textarea>
+				<textarea name="work_outside_reason" cols="50" rows="10" id="work_outside_reason" maxlenght="500"></textarea>
 				</td>
 		</tr>
 		
@@ -149,7 +150,7 @@
 	</table>
 	<table>
 	</table>
-		<input type="button" calss="approval" value="결재" onClick="checkForm()">
+		<input type="button" class="approval" value="결재" onClick="checkForm()">
 		&nbsp;&nbsp;&nbsp;
 		<input type="button" value="초기화" onClick="reset()">
 		

@@ -106,7 +106,7 @@ $(document).ready(function(){
 <h1>[재고 관리]</h1>
    <form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
       <!-- <div class="table_layout">  -->
-      <table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+      <table class="tab" bordercolor="#000000" cellspacing="5" cellpadding="5" align=center>
          <!-- <colgroup>
             <col width="20%" />
             <col width="*" />
@@ -183,7 +183,7 @@ $(document).ready(function(){
     
       <br>
    <form>
-      <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=850>
+      <table class="bookTable tab" border=0 cellspacing=0 cellpadding=5 >
          <tr>
          	<th>번호
          	<c:choose>

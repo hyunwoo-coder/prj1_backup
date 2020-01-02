@@ -161,5 +161,44 @@
 			)
 	</insert>
 	
+	<select id="getCorpList" resultType="com.group4.erp.CorporationDTO">
+		select
+			corp_no "corp_no",
+			corp_name "corp_name",
+			ceo_name "ceo_name"
+		from corporation_cus
+		where 1=1
+	</select>
+	
+	<insert id="insertAd" parameterType="com.group4.erp.AdApplyDTO">
+		insert into ad_apply_info(
+			ad_apply_no,
+			corp_no,
+			applicant_name,
+			emp_no,
+			ad_title,
+			img_doc,
+			reg_dt,
+			open_req_dt,
+			open_req_area_cd,
+			ad_term,
+			ad_pay_method,
+			ad_state_cd
+		) values (
+			(select nvl(max(ad_apply_no),0)+1 from ad_apply_info),
+			#{corp_no},
+			(select c.ceo_name from corporation_cus c where c.corp_no=#{corp_no}),
+			#{emp_no},
+			#{ad_title},
+			#{img_doc},
+			sysdate,
+			#{open_req_dt},
+			#{open_req_area_cd},
+			#{ad_term},
+			#{ad_pay_method},
+			1
+		)
+	</insert>
+	
 		
 </mapper>

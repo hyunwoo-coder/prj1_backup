@@ -29,12 +29,11 @@
 </head>
 <body><center>
 	<h1>광고신청현황</h1><br>
-	<b>2019년 12월 26일(목)</b>&nbsp; 기준
+		
+	<input type="button" name="reserveAd" value="광고 신청" onClick="reserveAdForm();" /><br>
+	<div id="blankArea">&nbsp;</div>
 	
-	<input type="button" name="reserveAd" value="광고 신청" onClick="reserveAdForm();">
-	
-	
-	<table class="adApplyTable tbcss1" name="adApplyTable" cellpadding="5" cellspacing="5">
+	<table class="adApplyTable tab" name="adApplyTable" cellpadding="5" cellspacing="5">
 		<tr>
 			<th>광고신청번호</th><th>업체번호</th><th>광고타이틀</th><th>등록일</th><th>상태</th>
 		</tr>

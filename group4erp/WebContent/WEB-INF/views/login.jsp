@@ -53,7 +53,7 @@
 			<td>사원번호</td><td><input type="text" name="emp_id"></td>
 		</tr>
 		<tr>
-			<td>비밀번호</td><td><input type="text" name="emp_pwd"></td>
+			<td>비밀번호</td><td><input type="password" name="emp_pwd"></td>
 		</tr>	
 	</table>
 </form>

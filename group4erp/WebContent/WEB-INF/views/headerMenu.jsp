@@ -3,6 +3,7 @@
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 
 <% String emp_name = (String)session.getAttribute("emp_name"); %>
+<% String emp_no = (String)session.getAttribute("emp_no"); %>
 
 <html>
 <head>
@@ -17,7 +18,8 @@
 			$("#subMenu6").hide();
 			$("#subMenu7").hide();
 			$("#subMenu8").hide();
-			
+
+			showTime();
 			
 			var tableObj = $("[name=menuList]");
 
@@ -34,20 +36,20 @@
 		function viewMyWorkMenu() {
 			hideSubMenu();
 			$("#subMenu1").show();
-			$("#navigator").html('[업무관리]');
+			//$("#navigator").html('[업무관리]');
 		}
 
 		function viewInventoryMenu() {
 			hideSubMenu();
 			$("#subMenu2").show();
-			$("#navigator").html('[재고관리]');
+			//$("#navigator").html('[재고관리]');
 		}
 	
 
 		function viewShippingMenu() {
 			hideSubMenu();
 			$("#subMenu3").show();
-			$("#navigator").html('[배송관리]');
+			//$("#navigator").html('[배송관리]');
 		}
 
 
@@ -55,7 +57,7 @@
 			hideSubMenu();
 			$("#subMenu4").show();
 			//alert("마케팅관리 기능 구현");
-			$("#navigator").html('[마케팅관리]');
+			//$("#navigator").html('[마케팅관리]');
 			
 		}
 
@@ -65,19 +67,19 @@
 			$("#subMenu5").show();
 			//alert("인사관리 기능 구현(admin 권한 보유자만 보이게 구현)");
 			//location.replace("/z_spring/boardListForm.do");
-			$("#navigator").html('[인사관리]');
+			//$("#navigator").html('[인사관리]');
 		}
 
 		function viewAccoutingMenu() {
 			hideSubMenu();
 			$("#subMenu6").show();
-			$("#navigator").html('[회계관리]');
+			//$("#navigator").html('[회계관리]');
 		}
 
 		function viewBigDataMenu() {
 			hideSubMenu();
 			$("#subMenu7").show();
-			$("#navigator").html('[전략분석]');
+			//$("#navigator").html('[전략분석]');
 		}
 
 		function hideSubMenu() {
@@ -96,6 +98,7 @@
 		function myCareBookList() {
 			location.replace("/group4erp/goMyCareBookList.do");
 			//alert("담당상품조회");
+			$('#subMenu1').show();
 		}
 
 		function businessTripForm() {
@@ -104,14 +107,6 @@
 		function viewMyWorkTime() {
 			location.replace("/group4erp/goMyWorkTime.do");
 			//alert("근태조회 구현 예정");
-		}
-
-		function overTimeWork() {
-			alert("야간&주말근무 신청 기능 구현");
-		}
-
-		function takeCharge() {
-			alert("경비청구 기능 구현 예정");
 		}
 
 		// 재고관리 서브메뉴 -->
@@ -158,7 +153,8 @@
 		}
 
 		function goNowSaleList() {
-			alert("현재 판매 현황 조회");
+			//alert("현재 판매 현황 조회");
+			location.href("/group4erp/viewSalesInfoList.do");
 		}
 
 		function eventSchedulingList() {
@@ -213,7 +209,7 @@
 		}
 
 		function viewTranLog() {
-			location.href("/group4erp/viewTranSpecList.do");
+			location.replace("/group4erp/viewTranSpecList.do");
 		}
 		
 
@@ -240,7 +236,66 @@
 		function logout() {
 			location.replace("/group4erp/logout.do");
 		}
-		
+
+
+		function showTime() {
+			//현재 날짜를 관리하는 Date 객체 생성
+			var today = new Date();
+			//----------------------------------------
+			//Date 객체에서 날짜 관련 각 데이터를 꺼내어 저장하는 변수 선언
+			var amPm = "오후";
+			var year = today.getFullYear();
+			var month = today.getMonth()+1;
+			var week = today.getDay();
+			var date = today.getDate();
+			var hour = today.getHours();
+			var minute = today.getMinutes();
+			var second = today.getSeconds();
+
+			var week = ["일", "월", "화", "수", "목", "금", "토"][today.getDay()];
+			//날짜 관련 각 데이터가 10 미만이면 앞에 0 붙이기
+			//오전, 오후 여부 판단해서 저장하기
+			
+			if(month<10) {
+				month = "0"+month;
+			}
+
+			if(date<10) {
+				date = "0"+date;
+			}
+
+			if(hour<12) {
+				amPm = "오전";
+			}
+
+			if(hour>12) {
+				hour=hour-12;
+			}
+
+			if(hour<10) {
+				hour="0"+hour;
+			}
+
+			if(minute<10) {
+				minute = "0"+minute;
+			}
+
+			if(second<10) {
+				second = "0" + second;
+			}
+			//id="nowTime"가 있는 태그영역 내부에 시간 문자열 삽입
+
+			document.getElementById("nowTime").innerHTML = year+"년 "+month+"월 "+date+"일("+week+") "+amPm+" "+hour+"시 "+minute+"분 ";
+			
+		}
+
+		function startTime() {
+			showTime();		//1초 딜레이 되어 시간이 표시되는 현상을 제거하기 위해 showTime() 함수를 한 번 호출한다.
+			//-----------------------------------
+			//1초마다 showTime() 함수를 호출하기
+			//-----------------------------------
+			window.setInterval("showTime()", 1000);		//window.setInterval(function() { showTime(); }, 1000);
+		}
 		
 	</script>
 </head>
@@ -257,7 +312,8 @@
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewAccoutingMenu();">회계관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewBigDataMenu();">전략분석</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<!-- <th style="cursor:pointer" onMouseOver="javascirpt:viewBuyerMenu();">거래처관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> -->
-			<td align="right" colspan="2"><h6>${emp_name} ${jikup}님 안녕하세요.^^</h6><input type="button" value="로그아웃" onClick="logout();"></td>
+			<td align="right" colspan="2"><h5>${emp_name} ${jikup}님 안녕하세요.^^</h5> <input type="button" value="로그아웃" onClick="logout();">
+			</td>
 			
 		</tr>
 		<tr>
@@ -333,7 +389,7 @@
 			
 		</tr>
 		<tr>	
-			<td colspan="14" align="left">현재 위치 : <span id="navigator">${navigator}</span></td>
+			<td colspan="12" align="left">현재 위치 : <span id="navigator">${navigator}</span></td><td colspan="5" align="left"> <h5><span id="nowTime"> </h5></span></td>
 		</tr>
 	</table> <hr>
 </center>

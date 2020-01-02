@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group4.erp.AdApplyDTO;
+import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 import com.group4.erp.dao.MarketingDAO;
@@ -62,6 +63,22 @@ public class MarketingServiceImpl implements MarketingService {
 		int eventAllCnt = this.marketingDAO.getEventAllCnt();
 		
 		return eventAllCnt;
+	}
+
+	@Override
+	public List<CorporationDTO> getCorpList() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> corpList = this.marketingDAO.getCorpList();
+		
+		return corpList;
+	}
+
+	@Override
+	public int insertAd(AdApplyDTO adApplyDTO) {
+		// TODO Auto-generated method stub
+		int insertAdCnt = this.marketingDAO.insertAd(adApplyDTO);
+		
+		return insertAdCnt;
 	}
 	
 	

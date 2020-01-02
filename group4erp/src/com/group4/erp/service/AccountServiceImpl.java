@@ -89,6 +89,14 @@ public class AccountServiceImpl implements AccountService {
 		
 		return tranSpecList;
 	}
+
+	@Override
+	public int deleteCorp(String[] corp_no) {
+		// TODO Auto-generated method stub
+		int delCnt = this.accountDAO.deleteCorp(corp_no);
+		
+		return delCnt;
+	}
 	
 	
 

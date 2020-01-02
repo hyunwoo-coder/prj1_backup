@@ -92,4 +92,12 @@ public class AccountDAOImpl implements AccountDAO {
 		return tranSpecList;
 	}
 
+	@Override
+	public int deleteCorp(String[] corp_no) {
+		// TODO Auto-generated method stub
+		int delCnt = this.sqlSession.update(mapper_namespace+"deleteCorp", corp_no);
+				
+		return delCnt;
+	}
+
 }
