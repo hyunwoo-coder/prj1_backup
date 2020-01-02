@@ -83,4 +83,20 @@ public class MarketingDAOImpl implements MarketingDAO {
 		return insertAdCnt;
 	}
 
+	@Override
+	public int getOnlineOrderCnt() {
+		// TODO Auto-generated method stub
+		int online_order_cnt = this.sqlSession.selectOne(mapper_namespace+"getOnlineOrderCnt");
+		
+		return online_order_cnt;
+	}
+
+	@Override
+	public int deleteEvnt(String[] evnt_no) {
+		// TODO Auto-generated method stub
+		int deleteEvntCnt = this.sqlSession.delete(mapper_namespace+"deleteEvnt", evnt_no);
+		
+		return deleteEvntCnt;
+	}
+
 }

@@ -54,7 +54,11 @@ public class MyWorkController {
 			mav.addObject("publisherList", publisherList);
 			
 			//===================================================================================================
-
+			
+			if(myWorkSearchDTO.getEmp_no()==null) {
+				myWorkSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
+			}
+			
 			//페이징 처리를 위한 총 검색 개수 불러오는 코드
 			int myWorkListAllCnt = this.myWorkService.getMyWorkListAllCnt(myWorkSearchDTO);
 

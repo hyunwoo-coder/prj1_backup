@@ -96,6 +96,7 @@
  	    (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
    		e.emp_name "emp_name",
     	trunc(e.salary/12, 5) "salary",
+    	(select 100000 from dual) "sikdae",
     	(select extract(year from sysdate) from dual) "year",
     	(select extract(month from sysdate) from dual) "month"
     	from employee e   

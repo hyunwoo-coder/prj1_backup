@@ -8,7 +8,13 @@
 <meta charset="UTF-8">
 <title>담당 상품 조회</title>
 <script>
-	$(document).ready(function(){
+
+	//goSearchMyWorkList();
+
+	$(document).ready(function(){	
+
+		//goSearchMyWorkList();
+		
 		$('[name=rowCntPerPage]').change(function(){
 			goSearchMyWorkList();
 		});
@@ -32,9 +38,10 @@
 		 */
 		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
 	});
+	
 	function goSearchMyWorkList(){
 		if( is_empty('[name=mycarebooklist] [name=search_keyword]') ){
-			$('[name=mycarebooklist] [name=search_keyword]').val("");
+			$('[name=search_keyword]').val("");
 		}
 		
 		//키워드 앞뒤에 공백이 있으면 제거하고 다시 넣어주기
@@ -42,15 +49,15 @@
 		var search_keyword = $('[name=mycarebooklist] [name=search_keyword]').val();
 		search_keyword = $.trim(search_keyword);
 		
-		$('[name=mycarebooklist] [name=search_keyword]').val(search_keyword);
+		$('[name=search_keyword]').val(search_keyword);
 
-		document.mycarebooklist.submit();
+		//document.mycarebooklist.submit();
 		
-		//$.ajax({
-		//	url : "/group4erp/goMyCareBookList.do"
-		//	, type : "post"
-		//  , data : document.mycarebooklist.submit()
-		//});
+		$.ajax({
+			url : "/group4erp/goMyCareBookList.do"
+			, type : "post"
+		  , data : document.mycarebooklist.submit()
+		});
 		
 	}
 	

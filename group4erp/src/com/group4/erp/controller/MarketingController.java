@@ -38,6 +38,14 @@ public class MarketingController {
 		mav.addObject("subMenu", "viewSalesInfoList");
 		mav.addObject("navigator", "[마케팅관리]-[판매현황]");
 		
+		try {
+			int online_order_cnt = this.marketingService.getOnlineOrderCnt();
+			mav.addObject("onlineOrderCnt", online_order_cnt);
+			
+		} catch(Exception e) {
+			System.out.println("viewSalesInfoList() 메소드에서 예외 발생==="+e);
+		}
+		
 		return mav;
 	}
 	
@@ -111,6 +119,8 @@ public class MarketingController {
 		return mav;
 	}
 	
+	
+	//이벤트 신청하기
 	@RequestMapping( 
 			value="/insertEventProc.do"
 			,method=RequestMethod.POST
@@ -133,6 +143,34 @@ public class MarketingController {
 		} 
 				
 		return insertEventCnt;		
+	}
+	
+	
+	@RequestMapping(value="/deleteEvntProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int deleteEvntProc(@RequestParam(value="evnt_no") String[] evnt_no) {
+		int delCnt = 0;
+		
+		try {
+			
+			delCnt = this.marketingService.deleteEvnt(evnt_no);
+			
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
+			
+		} catch(Exception e) {
+			System.out.println("deleteEvntProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return delCnt;
 	}
 	
 	

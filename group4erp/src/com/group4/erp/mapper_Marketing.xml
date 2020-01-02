@@ -102,7 +102,8 @@
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
-		where 1=1		
+		where 1=1
+		and ei.evnt_state_cd != 7		
 		<include refid="eventWhere" />
 		<include refid="headerSort" />
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
@@ -199,6 +200,20 @@
 			1
 		)
 	</insert>
+	
+	<select id="getOnlineOrderCnt" resultType="int">
+		select count(*) from order_info
+	</select>
+	
+	
+	<update id="deleteEvnt" parameterType="map">	
+			update event_info set evnt_state_cd = 7
+			where evnt_no in (
+			<foreach collection="array" item="evnt_no" index="index" separator=",">
+				#{evnt_no}
+			</foreach>
+			)
+	</update>
 	
 		
 </mapper>

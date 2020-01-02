@@ -24,5 +24,9 @@ public interface MarketingService {
 	List<CorporationDTO> getCorpList();
 	
 	int insertAd(AdApplyDTO adApplyDTO);
+	
+	int getOnlineOrderCnt();
+	
+	int deleteEvnt(String[] evnt_no);
 
 }

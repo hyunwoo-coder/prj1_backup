@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YES4조 ERP 메인 페이지</title>
+<title>IZ Books ERP 메인 페이지</title>
 </head>
 <body><center>
 
@@ -173,6 +173,10 @@
 			
 			<c:if test="${subMenu.equals('viewSalesInfoList') }">
 				<%@ include file="/WEB-INF/views/salesInfoList.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewTranSpecIssueList') }">
+				<%@ include file="/WEB-INF/views/tranSpecList.jsp" %>
 			</c:if>
 
 				

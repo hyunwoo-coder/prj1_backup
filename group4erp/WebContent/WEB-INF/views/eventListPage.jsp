@@ -71,8 +71,54 @@
 		goSearch();
 	}
 
+	function deleteNotYetEvent() {
+		
+		var evnt_no = [];
+		var cnt=0;
 
-	
+		$("[name=delCheckBox]").each(function() {
+		
+			var thisObj = $(this);
+
+			if(thisObj.is(":checked")) {
+				
+				evnt_no.push(thisObj.val());
+			}
+		});
+					
+		if(evnt_no.length==0) {
+			alert("선택된 이벤트가 없습니다.");
+		}
+
+		$("[name=evnt_no]").val(evnt_no);
+
+		//alert($('[name=deleteCorpForm]').serialize());
+		$.ajax({
+			url : "/group4erp/deleteEvntProc.do",				//호출할 서버쪽 URL 주소 설정
+			type : "post",										//전송 방법 설정
+			data : $('[name=deleteEvntForm]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정
+			
+			success : function(delCnt) {
+				if(delCnt>=1) {
+					alert("삭제 성공!");
+					
+					location.replace("/group4erp/viewEventList.do");
+				} else if(delCnt==-1) {	
+					alert("이벤트가 이미 삭제되었습니다!");
+					
+					location.replace("/group4erp/viewEventList.do");
+
+				} else {
+					alert("서버쪽 DB 연동 실패!");
+				}
+			}
+
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}	
+		});
+	}
 
 	</script>
 </head>
@@ -80,13 +126,13 @@
 
 	<h1>이벤트 현황</h1>
 	<label> <span id="nowTime"> </span> [이벤트 총 횟수] : ${eventCnt}회 </label>
-					<select name="rowCntPerPage">
+	<select name="rowCntPerPage">
 						<option value="10">10
 						<option value="15">15
 						<option value="20">20
 						<option value="25">25
 						<option value="30">30
-					</select>행보기 <br><br>
+	</select>행보기 <br><br>				
 
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
 		<table name="searchEvntTable">
@@ -116,7 +162,9 @@
 		<input type="hidden" name="sort" >
 	</form>
 	
-	<input type="button" value="이벤트 신청" onClick="reserveEvent();">
+	<input type="button" value="이벤트 신청" onClick="reserveEvent();">&nbsp;
+	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br>
+	<div id="comment" style="color:red;">대기중인 이벤트 행사만 삭제할 수 있습니다.</div>
 	
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -125,9 +173,11 @@
 		</tr>
 	</table>
 	
+	
+	
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 		<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
-			<tr>
+			<tr><th></th>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 이벤트 번호</th>
@@ -204,18 +254,26 @@
 			<tr>
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
-				<td align=center>${eventList.evnt_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
-				<td align=center>${eventList.evnt_category}</td>
-				<td align=center>${eventList.evnt_title}</td>
-				<td align=center>${eventList.evnt_start_dt}</td>
-				<td align=center>${eventList.evnt_end_dt}</td>
-				<td align=center>${eventList.evnt_stat}</td>
-			</tr>		
+					<td class="delCheckBox" align=center>
+						<c:if test="${eventList.evnt_stat eq '대기중' }">
+							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
+						</c:if>
+					</td>
+					<td align=center>${eventList.evnt_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
+					<td align=center>${eventList.evnt_category}</td>
+					<td align=center>${eventList.evnt_title}</td>
+					<td align=center>${eventList.evnt_start_dt}</td>
+					<td align=center>${eventList.evnt_end_dt}</td>
+					<td align=center>${eventList.evnt_stat}</td>
+				</tr>		
 			</c:forEach>
 		</table><br>
 	
 	</form>
 	
+	<form name="deleteEvntForm" method="post" action="/group4erp/deleteEvntProc.do">
+		<input type="hidden" name="evnt_no">
+	</form>
 	
 </center>
 </body>

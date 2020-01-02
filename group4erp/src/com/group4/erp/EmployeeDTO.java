@@ -16,8 +16,17 @@ public class EmployeeDTO {
 	private String emp_addr;
 	private String emp_pwd;
 	private String jikup;
+	private String mgr;
 	private int jikup_cd;
 	private int worktime_cd;
+	
+	
+	public String getMgr() {
+		return mgr;
+	}
+	public void setMgr(String mgr) {
+		this.mgr = mgr;
+	}
 	
 	
 	public String getJikup() {
