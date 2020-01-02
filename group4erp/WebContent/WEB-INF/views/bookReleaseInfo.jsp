@@ -130,7 +130,9 @@ $(document).ready(function(){
 					location.replace("/group4erp/goReleaseList.do")
 				}else if(updateCnt==0){
 					alert("출고 날짜 등록 실패");
-				}else alert("서버 오류!");
+				}else if(updateCnt==-1){
+					alert("재고가 부족합니다!");
+				}else { alert("서버 오류!"); }
 			}
 			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
 			, error : function(){

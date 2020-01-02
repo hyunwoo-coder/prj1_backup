@@ -157,8 +157,8 @@ td{
 			//$("[name=InoutListDate] [name=keyword1]").val(keyword1);
 			//alert( $('[name=searchToday]').val() );
 			//return;
-			alert( $("[name=dateFrom]").val() );
-			alert( $("[name=dateTill]").val() );
+			//alert( $("[name=dateFrom]").val() );
+			//alert( $("[name=dateTill]").val() );
 			document.warehousingSearchForm.submit();
 		}
 
