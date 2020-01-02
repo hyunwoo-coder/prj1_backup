@@ -9,10 +9,20 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <title>직원별 휴가현황</title>
+	<style type="text/css" media="screen">
+ 		.ko_day { text-indent : -9999px; background: #eee url(/imgs/korea.png) no-repeat center;}
+	</style>
+
+
 	<script>
+	
 
 		$(document).ready(function(){
 			
+			//var dat2 =
+			//var diff = dat2 - dat1;
+			//var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+
 			$(".pagingNumber").html(
 				getPagingNumber(
 					"${getDayOffListCnt}"					//검색 결과 총 행 개수
@@ -61,6 +71,7 @@
 
 
 		function addUpdelTr(ele, emp_no){
+
 			//console.log(ele);
 			//console.log($(ele));
 			//alert($(ele).children().eq(1).text());
@@ -85,6 +96,57 @@
 			
 			$(ele).after(addhtmlTr);
 
+
+
+
+
+
+/* 			//음력을 계산해서 배열을 만들거나 아니면 수동입력   
+	        var natDays =  [
+	            [2020,1,1,'ko','신정'],
+	            [2020,1,24,'ko','설날휴일'],
+	            [2020,1,25,'ko','설날'],
+	            [2020,1,26,'ko','설날휴일'],
+	            [2020,1,27,'ko','대체휴일'],
+	            [2020,3,1,'ko','3.1절'],
+	            [2020,4,15,'ko','국회의원선거'],
+	            [2020,4,30,'ko','부처님오신날'],
+	            [2020,5,5,'ko','어린이날']
+	            [2020,6,6,'ko','현충일'],
+	            [2020,8,15,'ko','광복절'],
+	            [2020,9,30,'ko','추석연휴'],[2020,10,1,'ko','추석'],[2020,10,2,'ko','추석연휴'],
+	            [2020,10,3,'ko','개천절'],
+	            [2020,10,9,'ko','한글날'],
+	            [2020,12,25,'ko','크리스마스'],
+//	            [2020,1,1,'ko','신정'],[2012,1,22,'ko','설'],[2012,1,23,'ko','설'],[2012,1,24,'ko','설'],     
+//	            [2020,1,1,'ko','3.1절'],
+//	            [2020,1,1,'ko','어린이날'],[2012,5,28,'ko','석가탄신일'],
+//	            [2020,1,1,'ko','현충일'],
+//	            [2020,1,1,'ko','광복절'],
+//	            [2020,1,1,'ko','추석'],[2012,9,30,'ko','추석'],
+//	            [2020,1,1,'ko','추석'],[2012,10,3,'ko','개천절'],
+//	            [2020,1,1,'ko','크리스마스']
+	           ];
+	                
+	        //datepicker에 공휴일 표시 및 클릭 비활성화    
+	        function nationalDays(date) {
+		         for (i = 0; i < natDays.length; i++) {
+		          if (date.getFullYear() == natDays[i][0] && date.getMonth() == natDays[i][1] - 1
+		                            && date.getDate() == natDays[i][2]) {       
+		           return [false, natDays[i][3] + '_day',natDays[i][4]];
+		          }
+		         }
+		         return [true, ''];
+		        }
+
+		        function noWeekendsOrHolidays(date) {
+		            var noWeekend = $.datepicker.noWeekends(date);
+		            if (noWeekend[0]) {
+		                return nationalDays(date);
+		            } else {
+		                return noWeekend;
+		            }
+		        } */
 	        $("#dateFrom").datepicker({ 
 		    	        dateFormat: 'yy-mm-dd'
 			    	    ,defaultDate : dtfromval
@@ -96,6 +158,7 @@
 						,onSelect: function() { 
 					        var dateObject = $(this).datepicker('getDate');
 					    }
+					    ,beforeShowDay:$.datepicker.noWeekends 
 			});
 			//$( "#dateFrom" ).datepicker().datepicker("setDate", dtfromval);
 			//$( "#dateFrom" ).datepicker("setDate", dtfromval);
@@ -111,8 +174,11 @@
 						,onSelect: function() { 
 					        var dateObject = $(this).datepicker('getDate');
 					        alert($(this).val()); 
-					    }      
+					    } 
+					    ,beforeShowDay:$.datepicker.noWeekends
+					         
             });
+            
 		}
 
 
@@ -155,13 +221,13 @@
 </head>
 <body><center>
 
-	<h1 style="font-size:15pt">[직원 휴가 현황]</h1><br>
+	<h1 style="font-size:15pt">[직원 휴가 신청 현황]</h1><br>
 	<div id="nowtime" onload="getNowtime();">기준일 :</div><br><br>
 	 
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		
 
-		<table class="dayOffList tab" name="dayOffList" cellpadding="5" cellspacing="5" width="700">
+		<table class="dayOffList tab" name="dayOffList" cellpadding="5" cellspacing="5" width="900">
 				<tr class="thset">
 					<th bgcolor="gray" style="cursor:pointer">NO</th>
 					<th bgcolor="gray" style="cursor:pointer">소속 부서</th>
@@ -170,6 +236,9 @@
 					<th bgcolor="gray" style="cursor:pointer">휴가 종류</th>
 					<th bgcolor="gray" style="cursor:pointer">휴가 시작일</th>
 					<th bgcolor="gray" style="cursor:pointer">복귀 예정일</th>
+					<th bgcolor="gray" style="cursor:pointer">휴가 사용일 수</th>
+					<th bgcolor="gray" style="cursor:pointer">남은 휴가일 수</th>
+					<th bgcolor="gray" style="cursor:pointer">총 휴가일 수</th>
 				</tr>
 
 				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">
@@ -181,6 +250,9 @@
 						<td align=center>${dayoff.dayoff_name}</td>
 						<td align=center>${dayoff.start_day_off}</td>
 						<td align=center>${dayoff.end_day_off}</td>
+						<td align=center>${dayoff.using_day_off}</td>
+						<td align=center>${dayoff.remain_day_off}</td>
+						<td align=center>${dayoff.day_off_tot}</td>
 					</tr>
 				</c:forEach>
 		</table>

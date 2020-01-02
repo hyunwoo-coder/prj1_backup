@@ -313,7 +313,7 @@ td{
 			<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 
 				<tr>
-					<th>지역
+					<th bgcolor="gray">지역
 					<td style="text-align:left" colspan=3 >
 					<c:forEach
 							items="${requestScope.branch}" var="branch"
@@ -330,7 +330,7 @@ td{
 	         		</c:forEach> 
 	         --%>
 				<tr>
-					<th>출판사
+					<th bgcolor="gray">출판사
 					<td style="text-align:left"><select name="searchPublisher">
 							<option value="">--------</option>
 							<c:forEach items="${requestScope.publisher}" var="publisher"
@@ -339,7 +339,7 @@ td{
 							</c:forEach>
 					</select></td>
 
-					<th>키워드
+					<th bgcolor="gray">키워드
 					<td style="text-align:left"><input type="text" name="wh_keyword"></td>
 
 				</tr>
@@ -348,7 +348,7 @@ td{
 
 
 				<tr>
-					<th>일자
+					<th bgcolor="gray">일자
 					<td colspan=3 style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
 						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">
 						&nbsp;&nbsp;
