@@ -81,13 +81,13 @@ $(document).ready(function(){
 	   location.replace("/group4erp/viewSignUpBook.do")
    }
    
-   function goBookContentForm(isbn13){
+   function goBookContentForm(isbn13_search){
 	   
-	   var str = "isbn13="+isbn13;
+	 
 	   
-	   alert("상세보기 구현중"+str);
-	   return;
-	   
+	   //alert("상세보기 구현중"+str);
+	   //return;
+	   var str = "isbn13_search="+isbn13_search;
 	   location.href="/group4erp/viewBookContentForm.do?"+str;
    }
 

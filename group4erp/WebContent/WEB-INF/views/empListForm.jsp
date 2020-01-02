@@ -118,14 +118,14 @@ $(document).ready(function(){
 				</c:choose>
 					<th>성명<th>부서
 				<c:choose>
-					<c:when test="${param.sort=='(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) desc'}">
-						<th style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) asc'); goSearch();">▼직급
+					<c:when test="${param.sort=='jikup_cd desc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('jikup_cd asc'); goSearch();">▼직급
 					</c:when>
-					<c:when test="${param.sort=='(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) asc'}">
-						<th style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) desc'); goSearch();">▲직급
+					<c:when test="${param.sort=='jikup_cd asc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('jikup_cd desc'); goSearch();">▲직급
 					</c:when>
 					<c:otherwise>
-						<th style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) asc'); goSearch();">직급
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('jikup_cd asc'); goSearch();">직급
 					</c:otherwise>
 				</c:choose>
 			</thead>

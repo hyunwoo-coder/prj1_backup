@@ -1,13 +1,13 @@
 package com.group4.erp.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.service.HRService;
 
@@ -136,5 +136,31 @@ public class MyWorkController {
 			System.out.println("예외발생"+e);
 		}
 		return mav;
+	}
+	
+	
+	@RequestMapping(value="/myBookWarehousingProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goReleaseUp(
+			WareHousingInsertDTO whInsertDTO
+			) {
+		
+		int insertWareHousing = 0;
+		
+		try {
+			
+			int insertBeforeCnt = this.myWorkService.getInsertBeforeCnt(whInsertDTO);
+			
+			insertWareHousing = this.myWorkService.getInsertWareHousing(whInsertDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<발주 신청 실패>");
+			System.out.println("예외 발생=>"+e);
+			insertWareHousing = -1;
+		}
+		   
+		return insertWareHousing;
 	}
 }

@@ -9,7 +9,9 @@
 <title>YES4조 전사적자원관리 시스템 </title>
 <script>
 
-
+	function goClose(){
+		history.go(-1);
+	}
 
 </script>
 
@@ -23,41 +25,39 @@
 		<table class="tbcss1" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 				<th>책번호
-				<td colspan=2>9123456789123
+				<td colspan=2>${bookInfo.isbn13}
 				<th>재고위치
-				<td colspan=2>서울 가산점
+				<td colspan=2>${bookInfo.branch_name}
 			<tr>
 				<th>책 이름
-				<td colspan=5>111111-2222222
+				<td colspan=5>${bookInfo.book_name}
 			<tr>
 				<th>카테고리
-				<td>사회
+				<td>${bookInfo.cat_name}
 				<th>가격
-				<td>15000
+				<td>${bookInfo.book_price}
 				<th>쪽수
-				<td>250
+				<td>${bookInfo.book_pages}
 			<tr>
 				<th>저자
-				<td>김태현
+				<td>${bookInfo.writer}
 				<th>판매여부
-				<td>O
+				<td>${bookInfo.is_print}
 				<th>판형
-				<td>46배판
+				<td>${bookInfo.size_name}
 			<tr>
 				<th>출판사
-				<td>KOSMO
+				<td>${bookInfo.publisher}
 				<th>출판일
-				<td>2019-12-25
+				<td>${bookInfo.published_dt}
 				<th rowspan=2>재고수량
-				<td rowspan=2>100권
+				<td rowspan=2>${bookInfo.isbn_cnt}
 			<tr>
 				
 				<th colspan=2>출판사 담당 직원
-				<td colspan=2>조충래
+				<td colspan=2>${bookInfo.editor}
 		</table>
 </form>
-
-<input type="button" name="joinBtn" value="저장" onClick="checkLoginInfo();">&nbsp;
 
 </body>
 </html>

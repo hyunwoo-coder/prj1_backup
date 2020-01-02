@@ -158,4 +158,24 @@
 		select e.emp_no	as	"emp_no" from employee e, work_days_mng w where e.emp_no = w.emp_no
 	</select>
 	
+	<insert id="insertBefore" parameterType="Hashmap">
+		insert into books_inven_order_info values(
+			(select nvl(max(order_inven_no), 0)+1 from books_inven_order_info)
+			,#{isbn}
+			,#{isbn_cnt}
+			,#{supply_rate}
+			,(#{isbn_cnt}*(select book_price from book where isbn13=#{isbn}))
+			,sysdate
+			,01
+			,to_date(#{datepicker}, 'YYYY-MM-DD')
+		)
+	</insert>
+	
+	<insert id="insertWareHousing" parameterType="Hashmap">
+		insert into warehousing_info values(
+			(select nvl(max(wh_no), 0)+1 from warehousing_info)
+			,(select nvl(max(order_inven_no), 0) from books_inven_order_info)
+			,null
+		)
+	</insert>
 </mapper>

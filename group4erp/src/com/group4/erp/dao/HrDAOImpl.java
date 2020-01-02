@@ -55,7 +55,7 @@ public class HrDAOImpl implements HrDAO {
 	public List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO){
 
 		List<Map<String, String>> getEmpBoardList = this.sqlSession.selectList(
-				"com.group4.erp.dao.HrDAO.getEmpList"
+				mapper_namespace+"getEmpList"
 				,hrListSearchDTO
 				);
 		//System.out.println("DAO=>" + getEmpBoardList);

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>IZ Books ERP 메인 페이지</title>
 </head>
+<%--<header width=95%><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></header> --%>
 <body><center>
 
 <table border="0" cellpadding=5 cellspacing=0 width="100%" height="100%" >
@@ -15,7 +16,7 @@
 	</tr>
 	<tr height="90%" valign=top>
 		<td align="center" height="500"><br><br>
-		
+		<!-- <section> -->
 			<c:if test="${empty subMenu}">
 				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
 			</c:if>
@@ -41,6 +42,10 @@
 			<!-- 책 등록 화면 -->
 			<c:if test="${subMenu.equals('viewSignUpBook') }">
 				<%@ include file="/WEB-INF/views/bookSignUpForm.jsp" %>
+			</c:if>	
+			<!-- 책 상세 정보 화면 -->
+			<c:if test="${subMenu.equals('viewBookContentForm') }">
+				<%@ include file="/WEB-INF/views/bookContentForm.jsp" %>
 			</c:if>
 			
 			<!-- 출고현황목록 -->
@@ -179,15 +184,15 @@
 				<%@ include file="/WEB-INF/views/tranSpecList.jsp" %>
 			</c:if>
 
-				
 		</td>
 	</tr>
 	<tr height="50">
-		<td align="center"><%@ include file ="/WEB-INF/views/footer.jsp" %></td>
+		<td align="center"><%@ include file ="/WEB-INF/views/footer.jsp" %></td> 
 	</tr>
 
 </table>
-		
+
 </center>
 </body>
+<%--<footer><%@ include file ="/WEB-INF/views/footer.jsp" %></footer> --%>
 </html>

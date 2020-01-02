@@ -110,7 +110,7 @@
 	
 	<select id="warehContent" parameterType="String" resultType="com.group4.erp.WarehousingSearchDTO">
 		select 
-		    (select emp_name from employee where emp_no = (select emp_no from books_inven_order_info where order_inven_no = w.order_inven_no)) as "emp_name"
+		    (select emp_name from employee where emp_no = (select emp_no from book where isbn13 = (select isbn13 from books_inven_order_info where order_inven_no = w.order_inven_no))) as "emp_name"
 		    ,(select order_stock_cnt from books_inven_order_info where order_inven_no = w.order_inven_no )||''  as "order_stock_cnt"
 		    ,(select supply_rate from books_inven_order_info where order_inven_no = w.order_inven_no )||''  as "supply_rate"
 		    ,(select cost from books_inven_order_info where order_inven_no = w.order_inven_no)||'' as "cost" 

@@ -132,4 +132,79 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return insertSignUpBookCnt;
 	}
+	
+	public BookInfoDTO getBookInfo(String isbn13_search) {
+		
+		BookInfoDTO bookInfo = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getBookInfo"
+				,isbn13_search
+				);
+		
+		return bookInfo;
+		
+	}
+	
+	
+	public int getOrderCnt(String all_order_no) {
+		int orderCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getOrderCnt"
+				,all_order_no
+				);
+		return orderCnt;
+	}
+	public int getOrderCnts(String all_order_no) {
+		int orderCnts = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getOrderCnts"
+				,all_order_no
+				);
+		return orderCnts;
+	}
+	
+	public int getIsbnCnt(String all_order_no) {
+		int isbnCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getIsbnCnt"
+				,all_order_no
+				);
+		return isbnCnt;
+	}
+	public int getIsbnCnts(String all_order_no) {
+		int isbnCnts = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getIsbnCnts"
+				,all_order_no
+				);
+		return isbnCnts;
+	}
+	
+	
+	public int getReleaseUpCnt(String all_order_no) {
+		int releaseUpCnt = this.sqlSession.update(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseUpCnt"
+				,all_order_no
+				);
+		
+		return releaseUpCnt;
+	}
+	public int getReleaseUpCnts(String all_order_no) {
+		int releaseUpCnts = this.sqlSession.update(
+				"com.group4.erp.dao.invenSearchDAO.getReleaseUpCnts"
+				,all_order_no
+				);
+		
+		return releaseUpCnts;
+	}
+	
+	public int getisbnCntUpdate(String all_order_no) {
+		int isbnCntUpdate = this.sqlSession.update(
+				"com.group4.erp.dao.invenSearchDAO.getIsbnCntUpdate"
+				,all_order_no
+				);
+		return isbnCntUpdate;
+	}
+	public int getisbnCntUpdates(String all_order_no) {
+		int isbnCntUpdates = this.sqlSession.update(
+				"com.group4.erp.dao.invenSearchDAO.getIsbnCntUpdates"
+				,all_order_no
+				);
+		return isbnCntUpdates;
+	}
 }
