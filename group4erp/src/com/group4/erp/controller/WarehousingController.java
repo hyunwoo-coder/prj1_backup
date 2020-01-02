@@ -67,12 +67,10 @@ public class WarehousingController {
 		return mav;
 	}
 
-	@RequestMapping(value = "warehousingContentProc.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	@ResponseBody // @ResponseBody : 순수 DB 연동 할 때
-	public WarehousingSearchDTO warehousingProc(
-			@RequestParam(value = "order_inven_no") String order_inven_no
-			, HttpSession session
-			) {
+
+	@RequestMapping(value = "/warehousingContentProc.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody 
+	public WarehousingSearchDTO warehousingProc(@RequestParam(value = "order_inven_no") String order_inven_no, HttpSession session) {
 
 		// --------------------------------------------------
 		// 수정 또는 삭제 적용행의 개수가 저장되는 변수 선언
@@ -83,10 +81,27 @@ public class WarehousingController {
 			warehContent = this.warehousingService.warehousingProc(order_inven_no);
 			
 		} catch (Exception e) {
-			
+			System.out.println("<입고 상세 페이지 불러오기 실패>");
+			System.out.println("예외발생" + e.getMessage());
 		}
 		
 		//System.out.println( warehContent.getBook_name() );
 		return warehContent;
+	}
+	
+	@RequestMapping(value = "/whConfirmProc.do", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
+	@ResponseBody 
+	public int warehousingConfirm(@RequestParam (value="wh_no") int wh_no) {
+		System.out.println("입고 확인 버튼 컨트롤러 =>" + wh_no);
+		int whConfirmCnt = 0;
+		try {
+			whConfirmCnt = this.warehousingService.warehousingConfirm(wh_no);
+			
+		} catch (Exception e) {
+			System.out.println("<입고 완료 버튼 실행 실패>");
+			System.out.println("예외발생" + e.getMessage());
+			e.printStackTrace();
+		}
+		return whConfirmCnt;
 	}
 }

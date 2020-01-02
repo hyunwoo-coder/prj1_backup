@@ -18,6 +18,9 @@ public interface WarehousingDAO {
 	List<Map<String, String>> getWarehousingList(WarehousingSearchDTO warehousingSearchDTO);
 	
 	WarehousingSearchDTO warehousingProc(String order_inven_no);
+	
+	int warehousingStock(int wh_no);
+	int warehousingConfirm(int wh_no);
 
 
 }

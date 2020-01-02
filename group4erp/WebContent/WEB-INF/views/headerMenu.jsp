@@ -307,7 +307,7 @@
 </head>
 <body>
 <center>
-	<table name="menuList" border="0" cellspacing="0" cellpadding="0" width="100%" style="table-layout:fixed;">
+	<table name="menuList tab" border="0" cellspacing="0" cellpadding="0" width="100%" style="table-layout:fixed;">
 		<tr>
 			<td align="left"><input type="button" value="메인화면으로" onClick="moveMainPage();"></td>
 			<th style="cursor:pointer" onMouseOver="javascript:viewMyWorkMenu();">업무관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>	
