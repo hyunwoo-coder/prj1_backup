@@ -307,9 +307,10 @@
 </head>
 <body>
 <center>
-	<table name="menuList tab" border="0" cellspacing="0" cellpadding="0" width="100%" style="table-layout:fixed;">
+	<table class="menuList tbcss0" name="menuList" border="0" cellspacing="0" cellpadding="0" width="100%" style="table-layout:fixed;">
 		<tr>
 			<td align="left"><input type="button" value="메인화면으로" onClick="moveMainPage();"></td>
+			<td>&nbsp;</td>
 			<th style="cursor:pointer" onMouseOver="javascript:viewMyWorkMenu();">업무관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>	
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewInventoryMenu();">재고현황</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<!-- <th style="cursor:pointer" onMouseOver="javascirpt:viewShippingMenu();">배송관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> -->
@@ -323,7 +324,7 @@
 			
 		</tr>
 		<tr>
-			<td></td>
+			<td></td><td></td>
 			<!-- <td colspan="16" width="500"> -->
 			<td nowrap>&nbsp;<!-- &nbsp;지우지말것!! -->
 				<span id="subMenu1"> <!-- 업무관리 -->
