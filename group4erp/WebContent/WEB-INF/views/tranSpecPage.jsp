@@ -46,6 +46,7 @@
 			
 	</table>
 	<br>
+	<input type="button" value="임시저장" onClick="saveTempTranSpec();">
 	<input type="button" value="발급" onClick="issueTranSpec();">
 	<input type="button" value="인쇄" onClick="printPage();">
 

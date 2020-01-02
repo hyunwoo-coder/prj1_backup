@@ -3,12 +3,21 @@ package com.group4.erp;
 public class EventSearchDTO {
 
 	private String searchKeyword;
+	private String emp_no;
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String evnt_category[];
 	private String evnt_stat[];
 	private String sort;
+
 	
+	public String getEmp_no() {
+		return emp_no;
+	}
+
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
+	}
 	
 	public String getSort() {
 		return sort;

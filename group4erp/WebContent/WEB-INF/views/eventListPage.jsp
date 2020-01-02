@@ -122,19 +122,26 @@
 
 	</script>
 </head>
-<body onLoad="startTime();"><center>
+<body><center>
 
 	<h1>이벤트 현황</h1>
-	<label> <span id="nowTime"> </span> [이벤트 총 횟수] : ${eventCnt}회 </label>
-	<select name="rowCntPerPage">
-						<option value="10">10
-						<option value="15">15
-						<option value="20">20
-						<option value="25">25
-						<option value="30">30
-	</select>행보기 <br><br>				
-
+    <input type="hidden" name="selectPageNo">
+    <input type="hidden" name="sort">
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
+		<table border=0>
+			<tr>
+	    		<td align=right>
+	    			<label> [담당 이벤트 행사 횟수] : ${eventCnt}회 </label>
+	            	<select name="rowCntPerPage">
+	              		<option value="10">10</option>
+	               		<option value="15">15</option>
+	               		<option value="20">20</option>
+	               		<option value="25">25</option>
+	               		<option value="30">30</option>
+	            	</select> 행보기
+	            </td>
+	        </tr>
+		</table>
 		<table name="searchEvntTable">
 			<tr>
 				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;

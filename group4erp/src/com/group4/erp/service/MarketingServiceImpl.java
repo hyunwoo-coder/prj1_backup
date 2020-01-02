@@ -96,6 +96,14 @@ public class MarketingServiceImpl implements MarketingService {
 		
 		return deleteEvntCnt;
 	}
+
+	@Override
+	public int updateEvntState() {
+		// TODO Auto-generated method stub
+		int updateEvntCnt = this.marketingDAO.updateEvntState();
+		
+		return updateEvntCnt;
+	}
 	
 	
 

@@ -99,4 +99,12 @@ public class MarketingDAOImpl implements MarketingDAO {
 		return deleteEvntCnt;
 	}
 
+	@Override
+	public int updateEvntState() {
+		// TODO Auto-generated method stub
+		int updateEvntCnt = this.sqlSession.update(mapper_namespace+"updateEvntState");
+		
+		return updateEvntCnt;
+	}
+
 }

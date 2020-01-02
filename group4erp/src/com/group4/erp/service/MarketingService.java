@@ -28,5 +28,7 @@ public interface MarketingService {
 	int getOnlineOrderCnt();
 	
 	int deleteEvnt(String[] evnt_no);
+	
+	int updateEvntState();
 
 }

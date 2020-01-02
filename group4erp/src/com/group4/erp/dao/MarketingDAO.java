@@ -28,6 +28,8 @@ public interface MarketingDAO {
 	int getOnlineOrderCnt();
 	
 	int deleteEvnt(String[] evnt_no);
+	
+	int updateEvntState();
 
 
 }

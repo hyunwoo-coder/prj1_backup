@@ -73,6 +73,12 @@ public class MarketingController {
 			
 		try {
 			
+			int updateEvntState = this.marketingService.updateEvntState();	//이벤트 종료 여부를 업데이트함(이벤트 종료날이 지났으면 '종료'로 표시)
+			
+			System.out.println("(String)session.getAttribute()==="+(String)session.getAttribute("emp_id"));
+			
+			eventSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
+			
 			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
 			
 			if(eventCnt >0 ) {
@@ -83,8 +89,7 @@ public class MarketingController {
 					eventSearchDTO.setSelectPageNo(1);
 				}
 			}
-			
-			
+					
 			List<EventDTO> eventList = this.marketingService.getEventList(eventSearchDTO);
 			
 			mav.addObject("eventCnt", eventCnt);
