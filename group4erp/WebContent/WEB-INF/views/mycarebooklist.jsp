@@ -6,7 +6,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <title>담당 상품 조회</title>
+<style>
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+
+ input[type="date"]::-webkit-calendar-picker-indicator,
+ input[type="date"]::-webkit-inner-spin-button {
+     display: none;
+     appearance: none;
+ }
+ 
+ input[type="date"]::-webkit-calendar-picker-indicator {
+   color: rgba(0, 0, 0, 0); /* 숨긴다 */
+   opacity: 1;
+   display: block;
+   background: url(https://mywildalberta.ca/images/GFX-MWA-Parks-Reservations.png) no-repeat; /* 대체할 아이콘 */
+   width: 20px;
+   height: 20px;
+   border-width: thin;
+}
+
+</style>
 <script>
    $(document).ready(function(){
       $('[name=rowCntPerPage]').change(function(){
@@ -22,6 +49,8 @@
                ,"goSearchMyWorkList();"                        //페이지 번호 클릭 후 실행할 자스코드
             )
          );
+      
+      
       inputData("[name=selectPageNo]", "${myWorkSearchDTO.selectPageNo}");
       inputData("[name=rowCntPerPage]", "${myWorkSearchDTO.rowCntPerPage}");
       inputData("[name=search_keyword]", "${myWorkSearchDTO.search_keyword}");
@@ -64,23 +93,93 @@
       goSearchMyWorkList();
    }
 
-   function booKInvenFill(isbn) {
+   function booKInvenFill(idx,isbn) {
 
-      alert("도서 발주 기능 구현중 "+isbn +"/"+td);
+      alert("도서 발주 기능 구현중 "+isbn+"/"+idx);
+      
+      var thisTr = $(idx).parent().parent();
+      var delTr = $('.mycarebookTable [name=test]');
+      if(delTr.size()>0){
+    	  delTr.remove();
+      }
+      
+      //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
+      //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
+      
+      //var str = $('.qqq').html();
+          
+      //var thisTr = $(idx).parent().parent();
+      
+      
+      var wares = "<tr name='test' align=center> <td colspan=7>"
+      wares += "<div class='www'>"
+      wares += "<form name='wareHousingForm'>"
+      wares += "<table class='innertable' align=center>"
+      wares += "<tr> <th>발주수량 <td><input type='text' name='isbn_cnt'>권"
+      wares += "<tr> <th>입고요청일 <td><input type='text' id='datepicker' name='datepicker'>"
+      wares += "<tr> <th>공급률 <td><input tyep='text' name='supply_rate' value='60'>%&nbsp;&nbsp;&nbsp;*(기본 60%)"
+      wares += "</table> </from>"
+      wares += "<input type='button' value='발주신청' name='wareHousing'>  </div>"
+      
+      thisTr.after(wares);
+      
+      $("#datepicker").datepicker({ 
+              dateFormat: 'yy-mm-dd'
+             //,defaultDate : dtfromval
+             ,minDate : 'today'
+             /*
+             ,onClose: function( selectedDate ) {   
+              //$("#dateTill").datepicker({minDate:selectedDate});
+              //$("#dateTill").datepicker( "option", "minDate", selectedDate );
+           }      */ 
+           ,onSelect: function() { 
+                var dateObject = $(this).datepicker('getDate');
+            }
+       });   
+      
+      //$('.mycarebookTable tbody tr:eq('+idx+')').after(wares);
+      
+      //$('.mycarebookTable tbody tr:eq('+(idx+1)+') td:eq(0)').html(wares);
+      //var sss =  $('.mycarebookTable tbody tr:eq('+(idx+1)+') td:eq(0)').html();
+      //alert(sss);
+      //return;
+      
+      $('[name=wareHousing]').click(function(){
+    	  
+    	  var wareData = "isbn=" + isbn + "&" + $('[name=wareHousingForm]').serialize();
+    	  
+    	  alert(wareData);
+    	  //return;
+    	  
+    	  $.ajax({
+              url : "/group4erp/myBookWarehousingProc.do"
+              , type: "post"
+              , data : wareData
+              ,success : function(data){
+                 	if(data == 1){
+                 		alert("발주 성공");
+                 		location.replace("/group4erp/goMyCareBookList.do");
+                 	}else{ alert("발주 실패"); }
+              } 
+              , error : function(){ alert("서버 접속 실패"); }
+           }); 
+      });
    }
+   
 </script>
 
 </head>
 <body>
    <center>
    <h1>담당 상품 조회</h1>
-   <form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do"><div class="table_layout">
+   <form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do">
+   <!-- <div class="table_layout"> -->
    <input type="hidden" name="emp_no" value="<%=(String)session.getAttribute("emp_id") %>">
       <table class="tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
-         <colgroup>
+         <!-- <colgroup>
             <col width="20%" />
             <col width="*" />
-         </colgroup>
+         </colgroup> -->
          <tr bgcolor="gray">
          <th width=50>구분<th>내용
          
@@ -136,7 +235,7 @@
             </select>
             <input type="text" name="search_keyword" size=40>
       </table>
-      </div>
+      <!-- </div> -->
       <br>
       <input type="button" value="  검색  " onclick="goSearchMyWorkList();">&nbsp;&nbsp;
       <input type="button" value="모두검색" onclick="goAllSearchMyWorkList();">
@@ -152,38 +251,60 @@
                   <option value="30">30</option>
                </select> 행보기
       </table>
+      </form>
+      <!-- 
+     	<div class="qqq" style="display:none">
+      		<div class="www">
+      			<form name="wareHousingForm" method=post action="/group4erp/wareHousingProc.do">
+				<table align=center>
+					<tr>
+						<th>발주수량</th>
+						<td><input type="text" name="isbn_cnt">권</td>
+					</tr>
+					<tr>
+						<th>입고요청일</th>
+						<td><input type="text" name="datepicker"></td>
+					</tr>
+					<tr>
+						<th>공급률</th>
+						<td><input tyep="text" name="supply_rate" value="60">%&nbsp;&nbsp;&nbsp;*(기본 60%)</td>
+					</tr>
+				</table>
+				</form>
+				<input type="button" value="발주신청" name="wareHousing">
+			</div>
+		</div>
+       -->
+      
       <table class="mycarebookTable tab" border=0 cellspacing=5 cellpadding=5 >
+      	<thead>
          <tr bgcolor="gray">
             <th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
-         <tr>
-            
+        </thead>
+        <tbody>    
          <c:forEach items="${requestScope.MyCareBookList}" var="MyCareBookList" varStatus="loopTagStatus">
          <tr>   
+			
             <td align=center>${MyCareBookList.ISBN13}
             <td align=center>${MyCareBookList.book_name}
             <td align=center>${MyCareBookList.cat_name}
-            
-            <%-- <td align=center>${MyCareBookList.publisher} --%>
-            
             <td align=center>${MyCareBookList.book_price}
             <td align=center>${MyCareBookList.ISBN_cnt}
             <td align=center>${MyCareBookList.branch_name}
             <td align=center>
                <c:if test="${MyCareBookList.ISBN_cnt < 100}">
-                  <input type="button" value="발주" onClick="booKInvenFill('${MyCareBookList.ISBN13}');" >
+                  <input type="button" value="발주" onClick="booKInvenFill(this,'${MyCareBookList.ISBN13}');" >
                </c:if>
                <c:if test="${MyCareBookList.ISBN_cnt >= 100}">
                   --
-               </c:if>
-            </td>
-            <%-- <td align=center>${MyCareBookList.emp_no} --%>
-         </tr>      
+               </c:if>  
          </c:forEach>
+         </tbody>
       </table>
       <br>
         <input type="hidden" name="selectPageNo">
       <div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
-   </form>
+   		<a>발주 2번 되는것 막아야함</a>
    
 </body>
 </html>

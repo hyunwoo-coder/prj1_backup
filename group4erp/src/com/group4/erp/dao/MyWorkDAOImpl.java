@@ -114,4 +114,24 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 		
 	}
 	
+	public int getInsertBeforeCnt(WareHousingInsertDTO whInsertDTO) {
+		
+		int insertBeforeCnt = this.sqlSession.insert(
+				"com.group4.erp.dao.myWorkDAO.insertBefore"
+				,whInsertDTO
+				);
+		
+		return insertBeforeCnt;
+	}
+	public int getInsertWareHousing(WareHousingInsertDTO whInsertDTO) {
+		
+		int insertWareHousing = this.sqlSession.insert(
+				"com.group4.erp.dao.myWorkDAO.insertWareHousing"
+				,whInsertDTO
+				);
+				
+		
+		return insertWareHousing;
+	}
+	
 }

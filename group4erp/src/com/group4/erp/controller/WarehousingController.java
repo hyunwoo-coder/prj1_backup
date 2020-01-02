@@ -48,9 +48,9 @@ public class WarehousingController {
 			int warehousingListCnt = this.warehousingService.getWarehousingListCnt(warehousingSearchDTO);
 			mav.addObject("warehousingListCnt", warehousingListCnt);
 
-			List<Map<String, String>> warehousingList = this.warehousingService
-					.getWarehousingList(warehousingSearchDTO);
+			List<Map<String, String>> warehousingList = this.warehousingService.getWarehousingList(warehousingSearchDTO);
 			mav.addObject("warehousingList", warehousingList);
+			
 			String setToday = warehousingSearchDTO.getSearchToday();
 			if (setToday != null && setToday.length()>0) {
 				 Date d = new Date();
@@ -69,7 +69,10 @@ public class WarehousingController {
 
 	@RequestMapping(value = "warehousingContentProc.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody // @ResponseBody : 순수 DB 연동 할 때
-	public WarehousingSearchDTO warehousingProc(@RequestParam(value = "order_inven_no") String order_inven_no, HttpSession session) {
+	public WarehousingSearchDTO warehousingProc(
+			@RequestParam(value = "order_inven_no") String order_inven_no
+			, HttpSession session
+			) {
 
 		// --------------------------------------------------
 		// 수정 또는 삭제 적용행의 개수가 저장되는 변수 선언
