@@ -14,7 +14,8 @@
 	$(document).ready(function(){
 	
 		headerSort("eventListTable", 0);
-
+		$(".updateArea").hide();
+		
 		setTableTrBgColor(
 				"eventListTable",	//테이블 class 값
 				"${headerColor}",			//헤더 tr 배경색
@@ -69,6 +70,37 @@
 		$('[name=searchEvntForm] [name=rowCntPerPage]').val("15");
 		
 		goSearch();
+	}
+
+	function updateEventInfo(idx, evnt_no) {
+		
+		var thisTr = $(idx).parent().parent();
+	      var delTr = $('.eventListTable [name=test]');
+	      if(delTr.size()>0){
+	    	  delTr.remove();
+	      }
+	      
+	      //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
+	      //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
+	      
+	      //var str = $('.qqq').html();
+	          
+	      //var thisTr = $(idx).parent().parent();
+	      
+	      
+	      var htmlCode = "<tr name='test' align=center> <td colspan=7>"
+		  htmlCode += "<div class='updateCorpDiv'>"
+	      htmlCode += "<form name='updateCorpForm'>"
+	      htmlCode += "<table class='innertable tab' align=center>"
+	      htmlCode += "<tr> <th>이벤트 종류 <td><input type='text' name='corp_no'>"
+	      htmlCode += "<tr> <th>이벤트 타이틀 <td><input type='text' name='evnt_title'>"
+	      htmlCode += "<tr> <th>시작일 <td><input tyep='text' name='evnt_start_dt'>"
+	   	  htmlCode += "<tr> <th>종료일 <td><input tyep='text' name='evnt_end_dt'>"
+	      htmlCode += "</table> </from>"
+	      htmlCode += "<input type='button' value='저장' name='updateCorp'>  </div>"
+	      
+	      thisTr.after(htmlCode);
+	    
 	}
 
 	function deleteNotYetEvent() {
@@ -181,8 +213,7 @@
 		</tr>
 	</table>
 	
-	
-	
+
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 		<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
 			<tr><th></th>
@@ -257,11 +288,28 @@
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  ">상태</th>
 					</c:otherwise>
 				</c:choose>
-			
+				<th>비고</th>
 			</tr>
 			<tr>
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
+					<td class="delCheckBox" align=center>
+						<c:if test="${eventList.evnt_stat eq '대기중' }">
+							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
+						</c:if>
+					</td>
+					<td align=center>${eventList.evnt_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
+					<td align=center>${eventList.evnt_category}</td>
+					<td align=center>${eventList.evnt_title}</td>
+					<td align=center>${eventList.evnt_start_dt}</td>
+					<td align=center>${eventList.evnt_end_dt}</td>
+					<td align=center>${eventList.evnt_stat}</td>
+					<td><c:if test="${eventList.evnt_stat eq '대기중' }">
+							<input type="button" name="updateBtn" value="수정" onClick="updateEventInfo(this,'${eventList.evnt_no}');">
+						</c:if></td>
+				</tr>		
+				
+				<tr class="updateArea" style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
 					<td class="delCheckBox" align=center>
 						<c:if test="${eventList.evnt_stat eq '대기중' }">
 							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
