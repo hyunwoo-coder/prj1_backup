@@ -21,6 +21,135 @@
 	function goJoinMember(){
 		//alert("등록 화면 구현중입니다.");
 		
+		if( is_empty('[name=emp_name]') ){
+			alert("이름을 입력해주세요.");
+			$("[name=emp_name]").focus();
+			return;
+		}
+		if( is_empty('[name=emp_eng_name]') ){
+			alert("영문이름을 입력해주세요.");
+			$("[name=emp_eng_name]").focus();
+			return;
+		}
+		if( is_empty('[name=dep_no]') ){
+			alert("부서를 선택해주세요.");
+			$("[name=dep_no]").focus();
+			return;
+		}
+		if( is_empty('[name=jikup_cd]') ){
+			alert("직급을 선택해주세요.");
+			$("[name=jikup_cd]").focus();
+			return;
+		}
+		if( is_empty('[name=salary]') ){
+			alert("연봉을 입력해주세요.");
+			$("[name=salary]").focus();
+			return;
+		}
+		if( is_empty('[name=jumin_num_f]') ){
+			alert("주민번호 앞자리를 입력해주세요.");
+			$("[name=jumin_num_f]").focus();
+			return;
+		}
+		if( is_empty('[name=jumin_num_b]') ){
+			alert("주민번호 뒷자리를 입력해주세요.");
+			$("[name=jumin_num_b]").focus();
+			return;
+		}
+		if( is_empty('[name=emp_gender]') ){
+			alert("성별을 선택해주세요.");
+			$("[name=emp_gender]").focus();
+			return;
+		}
+		if( is_empty('[name=phone]') ){
+			alert("휴대전화를 입력해주세요.");
+			$("[name=phone]").focus();
+			return;
+		}
+		if( is_empty('[name=emp_email]') ){
+			alert("이메일을 입력해주세요.");
+			$("[name=emp_email]").focus();
+			return;
+		}
+		if( is_empty('[name=emp_email_office]') ){
+			alert("회사 이메일을 입력해주세요.");
+			$("[name=emp_email_office]").focus();
+			return;
+		}
+		if( is_empty('[name=mgr_emp_name]') ){
+			alert("직속상관 이름을 입력해주세요.");
+			$("[name=conmgr_emp_nametent]").focus();
+			return;
+		}
+		if( is_empty('[name=emp_addr]') ){
+			alert("주소를 입력해주세요.");
+			$("[name=emp_addr]").focus();
+			return;
+		}
+		if( is_empty('[name=worktime_cd]') ){
+			alert("근무 형태를 선택해주세요.");
+			$("[name=worktime_cd]").focus();
+			return;
+		}
+		if( is_empty('[name=emp_pwd]') ){
+			alert("비밀번호를 입력해주세요.");
+			$("[name=emp_pwd]").focus();
+			return;
+		}
+		
+		
+		var juminb = $('[name=jumin_num_b]').val();
+		var gender = 0;
+		$("[name=emp_gender]").each(function(){
+			var thisGender = $(this);
+			if(thisGender.is(":checked")){
+				gender = thisGender;	
+			}
+		});
+		if(juminb.indexOf(1)==0 || juminb.indexOf(3)==0){
+			if(gender.val()=='여'){
+				alert("주민등록번호 뒷자리 와 성별이 다릅니다.");
+				return;
+			}
+		}else if(juminb.indexOf(2)==0 || juminb.indexOf(4)==0){
+			if(gender.val()=='남'){
+				alert("주민등록번호 뒷자리 와 성별이 다릅니다.");
+				return;
+			}
+		}else if(juminb.indexOf(5)==0 || juminb.indexOf(6)==0 || juminb.indexOf(7)==0 || juminb.indexOf(8)==0 || juminb.indexOf(9)==0){
+			alert("일치하지 않는 주민등록번호 입니다.");
+			return;
+		}
+		var juminf = $('[name=jumin_num_f]').val();
+		var jumin = []
+		jumin.push(juminf);
+		jumin.push(juminb);
+		var jumin_num = jumin.join('');
+		$('[name=jumin_num]').val(jumin_num);
+		
+		var phone = $('[name=phone]').val();
+		
+		if(phone.indexOf('-')>0){
+			phone = phone.split('-').join('');
+		}
+		
+		$('[name=phone]').val(phone);
+		
+		if( is_valid_pattern("[name=phone]", /^[0-9]{10,11}$/)==false ){
+			alert("전화번호 형식이 틀렸습니다. 다시 입력해주세요");
+			return;
+		}
+		if( is_valid_email("[name=emp_email]")==false ){
+			alert("이메일 형식을 벗어납니다.");
+			return;
+		}
+		if( is_valid_pattern("[name=emp_pwd]", /^[0-9]{4}$/)==false ){
+			alert("암호는 숫자 4개를 입력해주세요");
+			return;
+		}
+		
+		if(confirm("정말 저장하시겠습니까?")==false){return;}
+		
 		$.ajax({
 			//호출할 서버쪽 URL주소 설정
 			url : "/group4erp/newEmpInfoProc.do"
@@ -90,8 +219,9 @@
             </tr>
             <tr>
                <th bgcolor=#DBDBDB >주민번호
-               <td><input type="text" name="jumin_num" class="jumin_num" size="13" maxlength=6>&nbsp;-&nbsp;
-                  <input type="text" name="jumin_num" class="jumin_num" size="14" maxlength=7>
+               <td><input type="text" name="jumin_num_f" class="jumin_num" size="13" maxlength=6>&nbsp;-&nbsp;
+                  <input type="text" name="jumin_num_b" class="jumin_num" size="14" maxlength=7>
+                  <input type="hidden" name="jumin_num">
             </tr>
             <tr>
                <th bgcolor=#DBDBDB>성별

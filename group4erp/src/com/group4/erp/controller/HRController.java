@@ -314,8 +314,10 @@ public class HRController {
 			EmployeeDTO employeeDTO
 			) {
 		int newEmpInsertCnt = 0;
-		
+		String mgrEmpName = null;
 		try {
+			
+			//mgrEmpName = this.hrservice.getMgrEmpName(employeeDTO);
 			
 			newEmpInsertCnt = this.hrservice.getNewEmpInsertCnt(employeeDTO);
 			

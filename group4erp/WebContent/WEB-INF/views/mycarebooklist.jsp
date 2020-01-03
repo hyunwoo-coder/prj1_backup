@@ -119,6 +119,7 @@
       wares += "<tr> <th>입고요청일 <td><input type='text' id='datepicker' name='datepicker'>"
       wares += "<tr> <th>공급률 <td><input tyep='text' name='supply_rate' value='60'>%&nbsp;&nbsp;&nbsp;*(기본 60%)"
       wares += "</table> </from>"
+      wares += "<div style='heigth:100;'></div>"
       wares += "<input type='button' value='발주신청' name='wareHousing'>  </div>"
       
       thisTr.after(wares);

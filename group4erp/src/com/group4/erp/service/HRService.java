@@ -38,5 +38,7 @@ public interface HRService {
 	List<SalaryDTO> getAvgSalChart();
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
+	
+	//String getMgrEmpName(EmployeeDTO employeeDTO);
 
 }

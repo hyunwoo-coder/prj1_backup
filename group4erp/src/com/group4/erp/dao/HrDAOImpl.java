@@ -161,4 +161,11 @@ public class HrDAOImpl implements HrDAO {
 		return newEmpInsertCnt;
 	}
 
+	/*
+	public String getMgrEmpName(EmployeeDTO employeeDTO){
+		String mgrEmpName = this.sqlSession.selectOne(
+				mapper_namespace+".getMgrEmpName"
+				,employeeDTO );
+		return mgrEmpName;
+	}*/
 }

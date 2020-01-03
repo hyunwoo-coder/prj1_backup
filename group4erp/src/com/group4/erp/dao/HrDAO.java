@@ -39,4 +39,5 @@ public interface HrDAO {
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
 
+	//String getMgrEmpName(EmployeeDTO employeeDTO);
 }

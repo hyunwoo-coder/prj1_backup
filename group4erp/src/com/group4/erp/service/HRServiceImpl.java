@@ -127,5 +127,11 @@ public class HRServiceImpl implements HRService {
 		
 		return newEmpInsertCnt;
 	}
-
+	/*
+	public String getMgrEmpName(EmployeeDTO employeeDTO){
+		String mgrEmpName = this.hrDAO.getMgrEmpName(employeeDTO);
+		
+		return mgrEmpName;
+	}
+*/
 }
