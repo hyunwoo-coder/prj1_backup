@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
 
 @Repository
@@ -114,6 +115,14 @@ public class AccountDAOImpl implements AccountDAO {
 		List<TranSpecDTO> tranSpecIssueList = this.sqlSession.selectList(mapper_namespace+"getTranSpecIssue");
 		
 		return tranSpecIssueList;
+	}
+
+	@Override
+	public int payCheckProc(List<SalaryDTO> salDTOList) {
+		// TODO Auto-generated method stub
+		int payCheckCnt = this.sqlSession.insert(mapper_namespace+"payCheckProc", salDTOList);
+		
+		return payCheckCnt;
 	}
 
 }
