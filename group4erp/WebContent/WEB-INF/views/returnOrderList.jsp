@@ -48,10 +48,10 @@
 </script>
 </head>
 <body><center>
-	<h1>반품 현황</h1>
+	<h1 class="fontBold">반품 현황</h1>
 	
 	<form name="returnSearchForm" method="post" action="/group4erp/goReturnOrderList.do">
-	<table class="tab1" name="tab1" cellpadding="5" cellspacing="5">
+	<table class="tab" name="tab1" cellpadding="5" cellspacing="5">
 		<tr>
 			<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;</td>
 		</tr>
@@ -89,6 +89,7 @@
 	</table>
 </form> 
 	
+
 	<table class="returnOrderTable tab" name="returnOrderTable" cellpadding="5" cellspacing="5">
 		<tr>
 		<c:choose>
@@ -142,10 +143,10 @@
 		</tr>
 		<c:forEach items='${returnOrderList}' var="reOrder" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" ">
-				<td>${reOrder.return_sales_no}</td>
-				<td>${reOrder.order_no}</td>
-				<td>${reOrder.isbn13}</td>
-				<td>${reOrder.return_cause}</td>
+				<td align="center">${reOrder.return_sales_no}</td>
+				<td align="center">${reOrder.order_no}</td>
+				<td align="center">${reOrder.isbn13}</td>
+				<td align="center">${reOrder.return_cause}</td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -10,6 +10,10 @@
 
 <script>
 
+	function issueTranSpec() {
+		alert("거래명세서 발급 기능 구현");
+	}
+
 	function printPage() {
 
 		alert("거래명세서 인쇄 기능 구현 예정");
@@ -42,6 +46,8 @@
 			
 	</table>
 	<br>
+	<input type="button" value="임시저장" onClick="saveTempTranSpec();">
+	<input type="button" value="발급" onClick="issueTranSpec();">
 	<input type="button" value="인쇄" onClick="printPage();">
 
 

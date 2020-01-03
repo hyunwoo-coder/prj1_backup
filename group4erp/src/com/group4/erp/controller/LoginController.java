@@ -63,6 +63,7 @@ public class LoginController {
 				   session.setAttribute("emp_id", emp_id);
 				   session.setAttribute("emp_name", empInfo.getEmp_name());
 				   session.setAttribute("jikup", empInfo.getJikup());
+				   session.setAttribute("mgr", empInfo.getMgr());
 			   }
 			 
 			     

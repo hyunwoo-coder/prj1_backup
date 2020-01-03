@@ -206,6 +206,70 @@ public class InvenController {
 		
 		return insertSignUpBookCnt;
 	}
+	
+	@RequestMapping(value="/viewBookContentForm.do")
+	public ModelAndView viewBookContentForm(
+			@RequestParam(value="isbn13_search") String isbn13_search
+			,BookInfoDTO bookInfoDTO
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewBookContentForm");
+		mav.addObject("navigator", "[재고현황]-[도서정보조회]-[상세정보]");
+		
+		//System.out.println(isbn13_search);
+		
+		try {
+			
+			BookInfoDTO bookInfo = this.invenService.getBookInfo(isbn13_search);
+			mav.addObject("bookInfo", bookInfo);
+			
+		}catch(Exception e) {
+			System.out.println("<서적 상세정보 불러오기 실패>");
+			System.out.println("에러 발생=>"+e);
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/goReleaseUp.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goReleaseUp(
+			@RequestParam(value="all_order_no") String all_order_no
+			) {
+		
+		int releaseUpCnt = 0;
+		int isbn_cnt = 0;
+		int order_cnt = 0;
+		
+		try {
+			
+			order_cnt = this.invenService.getOrderCnt(all_order_no);
+			
+			isbn_cnt = this.invenService.getIsbnCnt(all_order_no);
+			
+			if(isbn_cnt>order_cnt) {
+				
+				releaseUpCnt = this.invenService.getReleaseUpCnt(all_order_no);
+				
+			}else{
+				
+				return releaseUpCnt = -1;
+				
+			}
+			
+		}catch(Exception e) {
+			System.out.println("<출고 날짜 등록 실패>");
+			System.out.println("예외 발생=>"+e);
+			releaseUpCnt = -2;
+		}
+		
+		return releaseUpCnt;
+	}
 }
 
   

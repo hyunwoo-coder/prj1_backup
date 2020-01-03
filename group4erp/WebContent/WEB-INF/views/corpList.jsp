@@ -10,6 +10,8 @@
 <script>
 
 	$(document).ready(function(){
+
+		$(".updateArea").hide();
 	
 		headerSort("corpListTable", 0);
 
@@ -58,6 +60,10 @@
 	function insertCorp() {
 		//alert("거래처 추가");
 		location.replace("/group4erp/goInsertCorpPage.do");
+	}
+
+	function updateCorpInfo(corp_no) {
+		alert(corp_no);
 	}
 
 	function deleteCorp() {
@@ -235,7 +241,7 @@
 			</c:otherwise>
 		
 		</c:choose>
-		
+		<th>비고</th>
 	</tr>
 	<c:forEach items='${corpList}' var="corpList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">
@@ -247,6 +253,17 @@
 					<td>${corpList.corp_addr}</td> 
 					<td>${corpList.corp_tel} </td> 
 					<td>${corpList.corp_fax} </td> 
+					<td><input type="button" value="수정" onClick="updateCorpInfo('${corpList.corp_no}');"> </td> 
+				</tr>
+				<tr class="updateArea" style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">
+					<td class="delCheckBox"><input type="checkbox" name="delCheckBox" ></td>
+					<td><input type="text" name="corp_no" value="${corpList.corp_no}"></td>
+					<td><input type="text" name="corp_name" value="${corpList.corp_name}"></td>
+					<td><input type="text" name="ceo_name" value="${corpList.ceo_name}"></td>
+					<td><input type="text" name="corp_business_area" value="${corpList.corp_business_area}"></td> 
+					<td><input type="text" name="corp_addr" value="${corpList.corp_addr}"></td> 
+					<td><input type="text" name="corp_tel" value="${corpList.corp_tel}"> </td> 
+					<td><input type="text" name="corp_fax" value="${corpList.corp_fax}"> </td> 
 				</tr>
 			</c:forEach>
 </table>

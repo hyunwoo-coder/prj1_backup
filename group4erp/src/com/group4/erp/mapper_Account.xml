@@ -108,15 +108,17 @@
 			corp_addr, 
 			corp_fax, 
 			corp_tel, 
-			corp_business_area )
-			values (
+			corp_business_area,
+			is_on_business 
+			) values (
 			  #{corp_no},	
 			  #{corp_name},
 			  #{ceo_name},
 			  #{corp_addr},
 			  #{corp_fax},
 			  #{corp_tel},
-			  #{corp_business_area}
+			  #{corp_business_area},
+			  'y'
 			)
 	</insert>
 	

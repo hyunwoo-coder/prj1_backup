@@ -36,4 +36,18 @@ public interface InvenDAO {
 
 	int getSignUpCnt(InvenDTO invenDTO);
 	
+	BookInfoDTO getBookInfo(String isbn13_search);
+	
+	int getOrderCnt(String all_order_no);
+	int getOrderCnts(String all_order_no);
+	
+	int getIsbnCnt(String all_order_no);
+	int getIsbnCnts(String all_order_no);
+	
+	int getReleaseUpCnt(String all_order_no);
+	int getReleaseUpCnts(String all_order_no);
+	
+	int getisbnCntUpdate(String all_order_no);
+	int getisbnCntUpdates(String all_order_no);
+	
 }

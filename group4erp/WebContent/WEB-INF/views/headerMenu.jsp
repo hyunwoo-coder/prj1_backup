@@ -4,6 +4,7 @@
 
 <% String emp_name = (String)session.getAttribute("emp_name"); %>
 <% String emp_no = (String)session.getAttribute("emp_no"); %>
+<% String mgr = (String)session.getAttribute("mgr"); %>
 
 <html>
 <head>
@@ -204,6 +205,11 @@
 			location.replace("/group4erp/viewTaxInvoiceForm.do");
 		}
 
+		//거래명세서 발급 내역 조회
+		function viewSpecTransaction() {
+			location.replace("/group4erp/viewTranSpecIssueList.do");
+		}
+
 		function viewCorpList() {
 			location.replace("/group4erp/viewCorpList.do");
 		}
@@ -301,9 +307,10 @@
 </head>
 <body>
 <center>
-	<table name="menuList" border="0" cellspacing="0" cellpadding="0" width="100%" style="table-layout:fixed;">
+	<table class="menuList tbcss0" name="menuList" border="0" cellspacing="0" cellpadding="0" width="100%" style="table-layout:fixed;">
 		<tr>
 			<td align="left"><input type="button" value="메인화면으로" onClick="moveMainPage();"></td>
+			<td>&nbsp;</td>
 			<th style="cursor:pointer" onMouseOver="javascript:viewMyWorkMenu();">업무관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>	
 			<th style="cursor:pointer" onMouseOver="javascirpt:viewInventoryMenu();">재고현황</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<!-- <th style="cursor:pointer" onMouseOver="javascirpt:viewShippingMenu();">배송관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> -->
@@ -317,13 +324,17 @@
 			
 		</tr>
 		<tr>
-			<td></td>
+			<td></td><td></td>
 			<!-- <td colspan="16" width="500"> -->
 			<td nowrap>&nbsp;<!-- &nbsp;지우지말것!! -->
 				<span id="subMenu1"> <!-- 업무관리 -->
 					<span id="myCareBookList" style="cursor:pointer" onClick="myCareBookList();">담당 상품 조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&보고&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewMyWorkTime();">근태조회&nbsp;&nbsp;&nbsp;</span>
+					<c:if test="${mgr != null }">
+						<span id="viewMyWorkTime" style="cursor:pointer" onClick="approvalDoc();">문서 결재&nbsp;&nbsp;&nbsp;</span>
+					</c:if>
+					
 				</span>
 			</td>
 			<td></td>
@@ -363,7 +374,7 @@
 				<span id="subMenu6">	<!-- 회계관리 -->
 					<!-- <span id="salesInfoList" style="cursor:pointer" onClick="viewSalesReport();">매출정보&nbsp;&nbsp;&nbsp;</span> -->
 					<!-- <span id="elecBill" style="cursor:pointer" onClick="viewPromiNoteList();">전자어음&nbsp;&nbsp;&nbsp;</span> -->
-					<span id="specTransaction" style="cursor:pointer" onClick="viewSpecTransaction();">거래명세서&nbsp;&nbsp;&nbsp;</span>
+					<span id="specTransaction" style="cursor:pointer" onClick="viewSpecTransaction();">거래명세서 발급 조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="taxInvoice" style="cursor:pointer" onClick="viewTaxInvoiceList();">세금계산서&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewTranLog" style="cursor:pointer" onClick="viewTranLog();">거래내역 조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="updateClientList" style="cursor:pointer" onClick="viewCorpList();">거래처 등록/삭제&nbsp;&nbsp;&nbsp;</span>
@@ -389,7 +400,7 @@
 			
 		</tr>
 		<tr>	
-			<td colspan="12" align="left">현재 위치 : <span id="navigator">${navigator}</span></td><td colspan="5" align="left"> <h5><span id="nowTime"> </h5></span></td>
+			<td colspan="12" align="left" >현재 위치 : <span id="navigator">${navigator}</span></td><td colspan="5" align="left"> <h5><span id="nowTime"> </h5></span></td>
 		</tr>
 	</table> <hr>
 </center>

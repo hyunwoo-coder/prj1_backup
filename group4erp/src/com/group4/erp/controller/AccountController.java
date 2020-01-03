@@ -203,6 +203,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTranSpecInfo");
+		mav.addObject("navigator", "[회계관리] - [거래내역 조회] - [거래명세서 발급]");
 		
 		try {
 			
@@ -211,6 +212,25 @@ public class AccountController {
 			
 			mav.addObject("tranSpec_cnt", tranSpec_cnt);
 			mav.addObject("tranSpecList", tranSpecList);
+			
+		} catch(Exception e) {
+			System.out.println("예외 발생=="+e);
+		} 
+		
+		return mav;		
+	}
+	
+	@RequestMapping(value="/viewTranSpecIssueList.do")
+	public ModelAndView viewTranSpecIssueList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTranSpecIssueList");
+		
+		try {
+			
+			
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);

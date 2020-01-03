@@ -245,7 +245,7 @@
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">주문일</th>
 			</c:otherwise>
 		</c:choose>
-		
+			<th>거래명세서 발급
 		</tr>
 	
 		<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
@@ -258,6 +258,7 @@
 				<%--<td>${tranList.book_price}</td>
 				<td>${tranList.tot_cost}</td> --%>
 				<td>${tranList.order_dt}</td>
+				<td align="center"><input type="button" value="발급" onClick="issueTranSpec();"></td>
 			</tr>
 		</c:forEach>
 	</table>
