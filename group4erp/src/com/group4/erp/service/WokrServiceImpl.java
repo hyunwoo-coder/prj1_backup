@@ -40,4 +40,13 @@ public class WokrServiceImpl implements WorkService {
 		//[1개 게시판 글]이 저장된 BoardDTO 객체 리턴하기
 		return businessTripDTO;
 	}
+	
+	public int insertBusinessTrip(BusinessTripDTO businessTripDTO) {
+
+		//1개 게시판 글 입력 후 입력 적용 행의 개수 리턴하기
+			//[BoardDTO 인터페이스]를 구현한 객체의 insertBoard 메소드를 호출하여 1개 게시판 글 입력 후 입력 적용 행의 개수를 리턴받는다
+		int businessTripRegCnt = this.workDAO.insertBusinessTrip(businessTripDTO);
+		
+		return businessTripRegCnt;
+	}
 }

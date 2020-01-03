@@ -44,4 +44,13 @@ public class WorkDAOImpl implements WorkDAO{
 				);
 		return businessTripDTO;
 	}
+	
+	public int insertBusinessTrip(BusinessTripDTO businessTripDTO) {
+		int businessTripRegCnt = sqlSession.insert(
+				"com.group4.erp.dao.WorkDAO.insertBusinessTrip"
+				,businessTripDTO
+			);
+		return businessTripRegCnt;
+	}
+	
 }

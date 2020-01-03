@@ -1,42 +1,18 @@
 package com.group4.erp;
 
 public class BusinessTripDTO {
-	
-	private int rownum;
+	private int emp_no;
 	private int work_outside_seq;
-	private String jikup;
-	private String dep_name;
 	private String destination;
 	private String work_outside_reason;
 	private String outside_start_time;
 	private String outside_end_time;
-	private String mgr_name;
-	private int travel_payment;
-	private int jikup_cd;
 	
-	public int getRownum() {
-		return rownum;
+	public int getEmp_no() {
+		return emp_no;
 	}
-	public void setRownum(int rownum) {
-		this.rownum = rownum;
-	}
-	public int getWork_outside_seq() {
-		return work_outside_seq;
-	}
-	public void setWork_outside_seq(int work_outside_seq) {
-		this.work_outside_seq = work_outside_seq;
-	}
-	public String getJikup() {
-		return jikup;
-	}
-	public void setJikup(String jikup) {
-		this.jikup = jikup;
-	}
-	public String getDep_name() {
-		return dep_name;
-	}
-	public void setDep_name(String dep_name) {
-		this.dep_name = dep_name;
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
 	}
 	public String getDestination() {
 		return destination;
@@ -62,22 +38,11 @@ public class BusinessTripDTO {
 	public void setOutside_end_time(String outside_end_time) {
 		this.outside_end_time = outside_end_time;
 	}
-	public String getMgr_name() {
-		return mgr_name;
+	public int getWork_outside_seq() {
+		return work_outside_seq;
 	}
-	public void setMgr_name(String mgr_name) {
-		this.mgr_name = mgr_name;
+	public void setWork_outside_seq(int work_outside_seq) {
+		this.work_outside_seq = work_outside_seq;
 	}
-	public int getJikup_cd() {
-		return jikup_cd;
-	}
-	public void setJikup_cd(int jikup_cd) {
-		this.jikup_cd = jikup_cd;
-	}
-	public int getTravel_payment() {
-		return travel_payment;
-	}
-	public void setTravel_payment(int travel_payment) {
-		this.travel_payment = travel_payment;
-	}
+	
 }

@@ -16,4 +16,7 @@ public interface WorkDAO {
 	int getbusinessTripListAllCnt(BusinessTripSearchDTO businessTripSearchDTO);
 	
 	BusinessTripDTO getbusinessTripDTO(int work_outside_seq);
+	
+	//출장 신청
+	int insertBusinessTrip(BusinessTripDTO businessTripDTO);
 }

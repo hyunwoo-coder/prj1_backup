@@ -141,4 +141,20 @@
      		 left outer join employee e2 on e2.emp_no=e1.mgr_emp_no
      	where work_outside_seq=#{work_outside_seq}
 	</select> -->
+	
+	<insert id="insertBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
+		 insert into work_outside_info(work_outside_seq
+		 								,emp_no
+		 								,destination
+		 								,work_outside_reason
+		 								,outside_start_time
+		 								,outside_end_time)
+   				values( work_outside_info_seq.nextval
+   				 		,#{emp_no}
+   				 		,#{destination}
+   				 		,#{work_outside_reason}
+   				 		,#{outside_start_time}
+   				 		,#{outside_end_time}
+   				 		)
+	</insert>
 </mapper>

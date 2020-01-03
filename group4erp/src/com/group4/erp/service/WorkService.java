@@ -14,6 +14,10 @@ public interface WorkService {
 	//출장 리스트 총개수
 	int getbusinessTripListAllCnt(BusinessTripSearchDTO businessTripSearchDTO);
 	
-	//게시판 1개 목록
+	//출장 1개 상세
 	BusinessTripDTO getbusinessTripDTO(int work_outside_seq);
+	
+	//출장 신청
+	int insertBusinessTrip(BusinessTripDTO businessTripDTO);
+	
 }

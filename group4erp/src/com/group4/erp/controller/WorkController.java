@@ -7,7 +7,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.group4.erp.BusinessTripDTO;
@@ -94,6 +96,31 @@ public class WorkController {
 	 * }
 	 */
 	
-	
+		@RequestMapping(
+				value="/businessTripRegProc.do"
+				,method=RequestMethod.POST
+				,produces="application/json;charset=UTF-8"
+			)
+		@ResponseBody
+		public int insertBusinessTrip(
+				BusinessTripDTO businessTripDTO
+		){
+			System.out.println("insertBusinessTrip 컨트롤러");
+			System.out.println(businessTripDTO.getDestination());
+			System.out.println(businessTripDTO.getEmp_no());
+			System.out.println(businessTripDTO.getOutside_start_time());
+			System.out.println(businessTripDTO.getOutside_end_time());
+			System.out.println(businessTripDTO.getWork_outside_reason());
+			int businessTripRegCnt = 0;
+			try {
+				//[BoardServiceImpl 객체]의 insertBoard 메소드 호출로 게시판 입력하고 [게시판 입력 적용행의 개수] 얻기
+				businessTripRegCnt = this.workService.insertBusinessTrip(businessTripDTO);
+			}catch(Exception e) {
+				System.out.println("<에러발생>="+e);
+				businessTripRegCnt= -1;
+			}
+			return businessTripRegCnt;
+			
+		}
 	
 }
