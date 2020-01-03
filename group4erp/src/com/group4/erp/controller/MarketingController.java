@@ -17,6 +17,8 @@ import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.OrderDTO;
+
 import com.group4.erp.service.MarketingService;
 
 
@@ -40,7 +42,14 @@ public class MarketingController {
 		
 		try {
 			int online_order_cnt = this.marketingService.getOnlineOrderCnt();
+			int tot_revenue = this.marketingService.getTotRevenue();
+			List<OrderDTO> onlineOrderList = this.marketingService.getOnlineOrderList();
+			
+			
+			
 			mav.addObject("onlineOrderCnt", online_order_cnt);
+			mav.addObject("onlineOrderList", onlineOrderList);
+			mav.addObject("tot_revenue", tot_revenue);
 			
 		} catch(Exception e) {
 			System.out.println("viewSalesInfoList() 메소드에서 예외 발생==="+e);

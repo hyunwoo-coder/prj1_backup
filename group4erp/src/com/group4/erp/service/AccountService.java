@@ -35,5 +35,9 @@ public interface AccountService {
 	List<TranSpecDTO> getTranSpecList(int order_no);
 	
 	int deleteCorp(String[] corp_no);
+	
+	int saveTempTranSpec(TranSpecDTO tranSpecDTO);
+	
+	List<TranSpecDTO> getTranSpecIssueList();
 
 }

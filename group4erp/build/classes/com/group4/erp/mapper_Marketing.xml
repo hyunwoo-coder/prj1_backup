@@ -83,8 +83,7 @@
 	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
 		select count(*) from event_info ei
 		where 1=1
-		and ei.evnt_state_cd != 7
-		and ei.emp_no = #{emp_no}		
+		and ei.evnt_state_cd != 7		
 		<include refid="eventWhere" />
 	</select>
 	
@@ -106,7 +105,6 @@
         from event_info ei
 		where 1=1
 		and ei.evnt_state_cd != 7	
-		and ei.emp_no = #{emp_no}	
 		<include refid="eventWhere" />
 		<include refid="headerSort" />
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
@@ -208,6 +206,30 @@
 	
 	<select id="getOnlineOrderCnt" resultType="int">
 		select count(*) from order_info
+	</select>
+	
+	<select id="getOnlineOrderList" resultType="com.group4.erp.OrderDTO">
+		select
+			oi.order_no||'' "order_no",
+			oi.order_id "order_id",
+			oi.order_pwd "order_pwd",
+			oi.order_delivery_addr "order_delivery_addr",
+			oi.isbn13 "isbn13",
+			(select b.book_price from book b where b.isbn13 = oi.isbn13) "book_price",
+			oi.book_qty||'' "book_qty",
+			(select b.book_price from book b where b.isbn13 = oi.isbn13) * oi.book_qty "tot_cost",
+			oi.cus_requirement "cus_requirement",
+			oi.is_member "is_member",
+			to_char(oi.order_dt, 'yyyy-mm-dd HH24:MI:SS') || '('||to_char(oi.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
+		from order_info oi
+	
+	</select>
+	
+	<select id="getTotRevenue" resultType="int">
+		 select
+            sum((select b.book_price from book b where b.isbn13 = oi.isbn13) * oi.book_qty) "tot_revenue"
+        from order_info oi
+	
 	</select>
 	
 	

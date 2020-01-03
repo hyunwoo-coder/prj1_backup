@@ -9,6 +9,7 @@ import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
+import com.group4.erp.OrderDTO;
 import com.group4.erp.dao.MarketingDAO;
 
 @Service
@@ -103,6 +104,22 @@ public class MarketingServiceImpl implements MarketingService {
 		int updateEvntCnt = this.marketingDAO.updateEvntState();
 		
 		return updateEvntCnt;
+	}
+
+	@Override
+	public List<OrderDTO> getOnlineOrderList() {
+		// TODO Auto-generated method stub
+		List<OrderDTO> onlineOrderList = this.marketingDAO.getOnlineOrderList();
+		
+		return onlineOrderList;
+	}
+
+	@Override
+	public int getTotRevenue() {
+		// TODO Auto-generated method stub
+		int tot_revenue = this.marketingDAO.getTotRevenue();
+		
+		return tot_revenue;
 	}
 	
 	

@@ -434,7 +434,7 @@ td{
           </th>
          
          
-            <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
+           <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
 					<tr class="trcolor" style="cursor:pointer">
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${(loopTagStatus.index)+1}</td>
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_dt}</td>

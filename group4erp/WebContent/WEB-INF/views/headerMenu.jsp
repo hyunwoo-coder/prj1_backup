@@ -155,7 +155,7 @@
 
 		function goNowSaleList() {
 			//alert("현재 판매 현황 조회");
-			location.href("/group4erp/viewSalesInfoList.do");
+			location.replace("/group4erp/viewSalesInfoList.do");
 		}
 
 		function eventSchedulingList() {
@@ -331,10 +331,7 @@
 					<span id="myCareBookList" style="cursor:pointer" onClick="myCareBookList();">담당 상품 조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&보고&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewMyWorkTime();">근태조회&nbsp;&nbsp;&nbsp;</span>
-					<c:if test="${mgr != null }">
-						<span id="viewMyWorkTime" style="cursor:pointer" onClick="approvalDoc();">문서 결재&nbsp;&nbsp;&nbsp;</span>
-					</c:if>
-					
+					<span id="viewMyWorkTime" style="cursor:pointer" onClick="approvalDoc();">문서 결재&nbsp;&nbsp;&nbsp;</span>
 				</span>
 			</td>
 			<td></td>
@@ -400,7 +397,7 @@
 			
 		</tr>
 		<tr>	
-			<td colspan="12" align="left" >현재 위치 : <span id="navigator">${navigator}</span></td><td colspan="5" align="left"> <h5><span id="nowTime"> </h5></span></td>
+			<td colspan="14" align="left" >현재 위치 : <span id="navigator">${navigator}</span></td><td colspan="3" align="left"> <h5><span id="nowTime"> </h5></span></td>
 		</tr>
 	</table> <hr>
 </center>

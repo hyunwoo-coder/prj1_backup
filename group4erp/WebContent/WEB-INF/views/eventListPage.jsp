@@ -130,7 +130,8 @@
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
 		<table border=0>
 			<tr>
-	    		<td align=right>
+	    		<td align="left">
+	    			<label> [전체 이벤트 횟수 ] : ${eventCnt}회 </label><br>
 	    			<label> [담당 이벤트 행사 횟수] : ${eventCnt}회 </label>
 	            	<select name="rowCntPerPage">
 	              		<option value="10">10</option>

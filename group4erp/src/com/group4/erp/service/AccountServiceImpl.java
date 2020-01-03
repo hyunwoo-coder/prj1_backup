@@ -97,6 +97,22 @@ public class AccountServiceImpl implements AccountService {
 		
 		return delCnt;
 	}
+
+	@Override
+	public int saveTempTranSpec(TranSpecDTO tranSpecDTO) {
+		// TODO Auto-generated method stub
+		int saveTempCnt = this.accountDAO.saveTempTranSpec(tranSpecDTO);
+		
+		return saveTempCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecIssueList() {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecIssueList = this.accountDAO.getTranSpecIssueList();
+		
+		return tranSpecIssueList;
+	}
 	
 	
 

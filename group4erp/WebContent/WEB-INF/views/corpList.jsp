@@ -62,8 +62,36 @@
 		location.replace("/group4erp/goInsertCorpPage.do");
 	}
 
-	function updateCorpInfo(corp_no) {
-		alert(corp_no);
+	function updateCorpInfo(idx, corp_no) {
+	
+			var thisTr = $(idx).parent().parent();
+		      var delTr = $('.corpListTable [name=test]');
+		      if(delTr.size()>0){
+		    	  delTr.remove();
+		      }
+		      
+		      //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
+		      //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
+		      
+		      //var str = $('.qqq').html();
+		          
+		      //var thisTr = $(idx).parent().parent();
+		      
+		      
+		      var htmlCode = "<tr name='test' align=center> <td colspan=7>"
+			  htmlCode += "<div class='updateCorpDiv'>"
+		      htmlCode += "<form name='updateCorpForm'>"
+		      htmlCode += "<table class='innertable tab' align=center>"
+		      htmlCode += "<tr> <th>사업자번호 <td><input type='text' name='corp_no'>"
+		      htmlCode += "<tr> <th>사업자명 <td><input type='text' name='ceo_name'>"
+		      htmlCode += "<tr> <th>소재지 <td><input tyep='text' name='corp_addr'>"
+		   	  htmlCode += "<tr> <th>연락처 <td><input tyep='text' name='corp_tel'>"
+		      htmlCode += "<tr> <th>FAX <td><input tyep='text' name='corp_fax'>"
+		      htmlCode += "</table> </from>"
+		      htmlCode += "<input type='button' value='저장' name='updateCorp'>  </div>"
+		      
+		      thisTr.after(htmlCode);
+		    
 	}
 
 	function deleteCorp() {
@@ -253,7 +281,7 @@
 					<td>${corpList.corp_addr}</td> 
 					<td>${corpList.corp_tel} </td> 
 					<td>${corpList.corp_fax} </td> 
-					<td><input type="button" value="수정" onClick="updateCorpInfo('${corpList.corp_no}');"> </td> 
+					<td><input type="button" value="수정" onClick="updateCorpInfo(this,'${corpList.corp_no}');"> </td> 
 				</tr>
 				<tr class="updateArea" style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">
 					<td class="delCheckBox"><input type="checkbox" name="delCheckBox" ></td>

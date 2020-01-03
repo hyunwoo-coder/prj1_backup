@@ -100,4 +100,20 @@ public class AccountDAOImpl implements AccountDAO {
 		return delCnt;
 	}
 
+	@Override
+	public int saveTempTranSpec(TranSpecDTO tranSpecDTO) {
+		// TODO Auto-generated method stub
+		int saveTempCnt = this.sqlSession.insert(mapper_namespace+"saveTempTranSpec", tranSpecDTO);
+		
+		return saveTempCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecIssueList() {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecIssueList = this.sqlSession.selectList(mapper_namespace+"getTranSpecIssue");
+		
+		return tranSpecIssueList;
+	}
+
 }

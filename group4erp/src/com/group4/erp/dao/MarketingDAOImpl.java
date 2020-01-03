@@ -10,6 +10,7 @@ import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
+import com.group4.erp.OrderDTO;
 
 @Repository
 public class MarketingDAOImpl implements MarketingDAO {
@@ -105,6 +106,22 @@ public class MarketingDAOImpl implements MarketingDAO {
 		int updateEvntCnt = this.sqlSession.update(mapper_namespace+"updateEvntState");
 		
 		return updateEvntCnt;
+	}
+
+	@Override
+	public List<OrderDTO> getOnlineOrderList() {
+		// TODO Auto-generated method stub
+		List<OrderDTO> onlineOrderList = this.sqlSession.selectList(mapper_namespace+"getOnlineOrderList");
+		
+		return onlineOrderList;
+	}
+
+	@Override
+	public int getTotRevenue() {
+		// TODO Auto-generated method stub
+		int tot_revenue = this.sqlSession.selectOne(mapper_namespace+"getTotRevenue");
+		
+		return tot_revenue;
 	}
 
 }

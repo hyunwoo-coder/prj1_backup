@@ -186,8 +186,12 @@ public class AccountController {
 			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
 			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
 			
+			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList();
+			mav.addObject("tranSpecIssueList", tranSpecIssueList);
+			
 			mav.addObject("corp_tran_cnt", corp_tran_cnt);
 			mav.addObject("corp_tran_list", corp_tran_list);
+			mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
@@ -212,6 +216,7 @@ public class AccountController {
 			
 			mav.addObject("tranSpec_cnt", tranSpec_cnt);
 			mav.addObject("tranSpecList", tranSpecList);
+			mav.addObject("order_no", order_no);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
@@ -230,13 +235,42 @@ public class AccountController {
 		
 		try {
 			
-			
+			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList();
+			mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
 		} 
 		
 		return mav;		
+	}
+	
+	
+	@RequestMapping( 
+			value="/issueTranSpec.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	
+	@ResponseBody
+	public int issueTranSpec(TranSpecDTO tranSpecDTO) {
+		
+		int issueCnt = 0;
+		System.out.println("issueTranSpec() 메소드 시작");
+		System.out.println("order_no=="+tranSpecDTO.getOrder_no());
+		//System.out.println("order_dt=="+tranSpecDTO.getOrder_dt());
+		//System.out.println("corp_no=="+tranSpecDTO.getCorp_no());
+		
+		try {
+					
+			issueCnt = this.accountService.saveTempTranSpec(tranSpecDTO);
+				
+		} catch(Exception e) {
+			System.out.println("issueTranSpec() 메소드에서 예외 발생>>> "+e);
+			issueCnt = -1;
+		} 
+				
+		return issueCnt;		
 	}
 
 }
