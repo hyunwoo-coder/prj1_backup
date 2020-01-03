@@ -40,6 +40,10 @@ public interface HrDAO {
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
 	
-	int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO);
+	
+	
+	int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO);
+	
+	int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO);
 
 }

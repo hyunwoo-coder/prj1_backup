@@ -431,7 +431,9 @@ td{
 				<td></td>
 			</tr>
 		</table>
-		<table><tr height=1><td></td></tr></table>
+		<!-- <div height=3></div> -->
+		<!-- <table><tr height=1 border=0><td></td></tr></table> -->
+		<br>
 		<button onclick="closeDiv(this);">닫기</button>
 	</div>
 	

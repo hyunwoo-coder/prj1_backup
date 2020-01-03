@@ -330,12 +330,29 @@ public class HRController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//비동기 방식으로 휴가 신청 현황을 수정하는 메소드
 	@RequestMapping(value="/dayoffUpdateProc.do" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
 		int dayoffUpdateCnt = 0;
+		int dayoffUpdate = 0;
 		try {
-			dayoffUpdateCnt = this.hrservice.dayoffUpdateProc(hrDayoffDTO);
+			dayoffUpdate = this.hrservice.dayoffUpdateProcI(hrDayoffDTO);
+			if(dayoffUpdate != 1) {
+				return 0;
+			}
+			dayoffUpdateCnt = this.hrservice.dayoffUpdateProcII(hrDayoffDTO);
 		}catch(Exception e) {
 			System.out.println("<휴가 현황 수정 실패>");
 			System.out.println("예외 발생=>"+e);

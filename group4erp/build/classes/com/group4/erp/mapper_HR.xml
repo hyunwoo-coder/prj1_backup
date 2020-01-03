@@ -136,6 +136,20 @@
 	</select>
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<select id='getDayOffListCnt' resultType="int">
 		select count(*) from emp_dayoff where 1=1 and (end_day_off &gt;= sysdate)	
 	</select>
@@ -145,20 +159,70 @@
 	<select id='getDayOffList' resultType="java.util.HashMap"> 
 	select * from (select zzz.*, rownum RNUM from(	
 		select
-			ed.emp_no||'' as "emp_no" 
-		    ,(select d.dep_name from dept d, employee e where ed.emp_no = e.emp_no and d.dep_no = e.dep_no) as "dep_name"
-		    ,(select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = ed.emp_no) as "jikup" 
-		    ,(select e.emp_name from employee e where ed.emp_no = e.emp_no) as "emp_name" 
-		    ,(select cd.dayoff_name from code_dayoff cd where ed.dayoff_cd = cd.dayoff_cd ) as "dayoff_name" 
-		    ,to_char(ed.start_day_off, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN') as "start_day_off"
-		    ,to_char(ed.end_day_off, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN') as "end_day_off"
-		    ,ed.using_day_off||'' as "using_day_off"
-		    ,ed.remain_day_off||'' as "remain_day_off"
-		    ,ed.day_off_tot||'' as "day_off_tot"
-		from emp_dayoff ed
-		where 1=1 and (ed.end_day_off &gt;= sysdate)
+			da.emp_no||'' as "emp_no"
+			,dayoff_apply_no||'' as "dayoff_apply_no"
+		    ,(select d.dep_name from dept d, employee e where da.emp_no = e.emp_no and d.dep_no = e.dep_no) as "dep_name"
+		    ,(select j.jikup from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = da.emp_no) as "jikup"
+		    ,(select e.emp_name from employee e where da.emp_no = e.emp_no) as "emp_name"
+		    ,(select cd.dayoff_name from code_dayoff cd where da.dayoff_cd = cd.dayoff_cd ) as "dayoff_name"
+		    ,to_char(da.start_dayoff, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN') as "start_dayoff"
+		    ,to_char(da.end_dayoff, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN') as "end_dayoff"
+		    ,da.using_dayoff||'' as "using_dayoff"
+		    ,(select remain_dayoff from emp_dayoff_info where emp_no = da.emp_no)||'' as "remain_dayoff"
+		    ,(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no)||'' as "dayoff_tot"
+			,to_char(da.dayoff_apply_dt, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN') as "dayoff_apply_dt"
+			,decode(da.confirm, 'Y', '완료', 'N', '대기중') as "confirm"
+            ,case
+                when (da.start_dayoff &lt;= sysdate and sysdate &lt;= da.end_dayoff)
+                then '휴가중'
+                when (da.start_dayoff &gt; sysdate and da.end_dayoff &gt; sysdate)
+                then '휴가전'
+                when (da.end_dayoff &lt; sysdate)
+                then '휴가후'
+            end as "dayoffState"
+		from EMP_DAYOFF_APPLY da
+		order by da.start_dayoff desc
 	) zzz ) where <![CDATA[RNUM >= ${selectPageNo * rowCntPerPage - rowCntPerPage + 1} and RNUM <= ${selectPageNo * rowCntPerPage} ]]>
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<update id="dayoffUpdateProcI" parameterType="com.group4.erp.HrDayoffDTO">
+		update EMP_DAYOFF_INFO 
+		set remain_dayoff = remain_dayoff - (to_number(#{using_dayoff}) - (select using_dayoff from EMP_DAYOFF_APPLY where emp_no = to_number(#{emp_no})))
+		where emp_no = to_number(#{emp_no}) 
+	</update>
+	
+	<update id="dayoffUpdateProcII" parameterType="com.group4.erp.HrDayoffDTO">
+		update EMP_DAYOFF_APPLY 
+		set dayoff_cd=to_number(#{dayoff_cd})
+			,start_dayoff = to_date(#{start_dayoff},'YYYY-MM-DD') 
+			,end_dayoff = to_date(#{end_dayoff},'YYYY-MM-DD')
+			,using_dayoff = to_number(#{using_dayoff})
+		where emp_no = to_number(#{emp_no}) 
+	</update>
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<select id='getEmpInoutListCnt' parameterType="com.group4.erp.HrListSearchDTO" resultType="int">
 		select count(*) from emp_inout eio 
@@ -239,12 +303,5 @@
 		)
 	</insert>
 	
-	<update id="dayoffUpdateProc" parameterType="com.group4.erp.HrDayoffDTO">
-		update emp_dayoff 
-		set dayoff_cd=to_number(#{dayoff_cd})
-			,start_day_off = to_date(#{start_day_off},'YYYY-MM-DD') 
-			,end_day_off = to_date(#{end_day_off},'YYYY-MM-DD')
-		where emp_no = to_number(#{emp_no}) 
-			
-	</update>
+	
 </mapper>

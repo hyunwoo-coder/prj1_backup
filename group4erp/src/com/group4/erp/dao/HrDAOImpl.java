@@ -74,6 +74,7 @@ public class HrDAOImpl implements HrDAO {
 		return getDayOffListCnt;
 	}
 
+	//휴가 신청 현황 리스트
 	@Override
 	public List<Map<String, String>> getDayOffList(HrListSearchDTO hrListSearchDTO) {
 		List<Map<String, String>> getDayOffList = this.sqlSession.selectList(
@@ -82,7 +83,27 @@ public class HrDAOImpl implements HrDAO {
 				);
 		return getDayOffList;
 	}
+	
+	
+	public int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdate = this.sqlSession.update(
+				mapper_namespace+"dayoffUpdateProcI"
+				,hrDayoffDTO
+				);	
+		return dayoffUpdate;
+	}
+	
+	@Override
+	public int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdateCnt = this.sqlSession.update(
+				mapper_namespace+"dayoffUpdateProcII"
+				,hrDayoffDTO
+				);		
+		return dayoffUpdateCnt;
+	}
+	
 
+	
 	@Override
 	public int getEmpInoutListCnt(HrListSearchDTO hrListSearchDTO) {
 		
@@ -163,14 +184,7 @@ public class HrDAOImpl implements HrDAO {
 	}
 
 
-	@Override
-	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
-		int dayoffUpdateCnt = this.sqlSession.update(
-				mapper_namespace+"dayoffUpdateProc"
-				,hrDayoffDTO
-				);		
-		return dayoffUpdateCnt;
-	}
+
 	
 	
 

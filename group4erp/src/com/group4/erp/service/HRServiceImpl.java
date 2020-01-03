@@ -114,24 +114,25 @@ public class HRServiceImpl implements HRService {
 
 	@Override
 	public List<SalaryDTO> getAvgSalChart() {
-		// TODO Auto-generated method stub
-		
 		List<SalaryDTO> avgSalInfo = this.hrDAO.getAvgSalChart();
-		
 		return avgSalInfo;
 	}
 	
 
 	public int getNewEmpInsertCnt(EmployeeDTO employeeDTO) {
-		
 		int newEmpInsertCnt = this.hrDAO.getNewEmpInsertCnt(employeeDTO);
-		
 		return newEmpInsertCnt;
+	}
+	
+	@Override
+	public int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdate = this.hrDAO.dayoffUpdateProcI(hrDayoffDTO);
+		return dayoffUpdate;
 	}
 
 	@Override
-	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
-		int dayoffUpdateCnt = this.hrDAO.dayoffUpdateProc(hrDayoffDTO);
+	public int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdateCnt = this.hrDAO.dayoffUpdateProcII(hrDayoffDTO);
 		return dayoffUpdateCnt;
 	}
 	
