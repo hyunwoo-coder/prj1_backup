@@ -78,7 +78,7 @@ $(document).ready(function(){
    function goNewBookInfo(){
 	   //alert("책등록 구현중");
 	   //return;
-	   location.replace("/group4erp/viewSignUpBook.do")
+	   location.href="/group4erp/viewSignUpBook.do";
    }
    
    function goBookContentForm(isbn13_search){
@@ -106,7 +106,7 @@ $(document).ready(function(){
 <h1>[재고 관리]</h1>
    <form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
       <!-- <div class="table_layout">  -->
-      <table  width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+      <table border=1 bordercolor="#000000" cellpadding=5 align=center>
          <!-- <colgroup>
             <col width="20%" />
             <col width="*" />
@@ -183,7 +183,7 @@ $(document).ready(function(){
     
       <br>
    <form>
-      <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=850>
+      <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5>
          <tr>
          	<th>번호
          	<c:choose>
