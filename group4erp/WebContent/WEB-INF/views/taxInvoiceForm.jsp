@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common.jsp" %>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!DOCTYPE html>
 <html>
@@ -18,8 +20,15 @@
 			
 			searchCorp();
 		});
-			
 
+
+		$("[name=open_req_dt]").datepicker({
+   		 	onSelect: function() { 
+   	 		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
+   	    	 var dateObject = $(this).datepicker('getDate');
+   	    	 //alert(dateObject.val()); 
+   			}
+		});
 	});
 
 	function saveTaxInvoiceTemp() {
@@ -67,7 +76,7 @@
 <body><center>
 	<h3>세금계산서</h3>
 	<form name="taxInvoiceForm" method="post" action="/group4erp/insertTaxInvoice.do" >
-		<table class="ourCompanyInfoForm tbcss1" name="ourCompanyInfoForm" cellpadding="5" cellspacing="5" width="800">
+		<table class="ourCompanyInfoForm tab" name="ourCompanyInfoForm" cellpadding="5" cellspacing="5" width="800">
 			<tr>
 				<td rowspan="5" width="150" align="center">공급자</td><td width="100">사업자번호</td><td>110-11-98765</td>
 			</tr>
@@ -87,7 +96,7 @@
 	</form>	
 	
 	<form name="buyerInfoForm" method="post" action="/group4erp/selectCorp.do">
-		<table class="BuyerInfoTable tbcss1" name="BuyerInfoForm" cellpadding="5" cellspacing="5" width="800">
+		<table class="BuyerInfoTable tab" name="BuyerInfoForm" cellpadding="5" cellspacing="5" width="800">
 			<tr>
 				<td rowspan="5" width="100" align="center">공급받는자
 					<select name="corpList">

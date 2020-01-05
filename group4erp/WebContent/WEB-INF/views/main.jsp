@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YES4조 ERP 메인 페이지</title>
+<title>IZ Books ERP 메인 페이지</title>
 </head>
 <%--<header width=95%><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></header> --%>
 <body><center>
@@ -175,7 +175,15 @@
 			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
 				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
 			</c:if>
-			<!-- </section> -->	
+			
+			<c:if test="${subMenu.equals('viewSalesInfoList') }">
+				<%@ include file="/WEB-INF/views/salesInfoList.jsp" %>
+			</c:if>
+			
+			<c:if test="${subMenu.equals('viewTranSpecIssueList') }">
+				<%@ include file="/WEB-INF/views/tranSpecList.jsp" %>
+			</c:if>
+
 		</td>
 	</tr>
 	<tr height="50">

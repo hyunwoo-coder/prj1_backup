@@ -14,7 +14,8 @@
 	$(document).ready(function(){
 	
 		headerSort("eventListTable", 0);
-
+		$(".updateArea").hide();
+		
 		setTableTrBgColor(
 				"eventListTable",	//테이블 class 값
 				"${headerColor}",			//헤더 tr 배경색
@@ -71,81 +72,109 @@
 		goSearch();
 	}
 
-
-	function showTime() {
-		//현재 날짜를 관리하는 Date 객체 생성
-		var today = new Date();
-		//----------------------------------------
-		//Date 객체에서 날짜 관련 각 데이터를 꺼내어 저장하는 변수 선언
-		var amPm = "오후";
-		var year = today.getFullYear();
-		var month = today.getMonth()+1;
-		var week = today.getDay();
-		var date = today.getDate();
-		var hour = today.getHours();
-		var minute = today.getMinutes();
-		var second = today.getSeconds();
-
-		var week = ["일", "월", "화", "수", "목", "금", "토"][today.getDay()];
-		//날짜 관련 각 데이터가 10 미만이면 앞에 0 붙이기
-		//오전, 오후 여부 판단해서 저장하기
+	function updateEventInfo(idx, evnt_no) {
 		
-		if(month<10) {
-			month = "0"+month;
-		}
-
-		if(date<10) {
-			date = "0"+date;
-		}
-
-		if(hour<12) {
-			amPm = "오전";
-		}
-
-		if(hour>12) {
-			hour=hour-12;
-		}
-
-		if(hour<10) {
-			hour="0"+hour;
-		}
-
-		if(minute<10) {
-			minute = "0"+minute;
-		}
-
-		if(second<10) {
-			second = "0" + second;
-		}
-		//id="nowTime"가 있는 태그영역 내부에 시간 문자열 삽입
-
-		document.getElementById("nowTime").innerHTML = year+"년"+month+"월"+date+"일("+week+")"+amPm+" "+hour+"시 "+minute+"분 "+second+"초";
-		
+		var thisTr = $(idx).parent().parent();
+	      var delTr = $('.eventListTable [name=test]');
+	      if(delTr.size()>0){
+	    	  delTr.remove();
+	      }
+	      
+	      //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
+	      //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
+	      
+	      //var str = $('.qqq').html();
+	          
+	      //var thisTr = $(idx).parent().parent();
+	      
+	      
+	      var htmlCode = "<tr name='test' align=center> <td colspan=7>"
+		  htmlCode += "<div class='updateCorpDiv'>"
+	      htmlCode += "<form name='updateCorpForm'>"
+	      htmlCode += "<table class='innertable tab' align=center>"
+	      htmlCode += "<tr> <th>이벤트 종류 <td><input type='text' name='corp_no'>"
+	      htmlCode += "<tr> <th>이벤트 타이틀 <td><input type='text' name='evnt_title'>"
+	      htmlCode += "<tr> <th>시작일 <td><input tyep='text' name='evnt_start_dt'>"
+	   	  htmlCode += "<tr> <th>종료일 <td><input tyep='text' name='evnt_end_dt'>"
+	      htmlCode += "</table> </from>"
+	      htmlCode += "<input type='button' value='저장' name='updateCorp'>  </div>"
+	      
+	      thisTr.after(htmlCode);
+	    
 	}
 
-	function startTime() {
-		showTime();		//1초 딜레이 되어 시간이 표시되는 현상을 제거하기 위해 showTime() 함수를 한 번 호출한다.
-		//-----------------------------------
-		//1초마다 showTime() 함수를 호출하기
-		//-----------------------------------
-		window.setInterval("showTime()", 1000);		//window.setInterval(function() { showTime(); }, 1000);
+	function deleteNotYetEvent() {
+		
+		var evnt_no = [];
+		var cnt=0;
+
+		$("[name=delCheckBox]").each(function() {
+		
+			var thisObj = $(this);
+
+			if(thisObj.is(":checked")) {
+				
+				evnt_no.push(thisObj.val());
+			}
+		});
+					
+		if(evnt_no.length==0) {
+			alert("선택된 이벤트가 없습니다.");
+		}
+
+		$("[name=evnt_no]").val(evnt_no);
+
+		//alert($('[name=deleteCorpForm]').serialize());
+		$.ajax({
+			url : "/group4erp/deleteEvntProc.do",				//호출할 서버쪽 URL 주소 설정
+			type : "post",										//전송 방법 설정
+			data : $('[name=deleteEvntForm]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정
+			
+			success : function(delCnt) {
+				if(delCnt>=1) {
+					alert("삭제 성공!");
+					
+					location.replace("/group4erp/viewEventList.do");
+				} else if(delCnt==-1) {	
+					alert("이벤트가 이미 삭제되었습니다!");
+					
+					location.replace("/group4erp/viewEventList.do");
+
+				} else {
+					alert("서버쪽 DB 연동 실패!");
+				}
+			}
+
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}	
+		});
 	}
 
 	</script>
 </head>
-<body onLoad="startTime();"><center>
+<body><center>
 
 	<h1>이벤트 현황</h1>
-	<label> <span id="nowTime"> </span> [이벤트 총 횟수] : ${eventCnt}회 </label>
-					<select name="rowCntPerPage">
-						<option value="10">10
-						<option value="15">15
-						<option value="20">20
-						<option value="25">25
-						<option value="30">30
-					</select>행보기 <br><br>
-
+    <input type="hidden" name="selectPageNo">
+    <input type="hidden" name="sort">
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
+		<table border=0>
+			<tr>
+	    		<td align="left">
+	    			<label> [전체 이벤트 횟수 ] : ${eventCnt}회 </label><br>
+	    			<label> [담당 이벤트 행사 횟수] : ${eventCnt}회 </label>
+	            	<select name="rowCntPerPage">
+	              		<option value="10">10</option>
+	               		<option value="15">15</option>
+	               		<option value="20">20</option>
+	               		<option value="25">25</option>
+	               		<option value="30">30</option>
+	            	</select> 행보기
+	            </td>
+	        </tr>
+		</table>
 		<table name="searchEvntTable">
 			<tr>
 				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
@@ -173,7 +202,9 @@
 		<input type="hidden" name="sort" >
 	</form>
 	
-	<input type="button" value="이벤트 신청" onClick="reserveEvent();">
+	<input type="button" value="이벤트 신청" onClick="reserveEvent();">&nbsp;
+	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br>
+	<div id="comment" style="color:red;">대기중인 이벤트 행사만 삭제할 수 있습니다.</div>
 	
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -182,9 +213,10 @@
 		</tr>
 	</table>
 	
+
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
-		<table class="eventListTable tbcss2" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
-			<tr>
+		<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
+			<tr><th></th>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 이벤트 번호</th>
@@ -256,23 +288,48 @@
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  ">상태</th>
 					</c:otherwise>
 				</c:choose>
-			
+				<th>비고</th>
 			</tr>
 			<tr>
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
-				<td align=center>${eventList.evnt_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
-				<td align=center>${eventList.evnt_category}</td>
-				<td align=center>${eventList.evnt_title}</td>
-				<td align=center>${eventList.evnt_start_dt}</td>
-				<td align=center>${eventList.evnt_end_dt}</td>
-				<td align=center>${eventList.evnt_stat}</td>
-			</tr>		
+					<td class="delCheckBox" align=center>
+						<c:if test="${eventList.evnt_stat eq '대기중' }">
+							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
+						</c:if>
+					</td>
+					<td align=center>${eventList.evnt_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
+					<td align=center>${eventList.evnt_category}</td>
+					<td align=center>${eventList.evnt_title}</td>
+					<td align=center>${eventList.evnt_start_dt}</td>
+					<td align=center>${eventList.evnt_end_dt}</td>
+					<td align=center>${eventList.evnt_stat}</td>
+					<td><c:if test="${eventList.evnt_stat eq '대기중' }">
+							<input type="button" name="updateBtn" value="수정" onClick="updateEventInfo(this,'${eventList.evnt_no}');">
+						</c:if></td>
+				</tr>		
+				
+				<tr class="updateArea" style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
+					<td class="delCheckBox" align=center>
+						<c:if test="${eventList.evnt_stat eq '대기중' }">
+							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
+						</c:if>
+					</td>
+					<td align=center>${eventList.evnt_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
+					<td align=center>${eventList.evnt_category}</td>
+					<td align=center>${eventList.evnt_title}</td>
+					<td align=center>${eventList.evnt_start_dt}</td>
+					<td align=center>${eventList.evnt_end_dt}</td>
+					<td align=center>${eventList.evnt_stat}</td>
+				</tr>		
 			</c:forEach>
 		</table><br>
 	
 	</form>
 	
+	<form name="deleteEvntForm" method="post" action="/group4erp/deleteEvntProc.do">
+		<input type="hidden" name="evnt_no">
+	</form>
 	
 </center>
 </body>

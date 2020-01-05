@@ -54,7 +54,11 @@ public class MyWorkController {
 			mav.addObject("publisherList", publisherList);
 			
 			//===================================================================================================
-
+			
+			if(myWorkSearchDTO.getEmp_no()==null) {
+				myWorkSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
+			}
+			
 			//페이징 처리를 위한 총 검색 개수 불러오는 코드
 			int myWorkListAllCnt = this.myWorkService.getMyWorkListAllCnt(myWorkSearchDTO);
 
@@ -75,23 +79,14 @@ public class MyWorkController {
 			//===================================================================================================
 			//검색된 관리 상품 목록 불러오는 코드
 			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myWorkSearchDTO);
-
 			//===================================================================================================
-			//검색 항목 불러오는 코드
-			/*List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
-			mav.addObject("categoryList", categoryList);
-			List<Map<String, String>> bookSize = this.myWorkService.getBookSizeList(myWorkSearchDTO);
-			mav.addObject("bookSize", bookSize);
-			List<Map<String, String>> branchList = this.myWorkService.getBranchList(myWorkSearchDTO);
-			mav.addObject("branchList", branchList);
-			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);*/
 			
 			mav.addObject("publisherList", publisherList);
 			mav.addObject("myWorkListAllCnt", myWorkListAllCnt);
 			mav.addObject("MyCareBookList", MyCareBookList);
 			
 
-		}catch(Exception e) {
+		} catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);
 		}

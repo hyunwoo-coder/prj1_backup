@@ -3,7 +3,8 @@ package com.group4.erp;
 public class AdApplyDTO {
 	
 
-	private String ad_apply_no;
+	//private String ad_apply_no;
+	private int ad_apply_no;
 	private String corp_no;
 	private String applicant_name;
 	private String emp_no;
@@ -12,9 +13,25 @@ public class AdApplyDTO {
 	private String reg_dt;
 	private String open_req_dt;
 	private String open_req_area;
+	private int open_req_area_cd;
 	private String ad_term;
 	private String ad_pay_method;
 	private String ad_stat;
+	private String ad_state_cd;
+
+	public int getOpen_req_area_cd() {
+		return open_req_area_cd;
+	}
+	public void setOpen_req_area_cd(int open_req_area_cd) {
+		this.open_req_area_cd = open_req_area_cd;
+	}
+	
+	public String getAd_state_cd() {
+		return ad_state_cd;
+	}
+	public void setAd_state_cd(String ad_state_cd) {
+		this.ad_state_cd = ad_state_cd;
+	}
 	
 	public String getAd_stat() {
 		return ad_stat;
@@ -23,10 +40,10 @@ public class AdApplyDTO {
 		this.ad_stat = ad_stat;
 	}
 	
-	public String getAd_apply_no() {
+	public int getAd_apply_no() {
 		return ad_apply_no;
 	}
-	public void setAd_apply_no(String ad_apply_no) {
+	public void setAd_apply_no(int ad_apply_no) {
 		this.ad_apply_no = ad_apply_no;
 	}
 	public String getCorp_no() {

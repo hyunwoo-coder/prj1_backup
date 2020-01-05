@@ -17,6 +17,8 @@ import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.OrderDTO;
+
 import com.group4.erp.service.MarketingService;
 
 
@@ -27,6 +29,35 @@ public class MarketingController {
 	@Autowired
 	//private LoginService loginService;	
 	MarketingService marketingService;
+	
+	
+	@RequestMapping(value="/viewSalesInfoList.do")
+	public ModelAndView viewSalesInfoList(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewSalesInfoList");
+		mav.addObject("navigator", "[마케팅관리]-[판매현황]");
+		
+		try {
+			int online_order_cnt = this.marketingService.getOnlineOrderCnt();
+			int tot_revenue = this.marketingService.getTotRevenue();
+			List<OrderDTO> onlineOrderList = this.marketingService.getOnlineOrderList();
+			
+			
+			
+			mav.addObject("onlineOrderCnt", online_order_cnt);
+			mav.addObject("onlineOrderList", onlineOrderList);
+			mav.addObject("tot_revenue", tot_revenue);
+			
+		} catch(Exception e) {
+			System.out.println("viewSalesInfoList() 메소드에서 예외 발생==="+e);
+		}
+		
+		return mav;
+	}
+	
 	
 	@RequestMapping(value="/viewNewBooksList.do")
 	public ModelAndView viewNewBookList(HttpSession session) {
@@ -51,6 +82,12 @@ public class MarketingController {
 			
 		try {
 			
+			int updateEvntState = this.marketingService.updateEvntState();	//이벤트 종료 여부를 업데이트함(이벤트 종료날이 지났으면 '종료'로 표시)
+			
+			System.out.println("(String)session.getAttribute()==="+(String)session.getAttribute("emp_id"));
+			
+			eventSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
+			
 			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
 			
 			if(eventCnt >0 ) {
@@ -61,8 +98,7 @@ public class MarketingController {
 					eventSearchDTO.setSelectPageNo(1);
 				}
 			}
-			
-			
+					
 			List<EventDTO> eventList = this.marketingService.getEventList(eventSearchDTO);
 			
 			mav.addObject("eventCnt", eventCnt);
@@ -97,6 +133,8 @@ public class MarketingController {
 		return mav;
 	}
 	
+	
+	//이벤트 신청하기
 	@RequestMapping( 
 			value="/insertEventProc.do"
 			,method=RequestMethod.POST
@@ -119,6 +157,34 @@ public class MarketingController {
 		} 
 				
 		return insertEventCnt;		
+	}
+	
+	
+	@RequestMapping(value="/deleteEvntProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int deleteEvntProc(@RequestParam(value="evnt_no") String[] evnt_no) {
+		int delCnt = 0;
+		
+		try {
+			
+			delCnt = this.marketingService.deleteEvnt(evnt_no);
+			
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
+			
+		} catch(Exception e) {
+			System.out.println("deleteEvntProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return delCnt;
 	}
 	
 	
@@ -154,8 +220,11 @@ public class MarketingController {
 		try {
 			
 			int ad_apply_cnt = this.marketingService.getAdApplyCnt();
+			List<CorporationDTO> corpList = this.marketingService.getCorpList();
+			
 			int adNum = ad_apply_cnt+1;
 			mav.addObject("adNum", adNum);
+			mav.addObject("corpList", corpList);
 			
 		} catch(Exception e) {
 			System.out.println("viewInsertAdApply() 메소드에서 예외 발생==="+e);
@@ -177,13 +246,17 @@ public class MarketingController {
 	)
 	
 	@ResponseBody
-	public int insertAd(AdApplyDTO adApplyDTO) {
+	public int insertAdProc(AdApplyDTO adApplyDTO) {
 		
 		int insertAdCnt = 0;
 		try {
-			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
 					
-			//insertCorpCnt = this.accountService.insertCorp(corporationDTO);
+			System.out.println("adApplyDTO.getEmp_no()==="+adApplyDTO.getEmp_no());
+			System.out.println("adApplyDTO.getImgDoc()==="+adApplyDTO.getImg_doc());
+			if(adApplyDTO.getImg_doc()==null) {
+				adApplyDTO.setImg_doc("temporary");
+			}
+			insertAdCnt = this.marketingService.insertAd(adApplyDTO);
 				
 		} catch(Exception e) {
 			System.out.println("insertAd() 메소드에서 예외 발생>>> "+e);

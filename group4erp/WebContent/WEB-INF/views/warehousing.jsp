@@ -33,8 +33,6 @@
 }
 
 
-
-
 @charset "UTF-8";
 	
 /*-----------------------------------------------------------------------*/ 
@@ -117,25 +115,16 @@ td{
 			    onSelect: function() { 
 			    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
 			        var dateObject = $(this).datepicker('getDate');
-			        alert(dateObject.val()); 
+			        //alert(dateObject.val()); 
 			    }
-	 			/* onClose: function( selectedDate ) {    
-	                // 시작일(fromDate) datepicker가 닫힐때
-	                // 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-	                $("#dateTill").datepicker( "option", "minDate", selectedDate );
-	            }   */              
 			});
  			$("#dateTill").datepicker({
 			    onSelect: function() { 
 			    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
 			        var dateObject = $(this).datepicker('getDate');
-			        alert(dateObject.val()); 
-			    }
-	 			/* onClose: function( selectedDate ) {
-	                // 종료일(toDate) datepicker가 닫힐때
-	                // 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
-	                $("#dateFrom").datepicker( "option", "maxDate", selectedDate );
-	            }  */        
+			        //alert(dateObject.val()); 
+
+			    }     
 			});
 
 			inputData( "[name=selectPageNo]", "${warehousingSearchDTO.selectPageNo}" );	
@@ -179,14 +168,15 @@ td{
 			
 		}
 
-		function goWarehousingContent( order_inven_no ){
-			/* alert('1');
-			alert(order_inven_no);
-			return; */
-			
-			
+		function goWarehousingContent(ele,order_inven_no ){
+			//alert($(ele).parent().html());
+			var test = $(ele).parent();
+
+		    var delTr = $('[name=thisTr]');
+		    if(delTr.size()>0){
+		         delTr.remove();
+		    }
 			$.ajax({
-				
 				//alert( $('[name=warehousingSearchForm]').serialize() );
             	//-----------------------------
                 // 호출할 서버쪽 URL 주소 설정
@@ -208,20 +198,33 @@ td{
                 ,success : function(data){
                    	if(data != null){
                        		$("#contentTable td:eq(0)").text(data.emp_name);
-                       		$("#contentTable td:eq(1)").text(data.order_stock_cnt);
-                       		$("#contentTable td:eq(2)").text(data.supply_rate);
+                       		$("#contentTable td:eq(1)").text(data.order_dt);
+                       		$("#contentTable td:eq(2)").text(data.order_stock_cnt);
                        		$("#contentTable td:eq(3)").text(data.cost);
-                       		$("#contentTable td:eq(4)").text(data.order_dt);
-                       		$("#contentTable td:eq(5)").text(data.branch_name);
-                       		$("#contentTable td:eq(6)").text(data.store_req_dt);
-                       		$("#contentTable td:eq(7)").text(data.book_name);
-                       		$("#contentTable td:eq(8)").text(data.book_publisher);
-                       		$("#contentTable td:eq(9)").text(data.cat_name);
-							$("#contecnt").css("display", "block");	
+                       		$("#contentTable td:eq(4)").text(data.supply_rate);
+                       		$("#contentTable td:eq(5)").text(data.store_req_dt);
+                       		$("#contentTable td:eq(6)").text(data.branch_name);
+                       		$("#contentTable td:eq(7)").text(data.isbn);
+                       		$("#contentTable td:eq(8)").text(data.book_name);
+                       		$("#contentTable td:eq(9)").text(data.book_publisher);
+                       		$("#contentTable td:eq(10)").text(data.cat_name);
+							//$("#contecnt").css("display", "block");	
+							setTableTrBgColor(
+									"tableColor",			//테이블 class 값
+									"${headerColor}",		//헤더 tr 배경색
+									"${oddTrColor}",		//홀수행 배경색
+									"${evenTrColor}",		//짝수행 배경색
+									"${mouseOverColor}"		//마우스 온 시 배경색
+							);
+							var insert = "<tr name='thisTr' bgcolor='white'><td colspan=5>"+$("#contecnt").html()+"</td></tr>"
+							
+							test.after(insert);
+							
+							
+							
                    	}
 							//$("#thisTable tr:eq(0)").siblings().click(function(){
 	                        //}); 
-
                 } 
                 //---------------------------------------------------
                 // 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
@@ -231,25 +234,70 @@ td{
                 }
              });
 
-
-
-            
-
 		}
-
-		function closeDiv(){
-			$("#contecnt").css("display", "none");	
-			$("#thisTable tr").removeAttr("bgcolor");
+		
+		function closeDiv(close){
+			/* $("#contecnt").css("display", "none");	
+			$("#thisTable tr").removeAttr("bgcolor"); */
+			$('[name=thisTr]').remove();
+			setTableTrBgColor(
+					"tableColor",			//테이블 class 값
+					"${headerColor}",		//헤더 tr 배경색
+					"${oddTrColor}",		//홀수행 배경색
+					"${evenTrColor}",		//짝수행 배경색
+					"${mouseOverColor}"		//마우스 온 시 배경색
+			);
+			
 	    }
 
+	    function goWhConfirm(wh_no){
+			alert(wh_no);
+
+			$.ajax({
+	            	//-----------------------------
+	                // 호출할 서버쪽 URL 주소 설정
+	                //-----------------------------
+	                url : "/group4erp/whConfirmProc.do"
+	                //----------------
+	                // 전송 방법 설정
+	                //----------------
+	                , type: "post"
+	                //--------------------------------------------
+	                // 서버로 보낼 파라미터명과 파라미터값을 설정
+	                //--------------------------------------------
+	                , data : "wh_no="+wh_no
+	                //-----------------------------------------------------------
+	                // 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정
+	                // 매개변수 upDelCnt 에는 수정/삭제 적용행의 개수가 들어온다
+	                //-----------------------------------------------------------
+	                ,success : function(whConfirmCnt){
+		                	if(whConfirmCnt == 1){
+			                      alert("입고가 확인되었습니다");
+			                      goWhSearch();
+			                      
+			                }
+//		                	else if(upDelCnt==-1){
+//		                		alert("게시물이 삭제되어 수정할 수 없습니다.");	
+//		                	}
+//		                	else if(upDelCnt==-2){
+//		                		alert("비밀번호가 잘못 입력되었습니다.");	
+//		                	} 
+			                else{
+			                      alert("서버쪽 DB 연동 실패");
+			                }
+	                } 
+	                //---------------------------------------------------
+	                // 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+	                //---------------------------------------------------
+	                , error : function(){
+	                   alert("서버 접속 실패");
+	                }
+	             });
+		}
 
 
 
-	    
 
-		
-
-		
 	</script>
 
 </head>
@@ -257,7 +305,7 @@ td{
 	<h1 class="fontNormal">[입고 현황]</h1><br>
 	
 	<form name="warehousingSearchForm" method="post" action="/group4erp/goWarehousingList.do">
-			<table class="tab" width="510" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 				<tr>
 					<th>지역
 					<td style="text-align:left" colspan=3 >
@@ -333,44 +381,74 @@ td{
 
 
 	<div id="contecnt" style="display:none;">
-		<table class="tab" width="600" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="tab" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
 		
 			<tr>
-				<th class="thcolor">주문자 <th class="thcolor">발주수량 <th class="thcolor">공급률 <th class="thcolor">발주금액 <th class="thcolor">발주신청일
+				<th class="thcolor">주문자</th>  
+				<th class="thcolor">발주신청일 </th> 
+				<th class="thcolor">발주수량</th> 
+				<th class="thcolor">발주금액</th> 
+				<th class="thcolor">공급률</th> 
+				<th class="thcolor">입고요청일</th> 
+			</tr>	
 			<tr>
-				<td><td><td><td><td>
-				
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
 			<tr>
-				<th class="thcolor">지사 <th class="thcolor">입고요청일 <th class="thcolor">책이름 <th class="thcolor">출판사 <th class="thcolor">카테고리
+				<th class="thcolor">지사</th> 
+				<th class="thcolor">ISBN</th> 
+				<th class="thcolor" colspan=2>책이름</th> 
+				<th class="thcolor">출판사</th>
+				<th class="thcolor">카테고리</th>
+			</tr>
 			<tr>
-				<td><td><td><td><td>
+				<td></td>
+				<td></td>
+				<td colspan=2></td>
+				<td></td>
+				<td></td>
+			</tr>
 		</table>
-		<table><tr height=5><td></table>
-		<button onclick="closeDiv();">닫기</button>
+		<table><tr height=1><td></td></tr></table>
+		<button onclick="closeDiv(this);">닫기</button>
 	</div>
 	
 	
-	<table><tr height=10><td></table>
+	<table><tr height=10><td></td></tr></table>
 	
 	
 	<form name="warehousingList" method="post" action="/group4erp/goWarehousingList.do">
       <table class="tableColor tab" id="thisTable" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
-         <tr>
-            <th style="cursor:pointer">NO<th style="cursor:pointer">입고일<th style="cursor:pointer">입고번호<th style="cursor:pointer">주문발주번호
          
-            <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
-					<tr class="trcolor" style="cursor:pointer" onClick="goWarehousingContent( ${warehousing.order_inven_no} );">
-						
-					<%-- <tr style="cursor:pointer" onClick="goWarehousingContent( ${warehousing.order_inven_no} );"> --%>
-					<!-- <tr style="cursor:pointer" onClick="alert(123456);"> -->
-						<td align=center> ${(loopTagStatus.index)+1}
-						<td align=center> ${warehousing.wh_dt}
-						<td align=center> ${warehousing.wh_no}
-						<td align=center> ${warehousing.order_inven_no}
-						
-						
+         <tr>
+            <th style="cursor:pointer">NO</th>
+            <th style="cursor:pointer">입고일</th>
+            <th style="cursor:pointer">입고번호</th>
+            <th style="cursor:pointer">주문발주번호</th>
+            <th style="cursor:pointer">입고</th>
+          </th>
+         
+         
+           <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
+					<tr class="trcolor" style="cursor:pointer">
+						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${(loopTagStatus.index)+1}</td>
+						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_dt}</td>
+						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_no}</td>
+						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.order_inven_no}</td>
+						<c:if test="${empty warehousing.wh_dt}">
+							<td align=center> <input type="button" value="입고" onclick="goWhConfirm(${warehousing.wh_no});"></td>
+						</c:if>
+						<c:if test="${!empty warehousing.wh_dt}">
+							<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">&nbsp;</td>
+						</c:if>
 					</tr>
 			</c:forEach>
+		
       </table>
       
      <table><tr height=10><td></table>
@@ -379,9 +457,6 @@ td{
 	
 	</form>
 	
-	
-	
-
 </center>
 </body>
 </html>

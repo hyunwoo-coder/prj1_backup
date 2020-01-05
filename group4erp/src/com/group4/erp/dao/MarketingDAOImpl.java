@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.group4.erp.AdApplyDTO;
+import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
+import com.group4.erp.OrderDTO;
 
 @Repository
 public class MarketingDAOImpl implements MarketingDAO {
@@ -64,6 +66,62 @@ public class MarketingDAOImpl implements MarketingDAO {
 		int eventAllCnt = this.sqlSession.selectOne(mapper_namespace+"getEventAllCnt");
 		
 		return eventAllCnt;
+	}
+
+	@Override
+	public List<CorporationDTO> getCorpList() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> corpList = this.sqlSession.selectList(mapper_namespace+"getCorpList");
+		
+		return corpList;
+	}
+
+	@Override
+	public int insertAd(AdApplyDTO adApplyDTO) {
+		// TODO Auto-generated method stub
+		int insertAdCnt = this.sqlSession.insert(mapper_namespace+"insertAd", adApplyDTO);
+		
+		return insertAdCnt;
+	}
+
+	@Override
+	public int getOnlineOrderCnt() {
+		// TODO Auto-generated method stub
+		int online_order_cnt = this.sqlSession.selectOne(mapper_namespace+"getOnlineOrderCnt");
+		
+		return online_order_cnt;
+	}
+
+	@Override
+	public int deleteEvnt(String[] evnt_no) {
+		// TODO Auto-generated method stub
+		int deleteEvntCnt = this.sqlSession.delete(mapper_namespace+"deleteEvnt", evnt_no);
+		
+		return deleteEvntCnt;
+	}
+
+	@Override
+	public int updateEvntState() {
+		// TODO Auto-generated method stub
+		int updateEvntCnt = this.sqlSession.update(mapper_namespace+"updateEvntState");
+		
+		return updateEvntCnt;
+	}
+
+	@Override
+	public List<OrderDTO> getOnlineOrderList() {
+		// TODO Auto-generated method stub
+		List<OrderDTO> onlineOrderList = this.sqlSession.selectList(mapper_namespace+"getOnlineOrderList");
+		
+		return onlineOrderList;
+	}
+
+	@Override
+	public int getTotRevenue() {
+		// TODO Auto-generated method stub
+		int tot_revenue = this.sqlSession.selectOne(mapper_namespace+"getTotRevenue");
+		
+		return tot_revenue;
 	}
 
 }

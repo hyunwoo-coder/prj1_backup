@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ include file = "/WEB-INF/views/common.jsp" %>
@@ -30,12 +30,10 @@
    height: 20px;
    border-width: thin;
 }
-	
+
 </style>
 <script>
 	$(document).ready(function(){
-	
-	
 		$("#datepicker").datepicker({
 		    onSelect: function() { 
 		    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
@@ -51,16 +49,16 @@
 		        alert(dateObject2.val()); 
 		    }
 		});
-	
 	});
 	
-		 function goBusinessTripList(){
-			location.replace("/group4erp/businessTripList.do");
-		 }
+	function goBusinessTripList(){
+		location.replace("/group4erp/businessTripList.do");
+	}
 		 
-		 function reset(){
-				document.businessTripForm.reset();
-		 }
+	function reset(){
+		document.businessTripForm.reset();
+	}
+	
 </script>	
 	
 <meta charset="UTF-8">
@@ -68,8 +66,8 @@
 </head>
 <body>
 	<form name="businessTripForm" method="post" action="/group4erp/businessTripForm.do">
-	<b>출장 신청서</b>
-	<table class="tbcss1" name=work_outside_info cellpadding="5" cellspacing="5" width="700">
+	<b> 출장 신청서 </b><br>
+	<table class="tab" name="work_outside_info" cellpadding="5" cellspacing="5">
 		<tr>
 			<th colspan="">출장희망일</th>
 				<td>
@@ -94,13 +92,13 @@
 		<tr>
 			<th>출장 사유</th>
 				<td >
-				<textarea name="work_outside_reason"  cols="50" rows="10" id="work_outside_reason" maxlanght="500"></textarea>
+				<textarea name="work_outside_reason" cols="50" rows="10" id="work_outside_reason" maxlenght="500"></textarea>
 				</td>
 		</tr>
 	</table>
 	<table>
 	</table>
-		<input type="button" calss="approval" value="결재" onClick="checkForm()">
+		<input type="button" class="approval" value="결재" onClick="checkForm()">
 		&nbsp;&nbsp;&nbsp;
 		<input type="button" value="초기화" onClick="reset()">
 		

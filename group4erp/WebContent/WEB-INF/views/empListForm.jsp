@@ -102,7 +102,7 @@ $(document).ready(function(){
 	<form na me="empListForm" method="post" action="/group4erp/viewEmpInfo.do">
 	
 	<div id="blankArea"><br></div>
-		<table class="empListTable tbcss1" cellpadding="5" cellspacing="5" width="500">		
+		<table class="empListTable tab" cellpadding="5" cellspacing="5">		
 			<thead>
 				<tr>
 				<c:choose>

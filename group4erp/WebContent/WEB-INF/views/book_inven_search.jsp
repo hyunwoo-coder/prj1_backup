@@ -103,19 +103,20 @@ $(document).ready(function(){
 </head>
 <body><center>
 <!-- <h5 align="left">재고현황 -> 도서정보조회</h5> -->
-<h1>[재고 관리]</h1>
+<h1 class="fontNormal">[재고 관리]</h1>
    <form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
       <!-- <div class="table_layout">  -->
-      <table border=1 bordercolor="#000000" cellpadding=5 align=center>
+
+      <table class="tab" bordercolor="#000000" cellspacing="5" cellpadding="5" align=center>
          <!-- <colgroup>
             <col width="20%" />
             <col width="*" />
          </colgroup> -->
-         <tr bgcolor="gray">
+         <tr>
          <th width=50>구분<th colspan=5>내용
          <tr>
-         <th bgcolor="gray">분야
-         <td align=center colspan=5>
+         <th>분야
+         <td align=left colspan=5>
             <input type="checkbox" name="category_name" value="소설">소설
             <input type="checkbox" name="category_name" value="사회">사회
             <input type="checkbox" name="category_name" value="과학">과학
@@ -127,8 +128,8 @@ $(document).ready(function(){
             <input type="checkbox" name="category_name" value="잡지">잡지
             <input type="checkbox" name="category_name" value="요리">요리
          <tr> 
-         <th bgcolor="gray">판형
-         <td align=center colspan=5>
+         <th>판형
+         <td align=left colspan=5>
             <input type="checkbox" name="size_cd" value="01">신국판
             <input type="checkbox" name="size_cd" value="02">국판
             <input type="checkbox" name="size_cd" value="03">46판
@@ -137,25 +138,25 @@ $(document).ready(function(){
             <input type="checkbox" name="size_cd" value="06">국배판
             <input type="checkbox" name="size_cd" value="07">타블로이드
          <tr>
-         <th bgcolor="gray">지역
+         <th>지역
 
-         <td align=center colspan=5>
+         <td align=left colspan=5>
          	 <c:forEach items="${requestScope.inventory_loc}" var="inven" varStatus="loopTagStatus">
              	<input type="checkbox" name="inventory_loc" value="${loopTagStatus.index+1}">${inven.branch_name}
              </c:forEach>    
          <tr>
-         <th bgcolor="gray">키워드
+         <th>키워드
          <td>
-            <input type="text" name="book_keyword" size=30>
-         <th bgcolor="gray">출판사
-         <td align=center>
+            <input type="text" name="book_keyword" size=15>
+         <th>출판사
+         <td align=left>
             <select name="searchPublisher">
                <option value="">--------</option>
                <c:forEach items="${requestScope.publisher}" var="publisher" varStatus="loopTagStatus">
                   <option value="${publisher.publisher}">${publisher.publisher}</option>
                </c:forEach>
-         <th bgcolor="gray">판매 상황
-         <td align=center>
+         <th>판매 상황
+         <td align=left>
             <input type="radio" name="is_print" value="n">절판
             <input type="radio" name="is_print" value="y">판매중
       </table>
@@ -183,7 +184,7 @@ $(document).ready(function(){
     
       <br>
    <form>
-      <table class="bookTable tbcss2" border=0 cellspacing=0 cellpadding=5>
+      <table class="bookTable tab" border=0 cellspacing=0 cellpadding=5 >
          <tr>
          	<th>번호
          	<c:choose>

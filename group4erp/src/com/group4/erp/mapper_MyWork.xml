@@ -62,24 +62,24 @@
 	<select id='getMyCareBookList' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
 			select
-                ISBN13                     as "ISBN13"
-                ,book_name                 as "book_name"
+                b.ISBN13                     as "ISBN13"
+                ,b.book_name                 as "book_name"
                 ,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd) as "cat_name"
-                ,book_price              as "book_price"
-                ,book_pages||''         as "book_pages"
-                ,writer                 as "writer"
-                ,publisher                 as "publisher"
-                ,size_cd||''             as "size_cd"
-                ,is_print             as "is_print"
-                ,emp_no||''                as "emp_no"
-                ,to_char(published_dt,'YYYY-MM-DD') as "published_dt" 
-                ,editor                    as "editor"
+                ,b.book_price              as "book_price"
+                ,b.book_pages||''         as "book_pages"
+                ,b.writer                 as "writer"
+                ,b.publisher                 as "publisher"
+                ,b.size_cd||''             as "size_cd"
+                ,b.is_print             as "is_print"
+                ,b.emp_no||''                as "emp_no"
+                ,to_char(b.published_dt,'YYYY-MM-DD') as "published_dt" 
+                ,b.editor                    as "editor"
                 ,(select si.ISBN_cnt from stock_info si where b.ISBN13 = si.ISBN13) as  "ISBN_cnt"
-                ,(select branch_name from code_branch where branch_cd in(select branch_cd from stock_info where ISBN13 in(b.ISBN13))) as  "branch_name"
-            from book b    
-            where emp_no = 1
-			
-			order by ISBN13 asc
+                ,(select c.branch_name from code_branch c where c.branch_cd in(select bc.branch_cd from stock_info bc where bc.ISBN13 in(b.ISBN13))) as  "branch_name"
+            from book b 
+            where b.emp_no = '${emp_no}'
+			<include refid="MyCareBookSearchWere" />
+			order by b.ISBN13 asc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>
@@ -116,6 +116,7 @@
 		select count(*)from(
 			select b.*, cc.cat_name, si.ISBN_Cnt, cb.branch_name from book b, code_category cc, stock_info si, code_branch cb
 	        	where cc.cat_cd = b.cat_cd and b.ISBN13 = si.ISBN13(+) and si.branch_cd = cb.branch_cd(+)
+	        	and b.emp_no = '${emp_no}'
 				<include refid="MyCareBookSearchWere" />
 		)
 	</select>

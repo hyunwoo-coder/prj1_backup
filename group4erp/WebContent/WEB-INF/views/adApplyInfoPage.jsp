@@ -29,17 +29,52 @@
 </head>
 <body><center>
 	<h1>광고신청현황</h1><br>
-	<b>2019년 12월 26일(목)</b>&nbsp; 기준
+	<label> <span id="nowTime"> </span> [현재 광고 정보] : ${adApplyCnt}회 </label>
+	<select name="rowCntPerPage">
+						<option value="10">10
+						<option value="15">15
+						<option value="20">20
+						<option value="25">25
+						<option value="30">30
+					</select>행보기 <br><br>
+			
+					
+	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
+		<table name="searchEvntTable">
+			<tr>
+				<td>[상태별]</td><td><input type="checkbox" value="01" name="evnt_stat">대기중
+									<input type="checkbox" value="03" name="evnt_stat">심사중
+									<input type="checkbox" value="02" name="evnt_stat">진행중
+									<input type="checkbox" value="04" name="evnt_stat">종료
+				</td>
+			</tr>
+			<tr>
+				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
+									<input type="button" value="모두검색" onClick="goSearchAll();"></td>
+			</tr>
+		</table>
+		<input type="hidden" name="selectPageNo" >
+		<input type="hidden" name="sort" >
+	</form>
+
+		
+	<input type="button" name="reserveAd" value="광고 신청" onClick="reserveAdForm();" />&nbsp;
+	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br>
 	
-	<input type="button" name="reserveAd" value="광고 신청" onClick="reserveAdForm();">
+	<div id="comment" style="color:red;">대기중인 광고 신청만 삭제할 수 있습니다.</div>
+	<div id="blankArea">&nbsp;</div>
 	
-	
-	<table class="adApplyTable tbcss1" name="adApplyTable" cellpadding="5" cellspacing="5">
+	<table class="adApplyTable tab" name="adApplyTable" cellpadding="5" cellspacing="5">
 		<tr>
-			<th>광고신청번호</th><th>업체번호</th><th>광고타이틀</th><th>등록일</th><th>상태</th>
+			
+			
+		</tr>
+		<tr>
+			<th></th><th>광고신청번호</th><th>업체번호</th><th>광고타이틀</th><th>등록일</th><th>상태</th>
 		</tr>
 		<c:forEach items='${adApplyList}' var="adApplyList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" onClick="viewEmpSalInfo(${empSal.emp_no});">
+				<td><input type="checkbox" name="deleteAd" onClick="deleteAd('${adApplyList.ad_apply_no}')"></td>
 				<td>${adApplyList.ad_apply_no}</td>
 				<td>${adApplyList.corp_no}</td>
 				<td>${adApplyList.ad_title}</td>

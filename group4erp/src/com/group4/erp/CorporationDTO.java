@@ -2,14 +2,24 @@ package com.group4.erp;
 
 public class CorporationDTO {
 	
-	String corp_no;
-	String corp_name;
-	String ceo_name;
-	String corp_addr;
-	String corp_fax;
-	String corp_tel;
-	String corp_business_area;
+	private String corp_no;
+	private String corp_name;
+	private String ceo_name;
+	private String corp_addr;
+	private String corp_fax;
+	private String corp_tel;
+	private String corp_business_area;
+	private String is_on_business;
 	
+	
+	public String getIs_on_business() {
+		return is_on_business;
+	}
+
+	public void setIs_on_business(String is_on_business) {
+		this.is_on_business = is_on_business;
+	}
+
 	
 	public String getCorp_no() {
 		return corp_no;

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
+import com.group4.erp.HrDayoffDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
 import com.group4.erp.HrListSearchDTO;
@@ -40,4 +41,7 @@ public interface HrDAO {
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
 
 	//String getMgrEmpName(EmployeeDTO employeeDTO);
+	
+	int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO);
+
 }

@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group4.erp.AdApplyDTO;
+import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
+import com.group4.erp.OrderDTO;
 import com.group4.erp.dao.MarketingDAO;
 
 @Service
@@ -62,6 +64,62 @@ public class MarketingServiceImpl implements MarketingService {
 		int eventAllCnt = this.marketingDAO.getEventAllCnt();
 		
 		return eventAllCnt;
+	}
+
+	@Override
+	public List<CorporationDTO> getCorpList() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> corpList = this.marketingDAO.getCorpList();
+		
+		return corpList;
+	}
+
+	@Override
+	public int insertAd(AdApplyDTO adApplyDTO) {
+		// TODO Auto-generated method stub
+		int insertAdCnt = this.marketingDAO.insertAd(adApplyDTO);
+		
+		return insertAdCnt;
+	}
+
+	@Override
+	public int getOnlineOrderCnt() {
+		// TODO Auto-generated method stub
+		int online_order_cnt = this.marketingDAO.getOnlineOrderCnt();
+		
+		return online_order_cnt;
+	}
+
+	@Override
+	public int deleteEvnt(String[] evnt_no) {
+		// TODO Auto-generated method stub
+		int deleteEvntCnt = this.marketingDAO.deleteEvnt(evnt_no);
+		
+		return deleteEvntCnt;
+	}
+
+	@Override
+	public int updateEvntState() {
+		// TODO Auto-generated method stub
+		int updateEvntCnt = this.marketingDAO.updateEvntState();
+		
+		return updateEvntCnt;
+	}
+
+	@Override
+	public List<OrderDTO> getOnlineOrderList() {
+		// TODO Auto-generated method stub
+		List<OrderDTO> onlineOrderList = this.marketingDAO.getOnlineOrderList();
+		
+		return onlineOrderList;
+	}
+
+	@Override
+	public int getTotRevenue() {
+		// TODO Auto-generated method stub
+		int tot_revenue = this.marketingDAO.getTotRevenue();
+		
+		return tot_revenue;
 	}
 	
 	

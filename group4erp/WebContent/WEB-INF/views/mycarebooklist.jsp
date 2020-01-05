@@ -35,64 +35,69 @@
 
 </style>
 <script>
-   $(document).ready(function(){
-      $('[name=rowCntPerPage]').change(function(){
-         goSearchMyWorkList();
-      });
-      
-      $(".pagingNumber").html(
-            getPagingNumber(
-               "${myWorkListAllCnt}"                  //검색 결과 총 행 개수
-               ,"${myWorkSearchDTO.selectPageNo}"         //선택된 현재 페이지 번호
-               ,"${myWorkSearchDTO.rowCntPerPage}"         //페이지 당 출력행의 개수
-               ,"10"                              //페이지 당 보여줄 페이지번호 개수
-               ,"goSearchMyWorkList();"                        //페이지 번호 클릭 후 실행할 자스코드
-            )
-         );
-      
-      
-      inputData("[name=selectPageNo]", "${myWorkSearchDTO.selectPageNo}");
-      inputData("[name=rowCntPerPage]", "${myWorkSearchDTO.rowCntPerPage}");
-      inputData("[name=search_keyword]", "${myWorkSearchDTO.search_keyword}");
+
+	$(document).ready(function(){	
+
+		//goSearchMyWorkList();
+		
+		$('[name=rowCntPerPage]').change(function(){
+			goSearchMyWorkList();
+		});
+		
+		$(".pagingNumber").html(
+				getPagingNumber(
+					"${myWorkListAllCnt}"						//검색 결과 총 행 개수
+					,"${myWorkSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
+					,"${myWorkSearchDTO.rowCntPerPage}"			//페이지 당 출력행의 개수
+					,"10"										//페이지 당 보여줄 페이지번호 개수
+					,"goSearchMyWorkList();"								//페이지 번호 클릭 후 실행할 자스코드
+				)
+			);
+		inputData("[name=selectPageNo]", "${myWorkSearchDTO.selectPageNo}");
+		inputData("[name=rowCntPerPage]", "${myWorkSearchDTO.rowCntPerPage}");
+		inputData("[name=search_keyword]", "${myWorkSearchDTO.search_keyword}");
+
 /* 
-      <c:forEach items="${myWorkSearchDTO.category}" var="category">
-         inputData("[name=category]", "${category}");
-      </c:forEach>
-       */
-      inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
-   });
-   function goSearchMyWorkList(){
-      if( is_empty('[name=mycarebooklist] [name=search_keyword]') ){
-         $('[name=mycarebooklist] [name=search_keyword]').val("");
-      }
-      
-      //키워드 앞뒤에 공백이 있으면 제거하고 다시 넣어주기
-      
-      var search_keyword = $('[name=mycarebooklist] [name=search_keyword]').val();
-      search_keyword = $.trim(search_keyword);
-      
-      $('[name=mycarebooklist] [name=search_keyword]').val(search_keyword);
+<<<<<<< HEAD
+		<c:forEach items="${myWorkSearchDTO.category}" var="category">
+			inputData("[name=category]", "${category}");
+		</c:forEach>
+		 */
+		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
+	});
+	
+	function goSearchMyWorkList(){
+		if( is_empty('[name=mycarebooklist] [name=search_keyword]') ){
+			$('[name=search_keyword]').val("");
+		}
+		
+		//키워드 앞뒤에 공백이 있으면 제거하고 다시 넣어주기
+		
+		var search_keyword = $('[name=mycarebooklist] [name=search_keyword]').val();
+		search_keyword = $.trim(search_keyword);
+		
+		$('[name=search_keyword]').val(search_keyword);
 
-      document.mycarebooklist.submit();
-      
-      //$.ajax({
-      //   url : "/group4erp/goMyCareBookList.do"
-      //   , type : "post"
-      //  , data : document.mycarebooklist.submit()
-      //});
-      
-   }
+		//document.mycarebooklist.submit();
+		
+		$.ajax({
+			url : "/group4erp/goMyCareBookList.do"
+			, type : "post"
+		  , data : document.mycarebooklist.submit()
+		});
+		
+	}
+	
+	function goAllSearchMyWorkList(){
+		
+		//name=boardListForm을 가진 form 태그 내부의 모든 입력양식에 value값을 비우거나 체크를 푼다.
+		document.mycarebooklist.reset();
+		
+		$('[name=mycarebooklist] [name=rowCntPerPage]').val('10');
+		$('[name=mycarebooklist] [name=selectPageNo]').val('1');
+		goSearchMyWorkList();
+	}
    
-   function goAllSearchMyWorkList(){
-      
-      //name=boardListForm을 가진 form 태그 내부의 모든 입력양식에 value값을 비우거나 체크를 푼다.
-      document.mycarebooklist.reset();
-      
-      $('[name=mycarebooklist] [name=rowCntPerPage]').val('10');
-      $('[name=mycarebooklist] [name=selectPageNo]').val('1');
-      goSearchMyWorkList();
-   }
-
    function booKInvenFill(idx,isbn) {
 
       alert("도서 발주 기능 구현중 "+isbn+"/"+idx);
@@ -167,12 +172,13 @@
       });
    }
    
+
 </script>
 
 </head>
 <body>
-   <center>
-   <h1>담당 상품 조회</h1>
+	<center>
+	<h1>담당 상품 조회</h1>
    <form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do">
    <!-- <div class="table_layout"> -->
    <input type="hidden" name="emp_no" value="<%=(String)session.getAttribute("emp_id") %>">
@@ -253,29 +259,7 @@
                </select> 행보기
       </table>
       </form>
-      <!-- 
-     	<div class="qqq" style="display:none">
-      		<div class="www">
-      			<form name="wareHousingForm" method=post action="/group4erp/wareHousingProc.do">
-				<table align=center>
-					<tr>
-						<th>발주수량</th>
-						<td><input type="text" name="isbn_cnt">권</td>
-					</tr>
-					<tr>
-						<th>입고요청일</th>
-						<td><input type="text" name="datepicker"></td>
-					</tr>
-					<tr>
-						<th>공급률</th>
-						<td><input tyep="text" name="supply_rate" value="60">%&nbsp;&nbsp;&nbsp;*(기본 60%)</td>
-					</tr>
-				</table>
-				</form>
-				<input type="button" value="발주신청" name="wareHousing">
-			</div>
-		</div>
-       -->
+      
       
       <table class="mycarebookTable tab" border=0 cellspacing=5 cellpadding=5 >
       	<thead>

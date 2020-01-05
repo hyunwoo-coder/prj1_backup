@@ -47,10 +47,20 @@ public class WarehousingServiceImpl implements WarehousingService{
 
 	@Override
 	public WarehousingSearchDTO warehousingProc(String order_inven_no) {
-		System.out.println("서비스 시작"+order_inven_no);
 		WarehousingSearchDTO warehContent = this.warehousingDAO.warehousingProc(order_inven_no); 
 		return warehContent;
 	}
+
+
+	@Override
+	public int warehousingConfirm(int wh_no) {
+		int whStockCnt = this.warehousingDAO.warehousingStock(wh_no);
+		int whConfirmCnt = this.warehousingDAO.warehousingConfirm(wh_no);
+		return whConfirmCnt;
+	}
+	
+	
+	
 	
 	
 	

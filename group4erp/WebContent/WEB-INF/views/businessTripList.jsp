@@ -164,7 +164,7 @@
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 	
 	<div id="blankArea"><br></div>
-		<table class="businessTripListTable tbcss1" name="businessTripListTable" cellpadding="5" cellspacing="5" width="1000">		
+		<table class="businessTripListTable tab" name="businessTripListTable" cellpadding="5" cellspacing="5" width="1000">		
 			<thead>
 				<tr>
 					<th style="cursor:pointer">NO</th>

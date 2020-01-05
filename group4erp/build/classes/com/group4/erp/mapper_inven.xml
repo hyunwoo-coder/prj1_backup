@@ -151,6 +151,28 @@
 					or upper(return_comment) like upper('%${searchKeyword}%')
 				)	
 		</if>
+		
+		
+		<if test="return_cd != null">
+			and
+			<foreach collection="return_cd" item="return_cd"  open="(" separator=" or " close=")">
+				<if test="return_cd.equals('01')">
+					return_sales_cd='01'
+				</if>
+				<if test="return_cd.equals('02')">
+					return_sales_cd='02'
+				</if>
+				<if test="return_cd.equals('03')">
+					return_sales_cd='03'
+				</if>
+				<if test="return_cd.equals('04')">
+					return_sales_cd='04'
+				</if>
+				<if test="return_cd.equals('05')">
+					return_sales_cd='05'
+				</if>			
+			</foreach>	
+		</if>
 	</sql>
 	
 
@@ -345,6 +367,8 @@
 		<include refid="headerSort" />
 		<include refid="returnWhere" />
 	</select>
+
+
 
     
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">

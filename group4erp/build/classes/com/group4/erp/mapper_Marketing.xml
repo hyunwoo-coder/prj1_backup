@@ -83,6 +83,7 @@
 	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
 		select count(*) from event_info ei
 		where 1=1
+		and ei.evnt_state_cd != 7		
 		<include refid="eventWhere" />
 	</select>
 	
@@ -102,7 +103,8 @@
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
-		where 1=1		
+		where 1=1
+		and ei.evnt_state_cd != 7	
 		<include refid="eventWhere" />
 		<include refid="headerSort" />
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
@@ -110,7 +112,9 @@
 
 	 
 	<select id='getEventAllCnt' resultType="int">
-		select count(*) from event_info
+		select count(*) from event_info 
+		where 1=1
+		
 	</select>
 	
 	
@@ -148,7 +152,7 @@
 			)
 			values (
 			  #{evnt_no},	
-			  #{emp_no},
+			  '${emp_no}',
 			  #{evnt_cd},
 			  #{evnt_title},
 			  #{tot_est_cost},
@@ -160,6 +164,88 @@
 			  null
 			)
 	</insert>
+	
+	<select id="getCorpList" resultType="com.group4.erp.CorporationDTO">
+		select
+			corp_no "corp_no",
+			corp_name "corp_name",
+			ceo_name "ceo_name"
+		from corporation_cus
+		where 1=1
+	</select>
+	
+	<insert id="insertAd" parameterType="com.group4.erp.AdApplyDTO">
+		insert into ad_apply_info(
+			ad_apply_no,
+			corp_no,
+			applicant_name,
+			emp_no,
+			ad_title,
+			img_doc,
+			reg_dt,
+			open_req_dt,
+			open_req_area_cd,
+			ad_term,
+			ad_pay_method,
+			ad_state_cd
+		) values (
+			(select nvl(max(ad_apply_no),0)+1 from ad_apply_info),
+			#{corp_no},
+			(select c.ceo_name from corporation_cus c where c.corp_no=#{corp_no}),
+			#{emp_no},
+			#{ad_title},
+			#{img_doc},
+			sysdate,
+			#{open_req_dt},
+			#{open_req_area_cd},
+			#{ad_term},
+			#{ad_pay_method},
+			1
+		)
+	</insert>
+	
+	<select id="getOnlineOrderCnt" resultType="int">
+		select count(*) from order_info
+	</select>
+	
+	<select id="getOnlineOrderList" resultType="com.group4.erp.OrderDTO">
+		select
+			oi.order_no||'' "order_no",
+			oi.order_id "order_id",
+			oi.order_pwd "order_pwd",
+			oi.order_delivery_addr "order_delivery_addr",
+			oi.isbn13 "isbn13",
+			(select b.book_price from book b where b.isbn13 = oi.isbn13) "book_price",
+			oi.book_qty||'' "book_qty",
+			(select b.book_price from book b where b.isbn13 = oi.isbn13) * oi.book_qty "tot_cost",
+			oi.cus_requirement "cus_requirement",
+			oi.is_member "is_member",
+			to_char(oi.order_dt, 'yyyy-mm-dd HH24:MI:SS') || '('||to_char(oi.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
+		from order_info oi
+	
+	</select>
+	
+	<select id="getTotRevenue" resultType="int">
+		 select
+            sum((select b.book_price from book b where b.isbn13 = oi.isbn13) * oi.book_qty) "tot_revenue"
+        from order_info oi
+	
+	</select>
+	
+	
+	<update id="deleteEvnt" parameterType="map">	
+			update event_info set evnt_state_cd = 7
+			where evnt_no in (
+			<foreach collection="array" item="evnt_no" index="index" separator=",">
+				#{evnt_no}
+			</foreach>
+			)
+	</update>
+	
+	<update id="updateEvntState">	
+			update event_info set evnt_state_cd = 4
+			where evnt_end_dt&lt;sysdate
+	</update>
 	
 		
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
 import com.group4.erp.dao.AccountDAO;
 
@@ -88,6 +89,38 @@ public class AccountServiceImpl implements AccountService {
 		List<TranSpecDTO> tranSpecList = this.accountDAO.getTranSpecList(order_no);
 		
 		return tranSpecList;
+	}
+
+	@Override
+	public int deleteCorp(String[] corp_no) {
+		// TODO Auto-generated method stub
+		int delCnt = this.accountDAO.deleteCorp(corp_no);
+		
+		return delCnt;
+	}
+
+	@Override
+	public int saveTempTranSpec(TranSpecDTO tranSpecDTO) {
+		// TODO Auto-generated method stub
+		int saveTempCnt = this.accountDAO.saveTempTranSpec(tranSpecDTO);
+		
+		return saveTempCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecIssueList() {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecIssueList = this.accountDAO.getTranSpecIssueList();
+		
+		return tranSpecIssueList;
+	}
+
+	@Override
+	public int payCheckProc(List<SalaryDTO> salDTOList) {
+		// TODO Auto-generated method stub
+		int payCheckCnt = this.accountDAO.payCheckProc(salDTOList);
+		
+		return payCheckCnt;
 	}
 	
 	

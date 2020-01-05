@@ -51,7 +51,7 @@
 				</c:forEach>
 			</select>
 		</table>
-		<table border=0 width=70%>
+		<table border=0>
 			<tr>
 				<td align=right>
 					[총 개수] : ${workDaysListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
@@ -67,7 +67,7 @@
 	</form>
 	
 	<form name="workDaysMng" method="post" action="/group4erp/workDaysList.do">
-		<table class="tbcss1" name="workDayStateList" cellpadding="5" cellspacing="5" width=70%>
+		<table class="workDayStateList tab" name="workDayStateList" cellpadding="5" cellspacing="5">
 			<thead>
 				<tr>
 					<th>직원번호

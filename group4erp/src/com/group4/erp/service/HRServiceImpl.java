@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
+import com.group4.erp.HrDayoffDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.SalListSearchDTO;
 import com.group4.erp.TimeDTO;
@@ -127,6 +128,7 @@ public class HRServiceImpl implements HRService {
 		
 		return newEmpInsertCnt;
 	}
+
 	/*
 	public String getMgrEmpName(EmployeeDTO employeeDTO){
 		String mgrEmpName = this.hrDAO.getMgrEmpName(employeeDTO);
@@ -134,4 +136,11 @@ public class HRServiceImpl implements HRService {
 		return mgrEmpName;
 	}
 */
+
+	@Override
+	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdateCnt = this.hrDAO.dayoffUpdateProc(hrDayoffDTO);
+		return dayoffUpdateCnt;
+	}
+	
 }

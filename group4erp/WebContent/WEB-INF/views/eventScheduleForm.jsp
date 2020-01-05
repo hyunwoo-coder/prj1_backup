@@ -34,24 +34,72 @@
 </style>
 <script>
 
-$(document).ready(function() {
-	$("#evnt_start_dt").datepicker({
-    	onSelect: function() { 
-    		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
-       	 var dateObject = $(this).datepicker('getDate');
-       	 //alert(dateObject.val()); 
-   		}
-	});
+	$(document).ready(function() {
+		$("#evnt_start_dt").datepicker({
+   	 	onSelect: function() { 
+   	 		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
+   	    	 var dateObject = $(this).datepicker('getDate');
+   	    	 //alert(dateObject.val()); 
+   			}
+		});
 
-	$("#evnt_end_dt").datepicker({
-    	onSelect: function() { 
-    		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
-       	 var dateObject = $(this).datepicker('getDate');
-       	 //alert(dateObject.val()); 
-   		}
-	});
-});
+		$("#evnt_end_dt").datepicker({
+    		onSelect: function() { 
+    			//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
+       			var dateObject = $(this).datepicker('getDate');
+       		 	//alert(dateObject.val()); 
+   			}
+		});
 
+
+		$("[name=tot_est_cost]").keyup(function() {
+			//class=money를 가진 입력 양식에서 입력한 데이터를 자바스크립트 영역으로 가져와 변수에 저장
+			var money = $(this).val();
+			//숫자만 골라서 저장할 변수 선언
+			var num = "";
+			
+			//money 변수 안의 데이터중 숫자만 골라 num 변수에 누적 시킴
+			for(var i=0; i<money.length; i++) {
+				if("0123456789".indexOf(money.charAt(i)) >=0) {
+					num = num + money.charAt(i);
+				} 
+				
+				//num 변수 안의 제일 앞의 숫자가 0이면 제거(ex 024~, 00056~ 등등). 
+				//단, 0원일때는 지우지 않는다. 즉 0이 1개일때는 삽입 가능
+				while(num.charAt(0)=="0" && num.length>1) {
+					num = num.substring(1);
+				}
+			}
+
+			//콤마를 포함한 최종 문자열을 저장할 변수 선언
+			var result="";
+			
+			var cnt=0;
+
+			var arr = num.split("");
+			arr=arr.reverse();
+			for(var i=0; i<arr.length; i++) {
+				//++cnt;
+				if((i%3==2)) {	//if((i+1)%3==0) {
+					arr[i] = ","+arr[i];
+				}
+			}
+			arr=arr.reverse();
+			result = arr.join("");
+			//---------------------------------------------------------------
+
+			//맨 앞이 콤마(,)로 시작하면 그 이후 문자를 낚아채 result에 다시 저장
+			if(result.charAt(0)==",") {
+				result = result.substring(1);
+			}
+
+			if(result.indexOf(",")==0) {
+				result = result.substring(1);
+			}
+
+			$(this).val(result);	//최종 결과값을 텍스트박스에 저장함
+		});		
+	});
 
 	function checkForm() {
 
@@ -87,12 +135,16 @@ $(document).ready(function() {
 
 			return;
 		}
-
+		
 		if(confirm("정말 저장하겠습니까?")==false) {
 
 			return;
 		}
 
+		var money = $("[name=tot_est_cost]").val();
+		money = money.replace(/,/gi, "");
+		inputData("[name=tot_est_cost]", money);
+		
 		//document.eventScheduleForm.submit();
 		$.ajax({
 			url : "/group4erp/insertEventProc.do"	//접속할 서버쪽 url 주소 지정
@@ -114,7 +166,6 @@ $(document).ready(function() {
 					alert("서버 접속 실패!");
 				}			
 		});
-
 	}
 
 	</script>
@@ -122,10 +173,12 @@ $(document).ready(function() {
 <body><center>
 <h1>이벤트 신청 페이지</h1>
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
-		이벤트 넘버 : <span id="event_no">EV00-00${eventNo}</span>
-		<table class="tbcss2" cellpadding="5" cellspacing="5">
+		<table class="tab" cellpadding="5" cellspacing="5">
 			<tr>
-				<td colspan="2">담당자 </td><td colspan="2">session에서 사원명 연동 예정 </td>
+				<td colspan="2">이벤트 일련번호</td><td colspan="2"> <span id="event_no">EV00-00${eventNo}</span> </td>
+			</tr>
+			<tr>
+				<td colspan="2">담당자 </td><td colspan="2">${emp_name} </td>
 			</tr>
 			<tr>
 				<td>행사종류</td><td><select name="evnt_cd"><option value="1">매대판매행사</option>
