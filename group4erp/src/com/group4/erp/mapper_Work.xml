@@ -37,29 +37,42 @@
 					</if>
      			</if>
      		</if>
+     	 <if test="sort!='outside_start_time' and sort.length()>0">
+	     	order by ${sort}
+		 </if>
+     	 <if test="sort.equals('outside_start_time') and sort.length()>0">
+	     	order by ${sort}
+		 </if>
+	     <!-- <if test="sort!=null and sort.length()>0">
+	     	order by ${sort}
+		 </if>	
+		 <if test="sort==null">
+		    order by outside_start_time desc
+		 </if> -->
 	</sql>
 	
 	 
 	 <select id='getbusinessTripListAllCnt' resultType="int">
 		select count(*) from (
 			select
-	    		c.jikup               as "jikup"
+				work_outside_seq	   as "work_outside_seq"
+	    		,c.jikup               as "jikup"
 	    		,e1.emp_name           as "emp_name"
-	    		,d.dep_name             as "dep_name"
+	    		,d.dep_name            as "dep_name"
 	    		,w.destination         as "destination"
 	    		,w.work_outside_reason as "work_outside_reason"
-	    		,to_char(w.outside_start_time,'yyyy-mm-dd ')  as "outside_start_time"
-	    		,to_char(w.outside_end_time,'yyyy-mm-dd ')    as "outside_end_time"
+	    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
+	    		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
 	    		,nvl(e2.emp_name,' ')  as "mgr_name"
+	    		,travel_payment		   as "travel_payment"
+	  			,c.jikup_cd			   as "jikup_cd"
 		    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 		    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
 		    	 inner join dept d on d.dep_no=e1.dep_no
 	     		 left outer join employee e2 on e2.emp_no=e1.mgr_emp_no 
-	     	where 1=1
+	     	where delete_yn = 'N'
 	     		<include refid="WorkSearchKey"/>
 	     	)
-
-		where 1=1
 			
 	</select>
 	
@@ -77,11 +90,12 @@
     		,nvl(e2.emp_name,' ')  as "mgr_name"
     		,travel_payment		   as "travel_payment"
   			,c.jikup_cd			   as "jikup_cd"
+  			,delete_yn			   as "delete_yn"
 	    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 	    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
 	    	 inner join dept d on d.dep_no=e1.dep_no
      		 left outer join employee e2 on e2.emp_no=e1.mgr_emp_no 
-     	 where 1=1
+     	 where delete_yn = 'N'
      	 	<if test="searchKey!=null and !searchKey.isEmpty()">
      			<if test="keyword!= null and !keyword.isEmpty()">
 					<if test ="searchKey.equals('jikup')">
@@ -110,12 +124,15 @@
 					</if>
      			</if>
      		</if>
-	     <if test="sort!=null and sort.length()>0">
+	     <if test="sort!='outside_start_time' and sort.length()>0">
+	     	order by ${sort}
+		 </if>
+     	 <if test="sort.equals('outside_start_time') and sort.length()>0">
 	     	order by ${sort}
 		 </if>	
-		 <if test="sort==null">
+		<!--  <if test="sort==null">
 		    order by outside_start_time desc
-		 </if>
+		 </if> -->
      	 ) zzz )
      	 where	1=1 
      	 		and 

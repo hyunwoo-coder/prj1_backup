@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
     
-<%@ include file = "/WEB-INF/views/common.jsp" %>
+<%@ include file ="/WEB-INF/views/common.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
 .ui-datepicker-trigger{cursor: pointer;}
@@ -33,12 +34,11 @@
 </style>
 <script>
 	$(document).ready(function(){
-		$("#datepicker").datepicker({
-		    onSelect: function() { 
-		    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
-		        var dateObject = $(this).datepicker('getDate');
-		        alert(dateObject.val()); 
-		    }
+		$("#datepicker1").datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		$("#datepicker2").datepicker({
+			dateFormat: 'yy-mm-dd'
 		});
 
 	});
@@ -67,15 +67,15 @@ function checkBusinessTripRegForm(){
 			return;
 		}
 
-		if( is_empty($("#outside_start_time")) ){
+		if( is_empty($("#datepicker1")) ){
 			alert("출장 희망일을 입력해주세요.");
-			$("#outside_start_time").focus();
+			$("#datepicker1").focus();
 			return;
 		}
 
-		if( is_empty($("#outside_end_time")) ){
+		if( is_empty($("#datepicker2")) ){
 			alert("출장 희망일을 입력해주세요.");
-			$("#outside_end_time").focus();
+			$("#datepicker2").focus();
 			return;
 		}
 
@@ -94,46 +94,61 @@ function checkBusinessTripRegForm(){
 			return;
 		} */
 		if(confirm("정말 저장하시겠습니까?")==false){return;}
-
-
-		alert($("#destination").val());
-		//alert("${(param.b_no)?0:param.b_no}")
-		//var str = $('[name=boardRegForm]').serialize()+"&b_no="+${param.b_no};
 		
-		//현재 화면에서 페이지 이동 없이 서버쪽 "/z_spring/boardRegProc.do"를 호출하여 게시판 글을 입력하고 [게시판 입력 행 적용 개수]를 받기
-	 	$.ajax({
-			//접속할 서버쪽 URL 주소 설정
+		$.ajax({
 			url : "/group4erp/businessTripRegProc.do"
-			//전송 방법 설정
 			, type : "post"
-			//서버로 보낼 파라미터명과 파라미터값을 설정
-			, data : $('[name=businessTripForm]').serialize()
-			//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
-			//매개변수 boardRegCnt에는 입력 행의 개수가 들어온다.
+			, data : $('[name=businessTrip]').serialize()
 			, success : function(businessTripRegCnt){
-				//[게시판 입력 행 적용 개수]가 1개면(=insert가 한번 성공했다는 뜻)
 				if(businessTripRegCnt==1){
 					alert("출장 신청 완료");
-					location.replace('/group4erp/businessTripListForm.do')
+					location.replace('/group4erp/businessTripList.do')
 				}
-				//[게시판 새 글 입력 행 적용 개수]가 1개가 아니면 경고하기
 				else{
 					alert("출장 신청 실패 관리자에게 문의 바람.");
 				}
 			}
-			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
 			, error : function(){
 				alert("businessTripRegForm 서버 접속 실패");
 			}
 		});
 	}
+	
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+
+            document.getElementById("destination").value = addr;
+
+        }
+    }).open();
+}
+
 </script>	
+
+
+
+
 	
 <meta charset="UTF-8">
 <title>출장신청&보고</title>
 </head>
 <body>
-	<form name="businessTripForm" id="businessTripForm" method="post" action="/group4erp/businessTripRegProc.do">
+	<form name="businessTrip" id="businessTrip" method="post" action="/group4erp/businessTripRegProc.do">
 	<b>출장 신청서</b>
 	<table class="tbcss1" name=work_outside_info cellpadding="5" cellspacing="5">
 		<tr>
@@ -146,24 +161,21 @@ function checkBusinessTripRegForm(){
 		<tr>
 			<th>목적지</th>
 				<td>
-					<input type="text" size="50" id="destination" name="destination">															
+					<input type="text" size="50" id="destination" name="destination" readOnly>		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">											
 				</td>
 		</tr>
 		
 		<tr>
 			<th >출장희망일</th>
 				<td>
-					<input type="text" id="outside_start_time" name="outside_start_time">
+					<input type="text" id="datepicker1" name="outside_start_time">
 					~
-					<input type="text" id="outside_end_time" name="outside_end_time">
+					<input type="text" id="datepicker2" name="outside_end_time">
 					&nbsp;&nbsp;&nbsp;
 				</td>
 		</tr>
 		
-			<!-- <script>
-	        	$("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }); 
-	    	</script> -->
-		
+
 		<tr>
 			<th >출장 사유</th>
 				<td >

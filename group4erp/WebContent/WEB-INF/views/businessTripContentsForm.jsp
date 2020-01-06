@@ -27,12 +27,12 @@
 	<!-- ModelAndView 객체에 boardDTO라는 키값으로 저장된 BoardDTO 객체의 속성변수 안의 데이터를 꺼내어 출력한다. -->
 	<!-- 꺼내는 방법은 EL문법으로 달러{boardDTO.속성변수명} 이다. -->
 	<form class="businessTripContentsForm" method="post" name="businessTripContentsForm" action="${ctRoot}/boardRegProc.do">
-		<input type="hidden" name="b_no" value="${businessTripDTO.b_no}">
+		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">
 		<b>출장 상세 보기</b><br>
 		<table class="tbcss1" width="500" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr align=center>
 				<th bgcolor="gray" width=60>글번호
-				<td width=150>${businessTripDTO.b_no}
+				<td width=150>${businessTripDTO.RNUM}
 				<th bgcolor="gray" width=60>조회수
 				<td width=150>${businessTripDTO.readcount}
 			<tr align=center>
@@ -48,6 +48,7 @@
 				<td width=150 colspan=3>
 					<textarea name="content" rows="13" cols="45" style="boder:0" readonly>${boardDTO.content}
 					</textarea>
+			
 		</table>
 		<table><tr heigth=3><td></table>
 		<input type="button" value="수정/삭제" onclick="goBoardUpDelForm()">&nbsp;

@@ -7,8 +7,10 @@ public class BusinessTripSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String searchKey;
-	private String sort;
+	private String sort="outside_start_time desc";
 	private int work_outside_seq;
+	private String selectBox;
+	
 	
 	public String getKeyword() {
 		return keyword;
@@ -51,5 +53,11 @@ public class BusinessTripSearchDTO {
 	}
 	public void setWork_outside_seq(int work_outside_seq) {
 		this.work_outside_seq = work_outside_seq;
+	}
+	public String getSelectBox() {
+		return selectBox;
+	}
+	public void setSelectBox(String selectBox) {
+		this.selectBox = selectBox;
 	}
 }
