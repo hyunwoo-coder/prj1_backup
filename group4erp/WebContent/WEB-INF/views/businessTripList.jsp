@@ -34,6 +34,7 @@
 		inputData('#selectSearch',"${businessTripSearchDTO.searchKey}");
 		inputData('#searchKeyword',"${businessTripSearchDTO.keyword}");
 		inputData('#sort',"${businessTripSearchDTO.sort}");
+		inputData('#payment',"${businessTripSearchDTO.payment}");
 	
 
 		//alert("${businessTripSearchDTO.rowCntPerPage}");
@@ -47,7 +48,6 @@
 		var  keyword = $("#searchKeyword").val();
 		
 		/* alert($("#selectBox").val()); */
-		alert(selectBox);
 		
 		$("#payment").val(selectBox);
 		$("#searchKey").val(searchKey);
