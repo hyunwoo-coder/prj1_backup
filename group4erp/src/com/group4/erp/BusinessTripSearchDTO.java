@@ -9,7 +9,8 @@ public class BusinessTripSearchDTO {
 	private String searchKey;
 	private String sort="outside_start_time desc";
 	private int work_outside_seq;
-	private String selectBox;
+	private String payment;
+	
 	
 	
 	public String getKeyword() {
@@ -53,11 +54,11 @@ public class BusinessTripSearchDTO {
 	}
 	public void setWork_outside_seq(int work_outside_seq) {
 		this.work_outside_seq = work_outside_seq;
+	}public String getPayment() {
+		return payment;
 	}
-	public String getSelectBox() {
-		return selectBox;
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
-	public void setSelectBox(String selectBox) {
-		this.selectBox = selectBox;
-	}
+
 }

@@ -117,7 +117,7 @@
 				</span>
 				
 				<span id="layer" style="display:none">
-					<select id="selectBox">
+					<select id="selectBox" name="selectBox">
 						<option value="" selected="selected"></option>
 						<option value="Y">승인</option>
 						<option value="W">대기중</option>
