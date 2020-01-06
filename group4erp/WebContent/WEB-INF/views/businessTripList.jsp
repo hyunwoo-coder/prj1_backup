@@ -49,7 +49,7 @@
 		/* alert($("#selectBox").val()); */
 		alert(selectBox);
 		
-		$("#selectBox").val(selectBox);
+		$("#payment").val(selectBox);
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
 		
@@ -146,7 +146,7 @@
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="rowCntPerPage">
         <input type="hidden" name="sort" id="sort">
-        <input type="text" name="selectBox" id="selectBox">
+        <input type="text" name="payment" id="payment">
         <!-- <input type="hidden" name="work_outside_seq" id="work_outside_seq"> -->
         
 	</form>
