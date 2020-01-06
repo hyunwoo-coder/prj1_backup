@@ -85,6 +85,10 @@ td{
 				goSearch();
 			}); */
 
+			$('[name=rowCntPerPage]').change(function(){
+				goWhSearch();
+			});
+
  			setTableTrBgColor(
 					"tableColor",			//테이블 class 값
 					"${headerColor}",		//헤더 tr 배경색

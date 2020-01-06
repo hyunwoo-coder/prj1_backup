@@ -1,5 +1,6 @@
 package com.group4.erp.controller;
 
+import java.sql.Array;
 import java.util.List;
 import java.util.Map;
 
@@ -226,16 +227,23 @@ public class HRController {
 		mav.addObject("navigator", "[인사관리]-[직원 휴가 현황]");
 		
 		try {
-			
 			int getDayOffListCnt = this.hrservice.getDayOffListCnt(hrListSearchDTO);
-			mav.addObject("getDayOffListCnt", getDayOffListCnt);
+			
+			
+			if(getDayOffListCnt > 0) {
+				int beginRowNo = hrListSearchDTO.getSelectPageNo() * hrListSearchDTO.getRowCntPerPage() - hrListSearchDTO.getRowCntPerPage() + 1; 
+				if( getDayOffListCnt < beginRowNo ){
+					hrListSearchDTO.setSelectPageNo(1);
+				}
+			}
 			
 			List<Map<String, String>> getDayOffList = this.hrservice.getDayOffList(hrListSearchDTO);
-			mav.addObject("getDayOffList", getDayOffList);
 			
+			mav.addObject("getDayOffListCnt", getDayOffListCnt);
+			mav.addObject("getDayOffList", getDayOffList);
 			mav.addObject("hrListSearchDTO", hrListSearchDTO);
 			
-			System.out.println(hrListSearchDTO.getSelectPageNo());
+			//System.out.println(hrListSearchDTO.getSelectPageNo());
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

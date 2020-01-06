@@ -46,8 +46,21 @@ public class WarehousingController {
 			mav.addObject("publisher", publisher);
 
 			int warehousingListCnt = this.warehousingService.getWarehousingListCnt(warehousingSearchDTO);
+			
+			if(warehousingListCnt > 0) {
+				int beginRowNo = warehousingSearchDTO.getSelectPageNo() * warehousingSearchDTO.getRowCntPerPage() - warehousingSearchDTO.getRowCntPerPage() + 1; 
+				if( warehousingListCnt < beginRowNo ){
+					warehousingSearchDTO.setSelectPageNo(1);
+				}
+			}
+			
+			
+			
+			
 			mav.addObject("warehousingListCnt", warehousingListCnt);
-
+			
+			
+			
 			List<Map<String, String>> warehousingList = this.warehousingService
 					.getWarehousingList(warehousingSearchDTO);
 			mav.addObject("warehousingList", warehousingList);
