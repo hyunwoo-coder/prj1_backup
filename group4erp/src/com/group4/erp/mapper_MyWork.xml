@@ -178,4 +178,21 @@
 			,null
 		)
 	</insert>
+	
+	<insert id="insertDayoff" parameterType="com.group4.erp.HrDayoffJoinDTO">
+		insert into emp_dayoff_apply values(
+			(select nvl(max(dayoff_apply_no), 0)+1 from emp_dayoff_apply)
+			,(select emp_no from employee where emp_name=#{emp_name})
+			,to_date(sysdate, 'YYYY-MM-DD')
+			,#{dayoff_cd}
+			,#{using_dayoff}
+			,to_date(#{start_dayoff}, 'YYYY-MM-DD')
+			,to_date(#{end_dayoff}, 'YYYY-MM-DD')
+			,'N'
+			)
+	</insert>
+	
+	<update id="updateDayoff" parameterType="com.group4.erp.HrDayoffJoinDTO">
+		update emp_dayoff_info set remain_dayoff=remain_dayoff-#{using_dayoff} where emp_no=(select emp_no from employee where emp_name=#{emp_name})
+	</update>
 </mapper>

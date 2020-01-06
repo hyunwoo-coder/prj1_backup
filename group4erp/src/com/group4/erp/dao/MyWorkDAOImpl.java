@@ -129,9 +129,28 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 				"com.group4.erp.dao.myWorkDAO.insertWareHousing"
 				,whInsertDTO
 				);
-				
 		
 		return insertWareHousing;
 	}
 	
+	public int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int insertDayoffJoin = this.sqlSession.insert(
+				"com.group4.erp.dao.myWorkDAO.insertDayoff"
+				,dayoffJoinDTO
+				);
+		
+		return insertDayoffJoin;
+	}
+	
+
+	public int getUpDayoffInfo(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int updateDayoffInfo = this.sqlSession.update(
+				"com.group4.erp.dao.myWorkDAO.updateDayoff"
+				,dayoffJoinDTO
+				);
+		
+		return updateDayoffInfo;
+	}
 }

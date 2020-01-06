@@ -95,7 +95,7 @@
 		}		
 
 
-	<!-- 업무관리 서브메뉴 -->
+		<!-- 업무관리 서브메뉴 -->
 		function myCareBookList() {
 			location.replace("/group4erp/goMyCareBookList.do");
 			//alert("담당상품조회");
@@ -108,6 +108,9 @@
 		function viewMyWorkTime() {
 			location.replace("/group4erp/goMyWorkTime.do");
 			//alert("근태조회 구현 예정");
+		}
+		function dayoffJoin(){
+			location.replace("/group4erp/goEmpDayOffjoin.do");
 		}
 
 		// 재고관리 서브메뉴 -->
@@ -322,6 +325,7 @@
 					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&보고&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewMyWorkTime();">근태조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="approvalDoc();">문서 결재&nbsp;&nbsp;&nbsp;</span>
+					<span id="empDayOffjoin" style="cursor:pointer" onClick="dayoffJoin();">휴가 신청&nbsp;&nbsp;&nbsp;</span>
 				</span>
 			</td>
 			<td></td>

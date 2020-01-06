@@ -163,4 +163,39 @@ public class MyWorkController {
 		   
 		return insertWareHousing;
 	}
+	
+	//휴가 신청 페이지
+	@RequestMapping(value="/goEmpDayOffjoin.do")
+	public ModelAndView goEmpDayOffJoin() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpDayOffjoinForm");
+		
+		return mav;
+	}
+	
+	//휴가 신청 DB연동
+	@RequestMapping(value="/goDayOffProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goDayOffProc(
+			HrDayoffJoinDTO dayoffJoinDTO
+			) {
+		
+		int insertDayoffJoin = 0;
+		
+		try {
+			
+			insertDayoffJoin = this.myWorkService.getDayoffJoinCnt(dayoffJoinDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<휴가 신청 실패>");
+			System.out.println("예외 발생=>"+e);
+			insertDayoffJoin = -1;
+		}
+		   
+		return insertDayoffJoin;
+	}
 }

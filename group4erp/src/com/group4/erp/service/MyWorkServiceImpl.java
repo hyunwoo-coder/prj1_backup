@@ -1,5 +1,6 @@
 package com.group4.erp.service;
 
+import com.group4.erp.HrDayoffJoinDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.MyWorkSearchDTO;
 import com.group4.erp.WareHousingInsertDTO;
@@ -109,5 +110,17 @@ public class MyWorkServiceImpl implements MyWorkService{
 		int insertWareHousing = this.myWorkDAO.getInsertWareHousing(whInsertDTO);
 		
 		return insertWareHousing;
+	}
+	
+	public int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int insertDayoffJoin = this.myWorkDAO.getDayoffJoinCnt(dayoffJoinDTO);
+		
+		int updateDayoffInfo = this.myWorkDAO.getUpDayoffInfo(dayoffJoinDTO);
+		if(updateDayoffInfo == 0) {
+			return -2;
+		}
+		
+		return insertDayoffJoin;
 	}
 }

@@ -35,4 +35,8 @@ public interface MyWorkDAO {
 	
 	int getInsertBeforeCnt(WareHousingInsertDTO whInsertDTO);
 	int getInsertWareHousing(WareHousingInsertDTO whInsertDTO);
+	
+	int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO);
+	
+	int getUpDayoffInfo(HrDayoffJoinDTO dayoffJoinDTO);
 }

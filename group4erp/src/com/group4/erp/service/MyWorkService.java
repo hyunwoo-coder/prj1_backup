@@ -1,4 +1,5 @@
 package com.group4.erp.service;
+import com.group4.erp.HrDayoffJoinDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.MyWorkSearchDTO;
 import com.group4.erp.WareHousingInsertDTO;
@@ -30,4 +31,7 @@ public interface MyWorkService {
 	
 	int getInsertBeforeCnt(WareHousingInsertDTO whInsertDTO);
 	int getInsertWareHousing(WareHousingInsertDTO whInsertDTO);
+	
+	int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO);
+	
 }
