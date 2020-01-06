@@ -40,6 +40,7 @@ $(document).ready(function(){
    inputData('[name=searchPublisher]',"${invenSearchDTO.searchPublisher}");
    inputData('[name=is_print]',"${invenSearchDTO.is_print}");
    inputData('[name=book_keyword]',"${invenSearchDTO.book_keyword}");
+   inputData('[name=sort]',"${invenSearchDTO.sort}");
    	<c:forEach items="${invenSearchDTO.category_name}" var="cat">
 		inputData( "[name=category_name]", "${cat}" );
 	</c:forEach>

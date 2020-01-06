@@ -197,6 +197,7 @@ public class InvenController {
 		try {
 			
 			insertSignUpBookCnt = this.invenService.getSignUpCnt(invenDTO);
+
 			
 		}catch(Exception e) {
 			System.out.println("<책 등록 실패>");

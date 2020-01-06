@@ -110,6 +110,11 @@ public class InvenServiceImpl implements InvenService{
 		
 		int insertSignUpBookCnt = this.invenDAO.getSignUpCnt(invenDTO);
 		
+		int insertBookStock = this.invenDAO.getBookStockCnt(invenDTO);
+		if(insertBookStock==0) {
+			return -2;
+		}
+		
 		return insertSignUpBookCnt;
 	}
 
@@ -191,4 +196,5 @@ public class InvenServiceImpl implements InvenService{
 		
 		return releaseUpCnt;
 	}
+
 }

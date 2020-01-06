@@ -44,4 +44,5 @@ public interface InvenService {
 	int getIsbnCnt(String all_order_no);
 	
 	int getReleaseUpCnt(String all_order_no);
+	
 }

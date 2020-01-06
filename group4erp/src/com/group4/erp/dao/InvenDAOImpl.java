@@ -207,4 +207,14 @@ public class InvenDAOImpl implements InvenDAO{
 				);
 		return isbnCntUpdates;
 	}
+	
+	public int getBookStockCnt(InvenDTO invenDTO) {
+		
+		int insertBookStock = this.sqlSession.insert(
+				"com.group4.erp.dao.invenSearchDAO.getBookStock"
+				,invenDTO
+				);
+		
+		return insertBookStock;
+	}
 }

@@ -309,7 +309,7 @@
 			from release_info r	
 			where 1=1
 			<include refid="releaseWhere" />
-			order by release_no desc
+			order by "release_dt" desc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
 	
@@ -374,6 +374,10 @@
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">
     	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor ) values
     		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor} )
+    </insert>
+    
+    <insert id="getBookStock" parameterType="com.group4.erp.InvenDTO">
+    	insert into stock_info values (#{isbn13}, 0, 1, (select emp_no from employee where emp_name=#{emp_name}) )
     </insert>
     
     <select id="getBookInfo" parameterType="String" resultType="com.group4.erp.BookInfoDTO">

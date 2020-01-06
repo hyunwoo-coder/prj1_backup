@@ -152,6 +152,8 @@ $(document).ready(function(){
 					location.replace("/group4erp/goBookList.do")
 				}else if(insertCnt==0){
 					alert("등록 실패");
+				}else if(insertCnt==-2){
+					alert("재고 등록 실패");
 				}else alert("서버 오류!");
 			}
 			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
