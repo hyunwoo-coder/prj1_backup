@@ -42,5 +42,9 @@ public interface AccountService {
 	List<TranSpecDTO> getTranSpecIssueList();
 	
 	int payCheckProc(List<SalaryDTO> salDTOList);
+	
+	List<CorporationDTO> getBusiness_area();
+	
+	int updateCorpInfo(CorporationDTO corpDTO);
 
 }

@@ -7,6 +7,7 @@ import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 import com.group4.erp.OrderDTO;
+import com.group4.erp.SalesInfoDTO;
 
 public interface MarketingDAO {
 	
@@ -26,15 +27,25 @@ public interface MarketingDAO {
 	
 	int insertAd(AdApplyDTO adApplyDTO);
 	
-	int getOnlineOrderCnt();
+	int getOnlineOrderCnt(SalesInfoDTO salesSearchDTO);
 	
 	int deleteEvnt(String[] evnt_no);
 	
 	int updateEvntState();
 	
-	List<OrderDTO> getOnlineOrderList();
+	List<OrderDTO> getOnlineOrderList(SalesInfoDTO salesSearchDTO);
 	
 	int getTotRevenue();
+	
+	int getCorpOrderTotCnt();
+	
+	int getCorpTotRevenue();
+	
+	List<SalesInfoDTO> getOrderInfoChart();
+	
+	int updateEventInfo(EventDTO eventDTO);
+	
+	int updateAdInfoProc(AdApplyDTO adApplyDTO);
 
 
 }

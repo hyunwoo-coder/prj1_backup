@@ -144,6 +144,8 @@
 		var money = $("[name=tot_est_cost]").val();
 		money = money.replace(/,/gi, "");
 		inputData("[name=tot_est_cost]", money);
+		//inputData("[name=emp_no]", emp_no);
+		
 		
 		//document.eventScheduleForm.submit();
 		$.ajax({
@@ -213,7 +215,7 @@
 		<input type="button" value="결재" onClick="checkForm();">
 		<input type="reset" value="초기화">
 		<input type="hidden" name="evnt_no">
-		<input type="hidden" name="emp_no">
+		<input type="text" name="emp_no" value="${emp_no}">
 	</form>
 
 

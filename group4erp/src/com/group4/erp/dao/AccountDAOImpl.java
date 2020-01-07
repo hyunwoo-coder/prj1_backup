@@ -125,4 +125,20 @@ public class AccountDAOImpl implements AccountDAO {
 		return payCheckCnt;
 	}
 
+	@Override
+	public List<CorporationDTO> getBusiness_area() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> business_area = this.sqlSession.selectList(mapper_namespace+"getBusiness_area");
+		
+		return business_area;
+	}
+
+	@Override
+	public int updateCorpInfo(CorporationDTO corpDTO) {
+		// TODO Auto-generated method stub
+		int updateCorpCnt = this.sqlSession.update(mapper_namespace+"updateCorpInfo", corpDTO);
+		
+		return updateCorpCnt;
+	}
+
 }

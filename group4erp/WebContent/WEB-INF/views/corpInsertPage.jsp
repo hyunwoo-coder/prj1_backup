@@ -115,7 +115,7 @@
 	<h1>거래처 등록</h1>
 	<form name="insertCorpForm" method="post" action="/insertCorpProc.do">
 		
-		<table class="insertCorpTable tbcss2" name="insertCorpTable" cellpadding="5" cellspacing="5" width="500">
+		<table class="insertCorpTable tab" name="insertCorpTable" cellpadding="5" cellspacing="5" width="500">
 			<tr>
 				<td>사업자 번호</td><td><input tyep="text" name="corp_no" maxlength="12" ></td>
 			</tr>
@@ -126,7 +126,12 @@
 				<td>사업자명</td><td><input tyep="text" name="ceo_name" maxlength="30"></td>
 			</tr>
 			<tr>
-				<td>사업분야</td><td><input tyep="text" name="corp_business_area" maxlength="15"></td>
+				<td>사업분야</td>
+				<td>
+					<c:forEach items='${business_area}' var="business_area" varStatus="loopTagStatus">
+						<input type="checkbox" name="corp_business_area" value="${business_area.bus_area_name}">${business_area.bus_area_name}&nbsp;
+					</c:forEach>
+				</td>
 			</tr>
 			<tr>
 				<td>소재지</td><td><input tyep="text" name="corp_addr" maxlength="100"></td>

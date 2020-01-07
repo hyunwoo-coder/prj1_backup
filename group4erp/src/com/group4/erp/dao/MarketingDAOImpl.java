@@ -11,6 +11,7 @@ import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 import com.group4.erp.OrderDTO;
+import com.group4.erp.SalesInfoDTO;
 
 @Repository
 public class MarketingDAOImpl implements MarketingDAO {
@@ -85,9 +86,9 @@ public class MarketingDAOImpl implements MarketingDAO {
 	}
 
 	@Override
-	public int getOnlineOrderCnt() {
+	public int getOnlineOrderCnt(SalesInfoDTO salesSearchDTO) {
 		// TODO Auto-generated method stub
-		int online_order_cnt = this.sqlSession.selectOne(mapper_namespace+"getOnlineOrderCnt");
+		int online_order_cnt = this.sqlSession.selectOne(mapper_namespace+"getOnlineOrderCnt", salesSearchDTO);
 		
 		return online_order_cnt;
 	}
@@ -109,9 +110,9 @@ public class MarketingDAOImpl implements MarketingDAO {
 	}
 
 	@Override
-	public List<OrderDTO> getOnlineOrderList() {
+	public List<OrderDTO> getOnlineOrderList(SalesInfoDTO salesSearchDTO) {
 		// TODO Auto-generated method stub
-		List<OrderDTO> onlineOrderList = this.sqlSession.selectList(mapper_namespace+"getOnlineOrderList");
+		List<OrderDTO> onlineOrderList = this.sqlSession.selectList(mapper_namespace+"getOnlineOrderList", salesSearchDTO);
 		
 		return onlineOrderList;
 	}
@@ -122,6 +123,46 @@ public class MarketingDAOImpl implements MarketingDAO {
 		int tot_revenue = this.sqlSession.selectOne(mapper_namespace+"getTotRevenue");
 		
 		return tot_revenue;
+	}
+
+	@Override
+	public int getCorpOrderTotCnt() {
+		// TODO Auto-generated method stub
+		int corpOrderTotCnt = this.sqlSession.selectOne(mapper_namespace+"getCorpOrderTotCnt");
+		
+		return corpOrderTotCnt;
+	}
+
+	@Override
+	public int getCorpTotRevenue() {
+		// TODO Auto-generated method stub
+		int corpTotRevenue = this.sqlSession.selectOne(mapper_namespace+"getCorpTotRevenue");
+		
+		return corpTotRevenue;
+	}
+
+	@Override
+	public List<SalesInfoDTO> getOrderInfoChart() {
+		// TODO Auto-generated method stub
+		List<SalesInfoDTO> orderInfo = this.sqlSession.selectList(mapper_namespace+"getOrderInfoChart");
+		
+		return orderInfo;
+	}
+
+	@Override
+	public int updateEventInfo(EventDTO eventDTO) {
+		// TODO Auto-generated method stub
+		int updateEventCnt = this.sqlSession.update(mapper_namespace+"updateEventInfo", eventDTO);
+		
+		return updateEventCnt;
+	}
+
+	@Override
+	public int updateAdInfoProc(AdApplyDTO adApplyDTO) {
+		// TODO Auto-generated method stub
+		int updateCnt = this.sqlSession.update(mapper_namespace+"updateAdInfo", adApplyDTO);
+		
+		return updateCnt;
 	}
 
 }

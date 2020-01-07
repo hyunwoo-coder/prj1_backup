@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file = "/WEB-INF/views/common.jsp" %>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 <!DOCTYPE html>
@@ -9,9 +11,52 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 행사 신청</title>
+
+<style>
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+
+ input[type="date"]::-webkit-calendar-picker-indicator,
+ input[type="date"]::-webkit-inner-spin-button {
+     display: none;
+     appearance: none;
+ }
+ 
+ input[type="date"]::-webkit-calendar-picker-indicator {
+   color: rgba(0, 0, 0, 0); /* 숨긴다 */
+   opacity: 1;
+   display: block;
+   background: url(https://mywildalberta.ca/images/GFX-MWA-Parks-Reservations.png) no-repeat; /* 대체할 아이콘 */
+   width: 20px;
+   height: 20px;
+   border-width: thin;
+}
+</style>
+
 <script>
 
+	
+
 	$(document).ready(function(){
+
+		$("#evnt_start_dt").datepicker({
+	   	 	onSelect: function() { 
+	   	 		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
+	   	    	 var dateObject = $(this).datepicker('getDate');
+	   	    	 //alert(dateObject.val()); 
+	   			}
+			});
+
+			$("#evnt_end_dt").datepicker({
+	    		onSelect: function() { 
+	    			//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
+	       			var dateObject = $(this).datepicker('getDate');
+	       		 	//alert(dateObject.val()); 
+	   			}
+			});
+		
 	
 		headerSort("eventListTable", 0);
 		$(".updateArea").hide();
@@ -72,14 +117,19 @@
 		goSearch();
 	}
 
-	function updateEventInfo(idx, evnt_no) {
+	function updateEventInfo(idx, evnt_no, evnt_title, evnt_start_dt, evnt_end_dt) {
 		
 		var thisTr = $(idx).parent().parent();
-	      var delTr = $('.eventListTable [name=test]');
-	      if(delTr.size()>0){
-	    	  delTr.remove();
-	      }
-	      
+		var delTr = $('.eventListTable [name=test]');
+
+		if(delTr.size()>0){
+			delTr.remove();
+		}
+
+		evnt_start_dt = evnt_start_dt.substr(0, 10);
+		evnt_end_dt = evnt_end_dt.substr(0, 10);
+
+	      //alert(evnt_start_dt +" / "+evnt_end_dt);
 	      //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
 	      //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
 	      
@@ -89,19 +139,71 @@
 	      
 	      
 	      var htmlCode = "<tr name='test' align=center> <td colspan=7>"
-		  htmlCode += "<div class='updateCorpDiv'>"
-	      htmlCode += "<form name='updateCorpForm'>"
+	      htmlCode += "<form name='updateEventForm'>"
 	      htmlCode += "<table class='innertable tab' align=center>"
-	      htmlCode += "<tr> <th>이벤트 종류 <td><input type='text' name='corp_no'>"
-	      htmlCode += "<tr> <th>이벤트 타이틀 <td><input type='text' name='evnt_title'>"
-	      htmlCode += "<tr> <th>시작일 <td><input tyep='text' name='evnt_start_dt'>"
-	   	  htmlCode += "<tr> <th>종료일 <td><input tyep='text' name='evnt_end_dt'>"
-	      htmlCode += "</table> </from>"
-	      htmlCode += "<input type='button' value='저장' name='updateCorp'>  </div>"
-	      
+	      htmlCode += "<tr> <th>이벤트 종류 <td><select name='evnt_cd'>"
+		  htmlCode += 									"<option value='1'>매대판매행사</option>"
+		  htmlCode += 									"<option value='2'>야외판매</option>"
+		  htmlCode += 									"<option value='3'>할인전</option>"
+		  htmlCode += 									"<option value='4'>기부행사</option>"
+		  htmlCode += 									"<option value='5'>온라인 설문조사</option>"
+		  htmlCode += 						"</select> </td></tr>"
+	      htmlCode += "<tr> <th>이벤트 타이틀</th> <td><input type='text' name='evnt_title' value='"+evnt_title+"'></td></tr>"
+	      htmlCode += "<tr> <th>시작일</th> <td><input type='text' name='evnt_start_dt' value='"+evnt_start_dt+"'></td></tr>"
+	   	  htmlCode += "<tr> <th>종료일</th> <td><input type='text' name='evnt_end_dt' value='"+evnt_end_dt+"'></td></tr>"
+	   	  htmlCode += "<tr> <th>메시지</th> <td><textarea name='evnt_comment'/></td></tr>"
+	      htmlCode += "</table>"
+	      htmlCode += "<input type='hidden' name='evnt_no' value="+evnt_no+">"
+	      htmlCode += "<input type='button' value='저장' name='updateEvent' onClick='updateEventProc();'>&nbsp;"
+		  htmlCode += "<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
+	      htmlCode += "</form>"
+		  htmlCode += "</tr>"
+		  htmlCode += "<script>"
+		  htmlCode += "$('[name=evnt_start_dt]').datepicker({ dateFormat: 'yy-mm-dd' });"
+		  htmlCode += "$('[name=evnt_end_dt]').datepicker({ dateFormat: 'yy-mm-dd' });"
+		  htmlCode += "</script"+">"
+		   
 	      thisTr.after(htmlCode);
 	    
 	}
+
+	function closeThisTr(idx) {
+		
+		$(idx).parent().parent().remove();
+
+	}
+
+
+	function updateEventProc() {
+
+		$.ajax({
+			url : "/group4erp/updateEventProc.do",				//호출할 서버쪽 URL 주소 설정
+			type : "post",										//전송 방법 설정
+			data : $('[name=updateEventForm]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정
+			
+			success : function(upCnt) {
+				if(upCnt >= 1) {
+					alert("수정 성공!");
+					
+					location.replace("/group4erp/viewEventList.do");
+				} else if(upCnt==-1) {	
+					alert("이벤트가 이미 삭제되었습니다!");
+					
+					location.replace("/group4erp/viewEventList.do");
+
+				} else {
+					alert("서버쪽 DB 연동 실패!");
+				}
+			}
+
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}	
+		});
+		
+	}
+	
 
 	function deleteNotYetEvent() {
 		
@@ -305,11 +407,12 @@
 					<td align=center>${eventList.evnt_end_dt}</td>
 					<td align=center>${eventList.evnt_stat}</td>
 					<td><c:if test="${eventList.evnt_stat eq '대기중' }">
-							<input type="button" name="updateBtn" value="수정" onClick="updateEventInfo(this,'${eventList.evnt_no}');">
-						</c:if></td>
+							<input type="button" name="updateBtn" value="수정" onClick="updateEventInfo(this,'${eventList.evnt_no}', '${eventList.evnt_title}', '${eventList.evnt_start_dt}', '${eventList.evnt_end_dt}');">
+						</c:if>
+					</td>
 				</tr>		
 				
-				<tr class="updateArea" style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
+				<%-- <tr class="updateArea" style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
 					<td class="delCheckBox" align=center>
 						<c:if test="${eventList.evnt_stat eq '대기중' }">
 							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
@@ -321,7 +424,7 @@
 					<td align=center>${eventList.evnt_start_dt}</td>
 					<td align=center>${eventList.evnt_end_dt}</td>
 					<td align=center>${eventList.evnt_stat}</td>
-				</tr>		
+				</tr> --%>		 
 			</c:forEach>
 		</table><br>
 	

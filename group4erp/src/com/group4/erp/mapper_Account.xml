@@ -214,6 +214,25 @@
 		)
 	</insert>
 	
-
+	<select id="getBusiness_area" resultType="com.group4.erp.CorporationDTO">
+		select
+			business_area_code||'' "bus_area_code",
+			business_area_name "bus_area_name"
+		from code_business_area
+	</select>
+	
+	<update id="updateCorpInfo" parameterType="com.group4.erp.CorporationDTO">
+		
+			update corporation_cus set 
+				corp_no = #{new_corp_no},
+				corp_name = #{corp_name},
+				ceo_name = #{ceo_name},
+				corp_addr = #{corp_addr},
+				corp_fax = #{corp_fax},
+				corp_tel = #{corp_tel},
+				corp_business_area = #{corp_business_area},
+				is_on_business='y'
+			where corp_no = #{corp_no}
+	</update>
 
 </mapper>

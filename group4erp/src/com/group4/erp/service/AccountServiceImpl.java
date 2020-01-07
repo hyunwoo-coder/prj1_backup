@@ -123,6 +123,19 @@ public class AccountServiceImpl implements AccountService {
 		return payCheckCnt;
 	}
 	
-	
+	@Override
+	public List<CorporationDTO> getBusiness_area() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> business_area = this.accountDAO.getBusiness_area();
+		
+		return business_area;
+	}
 
+	@Override
+	public int updateCorpInfo(CorporationDTO corpDTO) {
+		// TODO Auto-generated method stub
+		int updateCorpCnt = this.accountDAO.updateCorpInfo(corpDTO);
+		
+		return updateCorpCnt;
+	}
 }

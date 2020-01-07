@@ -16,16 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.group4.erp.CorpSearchDTO;
-import com.group4.erp.CorporationDTO;
-import com.group4.erp.service.AccountService;
+import com.group4.erp.OrderDTO;
+import com.group4.erp.SalesInfoDTO;
+import com.group4.erp.BestKwdDTO;
+import com.group4.erp.service.AnalysisService;
 
 
 @Controller
 public class AnalysisController {
 	
-	//AccountService accountService;
 	@Autowired
-	AccountService accountService;
+	AnalysisService analysisService;
 	
 	@RequestMapping(value="/viewBestKeywdAnalysis.do")
 	public ModelAndView viewBestKeywdAnalysis(HttpSession session) {
@@ -36,8 +37,37 @@ public class AnalysisController {
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewkeywdAnalysis");
 		mav.addObject("navigator", "[전략분석]-[인기 키워드 현황]");
+		
+		try {
+			List<BestKwdDTO> bestKwdList = this.analysisService.getBestKwdList();
+			
+			String bestKwd_chart_data = "[";
+			bestKwd_chart_data += "['날짜', '횟수']";
+				
+			List<BestKwdDTO> bestKeywdInfo = this.analysisService.getKeywdSrchCntChart();
+			
+			for(int i=0; i<bestKeywdInfo.size(); i++) {
+				bestKwd_chart_data += ", ['";
+				bestKwd_chart_data += bestKeywdInfo.get(i).getDate();
+				bestKwd_chart_data += "', ";
+				bestKwd_chart_data += bestKeywdInfo.get(i).getKwd_cnt();
+				bestKwd_chart_data += "] ";
+			}
+			bestKwd_chart_data += "]";
+			
+			mav.addObject("bestKwdList", bestKwdList);
+			mav.addObject("bestKwd_chart_data", bestKwd_chart_data);
+			
+		} catch(Exception e) {
+			System.out.println("viewBestKeywdAnalysis() 메소드에서 예외 발생 "+e);
+		}
+		
+		
 
 		return mav;
 	}
+	
+	
+	
 	
 }

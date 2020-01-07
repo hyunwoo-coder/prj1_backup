@@ -128,6 +128,34 @@ public class AccountController {
 		return delCnt;
 	}
 	
+	@RequestMapping(value="/updateCorpInfoProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int updateCorpProc(CorporationDTO corpDTO) {
+	
+		int upCnt = 0;
+		
+		try {
+
+			upCnt = this.accountService.updateCorpInfo(corpDTO);
+			
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
+			
+		} catch(Exception e) {
+			System.out.println("deleteCorpProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return upCnt;
+	}
+	
 	
 	/*@RequestMapping(value="/viewSearchCorp.do")
 	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
