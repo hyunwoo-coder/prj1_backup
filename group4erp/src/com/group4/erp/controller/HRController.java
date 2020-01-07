@@ -294,9 +294,9 @@ public class HRController {
 		
 		try {
 			
-			EmployeeInfoDTO getEmpContentInfo = this.hrservice.getEmpContant(emp_no);
+			EmployeeInfoUpDTO getEmpContentInfo = this.hrservice.getEmpContant(emp_no);
 			
-			mav.addObject("employeeInfoDTO", getEmpContentInfo);
+			mav.addObject("employeeInfoUpDTO", getEmpContentInfo);
 			
 		}catch(Exception e) {
 			
@@ -314,6 +314,7 @@ public class HRController {
 		mav.addObject("subMenu", "viewEmpJoinMember");
 		mav.addObject("navigator", "[인사관리]-[직원정보]-[직원등록]");
 		
+		
 		return mav;	
 	}
 	
@@ -323,11 +324,11 @@ public class HRController {
 			EmployeeDTO employeeDTO
 			) {
 		int newEmpInsertCnt = 0;
-		
+		int addDayoffinfo = 0;
 		try {
 			
 			newEmpInsertCnt = this.hrservice.getNewEmpInsertCnt(employeeDTO);
-			
+			addDayoffinfo = this.hrservice.getAddDayoffinfoCnt(employeeDTO);
 		}catch(Exception e) {
 			System.out.println("<사원 등록 실패>");
 			System.out.println("예외 발생=>"+e);
@@ -336,20 +337,32 @@ public class HRController {
 		return newEmpInsertCnt;
 	}
 	
+	//================================
+	//직원 상세보기 수정화면에서 수정될 값들 받는 ajax
+	//================================
+	@RequestMapping(value="/empInfoUpProc.do" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public int empInfoUpProc(EmployeeInfoUpDTO employeeInfoUpDTO) {
+		int empInfoUpdate = 0;
+		try {
+			empInfoUpdate = this.hrservice.empInfoUpProc(employeeInfoUpDTO);
+			if(empInfoUpdate != 1) {
+				return 0;
+			}
+
+		}catch(Exception e) {
+			System.out.println("<직원 상세보기 수정 실패>");
+			System.out.println("예외 발생=>"+e);
+		}
+		return empInfoUpdate;
+	}
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//================================
 	//비동기 방식으로 휴가 신청 현황을 수정하는 메소드
+	//================================
 	@RequestMapping(value="/dayoffUpdateProc.do" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {

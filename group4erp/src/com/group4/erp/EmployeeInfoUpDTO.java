@@ -1,13 +1,11 @@
 package com.group4.erp;
 
-public class EmployeeInfoDTO {
+public class EmployeeInfoUpDTO {
 	
 
 	private int emp_no;
 	private String emp_name;
 	private String emp_eng_name;
-	private int dep_no;
-	private int jikup_no;
 	private int salary;
 	private String hire_dt;
 	private String resign_date;
@@ -26,13 +24,6 @@ public class EmployeeInfoDTO {
 	private String mgr_emp_jikup;
 	private String mgr_emp_dep_name;
 	private String mgr_emp_name;
-
-	public String getMgr_emp_name() {
-		return mgr_emp_name;
-	}
-	public void setMgr_emp_name(String mgr_emp_name) {
-		this.mgr_emp_name = mgr_emp_name;
-	}
 	public int getEmp_no() {
 		return emp_no;
 	}
@@ -50,18 +41,6 @@ public class EmployeeInfoDTO {
 	}
 	public void setEmp_eng_name(String emp_eng_name) {
 		this.emp_eng_name = emp_eng_name;
-	}
-	public int getDep_no() {
-		return dep_no;
-	}
-	public void setDep_no(int dep_no) {
-		this.dep_no = dep_no;
-	}
-	public int getJikup_no() {
-		return jikup_no;
-	}
-	public void setJikup_no(int jikup_no) {
-		this.jikup_no = jikup_no;
 	}
 	public int getSalary() {
 		return salary;
@@ -165,5 +144,13 @@ public class EmployeeInfoDTO {
 	public void setMgr_emp_dep_name(String mgr_emp_dep_name) {
 		this.mgr_emp_dep_name = mgr_emp_dep_name;
 	}
+	public String getMgr_emp_name() {
+		return mgr_emp_name;
+	}
+	public void setMgr_emp_name(String mgr_emp_name) {
+		this.mgr_emp_name = mgr_emp_name;
+	}
+
+	
 	
 }

@@ -338,7 +338,7 @@
 	
 	
 	
-	<select id="getEmpContantList" parameterType="int" resultType="com.group4.erp.EmployeeInfoDTO">
+	<select id="getEmpContentList" parameterType="int" resultType="com.group4.erp.EmployeeInfoUpDTO">
 		select
 			emp_no		as		"emp_no"
 			,emp_name	as		"emp_name"
@@ -348,7 +348,8 @@
 			,emp_email		as	"emp_email"
 			,emp_email_office	as	"emp_email_office"
 			,emp_addr		as	"emp_addr"
-			,hire_dt		as	"hire_dt"
+			,to_char(hire_dt, 'YYYY-MM-DD DY', 'NLS_DATE_LANGUAGE=KOREAN')	as	"hire_dt"
+			,emp_resign_date as "resign_date"
 			,is_on_leave	as	"is_on_leave"
 			,emp_gender		as	"emp_gender"
 			,salary			as	"salary"
@@ -383,6 +384,48 @@
 		,'${emp_pwd}'
 		)
 	</insert>
+	
+	
+	<insert id="getAddDayoffinfo" parameterType="com.group4.erp.EmployeeDTO">
+		insert into emp_dayoff_info
+		values (
+			(select emp_no from employee where jumin_num='${jumin_num}')
+			,15
+			,15
+		)
+	</insert>
+	
+	
+	<update id="empInfoUpProc" parameterType="com.group4.erp.EmployeeInfoDTO">
+		update employee 
+		set emp_name=#{emp_name}
+			,emp_eng_name=#{emp_eng_name}
+			,emp_gender=#{emp_gender}
+			,jumin_num=#{jumin_num}
+			,phone=#{phone}
+			,emp_email_office=#{emp_email_office}
+			,emp_email=#{emp_email}
+			,emp_addr=#{emp_addr}
+			,jikup_cd=(select jikup_cd from code_jikup where jikup=#{jikup})
+			,worktime_cd = (select worktime_cd from CODE_WORKTIME where worktime_name=#{worktime_name})
+			,dep_no=(select dep_no from dept where dep_name=#{dep_name})
+			,salary=#{salary}
+			,emp_resign_date=to_date(#{resign_date}, 'YYYY-MM-DD')
+		where emp_no = to_number(#{emp_no}) 
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

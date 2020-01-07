@@ -10,6 +10,7 @@ import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
+import com.group4.erp.EmployeeInfoUpDTO;
 import com.group4.erp.HrDayoffDTO;
 import com.group4.erp.HrListSearchDTO;
 import com.group4.erp.SalListSearchDTO;
@@ -153,15 +154,28 @@ public class HrDAOImpl implements HrDAO {
 	}
 
 
-	public EmployeeInfoDTO getEmpContant(int emp_no) {
+	public EmployeeInfoUpDTO getEmpContant(int emp_no) {
 		
-		EmployeeInfoDTO getEmpContantList = this.sqlSession.selectOne(
-				mapper_namespace+"getEmpContantList"
+		EmployeeInfoUpDTO getEmpContantList = this.sqlSession.selectOne(
+				mapper_namespace+"getEmpContentList"
 				,emp_no
 				);
 		
 		return getEmpContantList;
 		
+	}
+	
+	
+	
+
+
+	@Override
+	public int empInfoUpProc(EmployeeInfoUpDTO employeeInfoUpDTO) {
+		int empInfoUpdate = this.sqlSession.update(
+				mapper_namespace+"empInfoUpProc"
+				,employeeInfoUpDTO
+				);
+		return empInfoUpdate;
 	}
 
 
@@ -181,6 +195,16 @@ public class HrDAOImpl implements HrDAO {
 				);
 				
 		return newEmpInsertCnt;
+	}
+	
+	public int getAddDayoffinfoCnt(EmployeeDTO employeeDTO) {
+		
+		int addDayoffinfo = this.sqlSession.insert(
+				mapper_namespace+"getAddDayoffinfo"
+				,employeeDTO
+				);
+				
+		return addDayoffinfo;
 	}
 
 
