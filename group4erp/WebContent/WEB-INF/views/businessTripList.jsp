@@ -43,17 +43,20 @@
 	
 	
 	function goSearch(){
-		var  selectBox = $("#selectBox").val();
+		keyword = ''
 		var  searchKey = $("#selectSearch").val();
-		var  keyword = $("#searchKeyword").val();
-		
+		if($("#selectBox").length()=1){
+			 keyword = $("#selectBox").val();
+		}
+		else{
+			 keyword = $("#searchKeyword").val();
+		}
 		/* alert($("#selectBox").val()); */
 		
-		$("#payment").val(selectBox);
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
 		
-		$("#searchForm").submit()
+		//$("#searchForm").submit()
 
 		document.getBusinessTripListSearchForm.submit();
 	}
@@ -260,7 +263,7 @@
 			<tbody>
 			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
-			<%-- <tr style="cursor:pointer" onClick="goBusinessTripContentsForm(${work_outside_seq});"> --%>
+			<tr style="cursor:pointer" onClick="goBusinessTripContentsForm(${work_outside_seq});">
 					<%-- <td align=center>${businessList.RNUM}</td>	 --%>
 					<td align=center>${businessTripListAllCnt - businessList.RNUM + 1}</td>	
 					<td align=center>

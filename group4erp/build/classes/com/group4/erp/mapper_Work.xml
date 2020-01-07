@@ -33,7 +33,7 @@
 						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
 					<if test ="searchKey.equals('travel_payment')">
-						and travel_payment like '%'||#{payment}||'%'
+						and travel_payment like '%'||#{keyword}||'%'
 					</if>
      			</if>
      		</if>
@@ -120,7 +120,7 @@
 						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
 					<if test ="searchKey.equals('travel_payment')">
-						and travel_payment like '%'||#{payment}||'%'
+						and travel_payment like '%'||#{keyword}||'%'
 					</if>
      			</if>
      		</if>
