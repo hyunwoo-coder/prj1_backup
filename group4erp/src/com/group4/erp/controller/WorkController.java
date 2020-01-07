@@ -52,6 +52,13 @@ public class WorkController {
 			
 		List<Map<String, String>> getbusinessTripList = this.workService.getbusinessTripList(businessTripSearchDTO);
 		
+		System.out.println("insertBusinessTrip 컨트롤러");
+		System.out.println(businessTripSearchDTO.getEndTime());
+		System.out.println(businessTripSearchDTO.getStartTime());
+		System.out.println(businessTripSearchDTO.getKeyword());
+		System.out.println(businessTripSearchDTO.getRowCntPerPage());
+		System.out.println(businessTripSearchDTO.getSelectPageNo());
+		
 
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);

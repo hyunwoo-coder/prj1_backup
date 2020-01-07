@@ -9,7 +9,8 @@ public class BusinessTripSearchDTO {
 	private String searchKey;
 	private String sort="outside_start_time desc";
 	private int work_outside_seq;
-	private String payment;
+	private String startTime;
+	private String endTime;
 	
 	
 	
@@ -54,11 +55,17 @@ public class BusinessTripSearchDTO {
 	}
 	public void setWork_outside_seq(int work_outside_seq) {
 		this.work_outside_seq = work_outside_seq;
-	}public String getPayment() {
-		return payment;
 	}
-	public void setPayment(String payment) {
-		this.payment = payment;
+	public String getStartTime() {
+		return startTime;
 	}
-
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
 }

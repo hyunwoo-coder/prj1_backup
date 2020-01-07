@@ -6,10 +6,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>출장 신청 리스트</title>
+<style>
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+
+ input[type="date"]::-webkit-calendar-picker-indicator,
+ input[type="date"]::-webkit-inner-spin-button {
+     display: none;
+     appearance: none;
+ }
+ 
+ input[type="date"]::-webkit-calendar-picker-indicator {
+   color: rgba(0, 0, 0, 0); /* 숨긴다 */
+   opacity: 1;
+   display: block;
+   background: url(https://mywildalberta.ca/images/GFX-MWA-Parks-Reservations.png) no-repeat; /* 대체할 아이콘 */
+   width: 20px;
+   height: 20px;
+   border-width: thin;
+}
+</style>
 <script>
 	$(document).ready(function(){
 
+		$("#datepicker3").datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		$("#datepicker4").datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		
+
+		
 		$('[name=rowCntPerPage]').change(function(){
 			goSearch();
 		});
@@ -42,6 +77,9 @@
 	function goSearch(){
 		keyword = ''
 		var  searchKey = $("#selectSearch").val();
+		var  outsideTime = $("#datepicker3").val();
+		var  comebackTime = $("#datepicker4").val();
+		var  searchKey = $("#selectSearch").val();
 		if($("#selectBox").val()=="Y"){
 			 keyword = $("#selectBox").val();
 		}else if($("#selectBox").val()=="W"){
@@ -55,6 +93,8 @@
 		
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
+		$("#startTime").val(outsideTime);
+		$("#endTime").val(comebackTime);
 		
 		//$("#searchForm").submit()
 
@@ -105,8 +145,10 @@
      <table>
      	<tr>
      		<td>
-     			<input type="text">
-     		</td>
+				출발날짜<input type="text" id="datepicker3">
+				복귀날짜<input type="text" id="datepicker4">
+				&nbsp;&nbsp;&nbsp;
+			</td>
      	</tr>
      </table>   
 		검색조건<select id = "selectSearch">
@@ -151,6 +193,8 @@
 		<input type="hidden" name="keyword" id="keyword">
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="rowCntPerPage">
+        <input type="hidden" name="startTime" id="startTime">
+        <input type="hidden" name="endTime" id="endTime">
         <input type="hidden" name="sort" id="sort">
        <!--  <input type="text" name="payment" id="payment"> -->
         <!-- <input type="hidden" name="work_outside_seq" id="work_outside_seq"> -->
@@ -190,9 +234,9 @@
 						</c:otherwise>
 					</c:choose>
 					
-					<th>담당자 성함</th>
+					<th>담당자</th>
 					
-					<th>결제 여부</th>
+					<th>결제</th>
 				</tr>
 			</thead>
 			<tbody>

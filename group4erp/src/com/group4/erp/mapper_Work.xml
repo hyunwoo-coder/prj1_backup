@@ -7,8 +7,18 @@
 	<!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
 	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
-<mapper namespace="com.group4.erp.dao.WorkDAO">
+<mapper namespace="com.group4.erp.dao.WorkDAO">		
 	<sql id="WorkSearchKey">
+		<if test="startTime!=null and !startTime.isEmpty() and endTime!=null and !endTime.isEmpty() ">
+			 (to_char(w.outside_start_time,'yyyy-mm-dd') between #{startTime} and #{endTime})
+           and (to_char(w.outside_end_time,'yyyy-mm-dd') between #{startTime} and #{endTime})
+		</if>
+		<if test="startTime!=null and !startTime.isEmpty() and endTime==null and endTime.isEmpty() ">
+			 and to_char(w.outside_start_time,'yyyy-mm-dd') &gt;= #{startTime} 
+		</if>
+		<if test="startTime ==null and startTime.isEmpty() and endTime!=null and !endTime.isEmpty() ">
+			 and to_char(w.outside_end_time,'yyyy-mm-dd') &lt;= #{endTime} 
+		</if>
 			<if test="searchKey!=null and !searchKey.isEmpty()">
      			<if test="keyword!= null and !keyword.isEmpty()">
 					<if test ="searchKey.equals('jikup')">
@@ -23,12 +33,12 @@
 					<if test ="searchKey.equals('destination')">
 						and w.destination like '%'||#{keyword}||'%'
 					</if>
-					<if test ="searchKey.equals('outside_start_time')">
+					<!-- <if test ="searchKey.equals('outside_start_time')">
 						and to_char(w.outside_start_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
 					</if>
 					<if test ="searchKey.equals('outside_end_time')">
 						and to_char(w.outside_end_time,'yyyy-mm-dd') like '%'||#{keyword}||'%'
-					</if>
+					</if> -->
 					<if test ="searchKey.equals('mgr_name')">
 						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
@@ -43,12 +53,6 @@
      	 <if test="sort.equals('outside_start_time') and sort.length()>0">
 	     	order by ${sort}
 		 </if>
-	     <!-- <if test="sort!=null and sort.length()>0">
-	     	order by ${sort}
-		 </if>	
-		 <if test="sort==null">
-		    order by outside_start_time desc
-		 </if> -->
 	</sql>
 	
 	 
@@ -96,7 +100,8 @@
 	    	 inner join dept d on d.dep_no=e1.dep_no
      		 left outer join employee e2 on e2.emp_no=e1.mgr_emp_no 
      	 where delete_yn = 'N'
-     	 	<if test="searchKey!=null and !searchKey.isEmpty()">
+     	 	<include refid="WorkSearchKey"/>
+     	 	<!-- <if test="searchKey!=null and !searchKey.isEmpty()">
      			<if test="keyword!= null and !keyword.isEmpty()">
 					<if test ="searchKey.equals('jikup')">
 						and c.jikup like '%'||#{keyword}||'%'
@@ -129,7 +134,7 @@
 		 </if>
      	 <if test="sort.equals('outside_start_time') and sort.length()>0">
 	     	order by ${sort}
-		 </if>	
+		 </if>	 -->
 		<!--  <if test="sort==null">
 		    order by outside_start_time desc
 		 </if> -->
