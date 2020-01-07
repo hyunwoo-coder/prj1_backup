@@ -34,9 +34,6 @@
 		inputData('#selectSearch',"${businessTripSearchDTO.searchKey}");
 		inputData('#searchKeyword',"${businessTripSearchDTO.keyword}");
 		inputData('#sort',"${businessTripSearchDTO.sort}");
-		inputData('#payment',"${businessTripSearchDTO.payment}");
-	
-
 		//alert("${businessTripSearchDTO.rowCntPerPage}");
 });
 
@@ -45,10 +42,13 @@
 	function goSearch(){
 		keyword = ''
 		var  searchKey = $("#selectSearch").val();
-		if($("#selectBox").length()=1){
+		if($("#selectBox").val()=="Y"){
 			 keyword = $("#selectBox").val();
-		}
-		else{
+		}else if($("#selectBox").val()=="W"){
+			keyword = $("#selectBox").val();
+		}else if($("#selectBox").val()=="N"){
+			keyword = $("#selectBox").val();
+		}else{
 			 keyword = $("#searchKeyword").val();
 		}
 		/* alert($("#selectBox").val()); */
@@ -102,16 +102,19 @@
 	<h1>[출장 리스트]</h1>
 	<form name="getBusinessTripListSearchForm" method="post" action="/group4erp/businessTripList.do">
 		
-        
+     <table>
+     	<tr>
+     		<td>
+     			<input type="text">
+     		</td>
+     	</tr>
+     </table>   
 		검색조건<select id = "selectSearch">
-					<option >	</option>
-					<option value="jikup">직급</option>
+					<option>------</option>
 					<option value="emp_name">성명</option>
 					<option value="dep_name">부서</option>
-					<option value="destination">출장지</option>
 					<option value="outside_start_time">출발 날짜</option>
 					<option value="outside_end_time">복귀 날짜</option>
-					<option value="mgr_name">직속 상관</option>
 					<option value="travel_payment">결제 여부</option>
 				</select>
 				
@@ -149,7 +152,7 @@
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="rowCntPerPage">
         <input type="hidden" name="sort" id="sort">
-        <input type="text" name="payment" id="payment">
+       <!--  <input type="text" name="payment" id="payment"> -->
         <!-- <input type="hidden" name="work_outside_seq" id="work_outside_seq"> -->
         
 	</form>
@@ -160,67 +163,9 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-						
-					<c:choose>
-						<c:when test="${param.sort=='3 desc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('3 asc'); goSearch();">▼성명</th>
-						</c:when>
-						<c:when test="${param.sort=='3 asc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('3 desc'); goSearch();">▲성명</th>
-						</c:when>
-						<c:otherwise>
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('3 asc'); goSearch();">성명</th>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${param.sort=='11 desc'}">
-							<th style="cursor:pointer" onClick="$('[name=sort]').val('11 asc'); goSearch();"> ▼ 직급</th>
-						</c:when>
-						<c:when test="${param.sort=='11 asc'}">
-							<th style="cursor:pointer" onClick="$('[name=sort]').val('11 desc'); goSearch();"> ▲ 직급</th>
-						</c:when>			
-						<c:otherwise>
-							<th style="cursor:pointer" onClick="$('[name=sort]').val('11 asc'); goSearch();">직급</th>
-						</c:otherwise>
-				    </c:choose>
-					
-					
-					<c:choose>	
-						<c:when test="${param.sort=='4 desc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goSearch();">▼부서명</th>
-						</c:when>
-						<c:when test="${param.sort=='4 asc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('4 desc'); goSearch();">▲부서명</th>
-						</c:when>
-						<c:otherwise>
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goSearch();">부서명</th>
-						</c:otherwise>
-					</c:choose>	
-					
-					<c:choose>
-						<c:when test="${param.sort=='5 desc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('5 asc'); goSearch();">▼출장지</th>
-						</c:when>
-						<c:when test="${param.sort=='5 asc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('5 desc'); goSearch();">▲출장지</th>
-						</c:when>
-						<c:otherwise>
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('5 asc'); goSearch();">출장지</th>
-						</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-						<c:when test="${param.sort=='6 desc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('6 asc'); goSearch();">▼출장사유</th>
-						</c:when>
-						<c:when test="${param.sort=='6 asc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('6 desc'); goSearch();">▲출장사유</th>
-						</c:when>
-						<c:otherwise>
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('6 asc'); goSearch();">출장사유</th>
-						</c:otherwise>
-					</c:choose>
-					
+					<th>성명</th>
+					<th>직급</th>
+					<th>부서명</th>
 					<c:choose>
 						<c:when test="${param.sort=='7 desc'}">
 							<th style="cursor:pointer" onclick="$('[name=sort]').val('7 asc'); goSearch();">▼출발 날짜</th>
@@ -245,17 +190,7 @@
 						</c:otherwise>
 					</c:choose>
 					
-					<c:choose>
-						<c:when test="${param.sort=='9  desc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('9  asc'); goSearch();">▼담당자 성함</th>
-						</c:when>
-						<c:when test="${param.sort=='9  asc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('9  desc'); goSearch();">▲담당자 성함</th>
-						</c:when>
-						<c:otherwise>
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('9  asc'); goSearch();">담당자 성함</th>
-						</c:otherwise>
-					</c:choose>
+					<th>담당자 성함</th>
 					
 					<th>결제 여부</th>
 				</tr>
@@ -263,7 +198,7 @@
 			<tbody>
 			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
-			<tr style="cursor:pointer" onClick="goBusinessTripContentsForm(${work_outside_seq});">
+			<tr style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq});">
 					<%-- <td align=center>${businessList.RNUM}</td>	 --%>
 					<td align=center>${businessTripListAllCnt - businessList.RNUM + 1}</td>	
 					<td align=center>
@@ -274,8 +209,6 @@
 					</td>
 					<td align=center>${businessList.jikup}</td>
 					<td align=center>${businessList.dep_name}</td>
-					<td align=center>${businessList.destination}</td>
-					<td align=center>${businessList.work_outside_reason}</td>
 					<td align=center>${businessList.outside_start_time}</td>
 					<td align=center>${businessList.outside_end_time}</td>
 					<td align=center>

@@ -36,10 +36,10 @@ public class WorkDAOImpl implements WorkDAO{
 		return getbusinessTripListAllCnt;
 	}
 	
-	public BusinessTripDTO getbusinessTripDTO(int work_outside_seq) {
+	public BusinessTripDTO getBusinessTripDTO(int work_outside_seq) {
 		//[SqlSessionTemplate 객체]의 selectOne(~,~)을 호출하여 [1개 게시판 글 정보] 얻기
 		BusinessTripDTO businessTripDTO = this.sqlSession.selectOne(
-				"com.group4.erp.dao.WorkDAO.getbusinessTripDTO"
+				"com.group4.erp.dao.WorkDAO.getBusinessTripDTO"
 				,work_outside_seq
 				);
 		return businessTripDTO;

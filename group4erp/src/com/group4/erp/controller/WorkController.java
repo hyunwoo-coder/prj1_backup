@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.group4.erp.BusinessTripDTO;
 import com.group4.erp.BusinessTripSearchDTO;
+import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.service.WorkService;
 
 
@@ -74,27 +75,32 @@ public class WorkController {
 		
 	}
 	
-	/*
-	 * @RequestMapping(value="/businessTripContentsForm.do") public ModelAndView
-	 * goBusinessTripContentsForm(
-	 * 
-	 * @RequestParam(value="work_outside_seq") int work_outside_seq ,HttpSession
-	 * session) { ModelAndView mav = new ModelAndView();
-	 * mav.setViewName("main.jsp"); mav.addObject("subMenu",
-	 * "businessTripContentsForm");
-	 * 
-	 * try { session.setAttribute("uri", "businessTripContentsForm.do");
-	 * //[BoardServiceImpl 객체]의 getBoardDTO 메소드 호출로 1개의 게시판 글을 BoardDTO객체에 담아오기
-	 * BusinessTripDTO businessTripDTO =
-	 * this.workService.getbusinessTripDTO(work_outside_seq); //[ModelAndView 객체]에
-	 * 1개의 게시판 글을 담고 있는 BoardDTO객체 저장하기 mav.addObject("businessTripDTO",
-	 * businessTripDTO); }catch(Exception e) {
-	 * System.out.println("goBusinessTripContentsForm <에러발생>"); }
-	 * 
-	 * return mav;
-	 * 
-	 * }
-	 */
+	
+	//출장 상세 보기
+	@RequestMapping(value="/businessTripContentsForm.do")
+	public ModelAndView goBusinessTripContentsForm(
+			@RequestParam(value="work_outside_seq") int work_outside_seq
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "businessTripContentsForm"); 
+		mav.addObject("navigator", "[업무관리]-[출장신청&보고]-[상세보기]");
+		
+		try {
+			
+			BusinessTripDTO businessTripDTO = this.workService.getBusinessTripDTO(work_outside_seq);
+			
+			mav.addObject("businessTripDTO", businessTripDTO);
+			
+		}catch(Exception e) {
+			System.out.println("goBusinessTripContentsForm <에러발생>"+"="+e); 
+		}
+
+		return mav;
+		
+	}
+	
 	
 		@RequestMapping(
 				value="/businessTripRegProc.do"

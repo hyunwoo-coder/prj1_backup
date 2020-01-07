@@ -6,12 +6,12 @@
 
 
 <!-- 만약에 상세보기할 게시판 글이 없으면 경고하고 이전 화면으로 이동하기 -->
-<c:if test="${empty businessTripDTO}">
+<%-- <c:if test="${empty businessTripDTO}">
 	<script>
 		alert("게시글이 삭제되어있습니다!");
 		location.replace("/z_spring/businessTripList.do");
 	</script>
-</c:if>
+</c:if> --%>
 
 
 <html>
@@ -26,34 +26,45 @@
 	<!-- [1개의 게시판 내용]을 출력하고 게시판 등록 화면으로 이동하는 form 태그 선언 -->
 	<!-- ModelAndView 객체에 boardDTO라는 키값으로 저장된 BoardDTO 객체의 속성변수 안의 데이터를 꺼내어 출력한다. -->
 	<!-- 꺼내는 방법은 EL문법으로 달러{boardDTO.속성변수명} 이다. -->
-	<form class="businessTripContentsForm" method="post" name="businessTripContentsForm" action="${ctRoot}/boardRegProc.do">
+	<form class="businessTripContentsForm" method="post" name="businessTripContentsForm" action="group4erp/businessTripRegProc.do">
 		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">
 		<b>출장 상세 보기</b><br>
 		<table class="tbcss1" width="500" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr align=center>
-				<th bgcolor="gray" width=60>글번호
-				<td width=150>${businessTripDTO.RNUM}
-				<th bgcolor="gray" width=60>조회수
-				<td width=150>${businessTripDTO.readcount}
+				<th bgcolor="gray" >사원 번호</th>
+				<td >${businessTripDTO.emp_no}</td>
+				<th bgcolor="gray" >직급</th>
+				<td >${businessTripDTO.jikup}</td>
+			</tr>
 			<tr align=center>
-				<th bgcolor="gray" width=60>작성자
-				<td width=150>${businessTripDTO.writer}
-				<th bgcolor="gray" width=60>작성일
-				<td width=150>${businessTripDTO.reg_date}
+				<th bgcolor="gray" width=60>사원명</th>
+				<td width=150>${businessTripDTO.emp_name}</td>
+				<th bgcolor="gray" width=60>부서명</th>
+				<td width=150>${businessTripDTO.dep_name}</td>
+			</tr>
+				<tr align=center>
+				<th bgcolor="gray">담당자 명</th>
+				<td>${businessTripDTO.mgr_name}</td>
+			</tr>
 			<tr>
-				<th bgcolor="gray">글제목
-				<td width=150 colspan=3>${businessTripDTO.subject}
+				<th bgcolor="gray">출장날짜</th>
+				<td width=150 colspan=3>${businessTripDTO.outside_start_time}~${businessTripDTO.outside_end_time}</td>
+			</tr>
 			<tr>
-				<th bgcolor="gray">글내용
+				<th bgcolor="gray">출장지</th>
+				<td width=150 colspan=3>${businessTripDTO.destination}</td>
+			</tr>
+			<tr>
+				<th bgcolor="gray">출장 사유</th>
 				<td width=150 colspan=3>
-					<textarea name="content" rows="13" cols="45" style="boder:0" readonly>${boardDTO.content}
+					<textarea name="content" rows="13" cols="45" style="boder:0" readonly>${businessTripDTO.work_outside_reason}
 					</textarea>
-			
+				</td>
 		</table>
 		<table><tr heigth=3><td></table>
-		<input type="button" value="수정/삭제" onclick="goBoardUpDelForm()">&nbsp;
-		<input type="button" value="글 목록 보기" onclick="document.boardListForm.submit();">
-		<!-- <input type="button" value="목록보기" onclick="location.replace('/z_spring/boardListForm.do')"> -->
+		<!-- <input type="button" value="수정/삭제" onclick="goBoardUpDelForm()">&nbsp; -->
+		<!-- <input type="button" value="글 목록 보기" onclick="document.boardListForm.submit();"> -->
+		<input type="button" value="목록보기" onclick="location.replace('/group4erp/businessTripList.do')">
 	<%-- </form>
 	<!-- [게시판목록] 화면으로 이동하는 form 태그 선언 -->
 	<!-- form 태그 내부에는 클라이언트가 보낸 파라미터값을 입력양식에 저장하고 있다. -->

@@ -35,9 +35,9 @@
 			</c:if>
 			
 			<!-- 출장 상세페이지 -->
-			<%-- <c:if test="${subMenu.equals('businessTripContentsForm') }">
+			<c:if test="${subMenu.equals('businessTripContentsForm') }">
 				<%@ include file="/WEB-INF/views/businessTripContentsForm.jsp" %>
-			</c:if> --%>
+			</c:if>
 			
 			
 			
