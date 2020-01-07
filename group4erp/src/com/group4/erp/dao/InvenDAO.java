@@ -52,4 +52,6 @@ public interface InvenDAO {
 	
 	int getBookStockCnt(InvenDTO invenDTO);
 	
+	ReturnSalseContentDTO getReturnContent(int return_sales_no);
+	
 }

@@ -217,4 +217,14 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return insertBookStock;
 	}
+	
+	public ReturnSalseContentDTO getReturnContent(int return_sales_no) {
+		
+		ReturnSalseContentDTO returnInfo = this.sqlSession.selectOne(
+				"com.group4.erp.dao.invenSearchDAO.getReturnContent"
+				,return_sales_no
+				);
+		
+		return returnInfo;
+	}
 }

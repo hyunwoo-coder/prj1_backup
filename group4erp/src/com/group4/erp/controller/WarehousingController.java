@@ -47,7 +47,7 @@ public class WarehousingController {
 
 			int warehousingListCnt = this.warehousingService.getWarehousingListCnt(warehousingSearchDTO);
 			mav.addObject("warehousingListCnt", warehousingListCnt);
-
+			
 			List<Map<String, String>> warehousingList = this.warehousingService.getWarehousingList(warehousingSearchDTO);
 			mav.addObject("warehousingList", warehousingList);
 			

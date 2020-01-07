@@ -183,7 +183,7 @@
 		insert into emp_dayoff_apply values(
 			(select nvl(max(dayoff_apply_no), 0)+1 from emp_dayoff_apply)
 			,(select emp_no from employee where emp_name=#{emp_name})
-			,to_date(sysdate, 'YYYY-MM-DD')
+			,to_date(to_char(sysdate, 'YYYY-MM-DD'), 'YYYY-MM-DD')
 			,#{dayoff_cd}
 			,#{using_dayoff}
 			,to_date(#{start_dayoff}, 'YYYY-MM-DD')

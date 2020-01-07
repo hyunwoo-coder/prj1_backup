@@ -173,9 +173,26 @@
 				</if>			
 			</foreach>	
 		</if>
+		<if test="searchToday!=null and searchToday.length()>0">
+            and ( to_char(return_order_dt,'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD') )
+     	</if>
+		<if test="( dateFrom != null and dateFrom.length()>0 )  or  ( dateTill != null and dateTill.length()>0 )">
+		   and( 
+		</if>   
+		<if test="( dateFrom!=null and dateFrom.length()>0 ) and ( dateTill.equals('') )">
+		   return_order_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') 
+		</if>
+		<if test="( dateTill!=null and dateTill.length()>0 ) and ( dateFrom.equals('')  )">
+		   return_order_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') 
+		</if>
+		<if test="( dateFrom!=null and dateFrom.length()>0 )and ( dateTill != null and dateTill.length()>0 )">
+		   ( return_order_dt &gt;= to_date( #{dateFrom}, 'YYYY-MM-DD') )  and ( return_order_dt &lt;= to_date( #{dateTill}, 'YYYY-MM-DD') ) 
+		</if>
+		<if test="( dateFrom != null and dateFrom.length()>0 )  or  ( dateTill != null and dateTill.length()>0 )">
+		   ) 
+		</if>
 	</sql>
 	
-
 	<sql id="headerSort">
 		<if test="sort!=null and sort.length() > 0" >
 			order by ${sort}
@@ -186,7 +203,6 @@
 		</if>
 	</sql>
 
-	
 	<sql id="releaseWhere">
 		<if test="inventory_loc!=null and inventory_loc.length>0">
      	 and
@@ -218,6 +234,8 @@
       	and(
       		upper((select book_name from book where isbn13=(select isbn13 from order_info where order_no=r.order_no ))) like upper('%${keyword1}%')
       		or upper((select book_name from book where isbn13=(select isbn13 from corp_order_info where order_books_no=r.order_books_no ))) like upper('%${keyword1}%')
+      		or upper( (case when r.order_no is null then r.order_books_no else r.order_no end) ) like upper('%${keyword1}%')
+      		or upper( to_char(r.release_no) ) like upper('%${keyword1}%')
            )
       </if>
       <if test="searchPublisher != null and searchPublisher.length()>0">
@@ -246,6 +264,7 @@
           ) 
        </if>
 	</sql>
+	 
 	 
 
 	<select id="getBookListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
@@ -299,7 +318,6 @@
 		select count(*) from release_info r where 1=1  <include refid="releaseWhere" />
 	</select>
 	
-
 	<select id='getReleaseList' parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
 			select
@@ -368,7 +386,14 @@
 		<include refid="returnWhere" />
 	</select>
 
-
+	<select id="getReturnContent" parameterType="int" resultType="com.group4.erp.ReturnSalseContentDTO">
+		select
+		    (select b.book_name from book b where b.isbn13=rs.isbn13)		"book_name"
+		    ,( select nvl(c.cus_id, c.cus_phone) from customer c where nvl(c.cus_id, c.cus_phone)=(select od.order_id from order_info od where od.order_no=rs.order_no) )		"id"
+		    ,to_char(rs.return_order_dt, 'YYYY-MM-DD')		"return_order_dt"
+		    ,rs.return_comment		"return_comment"
+		from return_sale_info rs where rs.return_sales_no=#{return_sales_no}
+	</select>
 
     
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">
@@ -395,10 +420,12 @@
     		,(select e.emp_name from employee e where e.emp_no=(select bk.emp_no from book bk where bk.isbn13=b.isbn13)) "emp_name"
     		,(select cb.branch_name from code_branch cb where cb.branch_cd=(select si.branch_cd from stock_info si where si.isbn13=b.isbn13)) "branch_name"
     		,(select si.isbn_cnt from stock_info si where si.isbn13=b.isbn13) "isbn_cnt"
+    		,b.editor		"editor"
     		from book b 
     		where 1=1 
     		and b.isbn13=#{isbn13_search}
     </select>
+    
     
     <select id="getOrderCnt" parameterType="String" resultType="int">
     	select book_qty from order_info where order_no=#{all_order_no}

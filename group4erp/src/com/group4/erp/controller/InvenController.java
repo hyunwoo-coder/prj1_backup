@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
+
 public class InvenController {
 
 	
@@ -171,6 +172,28 @@ public class InvenController {
 			System.out.println("예외발생"+e);
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value="/goReturnOrderContent.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public ReturnSalseContentDTO goReturnOrderInfo(
+			@RequestParam(value="pk_no") int return_sales_no
+			,ReturnSalseContentDTO returnContentDTO
+			) {
+		
+		ReturnSalseContentDTO returnInfo = null;
+		
+		try {
+			
+			returnInfo = this.invenService.getReturnContent(return_sales_no);
+			
+		} catch(Exception e) {
+			System.out.println("<반품 상세 정보 불러오기 실패>");
+			System.out.println("예외발생 => "+e);
+		}
+		return returnInfo;
 	}
 	
 	@RequestMapping(value="/viewSignUpBook.do")

@@ -36,15 +36,21 @@
 
 $(document).ready(function(){  
 	
-	
 	$("#datepicker1").datepicker({
-		
-	    onSelect: function() { 
+		dateFormat: 'yy-mm-dd'
+		,onClose: function( selectedDate ) {
+			$("#datepicker2").datepicker( "option", "minDate", selectedDate );
+		} 
+	    ,onSelect: function() { 
 	        var dateObject = $(this).datepicker('getDate');
 	    }
 	});
 	$("#datepicker2").datepicker({
-	    onSelect: function() { 
+		dateFormat: 'yy-mm-dd'
+		,onClose: function( selectedDate ) {
+	        $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
+	    }
+	    ,onSelect: function() { 
 	        var dateObject = $(this).datepicker('getDate');
 	    }
 	});
@@ -165,7 +171,7 @@ $(document).ready(function(){
 <body><center>
 <h1>[출고 현황]</h1>
 		<form name="bookReleaseSearch" method="post" action="/group4erp/goReleaseList.do">
-		<table class="tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 			<th>지역
 			<td align=center colspan=3>
@@ -187,18 +193,14 @@ $(document).ready(function(){
 				</select>
 			<tr>
 			<th>키워드
-			<td colspan=4><input type="text" name="keyword1" size=40>
+			<td colspan=4><input type="text" name="keyword1" size=50>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a style="cursor:pointer" onclick="searchToday();">[금일 검색]</a>
 			<input type="hidden" name="searchToday">
-			<script>
-				 $("#datepicker1").datepicker({ dateFormat: 'yy-mm-dd' });
-				 $("#datepicker2").datepicker({ dateFormat: 'yy-mm-dd' });
-			</script>
 		</table>
 		<br>
-			<input type="button" value="  검색  " onclick="goSearchRelease();">&nbsp;&nbsp;
-     		<input type="button" value="모두검색" onclick="goAllSearchRelease();">
+			<button onClick="goSearchRelease();">검색</button>
+			<button onClick="goAllSearchRelease();">모두검색</button>
      	<table border=0 width=700>
          <tr>
             <td align=right>
@@ -215,7 +217,7 @@ $(document).ready(function(){
 		</form>
 
 		<br><br><br>
-		<table class="releaseListTable tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="releaseListTable tab" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 				<th>번호<th>출고번호<th>출고일시<th>주문번호<th>비고
 			<c:forEach items="${requestScope.releaseList}" var="release" varStatus="loopTagStatus">
