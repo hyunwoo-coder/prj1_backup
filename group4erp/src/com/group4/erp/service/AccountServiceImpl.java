@@ -138,4 +138,12 @@ public class AccountServiceImpl implements AccountService {
 		
 		return updateCorpCnt;
 	}
+
+	@Override
+	public int getTranSpecIssueCnt() {
+		// TODO Auto-generated method stub
+		int tranSpecIssueCnt = this.accountDAO.getTranSpecIssueCnt();
+		
+		return tranSpecIssueCnt;
+	}
 }

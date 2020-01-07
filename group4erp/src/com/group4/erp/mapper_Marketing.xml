@@ -277,7 +277,8 @@
 	
 	
 	<update id="updateEventInfo" parameterType="com.group4.erp.EventDTO">	
-			update event_info set 				
+			update event_info set 	
+				evnt_cd = #{evnt_cd},			
 				evnt_title = #{evnt_title},
 				evnt_start_dt = #{evnt_start_dt},
 				evnt_end_dt = #{evnt_end_dt}

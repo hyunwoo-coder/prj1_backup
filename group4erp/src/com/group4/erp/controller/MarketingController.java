@@ -243,7 +243,7 @@ public class MarketingController {
 		int upCnt = 0;
 		
 		try {
-			
+			System.out.println("컨트롤러 updateEventProc() 메소드 실행");
 			upCnt = this.marketingService.updateEventInfo(eventDTO);
 			System.out.println("upCnt==="+upCnt);
 			

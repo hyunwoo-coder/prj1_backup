@@ -46,5 +46,7 @@ public interface AccountService {
 	List<CorporationDTO> getBusiness_area();
 	
 	int updateCorpInfo(CorporationDTO corpDTO);
+	
+	int getTranSpecIssueCnt();
 
 }

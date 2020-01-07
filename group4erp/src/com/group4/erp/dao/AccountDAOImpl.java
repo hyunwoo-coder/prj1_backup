@@ -141,4 +141,12 @@ public class AccountDAOImpl implements AccountDAO {
 		return updateCorpCnt;
 	}
 
+	@Override
+	public int getTranSpecIssueCnt() {
+		// TODO Auto-generated method stub
+		int tranSpectIssueCnt = this.sqlSession.selectOne(mapper_namespace+"getTranSpecIssueCnt");
+		
+		return tranSpectIssueCnt;
+	}
+
 }

@@ -10,10 +10,15 @@
 <mapper namespace="com.group4.erp.dao.AnalysisDAO">
 	
 	<sql id="bestKwdWhere">
+		<if test="rank !=null">
+				and 
+					rownum&lt;=#{rank}
+						
+		</if>
 		
 	</sql> 
 	
-	<select id="getBestKwdList" resultType="com.group4.erp.BestKwdDTO">
+	<select id="getBestKwdList" parameterType="com.group4.erp.BestKwdSearchDTO" resultType="com.group4.erp.BestKwdDTO">
 		select rownum "rank", 
 				srch_kwd "srch_kwd", 
 				kwd_cnt "kwd_cnt" 
@@ -23,6 +28,7 @@
 				group by srch_key order by 2 desc
 			)
 		where 1=1
+		<include refid="bestKwdWhere" />
 	</select>
 	
 	<select id="getKeywdSrchCntChart" resultType="com.group4.erp.BestKwdDTO">

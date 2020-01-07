@@ -267,13 +267,7 @@
 	    		<td align="left">
 	    			<label> [전체 이벤트 횟수 ] : ${eventCnt}회 </label><br>
 	    			<label> [담당 이벤트 행사 횟수] : ${eventCnt}회 </label>
-	            	<select name="rowCntPerPage">
-	              		<option value="10">10</option>
-	               		<option value="15">15</option>
-	               		<option value="20">20</option>
-	               		<option value="25">25</option>
-	               		<option value="30">30</option>
-	            	</select> 행보기
+	            	
 	            </td>
 	        </tr>
 		</table>
@@ -316,9 +310,23 @@
 	</table>
 	
 
-	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
-		<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5" width="800">
-			<tr><th></th>
+	<table border="0" cellpadding="5" cellspacing="5">
+		<tr>
+			<td align="right"><select name="rowCntPerPage">
+	              		<option value="10">10</option>
+	               		<option value="15">15</option>
+	               		<option value="20">20</option>
+	               		<option value="25">25</option>
+	               		<option value="30">30</option>
+	            	</select> 행보기
+	           </td>
+		</tr>
+		
+		<tr>
+		
+			<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
+			<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5">
+				<tr><th></th>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 이벤트 번호</th>
@@ -392,7 +400,7 @@
 				</c:choose>
 				<th>비고</th>
 			</tr>
-			<tr>
+			
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
 					<td class="delCheckBox" align=center>
@@ -425,10 +433,15 @@
 					<td align=center>${eventList.evnt_end_dt}</td>
 					<td align=center>${eventList.evnt_stat}</td>
 				</tr> --%>		 
-			</c:forEach>
-		</table><br>
+					</c:forEach>
+				</table><br>
 	
-	</form>
+			</form>
+		
+		</tr>
+	</table>
+	
+	
 	
 	<form name="deleteEvntForm" method="post" action="/group4erp/deleteEvntProc.do">
 		<input type="hidden" name="evnt_no">

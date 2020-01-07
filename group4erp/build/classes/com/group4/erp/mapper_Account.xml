@@ -52,10 +52,11 @@
 			order by ${sort}
 		</if>
 		
-		<if test="sort==null">
-			order by corp_no
+		<if test="sort==null or sort.length() == 0">
+			order by reg_dt desc
 		</if>
 	</sql>
+
 
 	<select id='getCorpListCnt' resultType="int">
 		select count(*) from corporation_cus
@@ -74,7 +75,8 @@
 				corp_fax "corp_fax",
 				corp_tel "corp_tel",
 				corp_business_area "corp_business_area",
-				is_on_business "is_on_business"
+				is_on_business "is_on_business",
+				reg_dt
 			from corporation_cus
 			where is_on_business='y'
 			<include refid="headerSort" />
@@ -108,7 +110,8 @@
 			corp_fax, 
 			corp_tel, 
 			corp_business_area,
-			is_on_business 
+			is_on_business,
+			reg_dt 
 			) values (
 			  #{corp_no},	
 			  #{corp_name},
@@ -117,7 +120,8 @@
 			  #{corp_fax},
 			  #{corp_tel},
 			  #{corp_business_area},
-			  'y'
+			  'y',
+			  sysdate
 			)
 	</insert>
 	
@@ -150,9 +154,19 @@
     		(select count(*) from tran_issue_info ti where ti.order_no = co.order_books_no) "issue"
     	from corp_order_info co
     	where co.corp_no is not null
- 		<include refid="headerSort" />
+ 		<include refid="CorpOrderHeaderSort" />
     	<include refid="CorpCondition" />
 	</select>
+	
+	<sql id="CorpOrderHeaderSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null or sort.length() == 0">
+			order by co.order_dt desc
+		</if>
+	</sql>
 	
 	<select id='getTranSpecCnt' parameterType = "int" resultType="int">
 		select count(*) from corp_order_info where order_books_no = #{order_books_no}
@@ -179,6 +193,11 @@
     	from corp_order_info co
     	where co.order_books_no = #{order_books_no}
 		
+	</select>
+	
+	<select id="getTranSpecIssueCnt" resultType="int">
+		select count(*) from tran_issue_info
+	
 	</select>
 	
 	

@@ -67,7 +67,9 @@ public class AccountController {
 		mav.addObject("subMenu", "goInsertCorpPage");
 		mav.addObject("navigator", "[회계관리]-[거래처등록/삭제]");
 		
+		List<CorporationDTO> business_area = this.accountService.getBusiness_area();
 		
+		mav.addObject("business_area", business_area);
 		
 		return mav;
 	}
@@ -260,11 +262,15 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTranSpecIssueList");
+		mav.addObject("navigator", "[회계관리] - [거래내역 조회] - [거래명세서 발급 내역]");
 		
 		try {
 			
+			int tranSpecIssueCnt = this.accountService.getTranSpecIssueCnt();
+			
 			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList();
 			mav.addObject("tranSpecIssueList", tranSpecIssueList);
+			mav.addObject("tranSpecIssueCnt", tranSpecIssueCnt);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);

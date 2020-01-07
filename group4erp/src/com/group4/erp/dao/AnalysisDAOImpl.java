@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.group4.erp.BestKwdDTO;
+import com.group4.erp.BestKwdSearchDTO;
 
 @Repository
 public class AnalysisDAOImpl implements AnalysisDAO {
@@ -17,10 +18,10 @@ public class AnalysisDAOImpl implements AnalysisDAO {
 	String mapper_namespace = "com.group4.erp.dao.AnalysisDAO.";
 
 	@Override
-	public List<BestKwdDTO> getBestKwdList() {
+	public List<BestKwdDTO> getBestKwdList(BestKwdSearchDTO bestKwdSearchDTO) {
 		// TODO Auto-generated method stub
 		
-		List<BestKwdDTO> bestKwdList = this.sqlSession.selectList(mapper_namespace+"getBestKwdList");
+		List<BestKwdDTO> bestKwdList = this.sqlSession.selectList(mapper_namespace+"getBestKwdList", bestKwdSearchDTO);
 		
 		return bestKwdList;
 	}

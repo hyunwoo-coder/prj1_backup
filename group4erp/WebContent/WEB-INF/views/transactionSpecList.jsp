@@ -66,7 +66,7 @@
 
 </script>
 </head>
-<body onLoad="startTime();"><center>
+<body><center>
 	<h1>거래 내역</h1><br>
 	
 	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecList.do">

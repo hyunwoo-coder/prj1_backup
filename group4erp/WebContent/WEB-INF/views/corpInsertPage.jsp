@@ -115,7 +115,7 @@
 	<h1>거래처 등록</h1>
 	<form name="insertCorpForm" method="post" action="/insertCorpProc.do">
 		
-		<table class="insertCorpTable tab" name="insertCorpTable" cellpadding="5" cellspacing="5" width="500">
+		<table class="insertCorpTable tab" name="insertCorpTable" cellpadding="5" cellspacing="5">
 			<tr>
 				<td>사업자 번호</td><td><input tyep="text" name="corp_no" maxlength="12" ></td>
 			</tr>

@@ -152,6 +152,7 @@ public class MarketingDAOImpl implements MarketingDAO {
 	@Override
 	public int updateEventInfo(EventDTO eventDTO) {
 		// TODO Auto-generated method stub
+		System.out.println("DAO updateEventInfo() 메소드 실행");
 		int updateEventCnt = this.sqlSession.update(mapper_namespace+"updateEventInfo", eventDTO);
 		
 		return updateEventCnt;

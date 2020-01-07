@@ -29,8 +29,19 @@
 			<tr>
 				<th>순서</th><th>결재 종류</th><th>문서일련번호</th><th>결재요청시간</th><th>비고</th>
 			</tr>
+			<c:forEach items='${approvalResList}' var="approvalResList" varStatus="loopTagStatus">
+				<tr style="cursor:pointer" onClick="viewDocument();">
+					<td>${approvalResList.e_works_no}</td>
+					<td>${approvalResList.document_no}</td>
+					<td>${approvalResList.e_works_req_dt}</td> 
+					<td>${approvalResList.approval_state}</td> 
+				</tr>	
+			</c:forEach>
 		
 		</table>
+		<c:if test="${approvalResList.length==0}">
+			<h3>해당 결과가 없습니다.</h3>
+		</c:if>
 		
 		<br><br><br>
 		
@@ -49,7 +60,9 @@
 			</c:forEach>
 		
 		</table>
-		
+		<c:if test="${approvalReqList.size()==0}">
+			<h3>해당 결과가 없습니다.</h3>
+		</c:if>
 		
 	</center>
 	

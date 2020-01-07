@@ -8,43 +8,6 @@ public class BestKwdDTO {
 	private String date;
 	private String rank;
 	
-	private String searchKeyword;
-	private int selectPageNo=1;
-	private int rowCntPerPage=10;
-	
-	
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getSearchKeyword() {
-		return searchKeyword;
-	}
-
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
-	}
-
-	public int getSelectPageNo() {
-		return selectPageNo;
-	}
-
-	public void setSelectPageNo(int selectPageNo) {
-		this.selectPageNo = selectPageNo;
-	}
-
-	public int getRowCntPerPage() {
-		return rowCntPerPage;
-	}
-
-	public void setRowCntPerPage(int rowCntPerPage) {
-		this.rowCntPerPage = rowCntPerPage;
-	}
-
 
 	public String getRank() {
 		return rank;
@@ -52,6 +15,14 @@ public class BestKwdDTO {
 
 	public void setRank(String rank) {
 		this.rank = rank;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 	public String getKwd_cnt() {
