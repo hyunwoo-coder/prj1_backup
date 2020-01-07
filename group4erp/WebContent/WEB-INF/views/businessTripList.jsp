@@ -146,6 +146,7 @@
      	<tr>
      		<td>
 				출발날짜<input type="text" id="datepicker3">
+				~
 				복귀날짜<input type="text" id="datepicker4">
 				&nbsp;&nbsp;&nbsp;
 			</td>

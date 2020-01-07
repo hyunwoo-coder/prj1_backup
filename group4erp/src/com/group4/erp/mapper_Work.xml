@@ -9,14 +9,14 @@
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.WorkDAO">		
 	<sql id="WorkSearchKey">
-		<if test="startTime!=null and !startTime.isEmpty() and endTime!=null and !endTime.isEmpty() ">
+		<!-- <if test="startTime!=null and !startTime.isEmpty() and endTime!=null and !endTime.isEmpty() ">
 			 (to_char(w.outside_start_time,'yyyy-mm-dd') between #{startTime} and #{endTime})
            and (to_char(w.outside_end_time,'yyyy-mm-dd') between #{startTime} and #{endTime})
-		</if>
-		<if test="startTime!=null and !startTime.isEmpty() and endTime==null and endTime.isEmpty() ">
+		</if> -->
+		<if test="startTime!=null and !startTime.isEmpty()">
 			 and to_char(w.outside_start_time,'yyyy-mm-dd') &gt;= #{startTime} 
 		</if>
-		<if test="startTime ==null and startTime.isEmpty() and endTime!=null and !endTime.isEmpty() ">
+		<if test="endTime!=null and !endTime.isEmpty() ">
 			 and to_char(w.outside_end_time,'yyyy-mm-dd') &lt;= #{endTime} 
 		</if>
 			<if test="searchKey!=null and !searchKey.isEmpty()">
