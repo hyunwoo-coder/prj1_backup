@@ -411,6 +411,7 @@
 			,dep_no=(select dep_no from dept where dep_name=#{dep_name})
 			,salary=#{salary}
 			,emp_resign_date=to_date(#{resign_date}, 'YYYY-MM-DD')
+			,emp_pic=#{emp_pic}
 		where emp_no = to_number(#{emp_no}) 
 	</update>
 	
