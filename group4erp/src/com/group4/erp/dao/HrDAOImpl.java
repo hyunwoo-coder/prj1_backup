@@ -172,6 +172,14 @@ public class HrDAOImpl implements HrDAO {
 		return dayoffUpdateCnt;
 	}
 	
-	
+	public int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks) {
+		System.out.println("DAO 진입 성공");
+		int updateCnt = this.sqlSession.update(
+				mapper_namespace+"getUpdateCnt"
+				,emp_no_in_time_out_time_check_inout_name_remarks
+				);
+		System.out.println("DAO 작업 성공 : " + updateCnt);
+		return updateCnt;
+	}
 
 }

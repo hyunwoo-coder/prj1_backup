@@ -135,6 +135,11 @@ public class HRServiceImpl implements HRService {
 		return dayoffUpdateCnt;
 	}
 	
-	
+	public int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks) {
+		System.out.println("서비스 진입 성공");
+		int updateCnt = this.hrDAO.getUpdateCnt(emp_no_in_time_out_time_check_inout_name_remarks);
+		System.out.println("서비스 작업 성공 : " + updateCnt);
+		return updateCnt;
+	}
 
 }

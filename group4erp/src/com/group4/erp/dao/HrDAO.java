@@ -41,5 +41,7 @@ public interface HrDAO {
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
 	
 	int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO);
+	
+	int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks);
 
 }

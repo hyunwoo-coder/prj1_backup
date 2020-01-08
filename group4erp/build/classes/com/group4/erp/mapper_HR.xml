@@ -61,6 +61,16 @@
 		</if>
 	 </sql>
 	 
+	 <sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null">
+			order by 1
+		</if>
+	</sql>
+	
 	<select id='getEmpListCnt' resultType="int">
 		select count(*) from employee e where 1=1 <include refid="empListWhere" />
 	</select>
@@ -184,7 +194,8 @@
 	        ,eio.remarks as "REMARKS"
 		from emp_inout eio
 		where 1=1 <include refid="inout"></include>
-		order by eio.dt_work
+		order by eio.dt_work asc
+		
 	) zzz ) 
 	where <![CDATA[RNUM >= ${selectPageNo * rowCntPerPage - rowCntPerPage + 1} and RNUM <= ${selectPageNo * rowCntPerPage} ]]>
 	</select>
@@ -244,5 +255,16 @@
 			,end_day_off = to_date(#{end_day_off},'YYYY-MM-DD')
 		where emp_no = to_number(#{emp_no}) 
 			
+	</update>
+	
+	<update id='getUpdateCnt' parameterType="hashmap">
+		update emp_inout 
+        set emp_no = to_number(${emp_no})
+            ,check_inout_cd = (select check_inout_cd from code_check_inout where check_inout_name = '${check_inout_name}')
+            ,in_time = to_date('${in_time}', 'HH24MI')
+            ,out_time = to_date('${out_time}', 'HH24MI')
+            ,working_hr = (to_date('${out_time}','hh24mi')-to_date('${in_time}','hh24mi'))*24
+            ,remarks = '${remarks}'
+        where emp_no = to_number(${emp_no}) and dt_work = to_date('${dt_work}','yyyy-mm-dd')
 	</update>
 </mapper>
