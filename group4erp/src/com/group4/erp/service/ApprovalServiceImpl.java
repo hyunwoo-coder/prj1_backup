@@ -40,4 +40,20 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalReqCnt;
 	}
 
+	@Override
+	public int getApprovalResCnt(ApprovalSearchDTO approvalSearchDTO) {
+		// TODO Auto-generated method stub
+		int approvalToCnt = this.approvalDAO.getApprovalResCnt(approvalSearchDTO);
+		
+		return approvalToCnt;
+	}
+
+	@Override
+	public List<ApprovalDTO> getApprovalResList(ApprovalSearchDTO approvalSearchDTO) {
+		// TODO Auto-generated method stub
+		List<ApprovalDTO> approvalResList = this.approvalDAO.getApprovalResList(approvalSearchDTO);
+		
+		return approvalResList;
+	}
+
 }

@@ -12,5 +12,9 @@ public interface ApprovalService {
 	List<ApprovalDTO> getApprovalReqList(ApprovalSearchDTO approvalSearchDTO);
 	
 	int getApprovalReqCnt(ApprovalSearchDTO approvalSearchDTO);
+	
+	int getApprovalResCnt(ApprovalSearchDTO approvalSearchDTO);
+	
+	List<ApprovalDTO> getApprovalResList(ApprovalSearchDTO approvalSearchDTO);
 
 }

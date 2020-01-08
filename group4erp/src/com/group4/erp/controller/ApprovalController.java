@@ -36,11 +36,15 @@ public class ApprovalController {
 		approvalSearchDTO.setEmp_no(emp_no);
 		
 		int approvalCnt = this.approvalService.getApprovalReqCnt(approvalSearchDTO);
+		int approvalResCnt = this.approvalService.getApprovalResCnt(approvalSearchDTO);
 		
 		List<ApprovalDTO> approvalReqList = this.approvalService.getApprovalReqList(approvalSearchDTO);
+		List<ApprovalDTO> approvalResList = this.approvalService.getApprovalResList(approvalSearchDTO);
 		
 		mav.addObject("approvalCnt", approvalCnt);
 		mav.addObject("approvalReqList", approvalReqList);
+		mav.addObject("approvalResCnt", approvalResCnt);
+		mav.addObject("approvalResList", approvalResList);
 		
 
 		return mav;
