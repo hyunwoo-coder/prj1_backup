@@ -19,6 +19,20 @@
 		<if test="endTime!=null and !endTime.isEmpty() ">
 			 and to_char(w.outside_end_time,'yyyy-mm-dd') &lt;= #{endTime} 
 		</if>
+		<if test="payment!=null and !payment.length>0">
+			and 
+			<foreach collection="payment" item="payment" open="(" separator="or" close=")">
+				<if test="payment.equals('Y')">
+					travel_payment = 'Y' <!-- #{payment} -->
+				</if>
+				<if test="payment.equals('W')">
+					travel_payment = 'W' <!-- #{payment} -->
+				</if>
+				<if test="payment.equals('N')">
+					travel_payment = 'N' <!-- #{payment} -->
+				</if>
+			</foreach> 
+		</if>
 			<if test="searchKey!=null and !searchKey.isEmpty()">
      			<if test="keyword!= null and !keyword.isEmpty()">
 					<if test ="searchKey.equals('jikup')">
@@ -42,9 +56,9 @@
 					<if test ="searchKey.equals('mgr_name')">
 						and e2.emp_name like '%'||#{keyword}||'%'
 					</if>
-					<if test ="searchKey.equals('travel_payment')">
+					<!-- <if test ="searchKey.equals('travel_payment')">
 						and travel_payment like '%'||#{keyword}||'%'
-					</if>
+					</if> -->
      			</if>
      		</if>
      	 <if test="sort!='outside_start_time' and sort.length()>0">

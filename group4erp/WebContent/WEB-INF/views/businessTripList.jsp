@@ -69,17 +69,22 @@
 		inputData('#selectSearch',"${businessTripSearchDTO.searchKey}");
 		inputData('#searchKeyword',"${businessTripSearchDTO.keyword}");
 		inputData('#sort',"${businessTripSearchDTO.sort}");
+		/* 
+		<c:forEach items="${businessTripSearchDTO.payment}" var="payment">
+			inputData('[name=payment]',"${payment}");
+		</c:forEach> */
 		//alert("${businessTripSearchDTO.rowCntPerPage}");
 });
 
 	
 	
 	function goSearch(){
-		keyword = ''
+		//var keyword = '';
+		var  keyword = $("#searchKeyword").val();
 		var  searchKey = $("#selectSearch").val();
 		var  outsideTime = $("#datepicker3").val();
 		var  comebackTime = $("#datepicker4").val();
-		var  searchKey = $("#selectSearch").val();
+		/*
 		if($("#selectBox").val()=="Y"){
 			 keyword = $("#selectBox").val();
 		}else if($("#selectBox").val()=="W"){
@@ -88,7 +93,7 @@
 			keyword = $("#selectBox").val();
 		}else{
 			 keyword = $("#searchKeyword").val();
-		}
+		}*/
 		/* alert($("#selectBox").val()); */
 		
 		$("#searchKey").val(searchKey);
@@ -97,6 +102,9 @@
 		$("#endTime").val(comebackTime);
 		
 		//$("#searchForm").submit()
+		
+		alert($('[name=getBusinessTripListSearchForm]').serialize());
+		//return;
 
 		document.getBusinessTripListSearchForm.submit();
 	}
@@ -117,7 +125,7 @@
 		var str = "work_outside_seq="+work_outside_seq+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
 		location.replace("/group4erp/businessTripContentsForm.do?"+str )
 	}
-
+/* 
 	$(function(){
 		$('#selectSearch').change(function(){
 	        if( $('#selectSearch').val() =='travel_payment' ){
@@ -127,13 +135,13 @@
 	        else if( $('#selectSearch').val() !='travel_payment' ){
 		       	$('#searchText').show();
 	        	$('#layer').hide();
-	        }/* else{
+	        } else{
 	        	alert(4);
 	        	$('#selectBox').hide();
 	
-	        } */
+	        }
 	    });
-	});
+	}); */
 </script>
 
 </head>
@@ -151,6 +159,13 @@
 				&nbsp;&nbsp;&nbsp;
 			</td>
      	</tr>
+     	<tr>
+     		<td>
+     			<input type="checkbox" name='payment' class="payment" value='Y'>승인
+         		<input type="checkbox" name='payment' class="payment" value='W'>대기중
+         		<input type="checkbox" name='payment' class="payment" value='N'>반려
+     		</td>
+     	</tr>
      </table>   
 		검색조건<select id = "selectSearch">
 					<option>------</option>
@@ -165,6 +180,7 @@
 					<input type="text" id="searchKeyword">&nbsp;&nbsp;
 				</span>
 				
+				<!-- 
 				<span id="layer" style="display:none">
 					<select id="selectBox" name="selectBox">
 						<option value="" selected="selected"></option>
@@ -173,7 +189,7 @@
 						<option value="N">반려</option>	
 					</select>
 				</span> 
-				
+				 -->
 				<input type="button" value=" 검색 " onClick="goSearch();">		
 				
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goAllSearch();">
@@ -193,7 +209,6 @@
         <input type="text" name="searchKey" id="searchKey" >
 		<input type="hidden" name="keyword" id="keyword">
 		<input type="hidden" name="selectPageNo"> 
-        <input type="hidden" name="rowCntPerPage">
         <input type="hidden" name="startTime" id="startTime">
         <input type="hidden" name="endTime" id="endTime">
         <input type="hidden" name="sort" id="sort">

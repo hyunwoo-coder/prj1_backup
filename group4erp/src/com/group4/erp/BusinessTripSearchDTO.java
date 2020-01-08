@@ -3,7 +3,6 @@ package com.group4.erp;
 public class BusinessTripSearchDTO {
 
 	private String keyword;
-	private String[] date;
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String searchKey;
@@ -11,6 +10,8 @@ public class BusinessTripSearchDTO {
 	private int work_outside_seq;
 	private String startTime;
 	private String endTime;
+	private String[] payment;
+
 	
 	
 	
@@ -25,12 +26,6 @@ public class BusinessTripSearchDTO {
 	}
 	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
-	}
-	public String[] getDate() {
-		return date;
-	}
-	public void setDate(String[] date) {
-		this.date = date;
 	}
 	public int getSelectPageNo() {
 		return selectPageNo;
@@ -68,4 +63,11 @@ public class BusinessTripSearchDTO {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+	public String[] getPayment() {
+		return payment;
+	}
+	public void setPayment(String[] payment) {
+		this.payment = payment;
+	}
+	
 }

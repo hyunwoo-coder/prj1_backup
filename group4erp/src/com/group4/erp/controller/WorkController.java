@@ -1,4 +1,5 @@
 package com.group4.erp.controller;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.group4.erp.BusinessTripDTO;
 import com.group4.erp.BusinessTripSearchDTO;
-import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.service.WorkService;
 
 
@@ -53,18 +53,16 @@ public class WorkController {
 		List<Map<String, String>> getbusinessTripList = this.workService.getbusinessTripList(businessTripSearchDTO);
 		
 		System.out.println("insertBusinessTrip 컨트롤러");
-		
+
+		System.out.println(1);
+		System.out.println(businessTripSearchDTO.getPayment());
+		System.out.println(Arrays.toString(businessTripSearchDTO.getPayment()));
+		System.out.println(2);
 
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
-		mav.addObject("businessTripSearchDTO", businessTripSearchDTO);
 		}catch(Exception e) {
 			System.out.println("<출장리스트 불러오기 실패>");
-			System.out.println(businessTripSearchDTO.getEndTime());
-			System.out.println(businessTripSearchDTO.getStartTime());
-			System.out.println(businessTripSearchDTO.getKeyword());
-			System.out.println(businessTripSearchDTO.getRowCntPerPage());
-			System.out.println(businessTripSearchDTO.getSelectPageNo());
 			System.out.println("예외발생"+'='+e);
 
 		}
