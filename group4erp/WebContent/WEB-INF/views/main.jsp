@@ -27,15 +27,21 @@
 				<%@ include file="/WEB-INF/views/businessTripList.jsp" %>
 			</c:if>
 			
-			<!-- 출장 등록 -->
+			<!-- 출장 신청 -->
 			<c:if test="${subMenu.equals('businessTripForm') }">
 				<%@ include file="/WEB-INF/views/businessTripForm.jsp" %>
+			</c:if>
+
+			<!-- 출장 상세페이지 -->
+			<c:if test="${subMenu.equals('businessTripContentsForm') }">
+				<%@ include file="/WEB-INF/views/businessTripContentsForm.jsp" %>
 			</c:if>
 			
 			<!-- 문서 결재 -->
 			<c:if test="${subMenu.equals('viewApprovalList') }">
 				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
 			</c:if>
+
 			
 			<!-- 재고현황목록 -->
 			<c:if test="${subMenu.equals('viewInventoryList') }">
@@ -177,8 +183,7 @@
 			
 			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
 				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
-			</c:if>
-			
+			</c:if>	
 			<c:if test="${subMenu.equals('viewSalesInfoList') }">
 				<%@ include file="/WEB-INF/views/salesInfoList.jsp" %>
 			</c:if>

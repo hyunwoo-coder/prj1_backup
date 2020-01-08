@@ -1,33 +1,53 @@
 package com.group4.erp;
 
 public class BusinessTripDTO {
-	
-	private int rownum;
-	private String jikup;
+	private int work_outside_seq;
+	private int RNUM;
+	private int emp_no;
+	private String emp_name;
 	private String dep_name;
+	private String mgr_name;
+	private String jikup;
 	private String destination;
 	private String work_outside_reason;
 	private String outside_start_time;
 	private String outside_end_time;
-	private String mgr_name;
 	
-	public int getRownum() {
-		return rownum;
+	public int getWork_outside_seq() {
+		return work_outside_seq;
 	}
-	public void setRownum(int rownum) {
-		this.rownum = rownum;
+	public void setWork_outside_seq(int work_outside_seq) {
+		this.work_outside_seq = work_outside_seq;
 	}
-	public String getJikup() {
-		return jikup;
+	public int getRNUM() {
+		return RNUM;
 	}
-	public void setJikup(String jikup) {
-		this.jikup = jikup;
+	public void setRNUM(int rNUM) {
+		RNUM = rNUM;
+	}
+	public int getEmp_no() {
+		return emp_no;
+	}
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
+	}
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	public String getDep_name() {
 		return dep_name;
 	}
 	public void setDep_name(String dep_name) {
 		this.dep_name = dep_name;
+	}
+	public String getJikup() {
+		return jikup;
+	}
+	public void setJikup(String jikup) {
+		this.jikup = jikup;
 	}
 	public String getDestination() {
 		return destination;
@@ -59,4 +79,6 @@ public class BusinessTripDTO {
 	public void setMgr_name(String mgr_name) {
 		this.mgr_name = mgr_name;
 	}
+	
+
 }

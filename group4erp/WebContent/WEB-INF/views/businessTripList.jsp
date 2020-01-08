@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common.jsp" %>
 
@@ -7,10 +6,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>출장 신청 리스트</title>
+<style>
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+
+ input[type="date"]::-webkit-calendar-picker-indicator,
+ input[type="date"]::-webkit-inner-spin-button {
+     display: none;
+     appearance: none;
+ }
+ 
+ input[type="date"]::-webkit-calendar-picker-indicator {
+   color: rgba(0, 0, 0, 0); /* 숨긴다 */
+   opacity: 1;
+   display: block;
+   background: url(https://mywildalberta.ca/images/GFX-MWA-Parks-Reservations.png) no-repeat; /* 대체할 아이콘 */
+   width: 20px;
+   height: 20px;
+   border-width: thin;
+}
+</style>
 <script>
 	$(document).ready(function(){
 
+		$("#datepicker3").datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		$("#datepicker4").datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		
+
+		
 		$('[name=rowCntPerPage]').change(function(){
 			goSearch();
 		});
@@ -30,77 +64,48 @@
 			)
 		);
 
-	
-
-
-		//$'[name=selectPageNo]').val("${businessTripSearchDTO.selectPageNo}");
-		//$('[name=rowCntPerPage]').val("${businessTripSearchDTO.rowCntPerPage}");
 		inputData('[name=rowCntPerPage]',"${businessTripSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${businessTripSearchDTO.selectPageNo}");
 		inputData('#selectSearch',"${businessTripSearchDTO.searchKey}");
 		inputData('#searchKeyword',"${businessTripSearchDTO.keyword}");
-
-
-		
-	
-
+		inputData('#sort',"${businessTripSearchDTO.sort}");
+		inputData('#datepicker3',"${businessTripSearchDTO.startTime}");
+		inputData('#datepicker4',"${businessTripSearchDTO.endTime}");
+		<c:forEach items="${businessTripSearchDTO.payment}" var="payment">
+			inputData('[name=payment]',"${payment}");
+		</c:forEach> 
 		//alert("${businessTripSearchDTO.rowCntPerPage}");
-		
-		$('.businessTripListTable thead:eq(0) tr:eq(0) th').click(function(){
-					var thisThObj = $(this);
-					var ascdesc = "";
-					thisThObj.siblings().each(function(){
-						var txt = $(this).text();
-						txt = $.trim(txt);
-						txt = txt.replace("▲","");
-						txt = txt.replace("▼","");
-						$(this).text(txt);
-		});
-	
-					var txt = thisThObj.text();
-					if(txt.indexOf("▲") >= 0){
-						txt = txt.replace("▲" , "▼");
-						ascdesc = "desc";
-					}
-					else if(txt.indexOf("▼") >= 0){
-						txt = txt.replace("▼" , "▲");
-						ascdesc = "asc";
-					}
-					else{
-						txt = txt + "▲";
-						ascdesc = "asc";
-					}
-					thisThObj.text(txt);
-
-					var thindexno = thisThObj.index();
-
-					$("#thindexno").val(thindexno);
-					$("#ascdesc").val(ascdesc);
-					
-					//alert(thindexno);
-					//alert(ascdesc);
-					
-					//alert("${businessTripSearchDTO.thindexno}");
-					//alert("${businessTripSearchDTO.ascdesc}");
-					
-					goSearch()
-	});
 });
 
 	
 	
 	function goSearch(){
-		//alert("tdtdtd");
-		var  searchKey = $("#selectSearch").val();
+		//var keyword = '';
 		var  keyword = $("#searchKeyword").val();
-
+		var  searchKey = $("#selectSearch").val();
+		var  outsideTime = $("#datepicker3").val();
+		var  comebackTime = $("#datepicker4").val();
+		/*
+		if($("#selectBox").val()=="Y"){
+			 keyword = $("#selectBox").val();
+		}else if($("#selectBox").val()=="W"){
+			keyword = $("#selectBox").val();
+		}else if($("#selectBox").val()=="N"){
+			keyword = $("#selectBox").val();
+		}else{
+			 keyword = $("#searchKeyword").val();
+		}*/
+		/* alert($("#selectBox").val()); */
+		
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
-
-
-		//inputData('[name=selectPageNo]',"${boardSearchDTO.selectPageNo}");
+		$("#startTime").val(outsideTime);
+		$("#endTime").val(comebackTime);
 		
-		$("#searchForm").submit()
+		//$("#searchForm").submit()
+		
+		alert($('[name=getBusinessTripListSearchForm]').serialize());
+		//return;
 
 		document.getBusinessTripListSearchForm.submit();
 	}
@@ -109,6 +114,7 @@
 		//$("#searchForm").submit()
 		$('[name=getBusinessTripListSearchForm] [name=rowCntPerPage]').val('10');
 		$('[name=getBusinessTripListSearchForm] [name=selectPageNo]').val('1');
+		$('[name=getBusinessTripListSearchForm] [name=sort]').val("outside_start_time desc");
 		goSearch();
 	}
 	
@@ -116,9 +122,27 @@
 		location.replace("/group4erp/businessTripForm.do");
 	}
 
-
-			
+	function goBusinessTripContentsForm(work_outside_seq){
+		var str = "work_outside_seq="+work_outside_seq+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
+		location.replace("/group4erp/businessTripContentsForm.do?"+str )
+	}
+/* 
+	$(function(){
+		$('#selectSearch').change(function(){
+	        if( $('#selectSearch').val() =='travel_payment' ){
+	        	$('#layer').show();
+		       	$('#searchText').hide();
+	        }
+	        else if( $('#selectSearch').val() !='travel_payment' ){
+		       	$('#searchText').show();
+	        	$('#layer').hide();
+	        } else{
+	        	alert(4);
+	        	$('#selectBox').hide();
 	
+	        }
+	    });
+	}); */
 </script>
 
 </head>
@@ -127,18 +151,48 @@
 	<h1>[출장 리스트]</h1>
 	<form name="getBusinessTripListSearchForm" method="post" action="/group4erp/businessTripList.do">
 		
-        
+     <table>
+     	<tr>
+     		<td>
+				출발날짜<input type="text" id="datepicker3" readonly>
+				~
+				복귀날짜<input type="text" id="datepicker4" readonly>
+				&nbsp;&nbsp;&nbsp;
+			</td>
+     	</tr>
+     	<tr>
+     		<td>
+     			<input type="checkbox" name='payment' class="payment" value="Y">승인
+         		<input type="checkbox" name='payment' class="payment" value="W">대기중
+         		<input type="checkbox" name='payment' class="payment" value="N">반려
+     		</td>
+     	</tr>
+     </table>   
 		검색조건<select id = "selectSearch">
-					<option value="jikup">직급</option>
+					<option>------</option>
 					<option value="emp_name">성명</option>
 					<option value="dep_name">부서</option>
-					<option value="destination">출장지</option>
 					<option value="outside_start_time">출발 날짜</option>
 					<option value="outside_end_time">복귀 날짜</option>
-					<option value="mgr_name">담당자 성함</option>
+					<option value="travel_payment">결제 여부</option>
 				</select>
-		<input type="text" id="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">
-	
+				
+				<span id="searchText">
+					<input type="text" id="searchKeyword">&nbsp;&nbsp;
+				</span>
+				
+				<!-- 
+				<span id="layer" style="display:none">
+					<select id="selectBox" name="selectBox">
+						<option value="" selected="selected"></option>
+						<option value="Y">승인</option>
+						<option value="W">대기중</option>
+						<option value="N">반려</option>	
+					</select>
+				</span> 
+				 -->
+				<input type="button" value=" 검색 " onClick="goSearch();">		
+				
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goAllSearch();">
 	 <table border=0 width=700>
 	 	<tr>
@@ -156,56 +210,104 @@
         <input type="hidden" name="searchKey" id="searchKey" >
 		<input type="hidden" name="keyword" id="keyword">
 		<input type="hidden" name="selectPageNo"> 
-        <input type="hidden" name="rowCntPerPage">
-        <input type="hidden" name="thindexno" id="thindexno">
-        <input type="hidden" name="ascdesc" id="ascdesc">
+        <input type="hidden" name="startTime" id="startTime">
+        <input type="hidden" name="endTime" id="endTime">
+        <input type="hidden" name="sort" id="sort">
+       <!--  <input type="text" name="payment" id="payment"> -->
+        <!-- <input type="hidden" name="work_outside_seq" id="work_outside_seq"> -->
         
 	</form>
 	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 	
 	<div id="blankArea"><br></div>
-		<table class="businessTripListTable tab" name="businessTripListTable" cellpadding="5" cellspacing="5" width="1000">		
+		<table class="businessTripListTable tbcss1" name="businessTripListTable" cellpadding="5" cellspacing="5">		
 			<thead>
 				<tr>
-					<th style="cursor:pointer">NO</th>
-					<th width="100" style="cursor:pointer">직급</th>
-					<th width="60"  style="cursor:pointer">성명</th>
-					<th width="70"  style="cursor:pointer">부서</th>
-					<th width="100" style="cursor:pointer">출장지</th>
-					<th width="120" style="cursor:pointer">출장사유</th>
-					<th width="150" style="cursor:pointer">출발 날짜</th>
-					<th width="150" style="cursor:pointer">복귀 예정 날짜</th>
-					<th width="80"  style="cursor:pointer">담당자 성함</th>
+					<th>번호</th>
+					<th>성명</th>
+					<th>직급</th>
+					<th>부서명</th>
+					<c:choose>
+						<c:when test="${param.sort=='7 desc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('7 asc'); goSearch();">▼출발 날짜</th>
+						</c:when>
+						<c:when test="${param.sort=='7 asc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('7 desc'); goSearch();">▲출발 날짜</th>
+						</c:when>
+						<c:otherwise>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('7 asc'); goSearch();">출발 날짜</th>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${param.sort=='8 desc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('8 asc'); goSearch();">▼복귀 예정 날짜</th>
+						</c:when>
+						<c:when test="${param.sort=='8 asc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('8 desc'); goSearch()">▲복귀 예정 날짜</th>
+						</c:when>
+						<c:otherwise>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('8 asc'); goSearch();">복귀 예정 날짜</th>
+						</c:otherwise>
+					</c:choose>
+					
+					<th>담당자</th>
+					
+					<th>결제</th>
 				</tr>
 			</thead>
 			<tbody>
+			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
-				<td align=center>${businessList.RNUM}</td>	
-				<td align=center>${businessList.jikup}</td>
-				<td align=center>${businessList.emp_name}</td>
-				<td align=center>${businessList.dep_name}</td>
-				<td align=center>${businessList.destination}</td>
-				<td align=center>${businessList.work_outside_reason}</td>
-				<td align=center>${businessList.outside_start_time}</td>
-				<td align=center>${businessList.outside_end_time}</td>
-				<td align=center>
+			<tr style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq});">
+					<%-- <td align=center>${businessList.RNUM}</td>	 --%>
+					<td align=center>${businessTripListAllCnt - businessList.RNUM + 1}</td>	
+					<td align=center>
+						${businessList.emp_name}
+						<%-- <a href="javascript:alert('${businessList.work_outside_seq}')"> 
+							<c:out value="${businessList.emp_name}"/>
+						</a> --%>
+					</td>
+					<td align=center>${businessList.jikup}</td>
+					<td align=center>${businessList.dep_name}</td>
+					<td align=center>${businessList.outside_start_time}</td>
+					<td align=center>${businessList.outside_end_time}</td>
+					<td align=center>
+						<c:choose>
+							<c:when test="${businessList.mgr_name ne ' '}">
+								${businessList.mgr_name}
+							</c:when>
+							<c:otherwise>
+									-
+							</c:otherwise>				
+						</c:choose>
+					</td>
+					<td>
 					<c:choose>
-						<c:when test="${businessList.mgr_name ne ' '}">
-							${businessList.mgr_name}
-						</c:when>
-						<c:otherwise>
-								-
-						</c:otherwise>				
-					</c:choose>
-				</td>
+							<c:when test="${businessList.travel_payment eq 'Y'}">
+								승인
+							</c:when>
+							<c:when test="${businessList.travel_payment eq 'N'}">
+								반려
+							</c:when>
+							<c:otherwise>
+								대기중
+							</c:otherwise>				
+						</c:choose>
+					</td>
 			</tr>		
 			</c:forEach>
 			</tbody>
 		</table>
 		<br>
-		<input type="button" value="등록" onClick="goBusinessTripForm();">
+		<input type="button" value="등록" onClick="goBusinessTripForm();">	
 		<br><br>
-	<!-- </form>  -->
+		
+		
+<c:if test=" ${boardListAllCnt==0}">
+   		검색 결과가 없습니다
+   		
+</c:if>
 
 </center>
 
