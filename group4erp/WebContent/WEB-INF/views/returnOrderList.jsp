@@ -63,7 +63,7 @@
 </script>
 </head>
 <body><center>
-	<h1>반품 현황</h1>
+	<h1>[반품 현황]</h1>
 	<div id="returnCnt">[파손] : 건  [변심] : 건 [오배송] : 건 [제작사 요청] : 건 [기타] : 건</div><br>
 	
 	<form name="returnSearchForm" method="post" action="/group4erp/goReturnOrderList.do">

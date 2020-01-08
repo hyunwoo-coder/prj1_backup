@@ -258,7 +258,7 @@
 </head>
 <body><center>
 
-	<h1>이벤트 현황</h1>
+	<h1>[이벤트 현황]</h1>
     <input type="hidden" name="selectPageNo">
     <input type="hidden" name="sort">
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">

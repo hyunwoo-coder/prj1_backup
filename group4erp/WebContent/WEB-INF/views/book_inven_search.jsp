@@ -103,7 +103,7 @@ $(document).ready(function(){
 </head>
 <body><center>
 <!-- <h5 align="left">재고현황 -> 도서정보조회</h5> -->
-<h1 class="fontNormal">[재고 관리]</h1>
+<h1>[재고 관리]</h1>
    <form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
       <!-- <div class="table_layout">  -->
 
