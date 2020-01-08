@@ -7,7 +7,7 @@
 <title>신간리스트</title>
 </head>
 <body>
-	<h1>신간리스트</h1>
+	<h1>[신간리스트]</h1>
 	
 	<form name="newBooksListForm" method="post" action="/group4erp/viewBookInfo.do">
 		<table class="tbcss1" name="bookList" cellpadding="5" cellspacing="5" width="500">		

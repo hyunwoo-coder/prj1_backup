@@ -102,7 +102,7 @@
 
 </head>
 <body><center>
-	<h1>${timeDTO.now_year}년도&nbsp;${timeDTO.now_month}월분 급여대장</h1>
+	<h1>[${timeDTO.now_year}년도&nbsp;${timeDTO.now_month}월분 급여대장]</h1>
 	
 	지급일 : ${timeDTO.now_year}년 ${timeDTO.now_month}월 25일	
 	

@@ -47,7 +47,6 @@
 		}) */;
 	
 		$(document).ready(function(){
-
 			$('[name=rowCntPerPage]').change(function(){
 				goSearch();
 			});
@@ -94,7 +93,7 @@
 	
 		function goSearch(){
 			//alert($("[name=datepicker]").val());
-			//alert($("[name=InoutListDate]").serialize());
+			alert($("[name=InoutListDate]").serialize());
 			var keyword1 = $("[name=InoutListDate] [name=keyword1]").val();
 			keyword1 = $.trim(keyword1);
 			$("[name=InoutListDate] [name=keyword1]").val(keyword1);
@@ -131,6 +130,136 @@
 					alert("서버 접속 실패. 관리자에게 문의 바람");
 				}
 			}); */
+		}
+		function goUpdate(idx, idxNo){
+			var test = $(idx).parent();
+			var delTr = $('[name=thisTr]');
+		    if(delTr.size()>0){
+		         delTr.remove();
+		    }
+
+			test.after(insert);
+		}
+		function goUpdate(idx, idxNo, dt_work, emp_no){
+			//alert("테스트중..." + idx + " / " + idxNo);
+			//alert(dt_work);
+			var thisTr = $(idx).parent().parent();
+			var delTr = $('.inoutListTable [name=test]');
+			if(delTr.size()>0){delTr.remove();}
+			//alert(thisTr);
+			var wares = "<tr name='test' align=center><form name='update'><td align=center>" + $('.inoutListTable tr:eq('+idxNo+') td:eq(0)').text();
+				wares += "<td align=center>" + dt_work;
+				wares += "<td align=center>" + emp_no;
+				wares += "<td align=center>" + $('.inoutListTable tr:eq('+idxNo+') td:eq(3)').text();
+				wares += "<td align=center>" + $('.inoutListTable tr:eq('+idxNo+') td:eq(4)').text();
+				wares += "<td align=center>" + $('.inoutListTable tr:eq('+idxNo+') td:eq(5)').text();
+				wares += "<td align=center><input type='text' name='in_time' size=6>"
+				wares += "<td align=center><input type='text' name='out_time' size=6>"
+				wares += "<td align=center>"
+				wares += "<td align=center><select name='check_inout_name'><option value='출근'>출근<option value='퇴근'>퇴근<option value='결근'>결근<option value='조퇴'>조퇴<option value='지각'>지각<option value='외근'>외근</select>"
+				wares += "<td align=center><input type='text' name='remarks' size=6>"
+				wares += "<td align=center><input type='button' value=' 닫기 ' onClick='remove();'></tr>"
+				wares += "<tr name='test'><td colspan=11><td><input type='hidden' name='dt_work' value="+dt_work+"><input type='hidden' name='emp_no' value="+emp_no+"><input type='button' value='수정하기' onClick='upLoder();'></form></tr>"
+			//alert(wares);
+			thisTr.after(wares);
+		}
+		function remove(){
+			//var in_time = $('[name=in_time]').val();
+			//in_time = in_time.substring(0,2) + ":" + in_time.substring(2,4);
+			//$('[name=in_time]').val("");
+			//$('[name=in_time]').val(in_time);
+			//in_time = work_date + " " + in_time.substring(0,2) + ":" + in_time.substring(2,4);
+			//var out_time = $('[name=out_time]').val();
+			//out_time = work_date + " " + out_time.substring(0,2) + ":" + out_time.substring(2,4);
+			//alert(in_time + " & " + out_time);
+			//alert( $(".inoutListTable [name=test] [name=update]").serialize() );
+			//alert( $("[name=InoutListDate]").serialize() );funct//ion remove(){
+			$('[name=test]').remove();
+		}
+		function upLoder(){
+			var dt_work = $("[name=dt_work]").val();
+			var emp_no = $("[name=emp_no]").val();
+			//alert(dt_work);
+			//alert(emp_no);
+			var in_time = $('[name=in_time]').val();
+			//alert(in_time);
+			var out_time = $('[name=out_time]').val();
+			//alert(out_time);
+			var remarks = $('[name=remarks]').val();
+			
+			var check_inout_name = $('[name=check_inout_name]').val();
+
+			if(in_time.indexOf(':')>0){
+				var time = in_time.split(':');
+				if(time.length == 2){
+					if(time[0].length == 1){time[0] = 0 + time[0];}
+					if(time[1].length == 1){time[1] = 0 + time[1];}
+					in_time = time[0] + time[1];
+				}
+			}
+			if(in_time.length == 3 && parseInt(in_time) < 1000){
+				in_time = 0 + in_time;
+			}
+			if(in_time.length == 2 && parseInt(in_time) > 12){
+				var time1 = 0 + in_time.substring(0,1);
+				var time2 = 0 + in_time.substring(1,2);
+				in_time=time1+time2;
+			}
+			//alert(in_time);
+			
+			if(out_time.indexOf(':')>0){
+				var time = out_time.split(':');
+				if(time.length == 2){
+					if(time[0].length == 1){time[0] = 12 + parseInt(time[0]);}
+					if(time[1].length == 1){time[1] = 0 + time[1];}
+					out_time = time[0] + time[1];
+				}
+			}
+			if(out_time.length == 3 && parseInt(out_time) < 1200){
+				out_time = 1200 + parseInt(out_time);
+			}
+			if(out_time.length == 2 && parseInt(out_time) > 24){
+				var time1 = 12 + parseInt(out_time.substring(0,1));
+				var time2 = 0 + out_time.substring(1,2);
+				out_time=time1+time2;
+			}
+			if(out_time.length == 1){
+				out_time = 12 +  parseInt(out_time);
+			}
+
+			if(check_inout_name == '출근' || check_inout_name == '퇴근'){
+				remarks = "";
+			}
+			//alert(out_time);
+			
+			var str = "dt_work="+dt_work+"&emp_no="+emp_no+"&in_time="+in_time+"&out_time="+out_time+"&check_inout_name="+check_inout_name+"&remarks="+remarks;
+			//alert(str);
+			$.ajax({
+				//서버 쪽 호출 URL 주소 지정
+				url : "/group4erp/empWorkStateUpdateProc.do"
+				//form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+				, type : "post"
+				//서버로 보낼 파라미터명과 파라미터값을 설정
+				//, data : $("[name=update]").serialize()
+				
+				, data : str
+				
+				//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정
+				//익명함수의 매개변수 data에는 서버가 응답한 데이터가 들어온다.
+				//현재 data라는 매개변수에는 아이디,암호의 존재 개수가 들어온다.
+				, success : function(updateCnt){
+					//아이디 존재 개수가 1개면 ${ctRoot}/boardList.do 로 이동
+					if(updateCnt==1){
+						alert("수정완료"); document.InoutListDate.submit();
+					}
+					//아이디 존재 개수가 0개면 경고하기
+					else if(updateCnt==0){ alert("수정 실패 입력양식을 확인하세요"); }
+					else{ alert("서버 오류 발생! 관리자에게 문의 바람!"); }
+				}
+				//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				, error : function(){ alert("서버 접속 실패! 관리자에게 문의 바람!" + error); }
+			});
+			
 		}
 	</script>
 
@@ -183,10 +312,31 @@
 		</table>
 	    
 	    <input type="hidden" name="selectPageNo">
-	    
+	    
+	  <!-- 
 	    
 	  </form>
-	        
+	  <div id="modify" style="display:none;">
+		<table class="tab" id="modifyTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<tr>
+				<td>$('.inoutListTable tr:eq(1) td:eq(0)').text();
+				<td>$('.inoutListTable tr:eq(1) td:eq(1)').text();
+				<td>$('.inoutListTable tr:eq(1) td:eq(2)').text();
+				<td>$('.inoutListTable tr:eq(1) td:eq(3)').text();
+				<td>$('.inoutListTable tr:eq(1) td:eq(4)').text();
+				<td>$('.inoutListTable tr:eq(1) td:eq(5)').text();
+				<td><input type='text' size=6 name='in_time'>
+				<td><input type='text' size=6 name='out_time'>
+				<td>
+				<td><input type='text' size=6 name='check_inout_name'>
+				<td><input type='text' size=6 name='remarks'>
+				<td><input type='button' value='닫기' onClick='remove();'>
+			</tr>
+		</table>
+		<table><tr height=1><td></td></tr></table>
+		<button onclick="closeDiv(this);">닫기
+	 --></button>
+	</div>
 	    <table><tr height=10><td></table>
   
 	   <form name="getEmpInoutList" method="post" action="/group4erp/viewEmpWorkStateList.do">
@@ -204,6 +354,9 @@
 					<th class="thset" style="cursor:pointer">근무시간
 					<th class="thset" style="cursor:pointer">구분
 					<th class="thset" style="cursor:pointer">비고
+					
+					<th class="thset" style="cursor:pointer">수정여부
+					
 				</tr>
 
 				<c:forEach items="${requestScope.getEmpInoutList}" var="inout" varStatus="loopTagStatus">
@@ -219,6 +372,13 @@
 						<td align=center> ${inout.WORKING_HRS}
 						<td align=center> ${inout.CHECK_INOUT_NAME}
 						<td align=center> ${inout.REMARKS}
+						<td align=center>
+							<input type="button" value="수정" onClick="goUpdate(this,'${loopTagStatus.index+1}', '${inout.DT_WORK}','${inout.EMP_NO}');">
+						<%-- 
+						<c:if test="${inout.CHECK_INOUT_NAME != '퇴근' && inout.CHECK_INOUT_NAME != '출근'}">
+							<input type="button" value="수정" onClick="goUpdate(this,'${loopTagStatus.index+1}', '${inout.DT_WORK}','${inout.EMP_NO}');">
+						</c:if>
+						 --%>
 					</tr>
 				</c:forEach>
 			

@@ -251,7 +251,7 @@
 </head>
 <body>
 	<center>
-	<h1>담당 상품 조회</h1>
+	<h1 class="fontBold" style="font-size:15pt">[담당 상품 조회]</h1>
    <form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do">
    <!-- <div class="table_layout"> -->
    <input type="hidden" name="emp_no" value="<%=(String)session.getAttribute("emp_id") %>">

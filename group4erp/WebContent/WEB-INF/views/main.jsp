@@ -188,10 +188,14 @@
 			
 			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
 				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
-			</c:if>	
+			</c:if>
+			<%-- 
+>>>>>>> refs/remotes/b_phw/b_phw
 			<c:if test="${subMenu.equals('viewSalesInfoList') }">
 				<%@ include file="/WEB-INF/views/salesInfoList.jsp" %>
 			</c:if>
+<<<<<<< HEAD
+ --%>
 			
 			<c:if test="${subMenu.equals('viewTranSpecIssueList') }">
 				<%@ include file="/WEB-INF/views/tranSpecList.jsp" %>

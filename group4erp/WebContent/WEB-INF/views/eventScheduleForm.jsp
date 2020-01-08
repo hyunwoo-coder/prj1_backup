@@ -173,7 +173,7 @@
 	</script>
 </head>
 <body><center>
-<h1>이벤트 신청 페이지</h1>
+<h1>[이벤트 신청 페이지]</h1>
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 		<table class="tab" cellpadding="5" cellspacing="5">
 			<tr>

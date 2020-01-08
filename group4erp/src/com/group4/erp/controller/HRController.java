@@ -1,9 +1,13 @@
 package com.group4.erp.controller;
 
+
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -309,7 +313,55 @@ public class HRController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/newEmpInfoProc.do")
+	@RequestMapping(
+	         value="/empWorkStateUpdateProc.do"                			//접속하는 클의 URL 주소 설정
+	         
+	         //POST를 없애면 GET방식과 POST 방식 모두 수용하기 때문에 보안상 문제가 발생할수 있다.
+	         //현업에선 보안 중시이니 귀찮더라더 from 태그 여러개 만들며 POST 방식으로 만들것! 
+	         
+	         ,method=RequestMethod.POST           		    //접속하는 클의 파값 전송 방법
+	         ,produces="application/json;charset=UTF-8"		//응당할 데이터 종류 json 설정
+	   )
+	   @ResponseBody //비동기방식으로 들어온것이며 HTML소스가 아닌 DB연동의 결과물을 얻고 싶을때 메소드 위에 설정한다.
+	   public int updateDayInOutTime(
+			   @RequestParam(value="in_time") String in_time
+			   , @RequestParam(value="out_time", required=false) String out_time
+			   , @RequestParam(value="check_inout_name") String check_inout_name
+			   , @RequestParam(value="remarks", required=false) String remarks
+			   , @RequestParam(value="emp_no") String emp_no
+			   , @RequestParam(value="dt_work") String dt_work
+			   , HttpSession session
+		) {
+		   System.out.println("dt_work =>"+dt_work);
+		   System.out.println("in_time =>"+in_time);
+		   System.out.println("out_time =>"+out_time);
+		   System.out.println("check_inout_name =>"+check_inout_name);
+		   System.out.println("remarks =>"+remarks);
+		   System.out.println("emp_no =>"+emp_no);
+		   //매개변수에 저장된 파라미터값(즉 아이디,암호)을 HashMap에 저장하기
+		   //이렇게 한 군데에 모으는 이유는 서비스 클래스에게 전달할 때 하나로 단일화하기 위함이다.
+		   Map<String, String> map = new HashMap<String, String>();
+		   map.put("dt_work", dt_work);
+		   map.put("emp_no", emp_no);
+		   map.put("in_time", in_time);
+		   map.put("out_time", out_time);
+		   map.put("check_inout_name", check_inout_name);
+		   map.put("remarks", remarks);
+		   /*
+		   System.out.print("admin_id2 =>"+paramMap.get("admin_id"));
+		   System.out.print("pwd2 =>"+paramMap.get("pwd"));
+		   */
+		   int updateCnt=0;
+		   try {
+			   updateCnt = this.hrservice.getUpdateCnt(map);
+		   }catch(Exception e) {
+			   System.out.println("컨트롤러 에러 발생 : " + e);
+		   }
+		   return updateCnt;
+	   }
+	
+	
+	@RequestMapping(value="/newEmpInfoProc.do")
 	@ResponseBody
 	public int newEmpjoinMemberProc(EmployeeDTO employeeDTO) {
 		int newEmpInsertCnt = 0;

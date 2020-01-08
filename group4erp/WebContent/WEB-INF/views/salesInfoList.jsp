@@ -180,8 +180,8 @@
 </script>
 </head>
 <body><center>
-	<h1>주문 & 판매현황</h1>
-	
+	<h1>[주문 & 판매현황]</h1>
+	<h5>일반 고객 주문 현황</h5>	
 	<table border="0" cellpadding="5" cellspacing="5" align="center">
 		<tr>
 			<td>

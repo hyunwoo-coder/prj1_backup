@@ -125,7 +125,7 @@
 </script>
 </head>
 <body><center>
-	<h1>거래처 등록</h1>
+	<h1>[거래처 등록]</h1>
 	<form name="insertCorpForm" method="post" action="/insertCorpProc.do">
 		
 		<table class="insertCorpTable tab" name="insertCorpTable" cellpadding="5" cellspacing="5">

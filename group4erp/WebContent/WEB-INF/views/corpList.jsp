@@ -213,7 +213,7 @@
 
 </head>
 <body><center>
-	<h1>거래처 현황</h1>
+	<h1>[거래처 현황]</h1>
 <form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
 	[검색어]&nbsp;<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 	
