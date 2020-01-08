@@ -329,7 +329,8 @@
 			</tr>
 			<tr>
 				<td bgcolor="#EEEEEE">사번</td>
-				<td><input type="text" style="background-color:#EBEBE4; box-shadow:none; border: 1px solid lightgray" size="27" name="emp_no" id="emp_no" value="${employeeInfoUpDTO.emp_no}" readonly></td>
+				<td><input type="text" size="27" name="emp_no" id="emp_no" value="${employeeInfoUpDTO.emp_no}"></td>
+				<%-- <td><input type="text" style="background-color:#EBEBE4; box-shadow:none; border: 1px solid lightgray" size="27" name="emp_no" id="emp_no" value="${employeeInfoUpDTO.emp_no}"></td> --%>
 				<td bgcolor="#EEEEEE">성별</td>
 				<td>
 					<c:if test="${employeeInfoUpDTO.emp_gender=='여'}">
@@ -425,7 +426,7 @@
 			</tr>
 			<tr>
 				<td bgcolor="#EEEEEE">입사일</td>
-				<td colspan="2"><input type="text" name="hire_dt" id="hire_dt" value="${employeeInfoUpDTO.hire_dt}" disabled></td>
+				<td colspan="2"><input type="text" name="hire_dt" id="hire_dt" value="${employeeInfoUpDTO.hire_dt}"></td>
 				<td bgcolor="#EEEEEE">퇴사일</td>
 				<td colspan="2"><input type="text" name="resign_date" id="resign_date" value="${employeeInfoUpDTO.resign_date}"></td>
 			</tr>
