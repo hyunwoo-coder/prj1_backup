@@ -10,6 +10,7 @@ import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
+import com.group4.erp.EmployeeInfoUpDTO;
 import com.group4.erp.HrDayoffDTO;
 import com.group4.erp.HrListSearchDTO;
 import com.group4.erp.SalListSearchDTO;
@@ -74,6 +75,7 @@ public class HrDAOImpl implements HrDAO {
 		return getDayOffListCnt;
 	}
 
+	//휴가 신청 현황 리스트
 	@Override
 	public List<Map<String, String>> getDayOffList(HrListSearchDTO hrListSearchDTO) {
 		List<Map<String, String>> getDayOffList = this.sqlSession.selectList(
@@ -82,7 +84,27 @@ public class HrDAOImpl implements HrDAO {
 				);
 		return getDayOffList;
 	}
+	
+	
+	public int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdate = this.sqlSession.update(
+				mapper_namespace+"dayoffUpdateProcI"
+				,hrDayoffDTO
+				);	
+		return dayoffUpdate;
+	}
+	
+	@Override
+	public int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdateCnt = this.sqlSession.update(
+				mapper_namespace+"dayoffUpdateProcII"
+				,hrDayoffDTO
+				);		
+		return dayoffUpdateCnt;
+	}
+	
 
+	
 	@Override
 	public int getEmpInoutListCnt(HrListSearchDTO hrListSearchDTO) {
 		
@@ -132,15 +154,28 @@ public class HrDAOImpl implements HrDAO {
 	}
 
 
-	public EmployeeInfoDTO getEmpContant(int emp_no) {
+	public EmployeeInfoUpDTO getEmpContant(int emp_no) {
 		
-		EmployeeInfoDTO getEmpContantList = this.sqlSession.selectOne(
-				mapper_namespace+"getEmpContantList"
+		EmployeeInfoUpDTO getEmpContantList = this.sqlSession.selectOne(
+				mapper_namespace+"getEmpContentList"
 				,emp_no
 				);
 		
 		return getEmpContantList;
 		
+	}
+	
+	
+	
+
+
+	@Override
+	public int empInfoUpProc(EmployeeInfoUpDTO employeeInfoUpDTO) {
+		int empInfoUpdate = this.sqlSession.update(
+				mapper_namespace+"empInfoUpProc"
+				,employeeInfoUpDTO
+				);
+		return empInfoUpdate;
 	}
 
 
@@ -161,16 +196,19 @@ public class HrDAOImpl implements HrDAO {
 				
 		return newEmpInsertCnt;
 	}
-
-
-	@Override
-	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
-		int dayoffUpdateCnt = this.sqlSession.update(
-				mapper_namespace+"dayoffUpdateProc"
-				,hrDayoffDTO
-				);		
-		return dayoffUpdateCnt;
+	
+	public int getAddDayoffinfoCnt(EmployeeDTO employeeDTO) {
+		
+		int addDayoffinfo = this.sqlSession.insert(
+				mapper_namespace+"getAddDayoffinfo"
+				,employeeDTO
+				);
+				
+		return addDayoffinfo;
 	}
+
+
+
 	
 	
 

@@ -170,51 +170,6 @@ public class AccountController {
 		return upCnt;
 	}
 	
-	
-	/*@RequestMapping(value="/viewSearchCorp.do")
-	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
-		
-		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
-		mav.setViewName("searchCorpPopup.jsp");
-		
-		try {
-			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);		
-			
-			mav.addObject("corpList", corpList);
-			
-		} catch(Exception e) {
-			
-			System.out.println("예외 발생=="+e);
-		}
-	
-		return mav;
-	}*/
-	
-	/*@RequestMapping(value="/selectCorp.do")
-	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("searchCorpPopup.jsp");
-		
-		try {
-			
-			String corp_no = corpSearchDTO.getCorp_no();
-			System.out.println("검색된 사업자 번호=="+corp_no);
-			
-			CorporationDTO selectedCorp = this.accountService.getCorpInfo(corp_no);
-			
-			mav.addObject("selectedCorp", selectedCorp);
-			
-		} catch(Exception e) {
-			
-			System.out.println("예외 발생=="+e);
-		}
-	
-		return mav;
-	}*/
-	
 	@RequestMapping(value="/viewTranSpecList.do")
 	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO, TranSpecSearchDTO tranSpecSearchDTO) {
 		

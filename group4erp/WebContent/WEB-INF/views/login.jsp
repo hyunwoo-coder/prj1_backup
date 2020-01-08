@@ -47,7 +47,7 @@
 <body>
 <center><br>
 <form name="login_form" method="post" action="/group4erp/loginProc.do">
-	<b>IZ Books.co 전사적자원관리시스템</b><br><br><br><br><br>
+	<b>IZ Books.co 전사적자원관리시스템</b><br><br><br><br>
 	<table class="tab" cellpadding=5 cellspacing=5>
 		<tr>
 			<td>사원번호</td><td><input type="text" name="emp_id"></td>

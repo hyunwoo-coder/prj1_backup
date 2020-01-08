@@ -89,7 +89,7 @@
 	<select id='getWarehousingList' parameterType="com.group4.erp.WarehousingSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
 			select 
-			      to_char(wh_dt,'YYYY-MM-DD') as "wh_dt"
+			      to_char(wh_dt,'YYYY-MM-DD (DY)', 'NLS_DATE_LANGUAGE=KOREAN') as "wh_dt"
 			      ,wh_no||'' as "wh_no"
 			      ,order_inven_no||'' as "order_inven_no"
 			from warehousing_info w
