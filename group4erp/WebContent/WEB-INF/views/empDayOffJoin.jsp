@@ -13,7 +13,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<title>YES4조 전사적자원관리 시스템 </title>
+<title>휴가 신청 </title>
 
 <style>
 .tbcss1, .tbcss1 th,.tbcss1 td{ 
@@ -47,33 +47,89 @@
 <script>
 
 $(document).ready(function(){
+
 	
-	$("#start_dayoff").datepicker({
-		dateFormat: 'yy-mm-dd'
-	    ,onSelect: function() {
-	        var dateObject = $(this).datepicker('getDate');
+	 $("#start_dayoff").datepicker({ 
+	         dateFormat: 'yy-mm-dd'
+	        ,defaultDate : 'today'
+	        ,minDate : 'today'
+	        ,onClose: function( selectedDate ) {   
+	         //$("#dateTill").datepicker({minDate:selectedDate});
+	           $("#end_dayoff").datepicker( "option", "minDate", selectedDate );
+	      }       
+	      ,onSelect: function() { 
+	         var dateObject = $(this).datepicker('getDate');
+	         dateS = $("[name=start_dayoff]").val();
+	         dateE = $("[name=end_dayoff]").val();
+	         remainD = $("[name=remain_dayoff]").val();
+	           
+	         var realDy = finalDayoff(dateS, dateE); 
+	         //alert("realDy => "+realDy);
+	         
+	          if(realDy > remainD){
+	            alert( realDy + " => 사용 가능한 휴가일을 초과하였습니다.");
+	            return;
+	         }
+	         if(realDy > 5){
+	            alert( realDy + " => 1회 최대 휴가 사용 가능일 수는 5일입니다.");
+	            return;
+	         } 
+	
+	         $("[name=using_dayoff]").val(realDy);
+	         //alert("updatedata => " + updatedata);
+	       }
+	       ,beforeShowDay:$.datepicker.noWeekends 
+		});
 
-	    }
-	});
-	$("#end_dayoff").datepicker({
-		dateFormat: 'yy-mm-dd'
-	    ,onSelect: function() {
-	        var dateObject = $(this).datepicker('getDate');
+		$("#end_dayoff").datepicker({ 
+	        dateFormat: 'yy-mm-dd'
+	        ,defaultDate : 'today'
+	        ,minDate : 'today'
+	        /*,onClose: function( selectedDate ) {
+	             //$("#dateFrom").datepicker({maxDate:selectedDate});
+	            $("#start_dayoff").datepicker( "option", "minDate", selectedDate );
+	         }*/
+	      	,onSelect: function() { 
+	           var dateObject = $(this).datepicker('getDate');
+	         dateS = $("[name=start_dayoff]").val();
+	         dateE = $("[name=end_dayoff]").val();
+	         remainD = $("[name=remain_dayoff]").val();
+	           
+	         var realDy = finalDayoff(dateS, dateE); 
+	         //alert("realDy => "+realDy);
+	         
+	          if(realDy > remainD){
+	            alert( realDy + " => 사용 가능한 휴가일을 초과하였습니다.");
+	            $("[name=end_dayoff]").val("");
+	            return;
+	         }
+	         if(realDy > 5){
+	            alert( realDy + " => 1회 최대 휴가 사용 가능일 수는 5일입니다.");
+	            $("[name=end_dayoff]").val("");
+	            return;
+	         } 
+	
+	         $("[name=using_dayoff]").val(realDy);
+	         //alert("updatedata => " + updatedata);
+	           //alert($(this).val()); 
+	       } 
+	       ,beforeShowDay:$.datepicker.noWeekends
 
-	    }
-	});
+		});
 	
 });
 
 	function empDayOffJoin(){
 		
+		//alert(realDy);
+		//alert($('[name=empDayOffJoinForm]').serialize());
 		//alert("휴가 신청 기능 구현중");
 		
 		//alert($('[name=empDayOffJoinForm]').serialize());
 		//return;
 
 		//날짜 차이 구하기
-		
+		/*
 		var strDate1 = $('[name=start_dayoff]').val();
 		var strDate2 = $('[name=end_dayoff]').val();
 		var arr1 = strDate1.split('-');
@@ -88,7 +144,7 @@ $(document).ready(function(){
 		var usingDay = parseInt(diff/currDay);
 		
 		$('[name=using_dayoff]').val(usingDay+1);
-		
+		*/
 		$.ajax({
 			//호출할 서버쪽 URL주소 설정
 			url : "/group4erp/goDayOffProc.do"
@@ -101,11 +157,13 @@ $(document).ready(function(){
 			, success : function(insertCnt){
 				if(insertCnt==1){
 					alert("휴가 신청 성공");
-					location.replace("/group4erp/goBookList.do")
+					//location.replace("/group4erp/goBookList.do")
 				}else if(insertCnt==0){
 					alert("휴가 신청 실패");
 				}else if(insertCnt==-2){
 					alert("휴가 정보 수정 실패");
+				}else if(insertCnt==-3){
+					alert("중복 신청 금지! 휴가는 한달에 한번만 나갈수 있습니다");
 				}else alert("서버 오류!");
 			}
 			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
@@ -117,6 +175,89 @@ $(document).ready(function(){
 		
 	}
 
+
+	var cd = null;
+	var dateS = null;
+	var dateE = null;
+	var empNo = null;
+	var remainD = null;
+	var realDy = null;
+	var updatedata = null;
+
+	var holidays = [
+	   [2020,01,01,'신정'],
+	      [2020,1,24,'설날휴일'],
+	      [2020,1,25,'설날'],
+	      [2020,1,26,'설날휴일'],
+	      [2020,1,27,'대체휴일'],
+	      [2020,3,1,'3.1절'],
+	      [2020,4,15,'국회의원선거'],
+	      [2020,4,30,'부처님오신날'],
+	      [2020,5,5,'어린이날'],
+	      [2020,6,6,'현충일'],
+	      [2020,8,15,'광복절'],
+	      [2020,9,30,'추석연휴'],
+	      [2020,10,1,'추석'],
+	      [2020,10,2,'추석연휴'],
+	      [2020,10,3,'개천절'],
+	      [2020,10,9,'한글날'],
+	      [2020,12,25,'크리스마스']
+	]
+
+	function dateObj(date){
+	   var dyarr = [];
+	   for( var i=0; i<date.length; i++ ){
+	      var pushdy = new Date(date[i][0],date[i][1]-1,date[i][2]);
+	      dyarr.push(pushdy);
+	   }
+
+	   if(dyarr.length > 0){
+	      return dyarr;
+	   }
+	   else{
+	      alert('데이터가 날짜로 변경되지 않았습니다.');
+	      return;
+	   }
+	}
+
+	function finalDayoff(dateS, dateE){
+	   //alert("remainD => " + remainD);
+	        var cnt = 0;
+	        var arrS = dateS.split("-");
+	        var arrE = dateE.split("-");
+	        var startD = new Date(arrS[0], arrS[1]-1, arrS[2]);
+	        var endD = new Date(arrE[0], arrE[1]-1, arrE[2]);
+	        var count = (endD.getTime() - startD.getTime())/1000/(60*60*24);
+
+	        var hldys = dateObj(holidays);
+	        //alert((parseInt(arrS[2],10)+1));
+	        
+	        var applyhldys = [];
+	        
+	      for(var i=0; i <= count; i++){
+	         applyhldys.push(new Date(arrS[0],arrS[1]-1,(parseInt(arrS[2],10))+i));
+	      if( (applyhldys[i].getDay() == 0) || (applyhldys[i].getDay() == 6) ){
+	         cnt++;
+	         //alert( applyhldys[i] + " || " + applyhldys[i].getDay());
+	      }
+	      else{
+	         for(var k=0; k < hldys.length; k++){
+	            if( (applyhldys[i].getTime() == hldys[k].getTime()) ){
+	               cnt++;
+	               //alert( "This is hldys[k]" + hldys[k]);
+	            }
+	         }
+	      }
+
+	         
+	            //alert( applyhldys[i] );
+
+	       } 
+	       alert("This is cnt =>" + cnt);
+	       realDy = count-cnt+1;
+	       alert("This is realDy =>" + realDy);
+	       return realDy;
+	}
 </script>
 
 </head>
@@ -136,14 +277,14 @@ $(document).ready(function(){
 		<tr>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;4일 초과시 부서장의 승인이 있어야합니다.
 		<tr>
-			<td>(날짜 유효성 검사 / 휴가 신청 2번 안되게(이미 신청한 사람은 신청 못하게 막아야한다) )
+			<td>(날짜 유효성 검사)
 	</table>
 	<br>
 <form name="empDayOffJoinForm" method="post" action="/group4erp/empDayOffJoinProc.do">
 	<table cellpadding=5 class="tbcss1">
 		<tr>
-			<th bgcolor=#DBDBDB >사원명
-			<td><input type="text" name="emp_name" class="emp_name" size="10" maxlength=20>
+			<th bgcolor=#DBDBDB >사번
+			<td><input type="text" name="emp_no" class="emp_no" size="10" maxlength=20>
 		<tr>
 			<th bgcolor=#DBDBDB>휴가종류
 			<td>
@@ -158,9 +299,10 @@ $(document).ready(function(){
 		<tr>
 		<th bgcolor=#DBDBDB >휴가 기간
 			<td>
-				<input type="text" id="start_dayoff" name="start_dayoff" class="start_dayoff" size="20" maxlength=20>&nbsp;~&nbsp;
-				<input type="text" id="end_dayoff" name="end_dayoff" class="end_dayoff" size="20" maxlength=20>
+				<input type="text" id="start_dayoff" name="start_dayoff" size="20" maxlength=20>&nbsp;~&nbsp;
+				<input type="text" id="end_dayoff" name="end_dayoff" size="20" maxlength=20>
 				<input type="hidden" name="using_dayoff" class="using_dayoff">
+				<input type="hidden" name="remain_dayoff" class="remain_dayoff" value="${remain.remain_dayoff}">
 	</table>
 </form>
 

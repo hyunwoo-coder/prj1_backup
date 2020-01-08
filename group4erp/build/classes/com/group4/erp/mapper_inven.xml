@@ -442,13 +442,13 @@
     <update id="getReleaseUpCnt" parameterType="String">
     	update release_info set release_dt=to_date(to_char(sysdate, 'YYYY-MM-DD'),'YYYY-MM-DD') where order_no=#{all_order_no}
     </update>
-     <update id="getReleaseUpCnts" parameterType="String">
+    <update id="getReleaseUpCnts" parameterType="String">
     	update release_info set release_dt=to_date(to_char(sysdate, 'YYYY-MM-DD'),'YYYY-MM-DD') where order_books_no=#{all_order_no}
     </update>
     <update id="getIsbnCntUpdate" parameterType="String">
     	update stock_info set isbn_cnt=isbn_cnt-(select book_qty from order_info where order_no=#{all_order_no}) where isbn13=(select isbn13 from order_info where order_no=#{all_order_no})
     </update>
-     <update id="getIsbnCntUpdates" parameterType="String">
+    <update id="getIsbnCntUpdates" parameterType="String">
     	update stock_info set isbn_cnt=isbn_cnt-(select books_qty from corp_order_info where order_books_no=#{all_order_no}) where isbn13=(select isbn13 from corp_order_info where order_books_no=#{all_order_no})
     </update>
 

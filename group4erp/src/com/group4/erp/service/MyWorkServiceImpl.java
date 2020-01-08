@@ -114,6 +114,11 @@ public class MyWorkServiceImpl implements MyWorkService{
 	
 	public int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO) {
 		
+		int selectDayoffCnt = this.myWorkDAO.getDayoffCnt(dayoffJoinDTO);
+		if(selectDayoffCnt >= 1) {
+			return -3;
+		}
+		
 		int insertDayoffJoin = this.myWorkDAO.getDayoffJoinCnt(dayoffJoinDTO);
 		
 		int updateDayoffInfo = this.myWorkDAO.getUpDayoffInfo(dayoffJoinDTO);
@@ -122,5 +127,12 @@ public class MyWorkServiceImpl implements MyWorkService{
 		}
 		
 		return insertDayoffJoin;
+	}
+	
+	public Map<String, String> getRemain(int emp_no){
+		
+		Map<String, String> searchRemain = this.myWorkDAO.getRemain(emp_no);
+		
+		return searchRemain;
 	}
 }

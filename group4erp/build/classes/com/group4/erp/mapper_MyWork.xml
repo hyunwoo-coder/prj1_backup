@@ -179,10 +179,21 @@
 		)
 	</insert>
 	
+	<select id="selectRemain" parameterType="int" resultType="java.util.Map">
+		select
+			remain_dayoff||''	as	"remain_dayoff"
+			,dayoff_tot||''		as	"dayoff_tot"
+		from emp_dayoff_info where emp_no=#{emp_no}
+	</select>
+	
+	<select id="selectDayoff" parameterType="com.group4.erp.HrDayoffJoinDTO" resultType="int">
+		select count(*) from emp_dayoff_apply where emp_no=#{emp_no} and dayoff_apply_dt between TRUNC(sysdate,'MM') and LAST_DAY(sysdate)
+	</select>
+	
 	<insert id="insertDayoff" parameterType="com.group4.erp.HrDayoffJoinDTO">
 		insert into emp_dayoff_apply values(
 			(select nvl(max(dayoff_apply_no), 0)+1 from emp_dayoff_apply)
-			,(select emp_no from employee where emp_name=#{emp_name})
+			,#{emp_no}
 			,to_date(to_char(sysdate, 'YYYY-MM-DD'), 'YYYY-MM-DD')
 			,#{dayoff_cd}
 			,#{using_dayoff}
@@ -193,6 +204,6 @@
 	</insert>
 	
 	<update id="updateDayoff" parameterType="com.group4.erp.HrDayoffJoinDTO">
-		update emp_dayoff_info set remain_dayoff=remain_dayoff-#{using_dayoff} where emp_no=(select emp_no from employee where emp_name=#{emp_name})
+		update emp_dayoff_info set remain_dayoff=remain_dayoff-#{using_dayoff} where emp_no=#{emp_no}
 	</update>
 </mapper>

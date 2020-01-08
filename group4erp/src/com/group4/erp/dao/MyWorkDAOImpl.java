@@ -142,7 +142,6 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 		
 		return insertDayoffJoin;
 	}
-	
 
 	public int getUpDayoffInfo(HrDayoffJoinDTO dayoffJoinDTO) {
 		
@@ -152,5 +151,24 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 				);
 		
 		return updateDayoffInfo;
+	}
+
+	public int getDayoffCnt(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int selectDayoffCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.myWorkDAO.selectDayoff"
+				,dayoffJoinDTO
+				);
+		return selectDayoffCnt;
+	}
+	
+	public Map<String,String> getRemain(int emp_no){
+		
+		Map<String, String> searchRemain = this.sqlSession.selectOne(
+				"com.group4.erp.dao.myWorkDAO.selectRemain"
+				,emp_no
+				);
+		
+		return searchRemain;
 	}
 }

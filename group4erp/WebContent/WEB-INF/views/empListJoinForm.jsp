@@ -76,11 +76,6 @@
 			$("[name=emp_email_office]").focus();
 			return;
 		}
-		if( is_empty('[name=mgr_emp_name]') ){
-			alert("직속상관 이름을 입력해주세요.");
-			$("[name=conmgr_emp_nametent]").focus();
-			return;
-		}
 		if( is_empty('[name=emp_addr]') ){
 			alert("주소를 입력해주세요.");
 			$("[name=emp_addr]").focus();
@@ -179,6 +174,8 @@
 
 </head>
 <body><center>
+<b>[직원 등록]</b>
+<table><tr height=5><td></td></tr></table>
    <form name="newEmpForm" method="post" action="/group4erp/newEmpInfoProc.do">
          <table cellpadding=5 class="tbcss1">
             <tr>
@@ -241,13 +238,15 @@
                <th bgcolor=#DBDBDB>회사전용 이메일
                <td><input type="text" name="emp_email_office" class="emp_email_office" size="35" maxlength=40>
             </tr>
+            <!-- 
             <tr>
                <th bgcolor=#DBDBDB>직속상관이름
                <td><input type="text" name="mgr_emp_name" class="mgr_emp_name" size="10">
             </tr>
+             -->
             <tr>
                <th bgcolor=#DBDBDB>직원주소
-               <td><input type="text" name="emp_addr" class="emp_addr" size="50" maxlength=100>
+               <td><input type="text" name="emp_addr" class="emp_addr" size="60" maxlength=100>
             </tr>
             <tr>
                <th bgcolor=#DBDBDB>근무형태

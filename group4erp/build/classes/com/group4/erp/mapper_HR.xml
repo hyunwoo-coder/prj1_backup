@@ -292,7 +292,7 @@
 		,'${phone}'
 		,'${emp_email}'
 		,'${emp_email_office}'
-		,(select emp_no from employee where emp_name='${mgr_emp_name}')
+		,(select emp_no from employee where jikup_cd=4 and dep_no=#{dep_no})
 		,'${emp_addr}'
 		,${worktime_cd}
 		,'${emp_pwd}'

@@ -240,6 +240,7 @@
 
  	  //$('.mycarebookTable tbody tr:eq(0) td').last().children().addClass('fillbtu');
 	   alert( $('[name=fillbtu]').val() );
+	   alert( $('[name=fillbtu]').index() );
    }
    
 
