@@ -54,11 +54,6 @@ public class WorkController {
 		
 		System.out.println("insertBusinessTrip 컨트롤러");
 
-		System.out.println(1);
-		System.out.println(businessTripSearchDTO.getPayment());
-		System.out.println(Arrays.toString(businessTripSearchDTO.getPayment()));
-		System.out.println(2);
-
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
 		}catch(Exception e) {

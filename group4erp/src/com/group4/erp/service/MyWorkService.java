@@ -1,6 +1,7 @@
 package com.group4.erp.service;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.MyWorkSearchDTO;
+import com.group4.erp.WareHousingInsertDTO;
 
 import java.util.*;
 
@@ -26,4 +27,7 @@ public interface MyWorkService {
 	//검색된 테이블 자료 리턴
 	List<Map<String,String>> getWorkDaysList(MyWorkSearchDTO myWorkSearchDTO);
 	List<Map<String, String>> getSearchEmpNo(MyWorkSearchDTO myWorkSearchDTO);
+	
+	int getInsertBeforeCnt(WareHousingInsertDTO whInsertDTO);
+	int getInsertWareHousing(WareHousingInsertDTO whInsertDTO);
 }

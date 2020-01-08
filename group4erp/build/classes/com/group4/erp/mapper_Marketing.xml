@@ -83,6 +83,7 @@
 	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
 		select count(*) from event_info ei
 		where 1=1
+		and ei.evnt_state_cd != 7		
 		<include refid="eventWhere" />
 	</select>
 	
@@ -102,7 +103,8 @@
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
-		where 1=1		
+		where 1=1
+		and ei.evnt_state_cd != 7	
 		<include refid="eventWhere" />
 		<include refid="headerSort" />
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
@@ -110,7 +112,9 @@
 
 	 
 	<select id='getEventAllCnt' resultType="int">
-		select count(*) from event_info
+		select count(*) from event_info 
+		where 1=1
+		
 	</select>
 	
 	
@@ -119,17 +123,18 @@
 	</select>
 	
 	<select id='getAdApplyList' resultType="com.group4.erp.AdApplyDTO">
-		    select
+		select
         	ai.ad_apply_no||'' "ad_apply_no",
         	ai.corp_no "corp_no",
         	ai.applicant_name "applicant_name",
         	ai.ad_title "ad_title",
         	ai.reg_dt "reg_dt",
         	ai.open_req_dt "open_req_dt",
+        	ai.ad_term "ad_term",
         	(select c.open_req_area_name from code_open_req_area c where c.open_req_area_cd = ai.open_req_area_cd) "open_req_area",
         	(select s.evnt_state_name from code_ad_state s where s.evnt_state_cd = ai.ad_state_cd) "ad_stat"
         from ad_apply_info ai
-		where 1=1
+        order by ai.ad_apply_no
 	</select>
 	
 	<insert id="insertEvent" parameterType="com.group4.erp.EventDTO">
@@ -148,7 +153,7 @@
 			)
 			values (
 			  #{evnt_no},	
-			  #{emp_no},
+			  '${emp_no}',
 			  #{evnt_cd},
 			  #{evnt_title},
 			  #{tot_est_cost},
@@ -199,6 +204,112 @@
 			1
 		)
 	</insert>
+	
+	
+	<update id="updateAdInfo" parameterType="com.group4.erp.AdApplyDTO">	
+			update ad_apply_info set 				
+				ad_title = #{ad_title},
+				open_req_dt = #{open_req_dt},
+				ad_term = #{ad_term}
+			where ad_apply_no = #{ad_apply_no}
+			
+	</update>
+	
+	
+	<select id="getOnlineOrderCnt" parameterType="com.group4.erp.SalesInfoDTO" resultType="int">
+		select count(*) from order_info oi
+		where 1=1
+		<include refid="onlineOrderWhere" />
+	</select>
+	
+	<select id="getOnlineOrderList" parameterType="com.group4.erp.SalesInfoDTO" resultType="com.group4.erp.OrderDTO">
+		select * from (select zzz.*, rownum RNUM from (
+			select
+				oi.order_no||'' "order_no",
+				oi.order_id "order_id",
+				oi.order_pwd "order_pwd",
+				oi.order_delivery_addr "order_delivery_addr",
+				oi.isbn13 "isbn13",
+				(select b.book_price from book b where b.isbn13 = oi.isbn13) "book_price",
+				oi.book_qty||'' "book_qty",
+				(select b.book_price from book b where b.isbn13 = oi.isbn13) * oi.book_qty "tot_cost",
+				oi.cus_requirement "cus_requirement",
+				oi.is_member "is_member",
+				to_char(oi.order_dt, 'yyyy-mm-dd HH24:MI:SS') || '('||to_char(oi.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
+			from order_info oi
+			where 1=1
+			<include refid="onlineOrderWhere" />
+		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
+	</select>
+	
+	
+	<sql id="onlineOrderWhere">
+		<if test="searchKeyword !=null">
+				and (
+					upper(oi.order_no) like upper('%${searchKeyword}%') 
+					or upper(oi.order_id) like upper('%${searchKeyword}%')
+					or upper(oi.order_pwd) like upper('%${searchKeyword}%')
+					or upper(oi.order_delivery_addr) like upper('%${searchKeyword}%')
+					or upper(oi.isbn13) like upper('%${searchKeyword}%')
+					or upper(oi.cus_requirement) like upper('%${searchKeyword}%')
+					or upper(oi.book_qty) like upper('%${searchKeyword}%')
+					or upper(oi.is_member) like upper('%${searchKeyword}%')
+				)			
+		</if>
+	</sql>
+	
+	<select id="getTotRevenue" resultType="int">
+		 select
+            sum((select b.book_price from book b where b.isbn13 = oi.isbn13) * oi.book_qty) "tot_revenue"
+        from order_info oi
+	
+	</select>
+	
+	
+	<update id="deleteEvnt" parameterType="map">	
+			update event_info set evnt_state_cd = 7
+			where evnt_no in (
+			<foreach collection="array" item="evnt_no" index="index" separator=",">
+				#{evnt_no}
+			</foreach>
+			)
+	</update>
+	
+	
+	<update id="updateEventInfo" parameterType="com.group4.erp.EventDTO">	
+			update event_info set 	
+				evnt_cd = #{evnt_cd},			
+				evnt_title = #{evnt_title},
+				evnt_start_dt = #{evnt_start_dt},
+				evnt_end_dt = #{evnt_end_dt}
+			where evnt_no = #{evnt_no}
+			
+	</update>
+	
+	
+	<update id="updateEvntState">	
+			update event_info set evnt_state_cd = 4
+			where evnt_end_dt&lt;sysdate
+	</update>
+	
+	<select id="getCorpOrderTotCnt" resultType="int">
+		select count(*) from corp_order_info
+		where corp_no is not null
+	</select>
+	
+	<select id="getCorpTotRevenue" resultType="int">
+		select
+            sum((select b.book_price from book b where b.isbn13 = co.isbn13) * co.books_qty) "tot_revenue"
+        from corp_order_info co
+        where co.corp_no is not null
+	</select>
+	
+	<select id="getOrderInfoChart" resultType="com.group4.erp.SalesInfoDTO">
+		select      
+            cc.cat_name "category",
+            nvl( (select sum(oi.book_qty) from order_info oi, book b where oi.isbn13 = b.isbn13 and b.cat_cd = cc.cat_cd ), 0) "book_qty"    
+        from code_category cc
+	</select>
 	
 		
 </mapper>

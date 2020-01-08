@@ -138,7 +138,6 @@
 <body><center>
 
 	<b>추후 메뉴 이동해야함</b>
-	<h1>[직원 근무 현황]</h1><br>
 
 	<h1 class="fontBold" style="font-size:15pt">[직원 근무 현황]</h1><br>
 

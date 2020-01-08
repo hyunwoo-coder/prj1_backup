@@ -22,6 +22,7 @@ public class WarehousingSearchDTO {
 	private String supply_rate;
 	private String cost;
 	private String order_dt;
+	private String isbn;
 	private String branch_name;
 	private String store_req_dt;
 	private String book_name;
@@ -77,6 +78,12 @@ public class WarehousingSearchDTO {
 	}
 	public void setSelectPageNo(int selectPageNo) {
 		this.selectPageNo = selectPageNo;
+	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 	public String[] getBranch() {
 		return branch;

@@ -69,10 +69,11 @@
 		inputData('#selectSearch',"${businessTripSearchDTO.searchKey}");
 		inputData('#searchKeyword',"${businessTripSearchDTO.keyword}");
 		inputData('#sort',"${businessTripSearchDTO.sort}");
-		/* 
+		inputData('#datepicker3',"${businessTripSearchDTO.startTime}");
+		inputData('#datepicker4',"${businessTripSearchDTO.endTime}");
 		<c:forEach items="${businessTripSearchDTO.payment}" var="payment">
 			inputData('[name=payment]',"${payment}");
-		</c:forEach> */
+		</c:forEach> 
 		//alert("${businessTripSearchDTO.rowCntPerPage}");
 });
 
@@ -153,17 +154,17 @@
      <table>
      	<tr>
      		<td>
-				출발날짜<input type="text" id="datepicker3">
+				출발날짜<input type="text" id="datepicker3" readonly>
 				~
-				복귀날짜<input type="text" id="datepicker4">
+				복귀날짜<input type="text" id="datepicker4" readonly>
 				&nbsp;&nbsp;&nbsp;
 			</td>
      	</tr>
      	<tr>
      		<td>
-     			<input type="checkbox" name='payment' class="payment" value='Y'>승인
-         		<input type="checkbox" name='payment' class="payment" value='W'>대기중
-         		<input type="checkbox" name='payment' class="payment" value='N'>반려
+     			<input type="checkbox" name='payment' class="payment" value="Y">승인
+         		<input type="checkbox" name='payment' class="payment" value="W">대기중
+         		<input type="checkbox" name='payment' class="payment" value="N">반려
      		</td>
      	</tr>
      </table>   
@@ -206,7 +207,7 @@
 	            </select> 행보기
       </table>
      
-        <input type="text" name="searchKey" id="searchKey" >
+        <input type="hidden" name="searchKey" id="searchKey" >
 		<input type="hidden" name="keyword" id="keyword">
 		<input type="hidden" name="selectPageNo"> 
         <input type="hidden" name="startTime" id="startTime">

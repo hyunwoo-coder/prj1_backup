@@ -7,7 +7,15 @@ public class ReturnSearchDTO {
 	private int rowCntPerPage=10;	
 	private String sort;
 	private String return_cd[];
+	private String return_dt;
 	
+	public String getReturn_dt() {
+		return return_dt;
+	}
+
+	public void setReturn_dt(String return_dt) {
+		this.return_dt = return_dt;
+	}
 
 	public String[] getReturn_cd() {
 		return return_cd;
@@ -49,6 +57,4 @@ public class ReturnSearchDTO {
 		this.sort = sort;
 	}
 
-	
-	
 }

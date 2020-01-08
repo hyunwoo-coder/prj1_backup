@@ -32,4 +32,7 @@ public interface MyWorkDAO {
 	List<Map<String,String>> getWorkDaysList(MyWorkSearchDTO myWorkSearchDTO);
 	
 	List<Map<String,String>> getSearchEmpNo(MyWorkSearchDTO myWorkSearchDTO);
+	
+	int getInsertBeforeCnt(WareHousingInsertDTO whInsertDTO);
+	int getInsertWareHousing(WareHousingInsertDTO whInsertDTO);
 }

@@ -11,9 +11,6 @@ public class BusinessTripSearchDTO {
 	private String startTime;
 	private String endTime;
 	private String[] payment;
-
-	
-	
 	
 	public String getKeyword() {
 		return keyword;
@@ -69,5 +66,4 @@ public class BusinessTripSearchDTO {
 	public void setPayment(String[] payment) {
 		this.payment = payment;
 	}
-	
 }

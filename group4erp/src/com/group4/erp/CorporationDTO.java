@@ -1,7 +1,7 @@
 package com.group4.erp;
 
 public class CorporationDTO {
-	
+
 	private String corp_no;
 	private String corp_name;
 	private String ceo_name;
@@ -10,8 +10,36 @@ public class CorporationDTO {
 	private String corp_tel;
 	private String corp_business_area;
 	private String is_on_business;
+	private String new_corp_no;
+
+	private String bus_area_code;
+	private String bus_area_name;
 	
 	
+	public String getNew_corp_no() {
+		return new_corp_no;
+	}
+
+	public void setNew_corp_no(String new_corp_no) {
+		this.new_corp_no = new_corp_no;
+	}
+
+	public String getBus_area_code() {
+		return bus_area_code;
+	}
+
+	public void setBus_area_code(String bus_area_code) {
+		this.bus_area_code = bus_area_code;
+	}
+
+	public String getBus_area_name() {
+		return bus_area_name;
+	}
+
+	public void setBus_area_name(String bus_area_name) {
+		this.bus_area_name = bus_area_name;
+	}
+
 	public String getIs_on_business() {
 		return is_on_business;
 	}

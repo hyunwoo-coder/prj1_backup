@@ -9,6 +9,7 @@
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.group4.erp.dao.WorkDAO">		
 	<sql id="WorkSearchKey">
+	
 		<!-- <if test="startTime!=null and !startTime.isEmpty() and endTime!=null and !endTime.isEmpty() ">
 			 (to_char(w.outside_start_time,'yyyy-mm-dd') between #{startTime} and #{endTime})
            and (to_char(w.outside_end_time,'yyyy-mm-dd') between #{startTime} and #{endTime})
@@ -19,19 +20,22 @@
 		<if test="endTime!=null and !endTime.isEmpty() ">
 			 and to_char(w.outside_end_time,'yyyy-mm-dd') &lt;= #{endTime} 
 		</if>
-		<if test="payment!=null and !payment.length>0">
+		<if test="payment!=null and payment.length &gt; 0">
 			and 
-			<foreach collection="payment" item="payment" open="(" separator="or" close=")">
-				<if test="payment.equals('Y')">
-					travel_payment = 'Y' <!-- #{payment} -->
+			<!-- <foreach collection="payment" item="paymentArray" open="(" separator="or" close=")">
+				<if test="paymentArray.equals('Y')">
+					travel_payment = 'Y' #{payment}
 				</if>
-				<if test="payment.equals('W')">
-					travel_payment = 'W' <!-- #{payment} -->
+				<if test="paymentArray.equals('W')">
+					travel_payment = 'W' #{payment}
 				</if>
-				<if test="payment.equals('N')">
-					travel_payment = 'N' <!-- #{payment} -->
+				<if test="paymentArray.equals('N')">
+					travel_payment = 'N' #{payment}
 				</if>
-			</foreach> 
+			</foreach> -->
+			<foreach collection="payment" item="paymentArray" open="(" separator="or" close=")">
+					travel_payment = #{paymentArray} <!-- #{payment} -->
+			</foreach>
 		</if>
 			<if test="searchKey!=null and !searchKey.isEmpty()">
      			<if test="keyword!= null and !keyword.isEmpty()">

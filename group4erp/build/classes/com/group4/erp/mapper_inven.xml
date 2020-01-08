@@ -142,40 +142,6 @@
       </if>   
 	</sql>
 	
-	<sql id="returnWhere">
-		<if test="searchKeyword !=null and searchKeyword.length() > 0" >
-			and (
-					upper(return_sales_no) like upper('%${searchKeyword}%') 
-					or upper(order_no) like upper('%${searchKeyword}%')
-					or upper(isbn13) like upper('%${searchKeyword}%')
-					or upper(return_comment) like upper('%${searchKeyword}%')
-				)	
-		</if>
-		
-		
-		<if test="return_cd != null">
-			and
-			<foreach collection="return_cd" item="return_cd"  open="(" separator=" or " close=")">
-				<if test="return_cd.equals('01')">
-					return_sales_cd='01'
-				</if>
-				<if test="return_cd.equals('02')">
-					return_sales_cd='02'
-				</if>
-				<if test="return_cd.equals('03')">
-					return_sales_cd='03'
-				</if>
-				<if test="return_cd.equals('04')">
-					return_sales_cd='04'
-				</if>
-				<if test="return_cd.equals('05')">
-					return_sales_cd='05'
-				</if>			
-			</foreach>	
-		</if>
-	</sql>
-	
-
 	<sql id="headerSort">
 		<if test="sort!=null and sort.length() > 0" >
 			order by ${sort}
@@ -246,6 +212,8 @@
           ) 
        </if>
 	</sql>
+	 
+	 
 	 
 
 	<select id="getBookListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
@@ -350,30 +318,124 @@
 	</select>
 	
 	<select id="getReturnOrderCnt" resultType="int">
-		select count(*) from return_sale_info 
+		select count(*)
+		from (select 
+                r.return_sales_no "RETURN_SALES_NO",
+                r.order_no "ORDER_NO",
+                r.isbn13 "ISBN13",
+                r.return_sales_cd "RETURN_SALES_CD",
+                r.return_order_dt "RETURN_ORDER_DT", 
+                c.return_name "RETURN_CAUSE" 
+                from code_return c, return_sale_info r where c.return_cd = r.return_sales_cd)
 		where 1=1
 		<include refid="returnWhere" />
 	</select>
 	
+	
+	
 	<select id="getReturnOrderList" parameterType="com.group4.erp.ReturnSearchDTO" resultType="com.group4.erp.ReturnOrderDTO">
-		select
+        select
 			return_sales_no||'' "return_sales_no",
 			order_no||'' "order_no",
 			isbn13 "isbn13",
-			(select c.return_name from code_return c where c.return_cd = return_sales_cd) "return_cause",
-			return_comment "return_comment" 
-		from return_sale_info 
+			return_sales_cd "return_cd",
+			return_order_dt "return_dt",
+            return_cause "return_cause"
+		from (select 
+                r.return_sales_no "RETURN_SALES_NO",
+                r.order_no "ORDER_NO",
+                r.isbn13 "ISBN13",
+                r.return_sales_cd "RETURN_SALES_CD",
+                r.return_order_dt "RETURN_ORDER_DT", 
+                c.return_name "RETURN_CAUSE" 
+                from code_return c, return_sale_info r where c.return_cd = r.return_sales_cd)
 		where 1=1
 		<include refid="headerSort" />
 		<include refid="returnWhere" />
 	</select>
 
-
+	<sql id="returnWhere">
+		<if test="searchKeyword !=null" >
+			and (
+					upper(return_sales_no) like upper('%${searchKeyword}%') 
+					or upper(order_no) like upper('%${searchKeyword}%')
+					or upper(isbn13) like upper('%${searchKeyword}%')
+					or upper(return_cause) like upper('%${searchKeyword}%')
+					or upper(return_sales_cd) like upper('%${searchKeyword}%')
+				)	
+		</if>
+				
+		<if test="return_cd != null">
+			and
+			<foreach collection="return_cd" item="return_cd"  open="(" separator=" or " close=")">
+				<if test="return_cd.equals('01')">
+					return_sales_cd='01'
+				</if>
+				<if test="return_cd.equals('02')">
+					return_sales_cd='02'
+				</if>
+				<if test="return_cd.equals('03')">
+					return_sales_cd='03'
+				</if>
+				<if test="return_cd.equals('04')">
+					return_sales_cd='04'
+				</if>
+				<if test="return_cd.equals('05')">
+					return_sales_cd='05'
+				</if>			
+			</foreach>	
+		</if>
+	</sql>
 
     
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">
     	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor ) values
     		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor} )
     </insert>
+    
+    <select id="getBookInfo" parameterType="String" resultType="com.group4.erp.BookInfoDTO">
+    	select
+    		b.isbn13	"isbn13"
+    		,b.book_name	"book_name"
+    		,(select c.cat_name from code_category c where c.cat_cd=(select bk.cat_cd from book bk where bk.isbn13=b.isbn13))		"cat_name"
+    		,b.book_price	"book_price"
+    		,b.book_pages	"book_pages"
+    		,b.writer		"writer"
+    		,b.publisher	"publisher"
+    		,(select cs.size_name from code_book_size cs where cs.size_cd=(select bk.size_cd from book bk where bk.isbn13=b.isbn13))	"size_name"
+    		,b.is_print	"is_print"
+    		,b.published_dt	"published_dt"
+    		,(select e.emp_name from employee e where e.emp_no=(select bk.emp_no from book bk where bk.isbn13=b.isbn13)) "emp_name"
+    		,(select cb.branch_name from code_branch cb where cb.branch_cd=(select si.branch_cd from stock_info si where si.isbn13=b.isbn13)) "branch_name"
+    		,(select si.isbn_cnt from stock_info si where si.isbn13=b.isbn13) "isbn_cnt"
+    		from book b 
+    		where 1=1 
+    		and b.isbn13=#{isbn13_search}
+    </select>
+    
+    <select id="getOrderCnt" parameterType="String" resultType="int">
+    	select book_qty from order_info where order_no=#{all_order_no}
+    </select>
+    <select id="getOrderCnts" parameterType="String" resultType="int">
+    	select books_qty from corp_order_info where order_books_no=#{all_order_no}
+    </select>
+    <select id="getIsbnCnt" parameterType="String" resultType="int">
+    	select isbn_cnt from stock_info where isbn13=(select isbn13 from order_info where order_no=#{all_order_no})
+    </select>
+    <select id="getIsbnCnts" parameterType="String" resultType="int">
+    	select isbn_cnt from stock_info where isbn13=(select isbn13 from corp_order_info where order_books_no=#{all_order_no})
+    </select>
+    <update id="getReleaseUpCnt" parameterType="String">
+    	update release_info set release_dt=to_date(sysdate, 'YYYY-MM-DD') where order_no=#{all_order_no}
+    </update>
+     <update id="getReleaseUpCnts" parameterType="String">
+    	update release_info set release_dt=to_date(sysdate, 'YYYY-MM-DD') where order_books_no=#{all_order_no}
+    </update>
+    <update id="getIsbnCntUpdate" parameterType="String">
+    	update stock_info set isbn_cnt=isbn_cnt-(select book_qty from order_info where order_no=#{all_order_no}) where isbn13=(select isbn13 from order_info where order_no=#{all_order_no})
+    </update>
+     <update id="getIsbnCntUpdates" parameterType="String">
+    	update stock_info set isbn_cnt=isbn_cnt-(select books_qty from corp_order_info where order_books_no=#{all_order_no}) where isbn13=(select isbn13 from corp_order_info where order_books_no=#{all_order_no})
+    </update>
 
 </mapper>

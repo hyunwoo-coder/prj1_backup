@@ -1,5 +1,6 @@
 package com.group4.erp.service;
 
+import com.group4.erp.BookInfoDTO;
 import com.group4.erp.Cus_releaseInfoDTO;
 import com.group4.erp.InvenDTO;
 import com.group4.erp.InvenSearchDTO;
@@ -121,4 +122,73 @@ public class InvenServiceImpl implements InvenService{
 		return null;
 	}
 
+	public BookInfoDTO getBookInfo(String isbn13_search) {
+		
+		BookInfoDTO bookInfo = this.invenDAO.getBookInfo(isbn13_search);
+		
+		return bookInfo;
+		
+	}
+	
+	public int getOrderCnt(String all_order_no) {
+		
+		int orderCnt = 0;
+		
+		String orderSize = all_order_no+"";
+		
+		if(orderSize.length()==10) {
+			
+			orderCnt = this.invenDAO.getOrderCnt(all_order_no);
+			
+		}else {
+			
+			orderCnt = this.invenDAO.getOrderCnts(all_order_no);
+			
+		}
+		
+		return orderCnt;
+	}
+	
+	public int getIsbnCnt(String all_order_no) {
+		
+		int isbnCnt = 0;
+		
+		String orderSize = all_order_no+"";
+		
+		if(orderSize.length()==10) {
+			
+			isbnCnt = this.invenDAO.getIsbnCnt(all_order_no);
+			
+		}else { 
+			
+			isbnCnt = this.invenDAO.getIsbnCnts(all_order_no);
+			
+		}
+		
+		return isbnCnt;
+	}
+	
+	public int getReleaseUpCnt(String all_order_no) {
+		
+		int releaseUpCnt = 0;
+		
+		String orderSize = all_order_no+"";
+		
+
+		if(orderSize.length()==10) {
+			
+			releaseUpCnt = this.invenDAO.getReleaseUpCnt(all_order_no);
+			
+			int isbnCntUpdate = this.invenDAO.getisbnCntUpdate(all_order_no);
+			
+		}else { 
+			
+			releaseUpCnt = this.invenDAO.getReleaseUpCnts(all_order_no);
+			
+			int isbnCntUpdate = this.invenDAO.getisbnCntUpdates(all_order_no);
+		}
+		
+		
+		return releaseUpCnt;
+	}
 }

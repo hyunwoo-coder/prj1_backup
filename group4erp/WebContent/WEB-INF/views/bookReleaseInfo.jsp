@@ -110,6 +110,35 @@ $(document).ready(function(){
 		goSearchRelease();
 	}
 
+	
+	function goReleaseUp(all_order_no){
+		
+		var str = "all_order_no="+all_order_no;
+		
+		$.ajax({
+			//호출할 서버쪽 URL주소 설정
+			url : "/group4erp/goReleaseUp.do"
+			//전송 방법 설정
+			, type : "POST"
+			//서버로 보낼 파라미터명과 파라미터값을 설정
+			, data : str
+			//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+			//매개변수 upDelCnt에는 입력 행의 개수가 들어온다.
+			, success : function(updateCnt){
+				if(updateCnt==1){
+					alert("출고 날짜 등록 성공");
+					location.replace("/group4erp/goReleaseList.do")
+				}else if(updateCnt==0){
+					alert("출고 날짜 등록 실패");
+				}else alert("서버 오류!");
+			}
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function(){
+				alert("서버 접속 실패");
+			}
+		});
+		
+	}
 </script>
 
 </head>
@@ -168,15 +197,31 @@ $(document).ready(function(){
 		<br><br><br>
 		<table class="releaseListTable" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
-				<th>번호<th>출고번호<th>출고일시<th>주문번호
+				<th>번호<th>출고번호<th>출고일시<th>주문번호<th>비고
 			<c:forEach items="${requestScope.releaseList}" var="release" varStatus="loopTagStatus">
-          	<tr style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});">
-          	<td align=center>${releaseListCnt-
-                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
-                  +1}
-            <td align=center>${release.release_no}
-            <td align=center>${release.release_dt}
-            <td align=center>${release.all_order_no}
+            <c:choose>
+	            <c:when test="${release.release_dt=='X'}">
+	            	<tr>
+		          	<td align=center>${releaseListCnt-
+		                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
+		                  +1}
+		            <td align=center>${release.release_no}
+		            <td align=center>${release.release_dt}
+		            <td align=center>${release.all_order_no}
+	            	<td align=center>
+	            	<input type="button" value="출고" onclick="goReleaseUp(${release.all_order_no});">
+	            </c:when>
+	            <c:otherwise>
+	            	<tr style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});">
+		          	<td align=center>${releaseListCnt-
+		                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
+		                  +1}
+		            <td align=center>${release.release_no}
+		            <td align=center>${release.release_dt}
+		            <td align=center>${release.all_order_no}
+	            	<td align=center>------
+	            </c:otherwise>
+            </c:choose>
          	</c:forEach>
 		</table>
 		<br>

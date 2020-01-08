@@ -39,6 +39,7 @@
 			e.phone "phone",
 			e.emp_email "emp_email",
 			e.emp_email_office "emp_email_office",
+			(select ee.emp_name from employee ee where e.emp_no = ee.mgr_emp_no) "mgr",
 			e.emp_addr "emp_addr"
 		from employee e
 		where 1=1
