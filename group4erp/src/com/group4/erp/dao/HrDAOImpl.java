@@ -57,7 +57,7 @@ public class HrDAOImpl implements HrDAO {
 	public List<Map<String, String>> getEmpList(HrListSearchDTO hrListSearchDTO){
 
 		List<Map<String, String>> getEmpBoardList = this.sqlSession.selectList(
-				"com.group4.erp.dao.HrDAO.getEmpList"
+				mapper_namespace+"getEmpList"
 				,hrListSearchDTO
 				);
 		//System.out.println("DAO=>" + getEmpBoardList);
@@ -208,8 +208,29 @@ public class HrDAOImpl implements HrDAO {
 	}
 
 
+	/*
+	public String getMgrEmpName(EmployeeDTO employeeDTO){
+		String mgrEmpName = this.sqlSession.selectOne(
+				mapper_namespace+".getMgrEmpName"
+				,employeeDTO );
+		return mgrEmpName;
+	}*/
 
-	
-	
+	public int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks) {
+		System.out.println("DAO 진입 성공");
+		int updateCnt = this.sqlSession.update(
+				mapper_namespace+"getUpdateCnt"
+				,emp_no_in_time_out_time_check_inout_name_remarks
+				);
+		System.out.println("DAO 작업 성공 : " + updateCnt);
+		return updateCnt;
+	}
+
+
+	@Override
+	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

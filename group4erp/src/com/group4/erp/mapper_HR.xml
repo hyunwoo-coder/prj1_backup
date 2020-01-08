@@ -132,10 +132,32 @@
            	)
 		</if>
 	 </sql>
-	 
-	 
-	 
-	 
+
+	 <sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null">
+			order by 1
+		</if>
+	</sql>
+	
+	 <sql id="empSalWhere">
+	 	<if test="searchKeyword!=null and searchKeyword.length()>0">
+			and (
+              upper(emp_name) like upper('%${searchKeyword}%')            
+              or upper((select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd)) like upper('%${searchKeyword}%')
+           	)
+		</if>
+		<if test="emp_no != null">
+			and (
+				e.emp_no = #{emp_no}
+			)
+			
+		</if>
+	 </sql>
+
 	<select id='getEmpListCnt' resultType="int">
 		select count(*) from employee e where 1=1 <include refid="empListWhere" />
 	</select>
@@ -167,14 +189,23 @@
 	
 	select * from(select zzz.*, rownum RNUM from(
 		select 
-		e.emp_no "emp_no",
+		e.emp_no||'' "emp_no",
  	    (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
    		e.emp_name "emp_name",
-    	trunc(e.salary/12, 5) "salary",
-    	(select extract(year from sysdate) from dual) "year",
-    	(select extract(month from sysdate) from dual) "month"
+    	e.salary*10000||'' "salary",
+    	round( (e.salary*10000)/12, -2)||'' "month_sal",
+        (select 100000 from dual) "mess_allowance",
+        (select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no ) "bus_trip_cnt",
+        (select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no) * 10000 "bus_trip_bonus",
+        round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + (select 100000 from dual)  "sum_payable",
+        round( (e.salary*10000)/12, -5) * 0.045 "pension",
+        round( (e.salary*10000)/12, -5) * 0.0323 "health", 
+        round( (e.salary*10000)/12, -5) * 0.008 "emp_insurance",
+        round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 "deduct",
+        (round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + 100000 ) - ( round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 ) "real_sal"  
     	from employee e   
     	where 1=1
+    	<include refid="empSalWhere"></include>
     	order by e.emp_no asc
 	) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	
@@ -182,15 +213,54 @@
 	
 	<select id='getEmpSalInfo' parameterType="int" resultType="com.group4.erp.SalaryDTO">
 		select 
-		(select e.emp_name from employee e where e.emp_no = #{emp_no}) "emp_name",
- 	    (select j.jikup from code_jikup j where j.jikup_cd = (select e.jikup_cd from employee e where e.emp_no=#{emp_no}) ) "jikup",
- 	    (select trunc(e.salary/12, 5) from employee e where e.emp_no = #{emp_no}) "salary",
-    	to_char(sop.salary_dt, 'yyyy-mm-dd') "salary_dt",
-   		sop.real_sal ||'' "real_sal"
-    	from state_of_payment sop
+		e.emp_no||'' "emp_no",
+ 	    (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
+   		e.emp_name "emp_name",
+    	e.salary*10000||'' "salary",
+    	round( (e.salary*10000)/12, -2)||'' "month_sal",
+        (select 100000 from dual) "mess_allowance",
+        (select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no ) "bus_trip_cnt",
+        (select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no) * 10000 "bus_trip_bonus",
+        round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + (select 100000 from dual)  "sum_payable",
+        round( (e.salary*10000)/12, -5) * 0.045 "pension",
+        round( (e.salary*10000)/12, -5) * 0.0323 "health", 
+        round( (e.salary*10000)/12, -5) * 0.008 "emp_insurance",
+        round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 "deduct",
+        (round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + 100000 ) - ( round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 ) "real_sal"  
+    	from employee e   
     	where 1=1
-    	and sop.emp_no = #{emp_no}   
+    	and e.emp_no = #{emp_no}   
 	</select>
+	
+	<insert id="payCheckProc" parameterType="java.util.Map">
+		insert into state_of_payment (
+			emp_no,
+			salary_dt,
+			month_sal,
+			mess_allowance,
+			bus_trip_bonus,
+			sum_payble,
+			pension,
+			health,
+			emp_insurance,
+			deduct,
+			real_sal
+		) values 
+			<foreach collection="salDTOList" item="item" separator=" , ">
+				(#{item.emp_no}, 
+				sysdate, 
+				#{item.month_sal}, 
+				#{item.mess_allowance}, 
+				#{item.bus_trip_bonus}, 
+				#{item.sum_payable},
+				#{item.pension},
+				#{item.health},
+				#{emp_insurance},
+				#{deduct},
+				#{real_sal}
+			)
+			</foreach>
+	</insert>
 	
 	<select id='getAvgSalChart' resultType="com.group4.erp.SalaryDTO">
 		select         
@@ -332,6 +402,7 @@
 	        ,eio.remarks as "REMARKS"
 		from emp_inout eio
 		where 1=1 <include refid="inout"></include>
+		order by eio.dt_work asc
 	) zzz ) 
 	where <![CDATA[RNUM >= ${selectPageNo * rowCntPerPage - rowCntPerPage + 1} and RNUM <= ${selectPageNo * rowCntPerPage} ]]>
 	</select>
@@ -378,7 +449,7 @@
 		,'${phone}'
 		,'${emp_email}'
 		,'${emp_email_office}'
-		,(select emp_no from employee where emp_name='${mgr_emp_name}')
+		,(select emp_no from employee where jikup_cd=4 and dep_no=#{dep_no})
 		,'${emp_addr}'
 		,${worktime_cd}
 		,'${emp_pwd}'
@@ -414,19 +485,16 @@
 			,emp_pic=#{emp_pic}
 		where emp_no = to_number(#{emp_no}) 
 	</update>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	<update id='getUpdateCnt' parameterType="hashmap">
+		update emp_inout 
+        set emp_no = to_number(${emp_no})
+            ,check_inout_cd = (select check_inout_cd from code_check_inout where check_inout_name = '${check_inout_name}')
+            ,in_time = to_date('${in_time}', 'HH24MI')
+            ,out_time = to_date('${out_time}', 'HH24MI')
+            ,working_hr = (to_date('${out_time}','hh24mi')-to_date('${in_time}','hh24mi'))*24
+            ,remarks = '${remarks}'
+        where emp_no = to_number(${emp_no}) and dt_work = to_date('${dt_work}','yyyy-mm-dd')
+	</update>
+
 </mapper>

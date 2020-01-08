@@ -42,11 +42,18 @@ public interface HrDAO {
 	List<SalaryDTO> getAvgSalChart();
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
+
+	//String getMgrEmpName(EmployeeDTO employeeDTO);
 	
 	int getAddDayoffinfoCnt(EmployeeDTO employeeDTO);
 	
 	int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO);
 	
 	int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO);
+
+	int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO);
+	
+	int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks);
+
 
 }

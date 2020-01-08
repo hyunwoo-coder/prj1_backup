@@ -11,6 +11,19 @@
 <script>
 
 	$(document).ready(function() {
+
+		$("[name=corp_business_area]").change(function() {
+			
+			var cnt = $(this).filter(":checked").length;
+			var rank='';
+
+			if(cnt==1) {
+				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
+				$(this).siblings().prop("checked", false);
+				//rank = $(this).filter(":checked").val();
+			} 
+
+		});
 		
 	});
 
@@ -22,6 +35,17 @@
 			$("[name = corp_no]").focus();
 
 			return;
+		} else {
+
+			var corp_no = $("[name=corp_no]").val();
+			
+			var regExp = new RegExp(/^[0-9]{3}-[0-9]{2}-[0-9]{5}$/);
+			var flag = regExp.test(corp_no);
+
+			if(flag==false) {
+				alert("사업자 번호 형태는 OOO-OO-OOOOO입니다.");
+				$("[name=corp_no]").val("");
+			}
 		}
 
 		if(is_empty("[name = corp_name]")) {
@@ -60,7 +84,7 @@
 		}
 
 		if(is_empty("[name = corp_tel]")) {
-			alert("소재지를 입력해주세요.");
+			alert("연락처를 입력해주세요.");
 			$("[name = corp_tel]").focus();
 
 			return;
@@ -101,10 +125,10 @@
 </script>
 </head>
 <body><center>
-	<h1>거래처 등록</h1>
+	<h1>[거래처 등록]</h1>
 	<form name="insertCorpForm" method="post" action="/insertCorpProc.do">
 		
-		<table class="insertCorpTable tbcss2" name="insertCorpTable" cellpadding="5" cellspacing="5" width="500">
+		<table class="insertCorpTable tab" name="insertCorpTable" cellpadding="5" cellspacing="5">
 			<tr>
 				<td>사업자 번호</td><td><input tyep="text" name="corp_no" maxlength="12" ></td>
 			</tr>
@@ -115,7 +139,12 @@
 				<td>사업자명</td><td><input tyep="text" name="ceo_name" maxlength="30"></td>
 			</tr>
 			<tr>
-				<td>사업분야</td><td><input tyep="text" name="corp_business_area" maxlength="15"></td>
+				<td>사업분야</td>
+				<td>
+					<c:forEach items='${business_area}' var="business_area" varStatus="loopTagStatus">
+						<input type="checkbox" name="corp_business_area" value="${business_area.bus_area_name}">${business_area.bus_area_name}&nbsp;
+					</c:forEach>
+				</td>
 			</tr>
 			<tr>
 				<td>소재지</td><td><input tyep="text" name="corp_addr" maxlength="100"></td>

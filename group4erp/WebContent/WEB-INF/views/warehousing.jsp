@@ -33,8 +33,6 @@
 }
 
 
-
-
 @charset "UTF-8";
 	
 /*-----------------------------------------------------------------------*/ 
@@ -129,6 +127,7 @@ td{
 			    	//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
 			        var dateObject = $(this).datepicker('getDate');
 			        //alert(dateObject.val()); 
+
 			    }     
 			});
 
@@ -238,8 +237,9 @@ td{
                    alert("서버 접속 실패");
                 }
              });
-            
+
 		}
+		
 		function closeDiv(close){
 			/* $("#contecnt").css("display", "none");	
 			$("#thisTable tr").removeAttr("bgcolor"); */
@@ -302,11 +302,6 @@ td{
 
 
 
-	    
-
-		
-
-		
 	</script>
 
 </head>
@@ -315,16 +310,12 @@ td{
 	
 	<form name="warehousingSearchForm" method="post" action="/group4erp/goWarehousingList.do">
 			<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
-
 				<tr>
 					<th bgcolor="gray">지역
 					<td style="text-align:left" colspan=3 >
-					<c:forEach
-							items="${requestScope.branch}" var="branch"
-							varStatus="loopTagStatus">
-							<input type="checkbox" name="wh_loc"
-								value="${loopTagStatus.index+1}">${branch.branch}
-         	</c:forEach> 
+					<c:forEach items="${requestScope.branch}" var="branch" varStatus="loopTagStatus">
+						<input type="checkbox" name="wh_loc" value="${loopTagStatus.index+1}">${branch.branch}
+         			</c:forEach> 
 	         <%--
 	         <tr>
 	         	<th>출판사
@@ -333,31 +324,33 @@ td{
 	         			<input type="checkbox" name="searchPublisher" value="${loopTagStatus.index+1}">${publisher.publisher}
 	         		</c:forEach> 
 	         --%>
-				<tr>
-					<th bgcolor="gray">출판사
-					<td style="text-align:left"><select name="searchPublisher">
+
+	         	<tr>
+					<th>일자
+					<td style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
+						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">&nbsp;&nbsp;
+					<th>출판사
+					<td style="text-align:left">
+						<select name="searchPublisher">
+
 							<option value="">--------</option>
-							<c:forEach items="${requestScope.publisher}" var="publisher"
-								varStatus="loopTagStatus">
+							<c:forEach items="${requestScope.publisher}" var="publisher" varStatus="loopTagStatus">
 								<option value="${publisher.publisher}">${publisher.publisher}</option>
 							</c:forEach>
-					</select></td>
+						</select></td>
 
-					<th bgcolor="gray">키워드
-					<td style="text-align:left"><input type="text" name="wh_keyword"></td>
-
+					
 				</tr>
-
-
-
-
 				<tr>
-					<th bgcolor="gray">일자
-					<td colspan=3 style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
-						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">
-						&nbsp;&nbsp;
+					<th>키워드
+					<td style="text-align:left" colspan=3>
+						<input type="text" name="wh_keyword" size=50>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<a style="cursor:pointer" onclick="goTodaySearch();">[금일 검색]</a>
+					</td>
+					
 				</tr>
+				
 
 			</table>
 			<br>
@@ -374,7 +367,6 @@ td{
                 $("#dateFrom").datepicker( "option", "maxDate", selectedDate );
             }  });
 	    	</script>
-      
       
       <table><tr height=5><td></table>
       
@@ -402,8 +394,7 @@ td{
 
 
 	<div id="contecnt" style="display:none;">
-		<table class="tab" width="600" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
-		
+		<table class="tab" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 				<th class="thcolor">주문자</th>  
 				<th class="thcolor">발주신청일 </th> 
@@ -457,7 +448,7 @@ td{
           </th>
          
          
-            <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
+           <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
 					<tr class="trcolor" style="cursor:pointer">
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${(loopTagStatus.index)+1}</td>
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_dt}</td>
@@ -480,9 +471,6 @@ td{
 	
 	</form>
 	
-	
-	
-
 </center>
 </body>
 </html>

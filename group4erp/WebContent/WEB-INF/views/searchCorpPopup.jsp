@@ -50,7 +50,7 @@
 
 </head>
 <body><center>
-	<h1>업체 선택</h1>
+	<h1>[업체 선택]</h1>
 	<form name="searchCorpForm" method="post" action="/group4erp/selectCorp.do">
 	<input type="text" name="searchKeyword">&nbsp;<input type="button" value="검색" onClick="searchCorp();">
 		<table class="corpListPopup tbcss1" name="corpListPopup" cellpadding="5" cellspacing="5">

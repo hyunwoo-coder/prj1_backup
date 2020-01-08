@@ -1,124 +1,160 @@
 package com.group4.erp;
 
 public class SalaryDTO {
+	
 
 	private int emp_no;
 	private String emp_name;
 	private String jikup;
 	private String salary_dt;
-	private double salary;
-	private double real_sal;
-	private double deduct_sal;
-	private double final_sal;
+	private String salary;
+	private String month_sal;
 	private String avg_salary;
-	
-	private double income;
-	private double resident = 0.1d;
-	private double emp_insurance = 0.08d;
-	private double health_care = 0.0323d;
-	private double annuity = 0.045d;
-	
+	private String mess_allowance;
+	private String bus_trip_cnt;
+	private String bus_trip_bonus;
+	private String sum_payable;
+	private String pension;
+	private String health;
+	private String emp_insurance;
+	private String deduct;
 	private String year;
 	private String month;
-	
-	public String getAvg_salary() {
-		return avg_salary;
-	}
-	public void setAvg_salary(String avg_salary) {
-		this.avg_salary = avg_salary;
-	}
-	
-	public double getIncome() {
-		return income;
-	}
-	public void setIncome(double income) {
-		this.income = income;
-	}
-
-	public double getResident() {
-		return resident;
-	}
-	public void setResident(double resident) {
-		this.resident = resident;
-	}
-
-	public double getDeduct_sal() {
-		return deduct_sal;
-	}
-	public void setDeduct_sal(double deduct_sal) {
-		this.deduct_sal = deduct_sal;
-	}
+	private String real_sal;
 	
 
-	public double getEmp_insurance() {
-		return emp_insurance;
+	public String getReal_sal() {
+		return real_sal;
 	}
-	public void setEmp_insurance(double emp_insurance) {
-		this.emp_insurance = emp_insurance;
+
+	public void setReal_sal(String real_sal) {
+		this.real_sal = real_sal;
 	}
-	
-	public double getAnnuity() {
-		return annuity;
+
+	public String getDeduct() {
+		return deduct;
 	}
-	public void setAnnuity(double annuity) {
-		this.annuity = annuity;
-	}
-	
-	public double getHealth_care() {
-		return health_care;
-	}
-	public void setHealth_care(double d) {
-		this.health_care = d;
+
+	public void setDeduct(String deduct) {
+		this.deduct = deduct;
 	}
 	
 	public int getEmp_no() {
 		return emp_no;
 	}
+	
 	public void setEmp_no(int emp_no) {
 		this.emp_no = emp_no;
 	}
+	
 	public String getEmp_name() {
 		return emp_name;
 	}
+	
 	public void setEmp_name(String emp_name) {
 		this.emp_name = emp_name;
-	}
-	public String getSalary_dt() {
-		return salary_dt;
-	}
-	public void setSalary_dt(String salary_dt) {
-		this.salary_dt = salary_dt;
 	}
 	
 	public String getJikup() {
 		return jikup;
 	}
+	
 	public void setJikup(String jikup) {
 		this.jikup = jikup;
 	}
-	public double getSalary() {
+	
+	public String getSalary_dt() {
+		return salary_dt;
+	}
+	
+	public void setSalary_dt(String salary_dt) {
+		this.salary_dt = salary_dt;
+	}
+	
+	public String getSalary() {
 		return salary;
 	}
-	public void setSalary(double salary) {
+	
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
-	public double getReal_sal() {
-		return real_sal;
+	
+	public String getMonth_sal() {
+		return month_sal;
 	}
-	public void setReal_sal(double real_sal) {
-		this.real_sal = real_sal;
+	
+	public void setMonth_sal(String month_sal) {
+		this.month_sal = month_sal;
 	}
-	public double getFinal_sal() {
-		return final_sal;
+	
+	public String getAvg_salary() {
+		return avg_salary;
 	}
-	public void setFinal_sal(double final_sal) {
-		this.final_sal = final_sal;
+	
+	public void setAvg_salary(String avg_salary) {
+		this.avg_salary = avg_salary;
 	}
-
-
+	
+	public String getMess_allowance() {
+		return mess_allowance;
+	}
+	
+	public void setMess_allowance(String mess_allowance) {
+		this.mess_allowance = mess_allowance;
+	}
+	
+	public String getBus_trip_cnt() {
+		return bus_trip_cnt;
+	}
+	
+	public void setBus_trip_cnt(String bus_trip_cnt) {
+		this.bus_trip_cnt = bus_trip_cnt;
+	}
+	
+	public String getBus_trip_bonus() {
+		return bus_trip_bonus;
+	}
+	
+	public void setBus_trip_bonus(String bus_trip_bonus) {
+		this.bus_trip_bonus = bus_trip_bonus;
+	}
+	
+	public String getSum_payable() {
+		return sum_payable;
+	}
+	
+	public void setSum_payable(String sum_payable) {
+		this.sum_payable = sum_payable;
+	}
+	
+	public String getPension() {
+		return pension;
+	}
+	
+	public void setPension(String pension) {
+		this.pension = pension;
+	}
+	
+	public String getHealth() {
+		return health;
+	}
+	
+	public void setHealth(String health) {
+		this.health = health;
+	}
+	
+	public String getEmp_insurance() {
+		return emp_insurance;
+	}
+	
+	public void setEmp_insurance(String emp_insurance) {
+		this.emp_insurance = emp_insurance;
+	}
+	
 	public String getYear() {
 		return year;
 	}
+	
 	public void setYear(String year) {
 		this.year = year;
 	}
@@ -128,6 +164,7 @@ public class SalaryDTO {
 	public void setMonth(String month) {
 		this.month = month;
 	}
+	
 	
 	
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<!-- mapper 태그 선언 -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+	<!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
+	<!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<mapper namespace="com.group4.erp.dao.AnalysisDAO">
+	
+	<sql id="bestKwdWhere">
+		<if test="rank !=null">
+				and 
+					rownum&lt;=#{rank}
+						
+		</if>
+		
+	</sql> 
+	
+	<select id="getBestKwdList" parameterType="com.group4.erp.BestKwdSearchDTO" resultType="com.group4.erp.BestKwdDTO">
+		select rownum "rank", 
+				srch_kwd "srch_kwd", 
+				kwd_cnt "kwd_cnt" 
+		from 
+			(
+				select srch_key "SRCH_KWD", count(*) "KWD_CNT" from keyword
+				group by srch_key order by 2 desc
+			)
+		where 1=1
+		<include refid="bestKwdWhere" />
+	</select>
+	
+	<select id="getKeywdSrchCntChart" resultType="com.group4.erp.BestKwdDTO">
+		select 
+			count(*) "kwd_cnt",
+			to_char(srch_dt, 'yyyy-mm-dd') "date" 
+		from keyword 
+            where srch_dt >= to_date('20200101', 'yyyymmdd')
+            group by to_char(srch_dt, 'yyyy-mm-dd')
+            order by 2 
+	</select>
+	
+	 
+		
+</mapper>

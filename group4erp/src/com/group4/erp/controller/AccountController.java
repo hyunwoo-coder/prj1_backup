@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,7 @@ import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.TranSpecDTO;
+import com.group4.erp.TranSpecSearchDTO;
 import com.group4.erp.service.AccountService;
 
 
@@ -41,11 +43,22 @@ public class AccountController {
 		
 		try {
 			
-			int corpListCnt = this.accountService.getCorpListCnt();
+			int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);
+			
+			if(corpListCnt >0 ) {
+				int selectPageNo = corpSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
+				int rowCntPerPage = corpSearchDTO.getRowCntPerPage();	//한 화면에 보여지는 행의 개수 구하기
+				int beginRowNo = selectPageNo * rowCntPerPage - rowCntPerPage +1;	//검색할 시작행 번호 구하기
+				if(corpListCnt < beginRowNo) {		//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한 페이지 번호를 1로 지정
+					corpSearchDTO.setSelectPageNo(1);
+				}
+			}
+			
 			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
 			
 			mav.addObject("corpListCnt", corpListCnt);
 			mav.addObject("corpList", corpList);
+			mav.addObject("corpSearchDTO", corpSearchDTO);
 						
 		} catch(Exception e) {
 			System.out.println("예외발생=="+e);
@@ -66,7 +79,9 @@ public class AccountController {
 		mav.addObject("subMenu", "goInsertCorpPage");
 		mav.addObject("navigator", "[회계관리]-[거래처등록/삭제]");
 		
+		List<CorporationDTO> business_area = this.accountService.getBusiness_area();
 		
+		mav.addObject("business_area", business_area);
 		
 		return mav;
 	}
@@ -96,52 +111,67 @@ public class AccountController {
 	}
 	
 	
-	/*@RequestMapping(value="/viewSearchCorp.do")
-	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
-		
-		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
-		mav.setViewName("searchCorpPopup.jsp");
-		
-		try {
-			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);		
-			
-			mav.addObject("corpList", corpList);
-			
-		} catch(Exception e) {
-			
-			System.out.println("예외 발생=="+e);
-		}
-	
-		return mav;
-	}*/
-	
-	/*@RequestMapping(value="/selectCorp.do")
-	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("searchCorpPopup.jsp");
+	@RequestMapping(value="/deleteCorpProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int deleteCorpProc(@RequestParam(value="corp_no") String[] corp_no) {
+		int delCnt = 0;
 		
 		try {
 			
-			String corp_no = corpSearchDTO.getCorp_no();
-			System.out.println("검색된 사업자 번호=="+corp_no);
+			for(int i=0; i<corp_no.length; i++) {
+				System.out.println("corp_no==="+corp_no[i]);
+			}
 			
-			CorporationDTO selectedCorp = this.accountService.getCorpInfo(corp_no);
+			delCnt = this.accountService.deleteCorp(corp_no);
 			
-			mav.addObject("selectedCorp", selectedCorp);
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
 			
 		} catch(Exception e) {
-			
-			System.out.println("예외 발생=="+e);
+			System.out.println("deleteCorpProc() 메소드에서 예외 발생 >>> "+e);
 		}
+				
+		return delCnt;
+	}
 	
-		return mav;
-	}*/
+	@RequestMapping(value="/updateCorpInfoProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int updateCorpProc(CorporationDTO corpDTO) {
+	
+		int upCnt = 0;
+		
+		try {
+
+			upCnt = this.accountService.updateCorpInfo(corpDTO);
+			
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
+			
+		} catch(Exception e) {
+			System.out.println("deleteCorpProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return upCnt;
+	}
 	
 	@RequestMapping(value="/viewTranSpecList.do")
-	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO) {
+	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO, TranSpecSearchDTO tranSpecSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -153,8 +183,12 @@ public class AccountController {
 			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
 			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
 			
+			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
+			mav.addObject("tranSpecIssueList", tranSpecIssueList);
+			
 			mav.addObject("corp_tran_cnt", corp_tran_cnt);
 			mav.addObject("corp_tran_list", corp_tran_list);
+			mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
@@ -170,6 +204,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTranSpecInfo");
+		mav.addObject("navigator", "[회계관리] - [거래내역 조회] - [거래명세서 발급]");
 		
 		try {
 			
@@ -178,12 +213,66 @@ public class AccountController {
 			
 			mav.addObject("tranSpec_cnt", tranSpec_cnt);
 			mav.addObject("tranSpecList", tranSpecList);
+			mav.addObject("order_no", order_no);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
 		} 
 		
 		return mav;		
+	}
+	
+	@RequestMapping(value="/viewTranSpecIssueList.do")
+	public ModelAndView viewTranSpecIssueList(HttpSession session, TranSpecSearchDTO tranSpecSearchDTO) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewTranSpecIssueList");
+		mav.addObject("navigator", "[회계관리] - [거래내역 조회] - [거래명세서 발급 내역]");
+		
+		try {
+			
+			int tranSpecIssueCnt = this.accountService.getTranSpecIssueCnt(tranSpecSearchDTO);
+			
+			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
+			mav.addObject("tranSpecIssueList", tranSpecIssueList);
+			mav.addObject("tranSpecIssueCnt", tranSpecIssueCnt);
+			//mav.addObject("tranSpecDTO", tranSpecDTO);
+			
+		} catch(Exception e) {
+			System.out.println("예외 발생=="+e);
+		} 
+		
+		return mav;		
+	}
+	
+	
+	@RequestMapping( 
+			value="/issueTranSpec.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	
+	@ResponseBody
+	public int issueTranSpec(TranSpecDTO tranSpecDTO) {
+		
+		int issueCnt = 0;
+		System.out.println("issueTranSpec() 메소드 시작");
+		System.out.println("order_no=="+tranSpecDTO.getOrder_no());
+		//System.out.println("order_dt=="+tranSpecDTO.getOrder_dt());
+		//System.out.println("corp_no=="+tranSpecDTO.getCorp_no());
+		
+		try {
+					
+			issueCnt = this.accountService.saveTempTranSpec(tranSpecDTO);
+				
+		} catch(Exception e) {
+			System.out.println("issueTranSpec() 메소드에서 예외 발생>>> "+e);
+			issueCnt = -1;
+		} 
+				
+		return issueCnt;		
 	}
 
 }

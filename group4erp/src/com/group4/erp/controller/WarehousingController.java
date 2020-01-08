@@ -53,17 +53,13 @@ public class WarehousingController {
 					warehousingSearchDTO.setSelectPageNo(1);
 				}
 			}
-			
-			
-			
-			
+					
 			mav.addObject("warehousingListCnt", warehousingListCnt);
-			
-			
-			
-			List<Map<String, String>> warehousingList = this.warehousingService
-					.getWarehousingList(warehousingSearchDTO);
+
+			List<Map<String, String>> warehousingList = this.warehousingService.getWarehousingList(warehousingSearchDTO);
+				
 			mav.addObject("warehousingList", warehousingList);
+			
 			String setToday = warehousingSearchDTO.getSearchToday();
 			if (setToday != null && setToday.length()>0) {
 				 Date d = new Date();
@@ -79,6 +75,7 @@ public class WarehousingController {
 		}
 		return mav;
 	}
+
 
 	@RequestMapping(value = "/warehousingContentProc.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody 

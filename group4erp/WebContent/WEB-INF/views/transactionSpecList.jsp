@@ -55,88 +55,32 @@
 	}
 
 
+	function goSearchAll() {
+		document.corpSearchForm.reset();
 
-	function showTime() {
-		//현재 날짜를 관리하는 Date 객체 생성
-		var today = new Date();
-		//----------------------------------------
-		//Date 객체에서 날짜 관련 각 데이터를 꺼내어 저장하는 변수 선언
-		var amPm = "오후";
-		var year = today.getFullYear();
-		var month = today.getMonth()+1;
-		var week = today.getDay();
-		var date = today.getDate();
-		var hour = today.getHours();
-		var minute = today.getMinutes();
-		var second = today.getSeconds();
-
-		var week = ["일", "월", "화", "수", "목", "금", "토"][today.getDay()];
-		//날짜 관련 각 데이터가 10 미만이면 앞에 0 붙이기
-		//오전, 오후 여부 판단해서 저장하기
-		
-		if(month<10) {
-			month = "0"+month;
-		}
-
-		if(date<10) {
-			date = "0"+date;
-		}
-
-		if(hour<12) {
-			amPm = "오전";
-		}
-
-		if(hour>12) {
-			hour=hour-12;
-		}
-
-		if(hour<10) {
-			hour="0"+hour;
-		}
-
-		if(minute<10) {
-			minute = "0"+minute;
-		}
-
-		if(second<10) {
-			second = "0" + second;
-		}
-		//id="nowTime"가 있는 태그영역 내부에 시간 문자열 삽입
-
-		document.getElementById("nowTime").innerHTML = year+"년"+month+"월"+date+"일("+week+")"+amPm+" "+hour+"시 "+minute+"분 "+second+"초";
-		
+		$('[name=corpSearchForm] [name=selectPageNo]').val("1");
+		$('[name=corpSearchForm] [name=rowCntPerPage]').val("15");
+		goSearch();
 	}
 
-	function startTime() {
-		showTime();		//1초 딜레이 되어 시간이 표시되는 현상을 제거하기 위해 showTime() 함수를 한 번 호출한다.
-		//-----------------------------------
-		//1초마다 showTime() 함수를 호출하기
-		//-----------------------------------
-		window.setInterval("showTime()", 1000);		//window.setInterval(function() { showTime(); }, 1000);
-	}
 
 </script>
 </head>
-<body onLoad="startTime();"><center>
+<body><center>
 	<h1>거래 내역</h1><br>
-	<label>기준일 :<span id="nowTime"> </span></label>
 	
 	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecList.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
-
-	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
-	 <table border=0 width=700>
-	 	<tr>
-	    	<td align=right>
-	        [전체] : ${corp_tran_cnt} 건&nbsp;&nbsp;&nbsp;&nbsp;
-	            <select name="rowCntPerPage">
-	               <option value="10">10</option>
-	               <option value="15">15</option>
-	               <option value="20">20</option>
-	               <option value="25">25</option>
-	               <option value="30">30</option>
-	            </select> 행보기
-      </table>
+		<table class="tab" border="0" cellpadding="5" cellspacing="5">
+			<tr>
+				<td align="right">[거래명세서 발급 여부]</td><td>발급 : <input type="checkbox" name="issueTranSpec" value="y"> &nbsp; 미발급 : <input type="checkbox" name="issueTranSpec" value="n"></td>
+			</tr>
+			<tr>
+				<td align="right">[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+				</td>
+			</tr>
+		</table>
+	<br> 
+	
      <input type="hidden" name="selectPageNo">
      <input type="hidden" name="sort">
 		
@@ -146,46 +90,64 @@
 			<td></td>
 		</tr>
 	</table>
-</form> 
+	</form> 
 	
-	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
-		<table class="transactionSpecTb tbcss1" name="transactionSpecTb" cellpadding="5" cellspacing="5" width="700">
+	
+	
+	<table border="0" cellpadding="5" cellspacing="5">
 		<tr>
-		<c:choose>
-			<c:when test="${param.sort=='1 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 주문번호</th>
-			</c:when>
-			<c:when test="${param.sort=='1 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 주문번호</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  ">주문번호</th>
-			</c:otherwise>
-		</c:choose>
+			<td align = "right">
+	        [전체] : ${corp_tran_cnt} 건 공급함&nbsp;&nbsp;
+	            <select name="rowCntPerPage">
+	               <option value="10">10</option>
+	               <option value="15">15</option>
+	               <option value="20">20</option>
+	               <option value="25">25</option>
+	               <option value="30">30</option>
+	            </select> 행보기
+			</td>
+		</tr>
 		
-		<c:choose>
-			<c:when test="${param.sort=='2 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  "> ▼ 사업자번호</th>
-			</c:when>
-			<c:when test="${param.sort=='2 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('2 desc'); goSearch(); "> ▲ 사업자번호</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  ">사업자번호</th>
-			</c:otherwise>
-		</c:choose>
 		
-		<c:choose>
-			<c:when test="${param.sort=='3 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 상호명</th>
-			</c:when>
-			<c:when test="${param.sort=='3 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 상호명</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  ">상호명</th>
-			</c:otherwise>
-		</c:choose>
+		<tr><!-- 메인 목록 -->
+			<td>
+			<table class="transactionSpecTb tab" name="transactionSpecTb" cellpadding="5" cellspacing="5">
+				<tr>
+				<c:choose>
+					<c:when test="${param.sort=='1 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 주문번호</th>
+					</c:when>
+					<c:when test="${param.sort=='1 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 주문번호</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  ">주문번호</th>
+					</c:otherwise>
+				</c:choose>
+		
+				<c:choose>
+					<c:when test="${param.sort=='2 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  "> ▼ 사업자번호</th>
+					</c:when>
+					<c:when test="${param.sort=='2 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 desc'); goSearch(); "> ▲ 사업자번호</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  ">사업자번호</th>
+					</c:otherwise>
+				</c:choose>
+		
+				<c:choose>
+					<c:when test="${param.sort=='3 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 상호명</th>
+					</c:when>
+					<c:when test="${param.sort=='3 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 상호명</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  ">상호명</th>
+					</c:otherwise>
+				</c:choose>
 		
 		<%-- <c:choose>
 			<c:when test="${param.sort=='4 desc'}">
@@ -199,17 +161,17 @@
 			</c:otherwise>
 		</c:choose>--%>
 		
-		<c:choose>
-			<c:when test="${param.sort=='5 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  "> ▼ 주문수량</th>
-			</c:when>
-			<c:when test="${param.sort=='5 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('5 desc'); goSearch(); "> ▲ 주문수량</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  ">주문수량</th>
-			</c:otherwise>
-		</c:choose>
+			<c:choose>
+				<c:when test="${param.sort=='5 desc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  "> ▼ 주문수량</th>
+				</c:when>
+				<c:when test="${param.sort=='5 asc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 desc'); goSearch(); "> ▲ 주문수량</th>
+				</c:when>			
+				<c:otherwise>
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  ">주문수량</th>
+				</c:otherwise>
+			</c:choose>
 		
 		<%--<c:choose>
 			<c:when test="${param.sort=='6 desc'}">
@@ -235,22 +197,22 @@
 			</c:otherwise>
 		</c:choose>  --%>
 		
-		<c:choose>
-			<c:when test="${param.sort=='8 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 주문일</th>
-			</c:when>
-			<c:when test="${param.sort=='8 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 주문일</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">주문일</th>
-			</c:otherwise>
-		</c:choose>
-		
-		</tr>
+			<c:choose>
+				<c:when test="${param.sort=='8 desc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 주문일</th>
+				</c:when>
+				<c:when test="${param.sort=='8 asc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 주문일</th>
+				</c:when>			
+				<c:otherwise>
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">주문일</th>
+				</c:otherwise>
+			</c:choose>
+					<th>거래명세서 발급
+			</tr>
 	
-		<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
-			<tr style="cursor:pointer" onClick="viewTranSpec('${tranList.order_books_no}');">
+			<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
+			<tr style="cursor:pointer" <c:if test="${tranList.issue == 0}"> onClick="viewTranSpec('${tranList.order_books_no}'); "</c:if>>
 				<td>${tranList.order_books_no}</td>
 				<td>${tranList.corp_no}</td>
 				<td>${tranList.corp_name}</td>
@@ -259,9 +221,23 @@
 				<%--<td>${tranList.book_price}</td>
 				<td>${tranList.tot_cost}</td> --%>
 				<td>${tranList.order_dt}</td>
+				<td align="center">
+					<c:if test="${tranList.issue != 0}">
+						발급완료
+					</c:if>
+					<c:if test="${tranList.issue == 0}">
+						<input type="button" value="발급" onClick="issueTranSpec();"></td>
+					</c:if>
 			</tr>
-		</c:forEach>
+			</c:forEach>
+		</table>
+		</td>
+		</tr><!-- 메인 목록 끝 -->
+	
 	</table>
+	
+	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
+		
 	<input type="hidden" name="order_no">
 	</form>
 	

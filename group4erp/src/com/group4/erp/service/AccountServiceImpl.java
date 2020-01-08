@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
+import com.group4.erp.TranSpecSearchDTO;
 import com.group4.erp.dao.AccountDAO;
 
 @Service
@@ -18,9 +20,9 @@ public class AccountServiceImpl implements AccountService {
 	AccountDAO accountDAO;
 
 	@Override
-	public int getCorpListCnt() {
+	public int getCorpListCnt(CorpSearchDTO corpSearchDTO) {
 		// TODO Auto-generated method stub
-		int corpListCnt = this.accountDAO.getCorpListCnt();
+		int corpListCnt = this.accountDAO.getCorpListCnt(corpSearchDTO);
 		
 		return corpListCnt;
 	}
@@ -89,7 +91,60 @@ public class AccountServiceImpl implements AccountService {
 		
 		return tranSpecList;
 	}
-	
-	
 
+	@Override
+	public int deleteCorp(String[] corp_no) {
+		// TODO Auto-generated method stub
+		int delCnt = this.accountDAO.deleteCorp(corp_no);
+		
+		return delCnt;
+	}
+
+	@Override
+	public int saveTempTranSpec(TranSpecDTO tranSpecDTO) {
+		// TODO Auto-generated method stub
+		int saveTempCnt = this.accountDAO.saveTempTranSpec(tranSpecDTO);
+		
+		return saveTempCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecIssueList(TranSpecSearchDTO tranSpecSearchDTO) {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecIssueList = this.accountDAO.getTranSpecIssueList(tranSpecSearchDTO);
+		
+		return tranSpecIssueList;
+	}
+
+	@Override
+	public int payCheckProc(List<SalaryDTO> salDTOList) {
+		// TODO Auto-generated method stub
+		int payCheckCnt = this.accountDAO.payCheckProc(salDTOList);
+		
+		return payCheckCnt;
+	}
+	
+	@Override
+	public List<CorporationDTO> getBusiness_area() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> business_area = this.accountDAO.getBusiness_area();
+		
+		return business_area;
+	}
+
+	@Override
+	public int updateCorpInfo(CorporationDTO corpDTO) {
+		// TODO Auto-generated method stub
+		int updateCorpCnt = this.accountDAO.updateCorpInfo(corpDTO);
+		
+		return updateCorpCnt;
+	}
+
+	@Override
+	public int getTranSpecIssueCnt(TranSpecSearchDTO tranSpecSearchDTO) {
+		// TODO Auto-generated method stub
+		int tranSpecIssueCnt = this.accountDAO.getTranSpecIssueCnt(tranSpecSearchDTO);
+		
+		return tranSpecIssueCnt;
+	}
 }

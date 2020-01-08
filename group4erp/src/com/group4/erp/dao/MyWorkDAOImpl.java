@@ -114,4 +114,61 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 		
 	}
 	
+	public int getInsertBeforeCnt(WareHousingInsertDTO whInsertDTO) {
+		
+		int insertBeforeCnt = this.sqlSession.insert(
+				"com.group4.erp.dao.myWorkDAO.insertBefore"
+				,whInsertDTO
+				);
+		
+		return insertBeforeCnt;
+	}
+	public int getInsertWareHousing(WareHousingInsertDTO whInsertDTO) {
+		
+		int insertWareHousing = this.sqlSession.insert(
+				"com.group4.erp.dao.myWorkDAO.insertWareHousing"
+				,whInsertDTO
+				);
+		
+		return insertWareHousing;
+	}
+	
+	public int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int insertDayoffJoin = this.sqlSession.insert(
+				"com.group4.erp.dao.myWorkDAO.insertDayoff"
+				,dayoffJoinDTO
+				);
+		
+		return insertDayoffJoin;
+	}
+
+	public int getUpDayoffInfo(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int updateDayoffInfo = this.sqlSession.update(
+				"com.group4.erp.dao.myWorkDAO.updateDayoff"
+				,dayoffJoinDTO
+				);
+		
+		return updateDayoffInfo;
+	}
+
+	public int getDayoffCnt(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int selectDayoffCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.myWorkDAO.selectDayoff"
+				,dayoffJoinDTO
+				);
+		return selectDayoffCnt;
+	}
+	
+	public Map<String,String> getRemain(int emp_no){
+		
+		Map<String, String> searchRemain = this.sqlSession.selectOne(
+				"com.group4.erp.dao.myWorkDAO.selectRemain"
+				,emp_no
+				);
+		
+		return searchRemain;
+	}
 }

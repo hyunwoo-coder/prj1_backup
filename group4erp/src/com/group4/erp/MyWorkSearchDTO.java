@@ -1,11 +1,20 @@
 package com.group4.erp;
 
 public class MyWorkSearchDTO {
+
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String search_keyword;
 	private String[] category;
 	private String searchCategory = "전체";
+	private String emp_no;
+	
+	public String getEmp_no() {
+		return emp_no;
+	}
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
+	}
 	
 	public int getSelectPageNo() {
 		return selectPageNo;

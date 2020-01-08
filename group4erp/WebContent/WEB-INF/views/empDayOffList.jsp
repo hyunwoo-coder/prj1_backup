@@ -506,9 +506,28 @@
 	      <input type="hidden" name="sort" >
       </form>
 	 
+
 	<form name="empDayOffList" method="post" action="/group4erp/viewEmpDayOffList.do">
 		<table class="dayOffList tab" name="dayOffList" cellpadding="5" cellspacing="5" width="1200">
 				<tr class="thset">
+
+				<!-- <tr >
+					<th style="cursor:pointer">NO
+					<th style="cursor:pointer">소속 부서
+					<th style="cursor:pointer">직급
+					<th style="cursor:pointer">성명
+					<th style="cursor:pointer">휴가 종류
+					<th style="cursor:pointer">복귀 예정일
+					<th style="cursor:pointer">수정/삭제 
+
+					<th bgcolor="gray" style="cursor:pointer">NO</th>
+					<th bgcolor="gray" style="cursor:pointer">소속 부서</th>
+					<th bgcolor="gray" style="cursor:pointer">직급</th>
+					<th bgcolor="gray" style="cursor:pointer">성명</th>
+					<th bgcolor="gray" style="cursor:pointer">휴가 종류</th>
+					<th bgcolor="gray" style="cursor:pointer">휴가 시작일</th>
+					<th bgcolor="gray" style="cursor:pointer">복귀 예정일</th>-->
+
 					<th bgcolor="black" style="cursor:pointer">NO</th>
 					<c:choose>
 						<c:when test="${param.sort=='dayoff_apply_no desc'}">
@@ -620,10 +639,7 @@
 					</tr>
 				</c:forEach>
 		</table>
-		
-		
-      
-		
+				
 		<table><tr height=10><td></table>
 		<input type="hidden" name="selectPageNo">
 		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
@@ -634,9 +650,6 @@
 	
 	</form>
 	
-	
-	
-
 </center>
 </body>
 </html>

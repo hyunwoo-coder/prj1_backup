@@ -134,12 +134,20 @@ public class HRServiceImpl implements HRService {
 	}
 	
 	
-	
 	@Override
 	public int getAddDayoffinfoCnt(EmployeeDTO employeeDTO) {
 		int addDayoffinfo = this.hrDAO.getAddDayoffinfoCnt(employeeDTO);
 		return addDayoffinfo;
 	}
+
+
+	/*
+	public String getMgrEmpName(EmployeeDTO employeeDTO){
+		String mgrEmpName = this.hrDAO.getMgrEmpName(employeeDTO);
+		
+		return mgrEmpName;
+	}
+*/
 
 	@Override
 	public int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO) {
@@ -152,7 +160,17 @@ public class HRServiceImpl implements HRService {
 		int dayoffUpdateCnt = this.hrDAO.dayoffUpdateProcII(hrDayoffDTO);
 		return dayoffUpdateCnt;
 	}
-	
-	
 
+	@Override
+	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks) {
+		System.out.println("서비스 진입 성공");
+		int updateCnt = this.hrDAO.getUpdateCnt(emp_no_in_time_out_time_check_inout_name_remarks);
+		System.out.println("서비스 작업 성공 : " + updateCnt);
+		return updateCnt;
+	}
 }

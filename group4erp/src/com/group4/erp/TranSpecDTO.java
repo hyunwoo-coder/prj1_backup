@@ -2,6 +2,7 @@ package com.group4.erp;
 
 public class TranSpecDTO {
 
+
 	private int order_books_no;
 	private String order_no;
 	private String corp_no;
@@ -17,6 +18,56 @@ public class TranSpecDTO {
 	private String tot_cost;
 	private String order_dt;
 	private String tax;
+	private String issue_no;
+	private String issue_dt;
+	
+	
+
+	private String searchKeyword;
+	private int selectPageNo=1;
+	private int rowCntPerPage=10;
+	
+	
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public int getSelectPageNo() {
+		return selectPageNo;
+	}
+
+	public void setSelectPageNo(int selectPageNo) {
+		this.selectPageNo = selectPageNo;
+	}
+
+	public int getRowCntPerPage() {
+		return rowCntPerPage;
+	}
+
+	public void setRowCntPerPage(int rowCntPerPage) {
+		this.rowCntPerPage = rowCntPerPage;
+	}
+
+	
+	public String getIssue_no() {
+		return issue_no;
+	}
+
+	public void setIssue_no(String issue_no) {
+		this.issue_no = issue_no;
+	}
+
+	public String getIssue_dt() {
+		return issue_dt;
+	}
+
+	public void setIssue_dt(String issue_dt) {
+		this.issue_dt = issue_dt;
+	}
 	
 	public String getTax() {
 		return tax;

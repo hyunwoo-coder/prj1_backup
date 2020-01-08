@@ -1,13 +1,13 @@
 package com.group4.erp.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.service.HRService;
 
@@ -54,7 +54,11 @@ public class MyWorkController {
 			mav.addObject("publisherList", publisherList);
 			
 			//===================================================================================================
-
+			
+			if(myWorkSearchDTO.getEmp_no()==null) {
+				myWorkSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
+			}
+			
 			//페이징 처리를 위한 총 검색 개수 불러오는 코드
 			int myWorkListAllCnt = this.myWorkService.getMyWorkListAllCnt(myWorkSearchDTO);
 
@@ -75,23 +79,14 @@ public class MyWorkController {
 			//===================================================================================================
 			//검색된 관리 상품 목록 불러오는 코드
 			List<Map<String, String>> MyCareBookList = this.myWorkService.getMyCareBookList(myWorkSearchDTO);
-
 			//===================================================================================================
-			//검색 항목 불러오는 코드
-			/*List<Map<String, String>> categoryList = this.myWorkService.getCategoryList(myWorkSearchDTO);
-			mav.addObject("categoryList", categoryList);
-			List<Map<String, String>> bookSize = this.myWorkService.getBookSizeList(myWorkSearchDTO);
-			mav.addObject("bookSize", bookSize);
-			List<Map<String, String>> branchList = this.myWorkService.getBranchList(myWorkSearchDTO);
-			mav.addObject("branchList", branchList);
-			List<Map<String, String>> publisherList = this.myWorkService.getPublisherList(myWorkSearchDTO);*/
 			
 			mav.addObject("publisherList", publisherList);
 			mav.addObject("myWorkListAllCnt", myWorkListAllCnt);
 			mav.addObject("MyCareBookList", MyCareBookList);
 			
 
-		}catch(Exception e) {
+		} catch(Exception e) {
 			System.out.println("<게시글 불러오기 실패>");
 			System.out.println("예외발생"+e);
 		}
@@ -141,5 +136,81 @@ public class MyWorkController {
 			System.out.println("예외발생"+e);
 		}
 		return mav;
+	}
+	
+	
+	@RequestMapping(value="/myBookWarehousingProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goReleaseUp(
+			WareHousingInsertDTO whInsertDTO
+			) {
+		
+		int insertWareHousing = 0;
+		
+		try {
+			
+			int insertBeforeCnt = this.myWorkService.getInsertBeforeCnt(whInsertDTO);
+			
+			insertWareHousing = this.myWorkService.getInsertWareHousing(whInsertDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<발주 신청 실패>");
+			System.out.println("예외 발생=>"+e);
+			insertWareHousing = -1;
+		}
+		   
+		return insertWareHousing;
+	}
+	
+	//휴가 신청 페이지
+	@RequestMapping(value="/goEmpDayOffjoin.do")
+	public ModelAndView goEmpDayOffJoin(
+			HttpSession session
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpDayOffjoinForm");
+		mav.addObject("navigator", "[업무관리]-[휴가 신청]");
+		
+		String emp_id = (String)session.getAttribute("emp_id");
+		int emp_no = Integer.parseInt(emp_id);
+		try {
+			
+			Map<String, String> searchRemain = this.myWorkService.getRemain(emp_no);
+			mav.addObject("remain", searchRemain);
+			
+		}catch(Exception e) {
+			System.out.println("<휴가 신청 화면 불러오기 실패>");
+			System.out.println("예외 발생 =>"+e);
+		}
+		
+		return mav;
+	}
+	
+	//휴가 신청 DB연동
+	@RequestMapping(value="/goDayOffProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goDayOffProc(
+			HrDayoffJoinDTO dayoffJoinDTO
+			) {
+		
+		int insertDayoffJoin = 0;
+		
+		try {
+			
+			insertDayoffJoin = this.myWorkService.getDayoffJoinCnt(dayoffJoinDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<휴가 신청 실패>");
+			System.out.println("예외 발생=>"+e);
+			insertDayoffJoin = -1;
+		}
+		   
+		return insertDayoffJoin;
 	}
 }
