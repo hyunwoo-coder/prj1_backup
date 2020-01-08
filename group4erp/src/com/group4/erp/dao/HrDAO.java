@@ -50,6 +50,10 @@ public interface HrDAO {
 	int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO);
 	
 	int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO);
+	
+	int dayoffDeleteProcI(HrDayoffDTO hrDayoffDTO);
+	
+	int dayoffDeleteProcII(HrDayoffDTO hrDayoffDTO);
 
 	int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO);
 	

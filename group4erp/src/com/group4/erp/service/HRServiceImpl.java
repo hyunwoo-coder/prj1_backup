@@ -161,12 +161,26 @@ public class HRServiceImpl implements HRService {
 		return dayoffUpdateCnt;
 	}
 
+
+	@Override
+	public int dayoffDeleteProcI(HrDayoffDTO hrDayoffDTO) {
+		int dayoffDeleteCntI = this.hrDAO.dayoffDeleteProcI(hrDayoffDTO);
+		return dayoffDeleteCntI;
+	}
+
+	@Override
+	public int dayoffDeleteProcII(HrDayoffDTO hrDayoffDTO) {
+		int dayoffDeleteCntII = this.hrDAO.dayoffDeleteProcII(hrDayoffDTO);
+		return dayoffDeleteCntII;
+	}
+
 	@Override
 	public int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	
 	public int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks) {
 		System.out.println("서비스 진입 성공");
 		int updateCnt = this.hrDAO.getUpdateCnt(emp_no_in_time_out_time_check_inout_name_remarks);

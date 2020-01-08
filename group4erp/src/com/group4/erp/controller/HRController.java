@@ -428,6 +428,31 @@ public class HRController {
 		}
 		return dayoffUpdateCnt;
 	}
+	// ================================
+	// 비동기 방식으로 휴가 신청 현황을 삭제하는 메소드
+	// ================================
+	@RequestMapping(value = "/dayoffDeleteProc.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public int dayoffDeleteProc(HrDayoffDTO hrDayoffDTO) {
+		int dayoffDeleteCntI = 0;
+		int dayoffDeleteCntII = 0;
+		try {
+			dayoffDeleteCntI = this.hrservice.dayoffDeleteProcI(hrDayoffDTO);
+			if (dayoffDeleteCntI != 1) {
+				return 0;
+			}
+			dayoffDeleteCntII = this.hrservice.dayoffDeleteProcII(hrDayoffDTO);
+			if (dayoffDeleteCntII != 1) {
+				return 0;
+			}
+		} catch (Exception e) {
+			System.out.println("<휴가 현황 수정 실패>");
+			System.out.println("예외 발생=>" + e);
+		}
+		return dayoffDeleteCntI;
+	}
+	
+	
 
 	/*
 	 * // 파일 업로드

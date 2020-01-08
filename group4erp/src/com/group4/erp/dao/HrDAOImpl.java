@@ -103,6 +103,28 @@ public class HrDAOImpl implements HrDAO {
 		return dayoffUpdateCnt;
 	}
 	
+	
+	@Override
+	public int dayoffDeleteProcI(HrDayoffDTO hrDayoffDTO) {
+		int dayoffDeleteCntI = this.sqlSession.update(
+				mapper_namespace+"dayoffDeleteProcI"
+				,hrDayoffDTO
+				);
+		return dayoffDeleteCntI;
+	}
+	@Override
+	public int dayoffDeleteProcII(HrDayoffDTO hrDayoffDTO) {
+		int dayoffDeleteCntII = this.sqlSession.delete(
+				mapper_namespace+"dayoffDeleteProcII"
+				,hrDayoffDTO
+				);
+		return dayoffDeleteCntII;
+	}
+
+
+
+	
+	
 
 	
 	@Override

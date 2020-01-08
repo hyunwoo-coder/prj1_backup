@@ -48,6 +48,10 @@ public interface HRService {
 	int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO);
 	
 	int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO);
+	
+	int dayoffDeleteProcI(HrDayoffDTO hrDayoffDTO);
+	
+	int dayoffDeleteProcII(HrDayoffDTO hrDayoffDTO);
 
 	//String getMgrEmpName(EmployeeDTO employeeDTO);
 
