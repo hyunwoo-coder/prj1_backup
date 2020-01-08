@@ -7,10 +7,11 @@ import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
+import com.group4.erp.TranSpecSearchDTO;
 
 public interface AccountDAO {
 	
-	int getCorpListCnt();
+	int getCorpListCnt(CorpSearchDTO corpSearchDTO);
 	
 	List<CorporationDTO> getCorpList(CorpSearchDTO corpSearchDTO);
 	
@@ -32,7 +33,7 @@ public interface AccountDAO {
 	
 	int saveTempTranSpec(TranSpecDTO tranSpecDTO);
 	
-	List<TranSpecDTO> getTranSpecIssueList();
+	List<TranSpecDTO> getTranSpecIssueList(TranSpecSearchDTO tranSpecSearchDTO);
 	
 	int payCheckProc(List<SalaryDTO> salDTOList);
 	
@@ -40,6 +41,6 @@ public interface AccountDAO {
 	
 	int updateCorpInfo(CorporationDTO corpDTO);
 	
-	int getTranSpecIssueCnt();
+	int getTranSpecIssueCnt(TranSpecSearchDTO tranSpecSearchDTO);
 
 }

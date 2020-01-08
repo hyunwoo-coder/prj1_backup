@@ -307,8 +307,35 @@
 	<select id="getOrderInfoChart" resultType="com.group4.erp.SalesInfoDTO">
 		select      
             cc.cat_name "category",
-            nvl( (select sum(oi.book_qty) from order_info oi, book b where oi.isbn13 = b.isbn13 and b.cat_cd = cc.cat_cd ), 0) "book_qty"    
+            nvl( (select sum(oi.book_qty) from order_info oi, book b where oi.isbn13 = b.isbn13 and b.cat_cd = cc.cat_cd ), 0) "book_qty",
+            nvl( (select sum(oi.book_qty) from order_info oi, book b, return_sale_info r where oi.isbn13 = b.isbn13 and b.cat_cd = cc.cat_cd and oi.order_no = r.order_no), 0) "return_qty"    
         from code_category cc
+	</select>
+	
+	
+	<select id="getCorpOrderCntChart" resultType="com.group4.erp.CorpOrderDTO">
+		select      
+            cc.cat_name "category",
+            nvl( (select sum(oi.books_qty) from corp_order_info oi, book b where oi.isbn13 = b.isbn13 and b.cat_cd = cc.cat_cd ), 0) "books_qty"    
+        from code_category cc
+	</select>
+	
+	<select id="getDailyOrderCntChart" resultType="com.group4.erp.SalesInfoDTO">
+		select count(*) "book_qty",
+            to_char(order_dt, 'yy-mm-dd') "order_dt" 
+        from order_info
+        group by to_char(order_dt, 'yy-mm-dd')
+        order by 2
+		
+	</select>
+	
+	<select id="getDailyCorpOrderCntChart" resultType="com.group4.erp.SalesInfoDTO">
+		select count(*) "book_qty",
+            to_char(order_dt, 'yy-mm-dd') "order_dt" 
+        from corp_order_info
+        group by to_char(order_dt, 'yy-mm-dd')
+        order by 2
+		
 	</select>
 	
 		

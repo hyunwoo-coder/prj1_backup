@@ -22,9 +22,11 @@
 				"${evenTrColor}",	//짝수행 배경색
 				"${mouseOverColor}"			//마우스 온 시 배경색
 			);
-		
-		$('[name=rowCntPerPage]').change(function(){
-			goSearch();
+
+
+		$("[name=rowCntPerPage]").change(function() {
+			//goSearch();
+			document.corpSearchRowPageForm.submit();
 		});
 	
 		$(".pagingNumber").html(
@@ -47,6 +49,7 @@
 
 
 	function goSearch() {
+		
 		document.corpSearchForm.submit();
 	}
 
@@ -170,6 +173,8 @@
 					//Array 객체안의 배열변수가 0개면, 즉 체크된 학점이 없으면 함수 중단
 		if(corp_no.length==0) {
 			alert("선택된 업체가 없습니다.");
+
+			return;
 		}
 
 		$("[name=corp_no]").val(corp_no);
@@ -226,6 +231,7 @@
 	
 	</tr>
 	<tr>
+	<form name="corpSearchRowPageForm" method="post" action="/group4erp/viewCorpList.do">
 		<td align="right">[전체] : ${corpListCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
@@ -234,6 +240,7 @@
 	               <option value="25">25</option>
 	               <option value="30">30</option>
 	            </select> 행보기 </td>
+	</form>
 	</tr>
 	<tr>
 		<td> 

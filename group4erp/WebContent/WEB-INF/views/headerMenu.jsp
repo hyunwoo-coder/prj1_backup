@@ -324,7 +324,7 @@
 			<td nowrap>&nbsp;<!-- &nbsp;지우지말것!! -->
 				<span id="subMenu1"> <!-- 업무관리 -->
 					<span id="myCareBookList" style="cursor:pointer" onClick="myCareBookList();">담당 상품 조회&nbsp;&nbsp;&nbsp;</span>
-					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&보고&nbsp;&nbsp;&nbsp;</span>
+					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewMyWorkTime();">근태조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewApprovalList();">문서 결재&nbsp;&nbsp;&nbsp;</span>
 				</span>
@@ -349,7 +349,7 @@
 				<span id="subMenu4">	<!-- 마케팅관리 -->
 					<span id="nowSaleList" style="cursor:pointer" onClick="goNowSaleList();">판매현황&nbsp;&nbsp;&nbsp;</span>
 					<span id="eventSchedulingList" style="cursor:pointer" onClick="eventSchedulingList();">이벤트행사 현황&nbsp;&nbsp;&nbsp;</span>
-					<span id="adOrder" style="cursor:pointer" onClick="adApplyList();">광고신청현황&nbsp;&nbsp;&nbsp;</span>	
+					<!-- <span id="adOrder" style="cursor:pointer" onClick="adApplyList();">광고신청현황&nbsp;&nbsp;&nbsp;</span> -->	
 				</span>
 			</td>
 			<td></td>

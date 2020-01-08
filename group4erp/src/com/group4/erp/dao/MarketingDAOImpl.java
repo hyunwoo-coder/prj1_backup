@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.group4.erp.AdApplyDTO;
+import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
@@ -164,6 +165,30 @@ public class MarketingDAOImpl implements MarketingDAO {
 		int updateCnt = this.sqlSession.update(mapper_namespace+"updateAdInfo", adApplyDTO);
 		
 		return updateCnt;
+	}
+
+	@Override
+	public List<CorpOrderDTO> getCorpOrderCntChart() {
+		// TODO Auto-generated method stub
+		List<CorpOrderDTO> corpOrderCntList = this.sqlSession.selectList(mapper_namespace+"getCorpOrderCntChart");
+		
+		return corpOrderCntList;
+	}
+
+	@Override
+	public List<SalesInfoDTO> getDailyOrderCnt() {
+		// TODO Auto-generated method stub
+		List<SalesInfoDTO> dailyOrderCnt = this.sqlSession.selectList(mapper_namespace+"getDailyOrderCntChart");
+		
+		return dailyOrderCnt;
+	}
+
+	@Override
+	public List<SalesInfoDTO> getDailyCorpOrderCnt() {
+		// TODO Auto-generated method stub
+		List<SalesInfoDTO> dailyCorpOrderCnt = this.sqlSession.selectList(mapper_namespace+"getDailyCorpOrderCntChart");
+		
+		return dailyCorpOrderCnt;
 	}
 
 }

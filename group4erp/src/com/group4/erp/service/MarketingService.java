@@ -3,6 +3,7 @@ package com.group4.erp.service;
 import java.util.List;
 
 import com.group4.erp.AdApplyDTO;
+import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
@@ -46,5 +47,11 @@ public interface MarketingService {
 	int updateEventInfo(EventDTO eventDTO);
 	
 	int updateAdInfoProc(AdApplyDTO adApplyDTO);
+	
+	List<CorpOrderDTO> getCorpOrderCntChart();
+	
+	List<SalesInfoDTO> getDailyOrderCnt();
+	
+	List<SalesInfoDTO> getDailyCorpOrderCnt();
 
 }

@@ -54,7 +54,7 @@
 	}
 
 	function viewEmpSalInfo(emp_no) {
-		alert(emp_no);
+		
 		inputData('[name=emp_no]', emp_no);
 		document.salListForm.submit();
 	}

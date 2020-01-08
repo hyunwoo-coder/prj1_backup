@@ -188,7 +188,9 @@
 										<option value="3">할인전</option>
 										<option value="4">기부행사</option>
 										<option value="5">온라인 설문조사</option>
-										</select></td><td>행사명</td><td><input type="text" name="evnt_title"></td>
+										<option value="6">저자강연회</option>
+										<option value="7">선착순증정</option>
+								</select></td><td>행사명</td><td><input type="text" name="evnt_title"></td>
 			</tr>
 			<tr>
 				<td colspan="2">이벤트 예정 일시 </td><td colspan="2">
@@ -215,7 +217,7 @@
 		<input type="button" value="결재" onClick="checkForm();">
 		<input type="reset" value="초기화">
 		<input type="hidden" name="evnt_no">
-		<input type="text" name="emp_no" value="${emp_no}">
+		<input type="hidden" name="emp_no" value="${emp_no}">
 	</form>
 
 

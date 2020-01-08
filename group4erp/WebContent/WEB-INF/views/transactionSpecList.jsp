@@ -81,18 +81,6 @@
 		</table>
 	<br> 
 	
-	 <table border=0 >
-	 	<tr>
-	    	<td align=right>
-	        [전체] : ${corp_tran_cnt} 건&nbsp;&nbsp;&nbsp;&nbsp;
-	            <select name="rowCntPerPage">
-	               <option value="10">10</option>
-	               <option value="15">15</option>
-	               <option value="20">20</option>
-	               <option value="25">25</option>
-	               <option value="30">30</option>
-	            </select> 행보기
-      </table>
      <input type="hidden" name="selectPageNo">
      <input type="hidden" name="sort">
 		
@@ -102,46 +90,64 @@
 			<td></td>
 		</tr>
 	</table>
-</form> 
+	</form> 
 	
-	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
-		<table class="transactionSpecTb tab" name="transactionSpecTb" cellpadding="5" cellspacing="5">
+	
+	
+	<table border="0" cellpadding="5" cellspacing="5">
 		<tr>
-		<c:choose>
-			<c:when test="${param.sort=='1 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 주문번호</th>
-			</c:when>
-			<c:when test="${param.sort=='1 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 주문번호</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  ">주문번호</th>
-			</c:otherwise>
-		</c:choose>
+			<td align = "right">
+	        [전체] : ${corp_tran_cnt} 건 공급함&nbsp;&nbsp;
+	            <select name="rowCntPerPage">
+	               <option value="10">10</option>
+	               <option value="15">15</option>
+	               <option value="20">20</option>
+	               <option value="25">25</option>
+	               <option value="30">30</option>
+	            </select> 행보기
+			</td>
+		</tr>
 		
-		<c:choose>
-			<c:when test="${param.sort=='2 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  "> ▼ 사업자번호</th>
-			</c:when>
-			<c:when test="${param.sort=='2 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('2 desc'); goSearch(); "> ▲ 사업자번호</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  ">사업자번호</th>
-			</c:otherwise>
-		</c:choose>
 		
-		<c:choose>
-			<c:when test="${param.sort=='3 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 상호명</th>
-			</c:when>
-			<c:when test="${param.sort=='3 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 상호명</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  ">상호명</th>
-			</c:otherwise>
-		</c:choose>
+		<tr><!-- 메인 목록 -->
+			<td>
+			<table class="transactionSpecTb tab" name="transactionSpecTb" cellpadding="5" cellspacing="5">
+				<tr>
+				<c:choose>
+					<c:when test="${param.sort=='1 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 주문번호</th>
+					</c:when>
+					<c:when test="${param.sort=='1 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 주문번호</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  ">주문번호</th>
+					</c:otherwise>
+				</c:choose>
+		
+				<c:choose>
+					<c:when test="${param.sort=='2 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  "> ▼ 사업자번호</th>
+					</c:when>
+					<c:when test="${param.sort=='2 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 desc'); goSearch(); "> ▲ 사업자번호</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  ">사업자번호</th>
+					</c:otherwise>
+				</c:choose>
+		
+				<c:choose>
+					<c:when test="${param.sort=='3 desc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 상호명</th>
+					</c:when>
+					<c:when test="${param.sort=='3 asc'}">
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 상호명</th>
+					</c:when>			
+					<c:otherwise>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  ">상호명</th>
+					</c:otherwise>
+				</c:choose>
 		
 		<%-- <c:choose>
 			<c:when test="${param.sort=='4 desc'}">
@@ -155,17 +161,17 @@
 			</c:otherwise>
 		</c:choose>--%>
 		
-		<c:choose>
-			<c:when test="${param.sort=='5 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  "> ▼ 주문수량</th>
-			</c:when>
-			<c:when test="${param.sort=='5 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('5 desc'); goSearch(); "> ▲ 주문수량</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  ">주문수량</th>
-			</c:otherwise>
-		</c:choose>
+			<c:choose>
+				<c:when test="${param.sort=='5 desc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  "> ▼ 주문수량</th>
+				</c:when>
+				<c:when test="${param.sort=='5 asc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 desc'); goSearch(); "> ▲ 주문수량</th>
+				</c:when>			
+				<c:otherwise>
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  ">주문수량</th>
+				</c:otherwise>
+			</c:choose>
 		
 		<%--<c:choose>
 			<c:when test="${param.sort=='6 desc'}">
@@ -191,22 +197,22 @@
 			</c:otherwise>
 		</c:choose>  --%>
 		
-		<c:choose>
-			<c:when test="${param.sort=='8 desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 주문일</th>
-			</c:when>
-			<c:when test="${param.sort=='8 asc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 주문일</th>
-			</c:when>			
-			<c:otherwise>
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">주문일</th>
-			</c:otherwise>
-		</c:choose>
-			<th>거래명세서 발급
-		</tr>
+			<c:choose>
+				<c:when test="${param.sort=='8 desc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 주문일</th>
+				</c:when>
+				<c:when test="${param.sort=='8 asc'}">
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 주문일</th>
+				</c:when>			
+				<c:otherwise>
+					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">주문일</th>
+				</c:otherwise>
+			</c:choose>
+					<th>거래명세서 발급
+			</tr>
 	
-		<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
-			<tr style="cursor:pointer" onClick="viewTranSpec('${tranList.order_books_no}');">
+			<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
+			<tr style="cursor:pointer" <c:if test="${tranList.issue == 0}"> onClick="viewTranSpec('${tranList.order_books_no}'); "</c:if>>
 				<td>${tranList.order_books_no}</td>
 				<td>${tranList.corp_no}</td>
 				<td>${tranList.corp_name}</td>
@@ -222,10 +228,16 @@
 					<c:if test="${tranList.issue == 0}">
 						<input type="button" value="발급" onClick="issueTranSpec();"></td>
 					</c:if>
-					
 			</tr>
-		</c:forEach>
+			</c:forEach>
+		</table>
+		</td>
+		</tr><!-- 메인 목록 끝 -->
+	
 	</table>
+	
+	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
+		
 	<input type="hidden" name="order_no">
 	</form>
 	

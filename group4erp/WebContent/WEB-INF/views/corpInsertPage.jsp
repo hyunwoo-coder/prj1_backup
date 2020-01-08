@@ -11,6 +11,19 @@
 <script>
 
 	$(document).ready(function() {
+
+		$("[name=corp_business_area]").change(function() {
+			
+			var cnt = $(this).filter(":checked").length;
+			var rank='';
+
+			if(cnt==1) {
+				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
+				$(this).siblings().prop("checked", false);
+				//rank = $(this).filter(":checked").val();
+			} 
+
+		});
 		
 	});
 
@@ -71,7 +84,7 @@
 		}
 
 		if(is_empty("[name = corp_tel]")) {
-			alert("소재지를 입력해주세요.");
+			alert("연락처를 입력해주세요.");
 			$("[name = corp_tel]").focus();
 
 			return;
