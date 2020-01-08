@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
 import com.group4.erp.dao.AccountDAO;
 
@@ -97,7 +98,52 @@ public class AccountServiceImpl implements AccountService {
 		
 		return delCnt;
 	}
-	
-	
 
+	@Override
+	public int saveTempTranSpec(TranSpecDTO tranSpecDTO) {
+		// TODO Auto-generated method stub
+		int saveTempCnt = this.accountDAO.saveTempTranSpec(tranSpecDTO);
+		
+		return saveTempCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecIssueList() {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecIssueList = this.accountDAO.getTranSpecIssueList();
+		
+		return tranSpecIssueList;
+	}
+
+	@Override
+	public int payCheckProc(List<SalaryDTO> salDTOList) {
+		// TODO Auto-generated method stub
+		int payCheckCnt = this.accountDAO.payCheckProc(salDTOList);
+		
+		return payCheckCnt;
+	}
+	
+	@Override
+	public List<CorporationDTO> getBusiness_area() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> business_area = this.accountDAO.getBusiness_area();
+		
+		return business_area;
+	}
+
+	@Override
+	public int updateCorpInfo(CorporationDTO corpDTO) {
+		// TODO Auto-generated method stub
+		int updateCorpCnt = this.accountDAO.updateCorpInfo(corpDTO);
+		
+		return updateCorpCnt;
+	}
+
+	@Override
+	public int getTranSpecIssueCnt() {
+		// TODO Auto-generated method stub
+		int tranSpecIssueCnt = this.accountDAO.getTranSpecIssueCnt();
+		
+		return tranSpecIssueCnt;
+	}
 }

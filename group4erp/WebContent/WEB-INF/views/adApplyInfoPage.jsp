@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file = "/WEB-INF/views/common.jsp" %>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +23,80 @@
 				"${mouseOverColor}"			//마우스 온 시 배경색
 		);
 	});
+
+
+	function updateEventInfo(idx, ad_no, ad_title, open_req_dt, ad_term) {
+		
+		var thisTr = $(idx).parent().parent();
+	      var delTr = $('.adApplyTable [name=updateAd]');
+	      if(delTr.size()>0){
+	    	  delTr.remove();
+	      }
+	      
+	      //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
+	      //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
+	      
+	      //var str = $('.qqq').html();
+	          
+	      //var thisTr = $(idx).parent().parent();
+	      
+	      
+	      var htmlCode = "<tr name='updateAd' align=center> <td colspan=7>"
+		  htmlCode += "<div class='updateAdDiv'>"
+	      htmlCode += "<form name='updateAdForm'>"
+	      htmlCode += "<table class='innertable tab' align=center>"
+	      htmlCode += "<tr> <th>광고타이틀 <td><input type='text' name='ad_title' value="+ad_title+">"
+	      htmlCode += "<tr> <th>노출 시작일 <td><input type='text' name='open_req_dt' value="+open_req_dt+">"
+	   	  htmlCode += "<tr> <th>희망노출기간 <td><input type='text' name='ad_term' value="+ad_term+">"
+	      htmlCode += "</table> </form>"
+	      htmlCode += "<input type='button' value='저장' name='updateAdInfo' onClick='updateAdInfoProc();'>&nbsp;"
+		  htmlCode += "<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;</div>"
+		  htmlCode += "<input type='hidden' name='ad_apply_no' value="+ad_no+">"  
+		  htmlCode += "<script>"
+		  htmlCode += "$('[name=open_req_dt]').datepicker({ dateFormat: 'yy-mm-dd' });"
+		  htmlCode += "$('[name=open_end_dt]').datepicker({ dateFormat: 'yy-mm-dd' });"
+		  htmlCode += "</script"+">"
+	      
+	      thisTr.after(htmlCode);
+	    
+	}
+
+	function closeThisTr(idx) {
+		
+		$(idx).parent().parent().parent().remove();
+
+		//$("[name=updateCorpBtn]").val("수정");
+	}
+
+	function updateAdInfoProc(corp_no) {
+
+		$.ajax({
+			url : "/group4erp/updateAdInfoProc.do",				//호출할 서버쪽 URL 주소 설정
+			type : "post",										//전송 방법 설정
+			data : $('[name=updateAdForm]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정
+			
+			success : function(upCnt) {
+				if(upCnt==1) {
+					alert("수정 성공!");
+					
+					location.replace("/group4erp/viewAdApplyList.do");
+				} else if(delCnt==-1) {	
+					alert("광고가 이미 삭제되었습니다!");
+					
+					location.replace("/group4erp/viewAdApplyList.do");
+
+				} else {
+					alert("서버쪽 DB 연동 실패!");
+				}
+			}
+
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}	
+		});
+		
+	}
 
 	function reserveAdForm() {
 		location.replace("/group4erp/insertAdApply.do");
@@ -70,7 +147,7 @@
 			
 		</tr>
 		<tr>
-			<th></th><th>광고신청번호</th><th>업체번호</th><th>광고타이틀</th><th>등록일</th><th>상태</th>
+			<th></th><th>광고신청번호</th><th>업체번호</th><th>광고타이틀</th><th>희망노출기간</th><th>등록일</th><th>상태</th><th>비고</th>
 		</tr>
 		<c:forEach items='${adApplyList}' var="adApplyList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" onClick="viewEmpSalInfo(${empSal.emp_no});">
@@ -78,8 +155,14 @@
 				<td>${adApplyList.ad_apply_no}</td>
 				<td>${adApplyList.corp_no}</td>
 				<td>${adApplyList.ad_title}</td>
+				<td align="center">${adApplyList.ad_term}</td>
 				<td>${adApplyList.reg_dt}</td> 
 				<td>${adApplyList.ad_stat}</td>
+				<td>
+					<c:if test="${adApplyList.ad_stat eq '대기중' }">
+						<input type="button" name="updateBtn" value="수정" onClick="updateEventInfo(this,'${adApplyList.ad_apply_no}', '${adApplyList.ad_title}', '${adApplyList.open_req_dt}', '${adApplyList.ad_term}');">
+					</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

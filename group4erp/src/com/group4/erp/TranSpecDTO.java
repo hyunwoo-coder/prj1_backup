@@ -17,6 +17,24 @@ public class TranSpecDTO {
 	private String tot_cost;
 	private String order_dt;
 	private String tax;
+	private String issue_no;
+	private String issue_dt;
+	
+	public String getIssue_no() {
+		return issue_no;
+	}
+
+	public void setIssue_no(String issue_no) {
+		this.issue_no = issue_no;
+	}
+
+	public String getIssue_dt() {
+		return issue_dt;
+	}
+
+	public void setIssue_dt(String issue_dt) {
+		this.issue_dt = issue_dt;
+	}
 	
 	public String getTax() {
 		return tax;

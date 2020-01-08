@@ -11,7 +11,7 @@
 
 	$(document).ready(function(){
 
-		$(".updateArea").hide();
+		//$(".updateArea").hide();
 	
 		headerSort("corpListTable", 0);
 
@@ -42,6 +42,7 @@
 		inputData('[name=sort]').val("${corpSearchDTO.sort}");
 
 		//$('[name=sort]').val("${corpSearchDTO.sort}");
+
 	});
 
 
@@ -62,8 +63,93 @@
 		location.replace("/group4erp/goInsertCorpPage.do");
 	}
 
-	function updateCorpInfo(corp_no) {
-		alert(corp_no);
+
+	var closeFlag = "close";
+	
+	function updateCorpInfo(idx, flag, corp_no, corp_name, ceo_name, business_area, corp_addr, corp_tel, corp_fax) {
+		
+		if(closeFlag!=flag) {
+			$(idx).val("닫기");
+			closeFlag = flag;
+
+		} else if(closeFlag == flag){
+			$(idx).val("수정");
+			closeFlag = "close";
+
+		}
+
+		var thisTr = $(idx).parent().parent();
+		var delTr = $(".corpListMain .corpListTable [name=updateCorpInfo]");
+		
+		if(delTr.size() > 0) {
+			//delTr.remove();
+			//thisTr.next().remove();		
+		}		
+		
+		//$('.corpListTable tr:eq('+idx+')').append(" <tr> <td>");
+		      //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
+		      
+		      //var str = $('.qqq').html();
+		      
+		var htmlCode = "<tr name='updateCorpInfo' align='center'>" 
+		htmlCode +=	"<td colspan=7>"
+		htmlCode += 	"<form name='updateCorpForm' method='post' action='/group4erp/updateCorpInfoProc.do'>"
+		htmlCode += 		"<table class='innertable tab' align='center'>"
+		htmlCode += 			"<tr> <td>사업자번호</td> <td><input type='text' name='new_corp_no' value="+corp_no+"> </td> </tr>"
+		htmlCode += 			"<tr> <td>상호명 </td> <td><input type='text' name='corp_name' value="+corp_name+"> </td> </tr>"
+		htmlCode += 			"<tr> <td>사업자명</td> <td><input type='text' name='ceo_name' value="+ceo_name+"></td> </tr>"
+		htmlCode += 			"<tr> <td>사업분야</td> <td><input type='text' name='corp_business_area' value="+business_area+"></td> </tr>"
+		htmlCode += 			"<tr> <td>소재지</td> <td><input type='text' name='corp_addr' value="+corp_addr+"></td> </tr>"
+		htmlCode += 			"<tr> <td>연락처</td> <td><input type='text' name='corp_tel' value="+corp_tel+"></td> </tr>"
+		htmlCode += 			"<tr> <td>FAX</td> <td><input type='text' name='corp_fax' value="+corp_fax+"></td> </tr>"
+		htmlCode += 		"</table>"
+		htmlCode += 		"<input type='button' value='저장' name='updateCorp' onClick='updateCorpInfoProc("+corp_no+");'>&nbsp;"
+		htmlCode += 		"<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
+		htmlCode +=         "<input type='hidden' name='corp_no' value="+corp_no+">"
+		htmlCode +=  	"</form>"
+		htmlCode += "</td>"
+		htmlCode += "</tr>"
+		      
+		thisTr.after(htmlCode);
+
+	}
+
+	function closeThisTr(idx) {
+				
+		$(idx).parent().parent().remove();
+
+		//$("[name=updateCorpBtn]").val("수정");
+	}
+	
+	
+	function updateCorpInfoProc(corp_no) {
+
+		$.ajax({
+			url : "/group4erp/updateCorpInfoProc.do",				//호출할 서버쪽 URL 주소 설정
+			type : "post",										//전송 방법 설정
+			data : $('[name=updateCorpForm]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정
+			
+			success : function(upCnt) {
+				if(upCnt==1) {
+					alert("수정 성공!");
+					
+					location.replace("/group4erp/viewCorpList.do");
+				} else if(delCnt==-1) {	
+					alert("업체가 이미 삭제되었습니다!");
+					
+					location.replace("/group4erp/viewCorpList.do");
+
+				} else {
+					alert("서버쪽 DB 연동 실패!");
+				}
+			}
+
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}	
+		});
+		
 	}
 
 	function deleteCorp() {
@@ -127,30 +213,31 @@
 	[검색어]&nbsp;<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 	
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
-	 <table border=0>
-	 	<tr>
-	    	<td align=right>
-	        [전체] : ${corpListCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
+	
+     <input type="hidden" name="selectPageNo">
+     <input type="hidden" name="sort">
+		
+	
+</form> 
+
+<table class="corpListMain" border="0" cellpadding="5" cellspacing="5">
+	<tr>
+		<td align="center"><div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
+	
+	</tr>
+	<tr>
+		<td align="right">[전체] : ${corpListCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
 	               <option value="15">15</option>
 	               <option value="20">20</option>
 	               <option value="25">25</option>
 	               <option value="30">30</option>
-	            </select> 행보기
-      </table>
-     <input type="hidden" name="selectPageNo">
-     <input type="hidden" name="sort">
-		
-	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
-	<table>
-		<tr height=10>
-			<td></td>
-		</tr>
-	</table>
-</form> 
-
-<table class="corpListTable tab" name="corpListTable" cellpadding="5" cellspacing="5">
+	            </select> 행보기 </td>
+	</tr>
+	<tr>
+		<td> 
+			<table class="corpListTable tab" name="corpListTable" cellpadding="5" cellspacing="5">
 	<tr>
 		<th></th>
 		<c:choose>
@@ -253,20 +340,18 @@
 					<td>${corpList.corp_addr}</td> 
 					<td>${corpList.corp_tel} </td> 
 					<td>${corpList.corp_fax} </td> 
-					<td><input type="button" value="수정" onClick="updateCorpInfo('${corpList.corp_no}');"> </td> 
+					<td><input type="button" name="updateCorpBtn" value="수정" onClick="updateCorpInfo(this, 'update', '${corpList.corp_no}', '${corpList.corp_name}', '${corpList.ceo_name}', '${corpList.corp_business_area}', '${corpList.corp_addr}', '${corpList.corp_tel}', '${corpList.corp_fax}');"> </td> 
 				</tr>
-				<tr class="updateArea" style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">
-					<td class="delCheckBox"><input type="checkbox" name="delCheckBox" ></td>
-					<td><input type="text" name="corp_no" value="${corpList.corp_no}"></td>
-					<td><input type="text" name="corp_name" value="${corpList.corp_name}"></td>
-					<td><input type="text" name="ceo_name" value="${corpList.ceo_name}"></td>
-					<td><input type="text" name="corp_business_area" value="${corpList.corp_business_area}"></td> 
-					<td><input type="text" name="corp_addr" value="${corpList.corp_addr}"></td> 
-					<td><input type="text" name="corp_tel" value="${corpList.corp_tel}"> </td> 
-					<td><input type="text" name="corp_fax" value="${corpList.corp_fax}"> </td> 
-				</tr>
+				
 			</c:forEach>
+		</table>
+		
+		</td>
+	</tr>
+
 </table>
+
+
 <br>
 <input type="button" value="거래처 추가" onClick="insertCorp();">
 <input type="button" value="거래처 삭제" onClick="deleteCorp();">
@@ -276,7 +361,6 @@
 </form>
 
 </center>
-
 
 
 </body>

@@ -9,6 +9,8 @@ import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
+import com.group4.erp.OrderDTO;
+import com.group4.erp.SalesInfoDTO;
 import com.group4.erp.dao.MarketingDAO;
 
 @Service
@@ -82,9 +84,9 @@ public class MarketingServiceImpl implements MarketingService {
 	}
 
 	@Override
-	public int getOnlineOrderCnt() {
+	public int getOnlineOrderCnt(SalesInfoDTO salesSearchDTO) {
 		// TODO Auto-generated method stub
-		int online_order_cnt = this.marketingDAO.getOnlineOrderCnt();
+		int online_order_cnt = this.marketingDAO.getOnlineOrderCnt(salesSearchDTO);
 		
 		return online_order_cnt;
 	}
@@ -104,7 +106,61 @@ public class MarketingServiceImpl implements MarketingService {
 		
 		return updateEvntCnt;
 	}
+
+	@Override
+	public List<OrderDTO> getOnlineOrderList(SalesInfoDTO salesSearchDTO) {
+		// TODO Auto-generated method stub
+		List<OrderDTO> onlineOrderList = this.marketingDAO.getOnlineOrderList(salesSearchDTO);
+		
+		return onlineOrderList;
+	}
+
+	@Override
+	public int getTotRevenue() {
+		// TODO Auto-generated method stub
+		int tot_revenue = this.marketingDAO.getTotRevenue();
+		
+		return tot_revenue;
+	}
 	
-	
+	@Override
+	public int getCorpOrderTotCnt() {
+		// TODO Auto-generated method stub
+		int corpOrderTotCnt = this.marketingDAO.getCorpOrderTotCnt();
+		
+		return corpOrderTotCnt;
+	}
+
+	@Override
+	public int getCorpTotRevenue() {
+		// TODO Auto-generated method stub
+		int corpTotRevenue = this.marketingDAO.getCorpTotRevenue();
+		
+		return corpTotRevenue;
+	}
+
+	@Override
+	public List<SalesInfoDTO> getOrderInfoChart() {
+		// TODO Auto-generated method stub
+		List<SalesInfoDTO> orderInfo = this.marketingDAO.getOrderInfoChart();
+		
+		return orderInfo;
+	}
+
+	@Override
+	public int updateEventInfo(EventDTO eventDTO) {
+		// TODO Auto-generated method stub
+		int updateEventCnt = this.marketingDAO.updateEventInfo(eventDTO);
+		
+		return updateEventCnt;
+	}
+
+	@Override
+	public int updateAdInfoProc(AdApplyDTO adApplyDTO) {
+		// TODO Auto-generated method stub
+		int updateCnt = this.marketingDAO.updateAdInfoProc(adApplyDTO);
+		
+		return updateCnt;
+	}
 
 }

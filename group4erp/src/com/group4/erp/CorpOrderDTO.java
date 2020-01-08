@@ -2,7 +2,6 @@ package com.group4.erp;
 
 public class CorpOrderDTO {
 
-
 	private String order_books_no;
 	private String isbn13;
 	private String corp_no;
@@ -12,7 +11,16 @@ public class CorpOrderDTO {
 	private String book_price;
 	private String order_dt;
 	private String tot_cost;
+	private String issue;
 	
+
+	public String getIssue() {
+		return issue;
+	}
+
+	public void setIssue(String issue) {
+		this.issue = issue;
+	}
 
 	public String getOrder_books_no() {
 		return order_books_no;

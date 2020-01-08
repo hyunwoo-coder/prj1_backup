@@ -17,6 +17,10 @@ import com.group4.erp.EventDTO;
 import com.group4.erp.EventSearchDTO;
 import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.OrderDTO;
+import com.group4.erp.SalesInfoDTO;
+import com.group4.erp.ApprovalDTO;
+import com.group4.erp.service.ApprovalService;
 import com.group4.erp.service.MarketingService;
 
 
@@ -28,19 +32,50 @@ public class MarketingController {
 	//private LoginService loginService;	
 	MarketingService marketingService;
 	
+	@Autowired
+	ApprovalService approvalService;
+	
 	
 	@RequestMapping(value="/viewSalesInfoList.do")
-	public ModelAndView viewSalesInfoList(HttpSession session) {
+	public ModelAndView viewSalesInfoList(HttpSession session, SalesInfoDTO salesSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewSalesInfoList");
 		mav.addObject("navigator", "[마케팅관리]-[판매현황]");
-		
+	
 		try {
-			int online_order_cnt = this.marketingService.getOnlineOrderCnt();
+			
+			
+			int online_order_cnt = this.marketingService.getOnlineOrderCnt(salesSearchDTO);
+			int tot_revenue = this.marketingService.getTotRevenue();
+			List<OrderDTO> onlineOrderList = this.marketingService.getOnlineOrderList(salesSearchDTO);
+			
+			int corpOrderCnt = this.marketingService.getCorpOrderTotCnt();
+			int corpTotRevenue = this.marketingService.getCorpTotRevenue();
+			
+			String sales_chart_data = "[";
+			sales_chart_data += "['분류', '수량']";
+				
+			List<SalesInfoDTO> orderInfo = this.marketingService.getOrderInfoChart();
+			
+			for(int i=0; i<orderInfo.size(); i++) {
+				sales_chart_data += ", ['";
+				sales_chart_data += orderInfo.get(i).getCategory();
+				sales_chart_data += "', ";
+				sales_chart_data += orderInfo.get(i).getBook_qty();
+				sales_chart_data += "] ";
+			}
+			sales_chart_data += "]";
+			
 			mav.addObject("onlineOrderCnt", online_order_cnt);
+			mav.addObject("onlineOrderList", onlineOrderList);
+			mav.addObject("salesSearchDTO", salesSearchDTO);
+			mav.addObject("corpOrderCnt", corpOrderCnt);
+			mav.addObject("corpTotRevenue", corpTotRevenue);
+			mav.addObject("tot_revenue", tot_revenue);
+			mav.addObject("sales_chart_data", sales_chart_data);
 			
 		} catch(Exception e) {
 			System.out.println("viewSalesInfoList() 메소드에서 예외 발생==="+e);
@@ -133,14 +168,35 @@ public class MarketingController {
 	)
 	
 	@ResponseBody
-	public int insertEvent(EventDTO eventDTO) {
+	public int insertEvent(HttpSession session, EventDTO eventDTO) {
 		
 		int insertEventCnt = 0;
+		int insertApprovalCnt = 0;
+		
+		String emp_no = (String)session.getAttribute("emp_id");
+		
 		try {
 
 			System.out.println("EventDTO.getAtchd_data==="+eventDTO.getAtchd_data());
-			
+			System.out.println("EventDTO.eventNo==="+eventDTO.getEvnt_no());
+					
 			insertEventCnt = this.marketingService.insertEvent(eventDTO);
+			
+			if(insertEventCnt > 0) {
+				
+				ApprovalDTO approvalDTO = new ApprovalDTO();
+				
+				approvalDTO.setDocument_no(eventDTO.getEvnt_no());
+				approvalDTO.setEmp_no(Integer.parseInt(emp_no));
+				
+				System.out.println("결재 실행");
+				System.out.println("approval.getDocument_no()==="+approvalDTO.getDocument_no());
+				System.out.println("approval.getEmp_no()==="+emp_no);
+				
+				insertApprovalCnt = this.approvalService.insertApproval(approvalDTO); 
+				System.out.println("결재 cnt==="+insertApprovalCnt);
+			}
+			
 				
 		} catch(Exception e) {
 			System.out.println("insertEvent() 메소드에서 예외 발생>>> "+e);
@@ -176,6 +232,26 @@ public class MarketingController {
 		}
 				
 		return delCnt;
+	}
+	
+	
+	@RequestMapping(value="/updateEventProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int updateEventProc(EventDTO eventDTO) {
+		int upCnt = 0;
+		
+		try {
+			System.out.println("컨트롤러 updateEventProc() 메소드 실행");
+			upCnt = this.marketingService.updateEventInfo(eventDTO);
+			System.out.println("upCnt==="+upCnt);
+			
+		} catch(Exception e) {
+			System.out.println("updateEventProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return upCnt;
 	}
 	
 	
@@ -237,9 +313,11 @@ public class MarketingController {
 	)
 	
 	@ResponseBody
-	public int insertAdProc(AdApplyDTO adApplyDTO) {
+	public int insertAdProc(AdApplyDTO adApplyDTO, ApprovalDTO approvalDTO) {
 		
 		int insertAdCnt = 0;
+		int insertApprovalCnt = 0;
+		
 		try {
 					
 			System.out.println("adApplyDTO.getEmp_no()==="+adApplyDTO.getEmp_no());
@@ -247,7 +325,10 @@ public class MarketingController {
 			if(adApplyDTO.getImg_doc()==null) {
 				adApplyDTO.setImg_doc("temporary");
 			}
+			
 			insertAdCnt = this.marketingService.insertAd(adApplyDTO);
+			
+			insertApprovalCnt = this.approvalService.insertApproval(approvalDTO); 
 				
 		} catch(Exception e) {
 			System.out.println("insertAd() 메소드에서 예외 발생>>> "+e);
@@ -256,6 +337,38 @@ public class MarketingController {
 				
 		return insertAdCnt;		
 	}
+	
+	
+	@RequestMapping( 
+			value="/updateAdInfoProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	
+	@ResponseBody
+	public int updateAdInfoProc(AdApplyDTO adApplyDTO) {
+		
+		int updateCnt = 0;
+		
+		try {
+					
+			System.out.println("adApplyDTO.getEmp_no()==="+adApplyDTO.getEmp_no());
+			System.out.println("adApplyDTO.getImgDoc()==="+adApplyDTO.getImg_doc());
+			
+			if(adApplyDTO.getImg_doc()==null) {
+				adApplyDTO.setImg_doc("temporary");
+			}
+			
+			updateCnt = this.marketingService.updateAdInfoProc(adApplyDTO);
+				
+		} catch(Exception e) {
+			System.out.println("insertAd() 메소드에서 예외 발생>>> "+e);
+			updateCnt = -1;
+		} 
+				
+		return updateCnt;		
+	}
+	
 	
 	
 }

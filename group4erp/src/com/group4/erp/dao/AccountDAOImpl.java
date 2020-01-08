@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
 
 @Repository
@@ -98,6 +99,54 @@ public class AccountDAOImpl implements AccountDAO {
 		int delCnt = this.sqlSession.update(mapper_namespace+"deleteCorp", corp_no);
 				
 		return delCnt;
+	}
+
+	@Override
+	public int saveTempTranSpec(TranSpecDTO tranSpecDTO) {
+		// TODO Auto-generated method stub
+		int saveTempCnt = this.sqlSession.insert(mapper_namespace+"saveTempTranSpec", tranSpecDTO);
+		
+		return saveTempCnt;
+	}
+
+	@Override
+	public List<TranSpecDTO> getTranSpecIssueList() {
+		// TODO Auto-generated method stub
+		List<TranSpecDTO> tranSpecIssueList = this.sqlSession.selectList(mapper_namespace+"getTranSpecIssue");
+		
+		return tranSpecIssueList;
+	}
+
+	@Override
+	public int payCheckProc(List<SalaryDTO> salDTOList) {
+		// TODO Auto-generated method stub
+		int payCheckCnt = this.sqlSession.insert(mapper_namespace+"payCheckProc", salDTOList);
+		
+		return payCheckCnt;
+	}
+
+	@Override
+	public List<CorporationDTO> getBusiness_area() {
+		// TODO Auto-generated method stub
+		List<CorporationDTO> business_area = this.sqlSession.selectList(mapper_namespace+"getBusiness_area");
+		
+		return business_area;
+	}
+
+	@Override
+	public int updateCorpInfo(CorporationDTO corpDTO) {
+		// TODO Auto-generated method stub
+		int updateCorpCnt = this.sqlSession.update(mapper_namespace+"updateCorpInfo", corpDTO);
+		
+		return updateCorpCnt;
+	}
+
+	@Override
+	public int getTranSpecIssueCnt() {
+		// TODO Auto-generated method stub
+		int tranSpectIssueCnt = this.sqlSession.selectOne(mapper_namespace+"getTranSpecIssueCnt");
+		
+		return tranSpectIssueCnt;
 	}
 
 }

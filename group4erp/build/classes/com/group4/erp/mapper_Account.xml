@@ -43,7 +43,6 @@
 					or upper(co.corp_no) like upper('%${searchKeyword}%')
 					or upper(co.books_qty) like upper('%${searchKeyword}%')
 					or upper(co.isbn13) like upper('%${searchKeyword}%')
-					
 				)			
 		</if>
 	</sql>
@@ -53,10 +52,11 @@
 			order by ${sort}
 		</if>
 		
-		<if test="sort==null">
-			order by corp_no
+		<if test="sort==null or sort.length() == 0">
+			order by reg_dt desc
 		</if>
 	</sql>
+
 
 	<select id='getCorpListCnt' resultType="int">
 		select count(*) from corporation_cus
@@ -75,7 +75,8 @@
 				corp_fax "corp_fax",
 				corp_tel "corp_tel",
 				corp_business_area "corp_business_area",
-				is_on_business "is_on_business"
+				is_on_business "is_on_business",
+				reg_dt
 			from corporation_cus
 			where is_on_business='y'
 			<include refid="headerSort" />
@@ -109,7 +110,8 @@
 			corp_fax, 
 			corp_tel, 
 			corp_business_area,
-			is_on_business 
+			is_on_business,
+			reg_dt 
 			) values (
 			  #{corp_no},	
 			  #{corp_name},
@@ -118,7 +120,8 @@
 			  #{corp_fax},
 			  #{corp_tel},
 			  #{corp_business_area},
-			  'y'
+			  'y',
+			  sysdate
 			)
 	</insert>
 	
@@ -147,12 +150,23 @@
     		co.books_qty "books_qty",
     		(select b.book_price from book b where b.isbn13= co.isbn13) "book_price",
     		(select b.book_price from book b where b.isbn13= co.isbn13) * co.books_qty "tot_cost",
-    		to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
+    		to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt",
+    		(select count(*) from tran_issue_info ti where ti.order_no = co.order_books_no) "issue"
     	from corp_order_info co
     	where co.corp_no is not null
- 		<include refid="headerSort" />
+ 		<include refid="CorpOrderHeaderSort" />
     	<include refid="CorpCondition" />
 	</select>
+	
+	<sql id="CorpOrderHeaderSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null or sort.length() == 0">
+			order by co.order_dt desc
+		</if>
+	</sql>
 	
 	<select id='getTranSpecCnt' parameterType = "int" resultType="int">
 		select count(*) from corp_order_info where order_books_no = #{order_books_no}
@@ -181,6 +195,63 @@
 		
 	</select>
 	
-
+	<select id="getTranSpecIssueCnt" resultType="int">
+		select count(*) from tran_issue_info
+	
+	</select>
+	
+	
+	<select id="getTranSpecIssue" resultType="com.group4.erp.TranSpecDTO">
+		select 
+			ti.issue_no "issue_no",
+			ti.order_no||'' "order_no",
+			ti.corp_no "corp_no",
+			(select c.corp_name from corporation_cus c where c.corp_no = ti.corp_no) "corp_name",
+			(select c.ceo_name from corporation_cus c where c.corp_no = ti.corp_no) "ceo_name",
+			ti.order_dt "order_dt",
+			ti.issue_dt "issue_dt"
+		from tran_issue_info ti
+		
+	</select>
+	
+	
+	<insert id="saveTempTranSpec" parameterType="com.group4.erp.TranSpecDTO">
+		insert into tran_issue_info (
+			issue_no,
+			order_no,
+			corp_no,
+			order_dt,
+			issue_dt,
+			issue_stat_cd
+		) values (
+			(select extract(year from sysdate)||to_char(nvl(count(*),0)+1, '00000') from tran_issue_info),
+			#{order_no},
+			(select oi.corp_no from corp_order_info oi where oi.order_books_no = #{order_no} ),
+			(select oi.order_dt from corp_order_info oi where oi.order_books_no = #{order_no} ),
+			sysdate,
+			'00'
+		)
+	</insert>
+	
+	<select id="getBusiness_area" resultType="com.group4.erp.CorporationDTO">
+		select
+			business_area_code||'' "bus_area_code",
+			business_area_name "bus_area_name"
+		from code_business_area
+	</select>
+	
+	<update id="updateCorpInfo" parameterType="com.group4.erp.CorporationDTO">
+		
+			update corporation_cus set 
+				corp_no = #{new_corp_no},
+				corp_name = #{corp_name},
+				ceo_name = #{ceo_name},
+				corp_addr = #{corp_addr},
+				corp_fax = #{corp_fax},
+				corp_tel = #{corp_tel},
+				corp_business_area = #{corp_business_area},
+				is_on_business='y'
+			where corp_no = #{corp_no}
+	</update>
 
 </mapper>

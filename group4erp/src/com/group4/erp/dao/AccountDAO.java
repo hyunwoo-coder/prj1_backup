@@ -5,6 +5,7 @@ import java.util.List;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
 
 public interface AccountDAO {
@@ -28,5 +29,17 @@ public interface AccountDAO {
 	List<TranSpecDTO> getTranSpecList(int order_no);
 	
 	int deleteCorp(String[] corp_no);
+	
+	int saveTempTranSpec(TranSpecDTO tranSpecDTO);
+	
+	List<TranSpecDTO> getTranSpecIssueList();
+	
+	int payCheckProc(List<SalaryDTO> salDTOList);
+	
+	List<CorporationDTO> getBusiness_area();
+	
+	int updateCorpInfo(CorporationDTO corpDTO);
+	
+	int getTranSpecIssueCnt();
 
 }

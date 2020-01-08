@@ -142,40 +142,6 @@
       </if>   
 	</sql>
 	
-	<sql id="returnWhere">
-		<if test="searchKeyword !=null and searchKeyword.length() > 0" >
-			and (
-					upper(return_sales_no) like upper('%${searchKeyword}%') 
-					or upper(order_no) like upper('%${searchKeyword}%')
-					or upper(isbn13) like upper('%${searchKeyword}%')
-					or upper(return_comment) like upper('%${searchKeyword}%')
-				)	
-		</if>
-		
-		
-		<if test="return_cd != null">
-			and
-			<foreach collection="return_cd" item="return_cd"  open="(" separator=" or " close=")">
-				<if test="return_cd.equals('01')">
-					return_sales_cd='01'
-				</if>
-				<if test="return_cd.equals('02')">
-					return_sales_cd='02'
-				</if>
-				<if test="return_cd.equals('03')">
-					return_sales_cd='03'
-				</if>
-				<if test="return_cd.equals('04')">
-					return_sales_cd='04'
-				</if>
-				<if test="return_cd.equals('05')">
-					return_sales_cd='05'
-				</if>			
-			</foreach>	
-		</if>
-	</sql>
-	
-
 	<sql id="headerSort">
 		<if test="sort!=null and sort.length() > 0" >
 			order by ${sort}
@@ -246,6 +212,8 @@
           ) 
        </if>
 	</sql>
+	 
+	 
 	 
 
 	<select id="getBookListCnt" parameterType="com.group4.erp.InvenSearchDTO" resultType="int">
@@ -350,25 +318,74 @@
 	</select>
 	
 	<select id="getReturnOrderCnt" resultType="int">
-		select count(*) from return_sale_info 
+		select count(*)
+		from (select 
+                r.return_sales_no "RETURN_SALES_NO",
+                r.order_no "ORDER_NO",
+                r.isbn13 "ISBN13",
+                r.return_sales_cd "RETURN_SALES_CD",
+                r.return_order_dt "RETURN_ORDER_DT", 
+                c.return_name "RETURN_CAUSE" 
+                from code_return c, return_sale_info r where c.return_cd = r.return_sales_cd)
 		where 1=1
 		<include refid="returnWhere" />
 	</select>
 	
+	
+	
 	<select id="getReturnOrderList" parameterType="com.group4.erp.ReturnSearchDTO" resultType="com.group4.erp.ReturnOrderDTO">
-		select
+        select
 			return_sales_no||'' "return_sales_no",
 			order_no||'' "order_no",
 			isbn13 "isbn13",
-			(select c.return_name from code_return c where c.return_cd = return_sales_cd) "return_cause",
-			return_comment "return_comment" 
-		from return_sale_info 
+			return_sales_cd "return_cd",
+			return_order_dt "return_dt",
+            return_cause "return_cause"
+		from (select 
+                r.return_sales_no "RETURN_SALES_NO",
+                r.order_no "ORDER_NO",
+                r.isbn13 "ISBN13",
+                r.return_sales_cd "RETURN_SALES_CD",
+                r.return_order_dt "RETURN_ORDER_DT", 
+                c.return_name "RETURN_CAUSE" 
+                from code_return c, return_sale_info r where c.return_cd = r.return_sales_cd)
 		where 1=1
 		<include refid="headerSort" />
 		<include refid="returnWhere" />
 	</select>
 
-
+	<sql id="returnWhere">
+		<if test="searchKeyword !=null" >
+			and (
+					upper(return_sales_no) like upper('%${searchKeyword}%') 
+					or upper(order_no) like upper('%${searchKeyword}%')
+					or upper(isbn13) like upper('%${searchKeyword}%')
+					or upper(return_cause) like upper('%${searchKeyword}%')
+					or upper(return_sales_cd) like upper('%${searchKeyword}%')
+				)	
+		</if>
+				
+		<if test="return_cd != null">
+			and
+			<foreach collection="return_cd" item="return_cd"  open="(" separator=" or " close=")">
+				<if test="return_cd.equals('01')">
+					return_sales_cd='01'
+				</if>
+				<if test="return_cd.equals('02')">
+					return_sales_cd='02'
+				</if>
+				<if test="return_cd.equals('03')">
+					return_sales_cd='03'
+				</if>
+				<if test="return_cd.equals('04')">
+					return_sales_cd='04'
+				</if>
+				<if test="return_cd.equals('05')">
+					return_sales_cd='05'
+				</if>			
+			</foreach>	
+		</if>
+	</sql>
 
     
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">

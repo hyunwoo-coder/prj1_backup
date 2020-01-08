@@ -10,17 +10,14 @@
 <%--<header width=95%><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></header> --%>
 <body><center>
 
-<table border="0" cellpadding=5 cellspacing=0 width="100%" height="100%" >
+<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%" >
 	<tr height="50">
 		<td align="center"><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></td>
 	</tr>
 	<tr height="90%" valign=top>
 		<td align="center" height="500"><br><br>
 		<!-- <section> -->
-			<c:if test="${empty subMenu}">
-				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
-			</c:if>
-		
+
 			<c:if test="${subMenu.equals('eventReserve') }">
 				<%@ include file="/WEB-INF/views/eventScheduleForm.jsp" %>
 			</c:if>
@@ -33,6 +30,11 @@
 			<!-- 출장 등록 -->
 			<c:if test="${subMenu.equals('businessTripForm') }">
 				<%@ include file="/WEB-INF/views/businessTripForm.jsp" %>
+			</c:if>
+			
+			<!-- 문서 결재 -->
+			<c:if test="${subMenu.equals('viewApprovalList') }">
+				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
 			</c:if>
 			
 			<!-- 재고현황목록 -->
@@ -61,6 +63,7 @@
 			<c:if test="${subMenu.equals('viewEmpList') }">
 				<%@ include file="/WEB-INF/views/empListForm.jsp" %>
 			</c:if>
+			
 			<!-- 직원 상세보기 -->
 			<c:if test="${subMenu.equals('viewEmpContentInfo') }">
 				<%@ include file="/WEB-INF/views/empListContentForm.jsp" %>
