@@ -208,8 +208,23 @@ public class HrDAOImpl implements HrDAO {
 	}
 
 
+	/*
+	public String getMgrEmpName(EmployeeDTO employeeDTO){
+		String mgrEmpName = this.sqlSession.selectOne(
+				mapper_namespace+".getMgrEmpName"
+				,employeeDTO );
+		return mgrEmpName;
+	}*/
 
-	
-	
+
+	@Override
+	public int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO) {
+		int dayoffUpdateCnt = this.sqlSession.update(
+				mapper_namespace+"dayoffUpdateProc"
+				,hrDayoffDTO
+				);		
+		return dayoffUpdateCnt;
+
+	}
 
 }

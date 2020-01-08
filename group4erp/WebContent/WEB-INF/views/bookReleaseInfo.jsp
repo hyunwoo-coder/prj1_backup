@@ -36,15 +36,21 @@
 
 $(document).ready(function(){  
 	
-	
 	$("#datepicker1").datepicker({
-		
-	    onSelect: function() { 
+		dateFormat: 'yy-mm-dd'
+		,onClose: function( selectedDate ) {
+			$("#datepicker2").datepicker( "option", "minDate", selectedDate );
+		} 
+	    ,onSelect: function() { 
 	        var dateObject = $(this).datepicker('getDate');
 	    }
 	});
 	$("#datepicker2").datepicker({
-	    onSelect: function() { 
+		dateFormat: 'yy-mm-dd'
+		,onClose: function( selectedDate ) {
+	        $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
+	    }
+	    ,onSelect: function() { 
 	        var dateObject = $(this).datepicker('getDate');
 	    }
 	});
@@ -75,6 +81,8 @@ $(document).ready(function(){
 	 inputData('[name=selectPageNo]',"${invenSearchDTO.selectPageNo}");
 	 inputData('[name=searchPublisher]',"${invenSearchDTO.searchPublisher}");
 	 inputData('[name=keyword1]',"${invenSearchDTO.keyword1}");
+	 inputData('[name=dateFrom]',"${invenSearchDTO.dateFrom}");
+	 inputData('[name=dateTill]',"${invenSearchDTO.dateTill}");
 	 <c:forEach items="${invenSearchDTO.inventory_loc}" var="loc">
 		inputData( "[name=inventory_loc]", "${loc}" );
 	 </c:forEach>
@@ -107,6 +115,22 @@ $(document).ready(function(){
 	function searchToday(){
 		
 		$('[name=searchToday]').val('y');
+		
+		var date = new Date();
+		
+		var todayY = date.getFullYear();
+		var todayM = date.getMonth()+1;
+		var todayD = date.getDate();
+		
+		if(todayM<10) todayM = '0'+todayM;
+		if(todayD<10) todayD = '0'+todayD;
+		
+		var today = todayY+'-'+todayM+'-'+todayD;
+		
+		
+		$('[name=dateFrom]').val(today);
+		$('[name=dateTill]').val(today);
+		
 		goSearchRelease();
 	}
 
@@ -130,7 +154,9 @@ $(document).ready(function(){
 					location.replace("/group4erp/goReleaseList.do")
 				}else if(updateCnt==0){
 					alert("출고 날짜 등록 실패");
-				}else alert("서버 오류!");
+				}else if(updateCnt==-1){
+					alert("재고가 부족합니다!");
+				}else { alert("서버 오류!"); }
 			}
 			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
 			, error : function(){
@@ -145,7 +171,7 @@ $(document).ready(function(){
 <body><center>
 <h1>[출고 현황]</h1>
 		<form name="bookReleaseSearch" method="post" action="/group4erp/goReleaseList.do">
-		<table width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 			<th>지역
 			<td align=center colspan=3>
@@ -155,8 +181,8 @@ $(document).ready(function(){
 			<tr>
 			<th>일자
 			<td width=300>
-				<input type="text" id="datepicker1" name="dateFrom">&nbsp;~&nbsp;
-				<input type="text" id="datepicker2" name="dateTill">
+				<input type="text" id="datepicker1" name="dateFrom" size=10>&nbsp;~&nbsp;
+				<input type="text" id="datepicker2" name="dateTill" size=10>
 			<th>출판사
 			<td align=center>
 				<select name="searchPublisher">
@@ -167,18 +193,14 @@ $(document).ready(function(){
 				</select>
 			<tr>
 			<th>키워드
-			<td colspan=4><input type="text" name="keyword1" size=40>
+			<td colspan=4><input type="text" name="keyword1" size=50>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a style="cursor:pointer" onclick="searchToday();">[금일 검색]</a>
 			<input type="hidden" name="searchToday">
-			<script>
-				 $("#datepicker1").datepicker({ dateFormat: 'yy-mm-dd' });
-				 $("#datepicker2").datepicker({ dateFormat: 'yy-mm-dd' });
-			</script>
 		</table>
 		<br>
-			<input type="button" value="  검색  " onclick="goSearchRelease();">&nbsp;&nbsp;
-     		<input type="button" value="모두검색" onclick="goAllSearchRelease();">
+			<button onClick="goSearchRelease();">검색</button>
+			<button onClick="goAllSearchRelease();">모두검색</button>
      	<table border=0 width=700>
          <tr>
             <td align=right>
@@ -195,33 +217,25 @@ $(document).ready(function(){
 		</form>
 
 		<br><br><br>
-		<table class="releaseListTable" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="releaseListTable tab" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 				<th>번호<th>출고번호<th>출고일시<th>주문번호<th>비고
 			<c:forEach items="${requestScope.releaseList}" var="release" varStatus="loopTagStatus">
-            <c:choose>
-	            <c:when test="${release.release_dt=='X'}">
-	            	<tr>
-		          	<td align=center>${releaseListCnt-
+	            <tr>
+		          	<td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${releaseListCnt-
 		                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
 		                  +1}
-		            <td align=center>${release.release_no}
-		            <td align=center>${release.release_dt}
-		            <td align=center>${release.all_order_no}
-	            	<td align=center>
-	            	<input type="button" value="출고" onclick="goReleaseUp(${release.all_order_no});">
-	            </c:when>
-	            <c:otherwise>
-	            	<tr style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});">
-		          	<td align=center>${releaseListCnt-
-		                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
-		                  +1}
-		            <td align=center>${release.release_no}
-		            <td align=center>${release.release_dt}
-		            <td align=center>${release.all_order_no}
-	            	<td align=center>------
-	            </c:otherwise>
-            </c:choose>
+		            <td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${release.release_no}
+		            <td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${release.release_dt}
+		            <td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${release.all_order_no}
+	            	<c:if test="${release.release_dt=='X'}">
+	            		<td align=center>
+	            		<input type="button" value="출고" onclick="goReleaseUp(${release.all_order_no});">
+	            	</c:if>
+	            	<c:if test="${release.release_dt.length()>1}">
+	            		<td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>	
+	            		------
+	            	</c:if>
          	</c:forEach>
 		</table>
 		<br>

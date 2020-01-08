@@ -42,6 +42,8 @@ public interface HrDAO {
 	List<SalaryDTO> getAvgSalChart();
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
+
+	//String getMgrEmpName(EmployeeDTO employeeDTO);
 	
 	int getAddDayoffinfoCnt(EmployeeDTO employeeDTO);
 	

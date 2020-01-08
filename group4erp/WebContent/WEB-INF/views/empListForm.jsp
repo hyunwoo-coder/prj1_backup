@@ -31,6 +31,7 @@ $(document).ready(function(){
 	inputData('[name=rowCntPerPage]',"${hrListSearchDTO.rowCntPerPage}");
 	inputData('[name=selectPageNo]',"${hrListSearchDTO.selectPageNo}");
 	inputData('[name=searchKeyword]',"${hrListSearchDTO.searchKeyword}");
+	inputData('[name=sort]',"${hrListSearchDTO.sort}");
 });
 
 	function goSearch() {

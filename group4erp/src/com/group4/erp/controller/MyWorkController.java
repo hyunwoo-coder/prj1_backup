@@ -163,4 +163,54 @@ public class MyWorkController {
 		   
 		return insertWareHousing;
 	}
+	
+	//휴가 신청 페이지
+	@RequestMapping(value="/goEmpDayOffjoin.do")
+	public ModelAndView goEmpDayOffJoin(
+			HttpSession session
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpDayOffjoinForm");
+		mav.addObject("navigator", "[업무관리]-[휴가 신청]");
+		
+		String emp_id = (String)session.getAttribute("emp_id");
+		int emp_no = Integer.parseInt(emp_id);
+		try {
+			
+			Map<String, String> searchRemain = this.myWorkService.getRemain(emp_no);
+			mav.addObject("remain", searchRemain);
+			
+		}catch(Exception e) {
+			System.out.println("<휴가 신청 화면 불러오기 실패>");
+			System.out.println("예외 발생 =>"+e);
+		}
+		
+		return mav;
+	}
+	
+	//휴가 신청 DB연동
+	@RequestMapping(value="/goDayOffProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goDayOffProc(
+			HrDayoffJoinDTO dayoffJoinDTO
+			) {
+		
+		int insertDayoffJoin = 0;
+		
+		try {
+			
+			insertDayoffJoin = this.myWorkService.getDayoffJoinCnt(dayoffJoinDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<휴가 신청 실패>");
+			System.out.println("예외 발생=>"+e);
+			insertDayoffJoin = -1;
+		}
+		   
+		return insertDayoffJoin;
+	}
 }

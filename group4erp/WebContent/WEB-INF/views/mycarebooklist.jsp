@@ -64,6 +64,12 @@
 		</c:forEach>
 		 */
 		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
+		 
+		$('[name=fillbtu]').click(function(){
+			alert('999');
+			return;
+			booKInvenFill($('[name=index13]').val(), $('[name=isbn13]').val())
+		});
 	});
 	
 	function goSearchMyWorkList(){
@@ -100,13 +106,26 @@
    
    function booKInvenFill(idx,isbn) {
 
-      alert("도서 발주 기능 구현중 "+isbn+"/"+idx);
-      
-      var thisTr = $(idx).parent().parent();
+      alert("도서 발주 기능 구현중 "+idx+"/"+isbn);
+      if(idx>=0){
+    	  var thisTr = $('.mycarebookTable tbody tr:eq('+idx+')')
+    	  var trindex = thisTr.index();
+    	  alert("idx>=0 -> "+ trindex);
+    	  $('.mycarebookTable tbody tr:eq('+idx+') td').last().children().addClass('fillbtu');
+      }else{
+    	  var thisTr = $(idx).parent().parent();
+    	  var trindex = thisTr.index();
+    	  alert("else -> "+ trindex);
+    	  $(idx).addClass('fillbtu');
+      }
+      //alert('999');
       var delTr = $('.mycarebookTable [name=test]');
       if(delTr.size()>0){
     	  delTr.remove();
       }
+      
+      
+      //alert(trindex);
       
       //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
       //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
@@ -124,23 +143,26 @@
       wares += "<tr> <th>입고요청일 <td><input type='text' id='datepicker' name='datepicker'>"
       wares += "<tr> <th>공급률 <td><input tyep='text' name='supply_rate' value='60'>%&nbsp;&nbsp;&nbsp;*(기본 60%)"
       wares += "</table> </from>"
+      wares += "<div style='heigth:100;'></div>"
       wares += "<input type='button' value='발주신청' name='wareHousing'>  </div>"
-      
+
       thisTr.after(wares);
-      
+
       $("#datepicker").datepicker({ 
               dateFormat: 'yy-mm-dd'
-             //,defaultDate : dtfromval
              ,minDate : 'today'
-             /*
-             ,onClose: function( selectedDate ) {   
-              //$("#dateTill").datepicker({minDate:selectedDate});
-              //$("#dateTill").datepicker( "option", "minDate", selectedDate );
-           }      */ 
            ,onSelect: function() { 
                 var dateObject = $(this).datepicker('getDate');
             }
        });   
+      
+      $('.fillbtu').removeAttr('name');
+      
+      //alert(trindex+','+isbn);
+      
+      $('.fillbtu').attr(
+    	{'value':'닫기','onclick':'closeTr('+trindex+','+isbn+');'}	  
+      );
       
       //$('.mycarebookTable tbody tr:eq('+idx+')').after(wares);
       
@@ -152,9 +174,6 @@
       $('[name=wareHousing]').click(function(){
     	  
     	  var wareData = "isbn=" + isbn + "&" + $('[name=wareHousingForm]').serialize();
-    	  
-    	  alert(wareData);
-    	  //return;
     	  
     	  $.ajax({
               url : "/group4erp/myBookWarehousingProc.do"
@@ -169,7 +188,62 @@
               , error : function(){ alert("서버 접속 실패"); }
            }); 
       });
+ 
    }
+   
+   function closeTr(index, isbn){
+
+	   alert(index+','+isbn);
+
+	   $('[name=test]').remove();
+	   
+	   $('.fillbtu').remove();
+	   
+	   
+	   var btuStr = "<input type='button' value='발주' name='fillbtu'>";
+	   btuStr += "<input type=hidden name=fillisbn13 value="+isbn+">";
+	   btuStr += "<input type=hidden name=fillindex13 value="+index+">";
+	   
+	   $('.mycarebookTable tbody tr:eq('+index+') td').last().html(btuStr);
+	   
+		$('[name=fillbtu]').click(function(){
+		   $('[name=test]').remove();
+		   
+		   $('.fillbtu').remove();
+		   
+		   
+		   var btuStr = "<input type='button' value='발주' name='fillbtu'>";
+		   btuStr += "<input type=hidden name=fillisbn13 value="+isbn+">";
+		   btuStr += "<input type=hidden name=fillindex13 value="+index+">";
+		   
+		   $('.mycarebookTable tbody tr:eq('+index+') td').last().html(btuStr);
+		   
+			alert( $('.fillbtu').val() );
+			alert('restart');
+			var data1 = $('[name=fillindex13]').val();
+			var data2 = $('[name=fillisbn13]').val();
+			booKInvenFill(data1, data2)
+			$('[name=fillindex13]').remove();
+			$('[name=fillisbn13]').remove();
+			return;
+		});
+		return;
+	   
+   }
+   
+   function testtest(){
+	   /*
+	   alert($('[name=isbn13]').val());
+	   alert($('[name=index13]').val());
+	   alert($('[name=fillbtu]').val());
+	   */
+
+ 	  //$('.mycarebookTable tbody tr:eq(0) td').last().children().addClass('fillbtu');
+	   alert( $('[name=fillbtu]').val() );
+	   alert( $('[name=fillbtu]').index() );
+   }
+   
+
    
 
 </script>
@@ -289,6 +363,7 @@
         <input type="hidden" name="selectPageNo">
       <div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
    		<a>발주 2번 되는것 막아야함</a>
-   
+   		<input type="button" value=test onclick="testtest();">
+   		
 </body>
 </html>

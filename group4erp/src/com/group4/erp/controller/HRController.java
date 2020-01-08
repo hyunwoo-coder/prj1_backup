@@ -313,7 +313,11 @@ public class HRController {
 	@ResponseBody
 	public int newEmpjoinMemberProc(EmployeeDTO employeeDTO) {
 		int newEmpInsertCnt = 0;
+
 		int addDayoffinfo = 0;
+
+		String mgrEmpName = null;
+
 		try {
 
 			newEmpInsertCnt = this.hrservice.getNewEmpInsertCnt(employeeDTO);

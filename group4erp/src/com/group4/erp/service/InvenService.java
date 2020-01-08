@@ -4,6 +4,7 @@ import com.group4.erp.Cus_releaseInfoDTO;
 import com.group4.erp.InvenDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.ReturnOrderDTO;
+import com.group4.erp.ReturnSalseContentDTO;
 import com.group4.erp.ReturnSearchDTO;
 
 import java.util.*;
@@ -44,4 +45,7 @@ public interface InvenService {
 	int getIsbnCnt(String all_order_no);
 	
 	int getReleaseUpCnt(String all_order_no);
+	
+	ReturnSalseContentDTO getReturnContent(int return_sales_no);
+	
 }

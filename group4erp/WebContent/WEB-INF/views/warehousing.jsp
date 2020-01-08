@@ -324,24 +324,33 @@ td{
 	         			<input type="checkbox" name="searchPublisher" value="${loopTagStatus.index+1}">${publisher.publisher}
 	         		</c:forEach> 
 	         --%>
-				<tr>
-					<th bgcolor="gray">출판사
-					<td style="text-align:left"><select name="searchPublisher">
+
+	         	<tr>
+					<th>일자
+					<td style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
+						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">&nbsp;&nbsp;
+					<th>출판사
+					<td style="text-align:left">
+						<select name="searchPublisher">
+
 							<option value="">--------</option>
 							<c:forEach items="${requestScope.publisher}" var="publisher" varStatus="loopTagStatus">
 								<option value="${publisher.publisher}">${publisher.publisher}</option>
 							</c:forEach>
-					</select></td>
+						</select></td>
 
-					<th bgcolor="gray">키워드
-					<td style="text-align:left"><input type="text" name="wh_keyword"></td>
+					
 				</tr>
 				<tr>
-					<th bgcolor="gray">일자
-					<td colspan=3 style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
-						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">&nbsp;&nbsp;
+					<th>키워드
+					<td style="text-align:left" colspan=3>
+						<input type="text" name="wh_keyword" size=50>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<a style="cursor:pointer" onclick="goTodaySearch();">[금일 검색]</a>
+					</td>
+					
 				</tr>
+				
 
 			</table>
 			<br>
@@ -386,7 +395,6 @@ td{
 
 	<div id="contecnt" style="display:none;">
 		<table class="tab" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
-		
 			<tr>
 				<th class="thcolor">주문자</th>  
 				<th class="thcolor">발주신청일 </th> 

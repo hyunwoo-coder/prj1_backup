@@ -94,8 +94,8 @@
 			$('#subMenu8').hide();
 		}		
 
+		<!-- 업무관리 서브메뉴 -->
 
-	<!-- 업무관리 서브메뉴 -->
 		function myCareBookList() {
 			location.href="/group4erp/goMyCareBookList.do";
 			//alert("담당상품조회");
@@ -109,6 +109,9 @@
 		function viewMyWorkTime() {
 			location.href="/group4erp/goMyWorkTime.do";
 			//alert("근태조회 구현 예정");
+		}
+		function dayoffJoin(){
+			location.replace("/group4erp/goEmpDayOffjoin.do");
 		}
 
 		function viewApprovalList() {
@@ -327,6 +330,9 @@
 					<span id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewMyWorkTime();">근태조회&nbsp;&nbsp;&nbsp;</span>
 					<span id="viewMyWorkTime" style="cursor:pointer" onClick="viewApprovalList();">문서 결재&nbsp;&nbsp;&nbsp;</span>
+					<!-- <span id="viewMyWorkTime" style="cursor:pointer" onClick="approvalDoc();">문서 결재&nbsp;&nbsp;&nbsp;</span> -->
+					<span id="empDayOffjoin" style="cursor:pointer" onClick="dayoffJoin();">휴가 신청&nbsp;&nbsp;&nbsp;</span>
+
 				</span>
 			</td>
 			<td></td>
@@ -358,7 +364,7 @@
 					<span id="empList" style="cursor:pointer" onClick="viewEmpList();">직원정보&nbsp;</span>
 					<span id="salaryList" style="cursor:pointer" onClick="viewSalaryList();">급여지급현황&nbsp;</span>
 					<span id="empWorkState" style="cursor:pointer" onClick="viewEmpWorkStateList();">직원별 근무현황조회&nbsp;</span>
-					<span id="empDayOffList" style="cursor:pointer" onClick="viewEmpDayOffList();">직원별 휴가 현황&nbsp;</span>		
+					<span id="empDayOffList" style="cursor:pointer" onClick="viewEmpDayOffList();">직원별 휴가 현황&nbsp;</span>
 				</span>
 			</td>
 			<td></td>

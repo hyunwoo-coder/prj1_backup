@@ -8,13 +8,42 @@ public class ReturnSearchDTO {
 	private String sort;
 	private String return_cd[];
 	private String return_dt;
-	
+	private String dateFrom;
+	private String dateTill;
+	private String searchToday;
+
 	public String getReturn_dt() {
 		return return_dt;
 	}
 
 	public void setReturn_dt(String return_dt) {
 		this.return_dt = return_dt;
+	}
+	
+
+	public String getSearchToday() {
+		return searchToday;
+	}
+
+	public void setSearchToday(String searchToday) {
+		this.searchToday = searchToday;
+	}
+
+	public String getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public String getDateTill() {
+		return dateTill;
+	}
+
+	public void setDateTill(String dateTill) {
+		this.dateTill = dateTill;
+
 	}
 
 	public String[] getReturn_cd() {
