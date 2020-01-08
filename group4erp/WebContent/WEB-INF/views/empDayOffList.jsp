@@ -99,7 +99,28 @@
 			//console.log(ele);
 			//console.log($(ele));
 			//alert($(ele).children().eq(1).text());
-			var addhtmlTr = "<tr name='addTr'><td align=center></td>";
+			
+			
+			
+			var addhtmlTr = "<tr name='addTr'><td colspan='14' align=center><center><div align='center' style='position:absoulte text-align:center'>⏷<br>";
+			addhtmlTr += "<table class='tab' width='400' id='contentTable' border=1 bordercolor='#000000' cellpadding=5 align=center>";
+			addhtmlTr += "<tr><th>휴가종류</th><td><select name='dayoff_cd' value='"+$(ele).children().eq(5).text()+"'></td></tr>";
+			addhtmlTr += "<option value='1'>연차</option><option value='2'>월차</option>"
+			addhtmlTr += "<option value='3'>생리</option><option value='4'>출산</option>"
+			addhtmlTr += "<option value='5'>반차</option><option value='6'>보상</option></select>"
+			addhtmlTr += "<tr><th>휴가 시작일</th><td></td></tr>";
+			addhtmlTr += "<tr><th>복귀 예정일</th><td></td></tr>";
+			addhtmlTr += "<tr><th>휴가 신청일수</th><td></td></tr>";
+			addhtmlTr += "</table></div></td><tr>";
+			
+			
+			
+			
+			
+			
+			
+			
+			/* var addhtmlTr = "<tr name='addTr'><td align=center></td>";
 			addhtmlTr += "<td align=center>"+$(ele).children().eq(1).text()+"</td>";
 			addhtmlTr += "<td align=center>"+$(ele).children().eq(2).text()+"</td>";
 			addhtmlTr += "<td align=center>"+$(ele).children().eq(3).text()+"</td>";
@@ -123,7 +144,7 @@
 			addhtmlTr += "<td align=center>"+$(ele).children().eq(12).text()+"</td>";
 			addhtmlTr += "<td align=center>"+$(ele).children().eq(13).text()+"<input type='hidden' name='emp_no' value="+emp_no+"></td></tr>";
 			
-			addhtmlTr += "<tr><td style='border-top:0px' colspan=13 align=center><input type='button' value='수정' onClick='dayoffUpdate(this);'>&nbsp;&nbsp;<input type='button' value='닫기' onClick='dayoffClose(this);'></td><tr>";
+			addhtmlTr += "<tr><td style='border-top:0px' colspan=13 align=center><input type='button' value='수정' onClick='dayoffUpdate(this);'>&nbsp;&nbsp;<input type='button' value='닫기' onClick='dayoffClose(this);'></td><tr>"; */
 			//<input type='button' value='삭제' onClick='dayoffDelete(this);'>
 			
 			$(ele).after(addhtmlTr);
