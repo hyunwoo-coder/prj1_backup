@@ -12,7 +12,16 @@ public class CorpOrderDTO {
 	private String order_dt;
 	private String tot_cost;
 	private String issue;
+	private String category;
 	
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public String getIssue() {
 		return issue;

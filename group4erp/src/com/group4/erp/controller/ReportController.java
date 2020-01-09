@@ -68,7 +68,7 @@ public class ReportController {
 		mav.addObject("subMenu", "viewTaxInvoiceForm");
 		mav.addObject("navigator", "[회계관리]-[세금계산서]-[발급하기]");
 		
-		int corpListCnt = this.accountService.getCorpListCnt();
+		int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);
 		List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
 		System.out.println("corpList size==="+corpList.size());
 		
@@ -90,7 +90,7 @@ public class ReportController {
 		
 		try {
 			System.out.println("selected corp_no=="+corp_no);
-			int corpListCnt = this.accountService.getCorpListCnt();
+			int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);
 			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
 			
 			

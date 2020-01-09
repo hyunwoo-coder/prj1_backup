@@ -11,6 +11,7 @@ import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
+import com.group4.erp.TranSpecSearchDTO;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -21,10 +22,10 @@ public class AccountDAOImpl implements AccountDAO {
 	String mapper_namespace = "com.group4.erp.dao.AccountDAO.";
 
 	@Override
-	public int getCorpListCnt() {
+	public int getCorpListCnt(CorpSearchDTO corpSearchDTO) {
 		// TODO Auto-generated method stub
 		
-		int corpListCnt = this.sqlSession.selectOne(mapper_namespace+"getCorpListCnt");
+		int corpListCnt = this.sqlSession.selectOne(mapper_namespace+"getCorpListCnt", corpSearchDTO);
 		
 		return corpListCnt;
 	}
@@ -110,9 +111,9 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public List<TranSpecDTO> getTranSpecIssueList() {
+	public List<TranSpecDTO> getTranSpecIssueList(TranSpecSearchDTO tranSpecSearchDTO) {
 		// TODO Auto-generated method stub
-		List<TranSpecDTO> tranSpecIssueList = this.sqlSession.selectList(mapper_namespace+"getTranSpecIssue");
+		List<TranSpecDTO> tranSpecIssueList = this.sqlSession.selectList(mapper_namespace+"getTranSpecIssue", tranSpecSearchDTO);
 		
 		return tranSpecIssueList;
 	}
@@ -142,9 +143,9 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public int getTranSpecIssueCnt() {
+	public int getTranSpecIssueCnt(TranSpecSearchDTO tranSpecSearchDTO) {
 		// TODO Auto-generated method stub
-		int tranSpectIssueCnt = this.sqlSession.selectOne(mapper_namespace+"getTranSpecIssueCnt");
+		int tranSpectIssueCnt = this.sqlSession.selectOne(mapper_namespace+"getTranSpecIssueCnt", tranSpecSearchDTO);
 		
 		return tranSpectIssueCnt;
 	}

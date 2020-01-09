@@ -40,6 +40,7 @@ $(document).ready(function(){
    inputData('[name=searchPublisher]',"${invenSearchDTO.searchPublisher}");
    inputData('[name=is_print]',"${invenSearchDTO.is_print}");
    inputData('[name=book_keyword]',"${invenSearchDTO.book_keyword}");
+   inputData('[name=sort]',"${invenSearchDTO.sort}");
    	<c:forEach items="${invenSearchDTO.category_name}" var="cat">
 		inputData( "[name=category_name]", "${cat}" );
 	</c:forEach>
@@ -78,7 +79,7 @@ $(document).ready(function(){
    function goNewBookInfo(){
 	   //alert("책등록 구현중");
 	   //return;
-	   location.replace("/group4erp/viewSignUpBook.do")
+	   location.href="/group4erp/viewSignUpBook.do";
    }
    
    function goBookContentForm(isbn13_search){
@@ -103,7 +104,7 @@ $(document).ready(function(){
 </head>
 <body><center>
 <!-- <h5 align="left">재고현황 -> 도서정보조회</h5> -->
-<h1 class="fontNormal">[재고 관리]</h1>
+<h1>[재고 관리]</h1>
    <form name="book_inventory_search_form" method="post" action="/group4erp/goBookList.do">
       <!-- <div class="table_layout">  -->
 
@@ -184,7 +185,6 @@ $(document).ready(function(){
     
       <br>
    <form>
-
       <table class="bookTable tab" border=0 cellspacing=0 cellpadding=5 >
          <tr>
          	<th>번호

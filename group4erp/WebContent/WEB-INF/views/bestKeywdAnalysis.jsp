@@ -116,7 +116,7 @@
 </script>
 </head>
 <body><center>
-	<h1>키워드 검색 분석 자료</h1>
+	<h1>[키워드 검색 분석 자료]</h1>
 	<form name="keywordSearchForm" method="post" action="/group4erp/searchKeywordInfo.do">
 		<table border="0" cellpadding="5" cellspacing="5" >
 			

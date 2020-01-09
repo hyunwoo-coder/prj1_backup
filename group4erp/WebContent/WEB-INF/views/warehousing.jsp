@@ -83,6 +83,10 @@ td{
 				goSearch();
 			}); */
 
+			$('[name=rowCntPerPage]').change(function(){
+				goWhSearch();
+			});
+
  			setTableTrBgColor(
 					"tableColor",			//테이블 class 값
 					"${headerColor}",		//헤더 tr 배경색
@@ -190,7 +194,7 @@ td{
                 // 서버로 보낼 파라미터명과 파라미터값을 설정       param1=aaaa&param2=zzzz
                 //--------------------------------------------
                 , data : "order_inven_no="+order_inven_no
-                , dataType:"JSON"
+                //, dataType:"JSON"
                 //-----------------------------------------------------------
                 // 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정
                 // 매개변수 upDelCnt 에는 수정/삭제 적용행의 개수가 들어온다
@@ -307,7 +311,7 @@ td{
 	<form name="warehousingSearchForm" method="post" action="/group4erp/goWarehousingList.do">
 			<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 				<tr>
-					<th>지역
+					<th bgcolor="gray">지역
 					<td style="text-align:left" colspan=3 >
 					<c:forEach items="${requestScope.branch}" var="branch" varStatus="loopTagStatus">
 						<input type="checkbox" name="wh_loc" value="${loopTagStatus.index+1}">${branch.branch}
@@ -320,24 +324,33 @@ td{
 	         			<input type="checkbox" name="searchPublisher" value="${loopTagStatus.index+1}">${publisher.publisher}
 	         		</c:forEach> 
 	         --%>
-				<tr>
+
+	         	<tr>
+					<th>일자
+					<td style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
+						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">&nbsp;&nbsp;
 					<th>출판사
-					<td style="text-align:left"><select name="searchPublisher">
+					<td style="text-align:left">
+						<select name="searchPublisher">
+
 							<option value="">--------</option>
 							<c:forEach items="${requestScope.publisher}" var="publisher" varStatus="loopTagStatus">
 								<option value="${publisher.publisher}">${publisher.publisher}</option>
 							</c:forEach>
-					</select></td>
+						</select></td>
 
-					<th>키워드
-					<td style="text-align:left"><input type="text" name="wh_keyword"></td>
+					
 				</tr>
 				<tr>
-					<th>일자
-					<td colspan=3 style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
-						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">&nbsp;&nbsp;
+					<th>키워드
+					<td style="text-align:left" colspan=3>
+						<input type="text" name="wh_keyword" size=50>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<a style="cursor:pointer" onclick="goTodaySearch();">[금일 검색]</a>
+					</td>
+					
 				</tr>
+				
 
 			</table>
 			<br>
@@ -382,7 +395,6 @@ td{
 
 	<div id="contecnt" style="display:none;">
 		<table class="tab" id="contentTable" border=1 bordercolor="#000000" cellpadding=5 align=center>
-		
 			<tr>
 				<th class="thcolor">주문자</th>  
 				<th class="thcolor">발주신청일 </th> 
@@ -414,7 +426,9 @@ td{
 				<td></td>
 			</tr>
 		</table>
-		<table><tr height=1><td></td></tr></table>
+		<!-- <div height=3></div> -->
+		<!-- <table><tr height=1 border=0><td></td></tr></table> -->
+		<br>
 		<button onclick="closeDiv(this);">닫기</button>
 	</div>
 	

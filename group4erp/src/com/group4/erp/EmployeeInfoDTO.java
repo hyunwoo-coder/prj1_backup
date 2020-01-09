@@ -10,6 +10,7 @@ public class EmployeeInfoDTO {
 	private int jikup_no;
 	private int salary;
 	private String hire_dt;
+	private String resign_date;
 	private String jumin_num;
 	private String emp_gender;
 	private String phone;
@@ -73,6 +74,12 @@ public class EmployeeInfoDTO {
 	}
 	public void setHire_dt(String hire_dt) {
 		this.hire_dt = hire_dt;
+	}
+	public String getResign_date() {
+		return resign_date;
+	}
+	public void setResign_date(String resign_date) {
+		this.resign_date = resign_date;
 	}
 	public String getJumin_num() {
 		return jumin_num;

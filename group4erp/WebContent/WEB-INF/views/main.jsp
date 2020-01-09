@@ -43,6 +43,11 @@
 			</c:if>
 
 			
+			<!-- 휴가 신청 화면 -->
+			<c:if test="${subMenu.equals('viewEmpDayOffjoinForm') }">
+				<%@ include file="/WEB-INF/views/empDayOffJoin.jsp" %>
+			</c:if>
+			
 			<!-- 재고현황목록 -->
 			<c:if test="${subMenu.equals('viewInventoryList') }">
 				<%@ include file="/WEB-INF/views/book_inven_search.jsp" %>
@@ -183,10 +188,14 @@
 			
 			<c:if test="${subMenu.equals('viewTranSpecInfo') }">
 				<%@ include file="/WEB-INF/views/tranSpecPage.jsp" %>
-			</c:if>	
+			</c:if>
+			<%-- 
+>>>>>>> refs/remotes/b_phw/b_phw
 			<c:if test="${subMenu.equals('viewSalesInfoList') }">
 				<%@ include file="/WEB-INF/views/salesInfoList.jsp" %>
 			</c:if>
+<<<<<<< HEAD
+ --%>
 			
 			<c:if test="${subMenu.equals('viewTranSpecIssueList') }">
 				<%@ include file="/WEB-INF/views/tranSpecList.jsp" %>

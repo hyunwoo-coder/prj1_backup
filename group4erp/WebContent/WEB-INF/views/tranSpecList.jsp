@@ -36,9 +36,9 @@ $(document).ready(function(){
 			)
 		);
 
-	inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
-	inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
-	inputData('[name=sort]').val("${corpSearchDTO.sort}");
+	inputData('[name=rowCntPerPage]',"${tranSpecDTO.rowCntPerPage}");
+	inputData('[name=selectPageNo]',"${tranSpecDTO.selectPageNo}");
+	inputData('[name=sort]').val("${tranSpecDTO.sort}");
 
 	
 });

@@ -15,6 +15,12 @@
 		where 1=1
 		and ap.emp_no = #{emp_no}
 	</select>
+	
+	<select id="getApprovalResCnt" parameterType="com.group4.erp.ApprovalSearchDTO" resultType="int">
+		select count(*) from e_works_info ap
+		where 1=1
+		and ap.mgr_emp_no = #{emp_no}
+	</select>
 
 	<select id="getApprovalReqList" parameterType="com.group4.erp.ApprovalSearchDTO" resultType="com.group4.erp.ApprovalDTO">
 		select
@@ -31,6 +37,23 @@
 		where 1=1
 		and ap.emp_no = #{emp_no}
 	
+	</select>
+	
+	<select id="getApprovalResList" parameterType="com.group4.erp.ApprovalSearchDTO" resultType="com.group4.erp.ApprovalDTO">
+      	select
+			ap.e_works_no "e_works_no",
+			ap.document_no "document_no",
+			ap.emp_no "emp_no",
+			(select c.jikup from code_jikup c where c.jikup_cd = (select e.jikup_cd from employee e where e.emp_no =  #{emp_no}) ) "jikup",
+			(select e.emp_name from employee e where e.emp_no =  #{emp_no}) "emp_name",
+			mgr_emp_no "mgr_emp_no",
+			(select e.emp_name from employee e where e.emp_no = ap.mgr_emp_no) "mgr_name",
+			ap.e_works_req_dt "e_works_req_dt",
+			ap.e_works_state_cd "e_works_state_cd",
+			(select c.evnt_state_name from code_ad_state c where c.evnt_state_cd = ap.e_works_state_cd) "approval_state"
+		from e_works_info ap
+		where 1=1
+		and ap.mgr_emp_no = #{emp_no}
 	</select>
 	
 	

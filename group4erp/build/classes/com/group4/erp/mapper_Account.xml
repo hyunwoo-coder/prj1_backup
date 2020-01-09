@@ -35,7 +35,6 @@
 		</if>
 	</sql>
 	
-
 	 <sql id="CorpCondition">
 		<if test="searchKeyword !=null and searchKeyword.length() > 0">
 				and (
@@ -65,7 +64,7 @@
 	</select>
 	
 	
-	<select id='getCorpList' resultType="com.group4.erp.CorporationDTO">
+	<select id='getCorpList' parameterType="com.group4.erp.CorpSearchDTO" resultType="com.group4.erp.CorporationDTO">
 		select * from (select zzz.*, rownum RNUM from (
 			select
 				corp_no "corp_no",
@@ -76,12 +75,11 @@
 				corp_tel "corp_tel",
 				corp_business_area "corp_business_area",
 				is_on_business "is_on_business",
-				reg_dt
+				reg_dt "reg_dt"
 			from corporation_cus
 			where is_on_business='y'
-			<include refid="headerSort" />
 			<include refid="WhereCondition" />
-			
+			<include refid="headerSort" />			
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
 	

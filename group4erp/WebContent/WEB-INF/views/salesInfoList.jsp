@@ -16,7 +16,7 @@
 
 	$(document).ready(function() {
 	
-		//$("#orderListTable").hide();
+		$("#orderListTable").hide();
 
 		headerSort("onLineSaleTable", 0);
 
@@ -49,23 +49,76 @@
 		//$('[name=sort]').val("${corpSearchDTO.sort}");
 	});
 
-	google.charts.load('current', {'packages' : ['corechart'] } );
+	google.charts.load('current', {'packages' : ['bar'] } );
 
 	google.charts.setOnLoadCallback(drawChart);
 	
 
 	function drawChart() {
-		var data = google.visualization.arrayToDataTable(${sales_chart_data});
+		var data1 = google.visualization.arrayToDataTable(${sales_chart_data});
+		var data2 = google.visualization.arrayToDataTable(${corpOrder_chart_data});
+		//var data3 = google.visualization.arrayToDataTable(${dailyOrder_chart_data});
 	
-		var options = {
-				title: '일반 고객 주문 건수',
-				width :500, 
-				height: 200
+		var options1 = {
+				title: '일반 고객 주문 건수(분야별)',
+				width :600, 
+				height: 300
+		};
+
+		var options2 = {
+				title: '기업고객 주문 건수(분야별)',
+				width: 600,
+				height:300
+		};
+
+		var options3 = {
+				title: '기업고객 주문 건수(일자별)',
+				width: 600,
+				height:300
 		};
 	
-		var chart = new google.visualization.ColumnChart(document.getElementById('orderInfoChart'));
+		var chart1 = new google.charts.Bar(document.getElementById('orderInfoChart'));
+		var chart2 = new google.charts.Bar(document.getElementById('corpOrderInfoChart'));
+		//var chart3 = new google.visualization.LineChart(document.getElementById('dailyOrderChart'));
+		
+		//var chart1 = new google.visualization.BarChart(document.getElementById('orderInfoChart'));
+		//var chart2 = new google.visualization.ColumnChart(document.getElementById('corpOrderInfoChart'));
 	
-		chart.draw(data, options);
+		chart1.draw(data1, options1);
+		chart2.draw(data2, options2);
+		//chart3.draw(data3, options3);
+	}
+
+
+	google.charts.load('current', {'packages' : ['corechart'] } );
+
+	google.charts.setOnLoadCallback(drawLineChart);
+
+	function drawLineChart() {
+	
+		var data3 = google.visualization.arrayToDataTable(${dailyOrder_chart_data});
+		var data4 = google.visualization.arrayToDataTable(${dailyCorpOrder_chart_data});
+	
+		var options3 = {
+				title: '일반고객 주문 건수(일자별)',
+				width: 600,
+				height:300
+		};
+
+		var options4 = {
+				title: '사업자고객 주문 건수(일자별)',
+				width: 600,
+				height:300
+		};
+	
+		var chart3 = new google.visualization.LineChart(document.getElementById('dailyOrderChart'));
+		var chart4 = new google.visualization.LineChart(document.getElementById('dailyCorpOrderChart'));
+		
+		//var chart1 = new google.visualization.BarChart(document.getElementById('orderInfoChart'));
+		//var chart2 = new google.visualization.ColumnChart(document.getElementById('corpOrderInfoChart'));
+	
+		chart3.draw(data3, options3);
+		chart4.draw(data4, options4);
 	}
 	
 	
@@ -127,22 +180,65 @@
 </script>
 </head>
 <body><center>
-	<h1>주문 & 판매현황</h1>
-	<h5>일반 고객 주문 현황</h5>
-	
-	<table border="0" cellpadding="0" cellspacing="5">
+	<h1>[주문 & 판매현황]</h1>
+	<h5>일반 고객 주문 현황</h5>	
+	<table border="0" cellpadding="5" cellspacing="5" align="center">
 		<tr>
-			<td>[온라인]</td><td>${onlineOrderCnt}건 </td> <td>총 예상 수입액</td><td> ${tot_revenue}원 </td>
+			<td>
+				<table border="0" cellpadding="5" cellspacing="5" align="center">
+					<tr>
+						<td colspan="4" align="center"><h5>일반 고객 주문 현황</h5></td>
+					</tr>
+					<tr>
+						<td>[주문량]</td><td> ${onlineOrderCnt}건</td> <td>총 예상 수입액 </td><td> ${tot_revenue}원 </td>
+					</tr>
+		
+				</table>
+			</td>
+			
+			<td>
+				<table border="0" cellpadding="5" cellspacing="5" align="center">
+					<tr>
+						<td colspan="4" align="center"><h5>기업 고객 주문 현황</h5></td>
+					</tr>
+					<tr>
+						<td>[주문량]</td><td> ${corpOrderCnt}건 </td> <td>총 예상 수입액 </td><td> ${corpTotRevenue}원 </td>
+					</tr>
+		
+				</table>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>분야별
+				<div id="orderInfoChart" style="width: 600px; height: 300px;"> </div>
+			</td>
+			<td>분야별
+				<div id="corpOrderInfoChart" style="width: 600px; height: 300px;"> </div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>일자별
+				<div id="dailyOrderChart" style="width: 600px; height: 300px;"> </div>
+			</td>
+			
+			<td>일자별
+				<div id="dailyCorpOrderChart" style="width: 600px; height: 300px;"> </div>
+			</td>
 		</tr>
 		<tr>
-			<td>[오프라인]</td><td> 0건</td> <td>총 예상 수입액</td> <td>0원</td>
+			<td align="center">
+				<input type="button" value="세부내역보기" onClick="showOrderList();">&nbsp;
+				<input type="button" value="세부내역숨기기" onClick="hideOrderList();"><br> 
+			</td>
+			<td align="center">
+				<input type="button" value="세부내역보기" onClick="showOrderList();">&nbsp;
+				<input type="button" value="세부내역숨기기" onClick="hideOrderList();"><br> 
+			</td>
 		</tr>
 	</table>
-	
-	<div id="orderInfoChart" style="width: 500px; height: 200px;"> </div><br>
-	
-	<input type="button" value="세부내역보기" onClick="showOrderList();">&nbsp;
-	<input type="button" value="세부내역숨기기" onClick="hideOrderList();"><br> 
+
 	<br>
 	
 	<div id="orderListTable">

@@ -5,6 +5,7 @@ import com.group4.erp.Cus_releaseInfoDTO;
 import com.group4.erp.InvenDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.ReturnOrderDTO;
+import com.group4.erp.ReturnSalseContentDTO;
 import com.group4.erp.ReturnSearchDTO;
 import com.group4.erp.dao.*;
 import java.util.*;
@@ -110,6 +111,11 @@ public class InvenServiceImpl implements InvenService{
 		
 		int insertSignUpBookCnt = this.invenDAO.getSignUpCnt(invenDTO);
 		
+		int insertBookStock = this.invenDAO.getBookStockCnt(invenDTO);
+		if(insertBookStock==0) {
+			return -2;
+		}
+		
 		return insertSignUpBookCnt;
 	}
 
@@ -190,5 +196,12 @@ public class InvenServiceImpl implements InvenService{
 		
 		
 		return releaseUpCnt;
+	}
+
+	public ReturnSalseContentDTO getReturnContent(int return_sales_no) {
+		
+		ReturnSalseContentDTO returnInfo = this.invenDAO.getReturnContent(return_sales_no);
+		
+		return returnInfo;
 	}
 }

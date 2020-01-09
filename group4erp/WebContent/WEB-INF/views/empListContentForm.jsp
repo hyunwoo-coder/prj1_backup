@@ -11,21 +11,249 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <title>Insert title here</title>
+<style>
+	.line{
+			border-collapse: collapse;
+			padding:5px;
+			border-top:0px;
+			border-bottom:5px solid black;
+			border-left:0px;
+			border-right:0px;
+			font-size:11pt;
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+	
+	.fileBox .fileName {display:inline-block;width:190px;height:20px;padding-left:10px;margin-right:5px;line-height:30px;border:1px solid #aaa;background-color:#fff;vertical-align:middle}
+	.fileBox .btn_file {display:inline-block;border:1px solid #000;width:100px;height:20px;font-size:0.8em;line-height:20px;text-align:center;vertical-align:middle; background-color:black; color:white;}
+	.fileBox input[type="file"] {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:
+	
+	
+</style>
+
 <script>
+	var hire_default = "${employeeInfoDTO.hire_dt}"
+	$(document).ready(function(){
+		
+		inputData("[name=dep_name]", "${employeeInfoUpDTO.dep_name}");
+		inputData("[name=jikup]", "${employeeInfoUpDTO.jikup}");
+		inputData("[name=worktime_name]", "${employeeInfoUpDTO.worktime_name}");
+		inputData("[name=mgr_emp_dep_name]", "${employeeInfoUpDTO.mgr_emp_dep_name}");
+		inputData("[name=mgr_emp_jikup]", "${employeeInfoUpDTO.mgr_emp_jikup}");
+		
+		
+		$("#hire_dt").datepicker({ 
+		    dateFormat: 'yy-mm-dd'
+		    ,defaultDate : hire_default
+			,onSelect: function() { 
+				var dateObject = $(this).datepicker('getDate');
+		    }
+		    ,beforeShowDay:$.datepicker.noWeekends 
+		});
+
+		$("#resign_date").datepicker({ 
+		    dateFormat: 'yy-mm-dd'
+		    ,defaultDate : 'today'
+			,onSelect: function() { 
+				var dateObject = $(this).datepicker('getDate');
+		    }
+		    ,beforeShowDay:$.datepicker.noWeekends 
+		});
+
+
+
+		var uploadFile = $('.fileBox .uploadBtn');
+		uploadFile.on('change', function(){
+			if(window.FileReader){
+				var filename = $(this)[0].files[0].name;
+			} else {
+				var filename = $(this).val().split('/').pop().split('\\').pop();
+			}
+			$(this).siblings('.fileName').val(filename);
+		});
+
+		
+
+	});
 
 	function goBack(){
 		history.go(-1);
 	}
-	
+
+
+
+	/*파일 업로드 테스트 스크립트
+	function uploadFile(){
+        var form = $('[name=empContentUp]')[0];
+        var formData = new FormData(form);
+        formData.append("profilePic", $("#profilePic")[0].files[0]);
+        formData.append("emp_no", $("#emp_no").val());
+
+        console.log(formData);
+        $.ajax({
+            url: '/group4erp/empInfoUpProc.do',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    type: 'POST',
+                    success: function(result){
+                        alert("업로드 성공!!");
+                    }
+            });
+    } */
+
 	function empInfoUp(){
-		alert("수정 기능 구현중");
-		var tableTd = $('.empContentInfo td:eq(0)');
-		tableTd.html('<input type=text value=');
-		tableTd.text('value값입니다');
-		tableTd.html('>');
+		var form = $('[name=empContentUp]')[0];
+        var formData = new FormData(form);
+        formData.append("uploadBtn", $("#uploadBtn")[0].files[0]);
+        formData.append("emp_no", $("#emp_no").val());
+	   	//console.log(formData);
+        
+        if( is_empty('[name=emp_name]') ){
+		       alert("이름을 입력해주세요.");
+		       $("[name=emp_name]").focus();
+		       return;
+		    }
+		    if( is_empty('[name=emp_eng_name]') ){
+		       alert("영문이름을 입력해주세요.");
+		       $("[name=emp_eng_name]").focus();
+		       return;
+		    }
+		    if( is_empty('[name=emp_gender]') ){
+			       alert("성별을 선택해주세요.");
+			       $("[name=emp_gender]").focus();
+			       return;
+			}
+		    if( is_empty('[name=jumin_num]') ){
+			       alert("주민번호를 입력해주세요.");
+			       $("[name=jumin_num_f]").focus();
+			       return;
+			}
+		    if( is_empty('[name=phone]') ){
+			       alert("휴대전화번호를 입력해주세요.");
+			       $("[name=phone]").focus();
+			       return;
+			}
+		    if( is_empty('[name=emp_email_office]') ){
+			       alert("회사 이메일을 입력해주세요.");
+			       $("[name=emp_email_office]").focus();
+			       return;
+			}
+		    if( is_empty('[name=emp_email]') ){
+			       alert("이메일을 입력해주세요.");
+			       $("[name=emp_email]").focus();
+			       return;
+			}
+		    if( is_empty('[name=emp_addr]') ){
+			       alert("주소를 입력해주세요.");
+			       $("[name=emp_addr]").focus();
+			       return;
+			}    
+			
+			
+		    if( is_empty('[name=dep_name]') ){
+		       alert("부서를 선택해주세요.");
+		       $("[name=dep_name]").focus();
+		       return;
+		    }
+		    if( is_empty('[name=worktime_name]') ){
+			       alert("근무 형태를 선택해주세요.");
+			       $("[name=worktime_name]").focus();
+			       return;
+			}
+		    if( is_empty('[name=jikup]') ){
+		       alert("직급을 선택해주세요.");
+		       $("[name=jikup]").focus();
+		       return;
+		    }
+		    if( is_empty('[name=salary]') ){
+		       alert("연봉을 입력해주세요.");
+		       $("[name=salary]").focus();
+		       return;
+		    }
+
+		    
+		    if( is_empty('[name=mgr_emp_name]') ){
+		       alert("직속상관 이름을 입력해주세요.");
+		       $("[name=conmgr_emp_nametent]").focus();
+		       return;
+		    }
+		    
+		    
+		    var juminb = $('[name=jumin_num]').val();
+		    var gender = 0;
+		    $("[name=emp_gender]").each(function(){
+		       var thisGender = $(this);
+		       if(thisGender.is(":checked")){
+		          gender = thisGender;   
+		       }
+		    });
+		    if(juminb.substr(6,1)=='1' || juminb.substr(6,1)=='3'){
+		       if(gender.val()=='여'){
+		          alert("주민등록번호 뒷자리 와 성별이 다릅니다.");
+		          return;
+		       }
+		    }else if(juminb.substr(6,1)=='2' || juminb.substr(6,1)=='4'){
+		       if(gender.val()=='남'){
+		          alert("주민등록번호 뒷자리 와 성별이 다릅니다.");
+		          return;
+		       }
+		    }
+		    else if(juminb.substr(6,1)=='5' || juminb.substr(6,1)=='6' || juminb.substr(6,1)=='7' || juminb.substr(6,1)=='8' || juminb.substr(6,1)=='9'){
+		       alert("일치하지 않는 주민등록번호 입니다.");
+		       return;
+		    }
+		    
+		    var phone = $('[name=phone]').val();
+		    
+		    if(phone.indexOf('-')>0){
+		       phone = phone.split('-').join('');
+		    }
+		    
+		    
+		    if( is_valid_pattern("[name=phone]", /^[0-9]{10,11}$/)==false ){
+		       alert("전화번호 형식이 틀렸습니다. 다시 입력해주세요");
+		       return;
+		    }
+		    if( is_valid_email("[name=emp_email]")==false ){
+		       alert("이메일 형식을 벗어납니다.");
+		       return;
+		    }
+		    
+		    if(confirm("정말 저장하시겠습니까?")==false){return;}
+        
+        $.ajax({
+            url: '/group4erp/empInfoUpProc.do',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    type: 'POST',
+                    success: function(result){
+                        alert("수정이 완료되었습니다.");
+                    }
+        });
 		
+		/* alert( $("[name=empContentUp]").serialize() );
+
+		$.ajax({
+			url : "/group4erp/empInfoUpProc.do"
+			, type : "post"
+			, data : $("[name=empContentUp]").serialize()
+			, success : function(data){
+				alert("수정성공");
+			}
+			, error : function(){
+				alert("서버 접속 실패");
+			}
+		});
+ 		*/	
 	}
+
+
+	
 	function empInfoDel(emp_no){
 		alert("삭제 기능 구현중");
 		/*
@@ -45,70 +273,225 @@
 		*/
 	}
 
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+
 </script>
 </head>
 <body><center>
 	<b>직원 상세보기</b>
 	<br>
-	<table border=0 width=700>
+	<table border=0 width=850>
 	 	<tr>
 	 	<td align=right>
-			<a href="javascript:goBack();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[닫기]</a>
+			<a style="font-size:30px; color:black" href="javascript:goBack();">⬅</a>
+		</td>
+		</tr>
 	</table>
-		<table class="empContentInfo tbcss1" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		
+	<form name="empContentUp" method="post" enctype="multipart/form-data">
+		
+		<table class="line" width="850">
 			<tr>
-				<th>이름
-				<td>${employeeInfoDTO.emp_name}
-				<th>영어이름
-				<td>${employeeInfoDTO.emp_eng_name}
-				<th colspan=4 width="30%">사원사진
-			<tr>
-				<th>주민등록번호
-				<td colspan=3>${employeeInfoDTO.jumin_num}
-				<td rowspan=4 colspan=4 width="30%">${employeeInfoDTO.emp_pic}
-			<tr>
-				<th>핸드폰번호
-				<td colspan=3>${employeeInfoDTO.phone}
-			<tr>
-				<th>이메일
-				<td colspan=3>${employeeInfoDTO.emp_email}
-			<tr>
-				<th>회사이메일
-				<td colspan=3>${employeeInfoDTO.emp_email_office}
-			<tr>
-				<th>주소
-				<td colspan=5>${employeeInfoDTO.emp_addr}
-				<th>휴직상태
-				<td>${employeeInfoDTO.is_on_leave}
-			<tr>
-				<th>입사일
-				<td colspan=2>${employeeInfoDTO.hire_dt}
-				<!--<th>부서번호
-				<td>10-->
-				<th colspan=2>부서이름
-				<td>${employeeInfoDTO.dep_name}
-				<th>성별
-				<td>${employeeInfoDTO.emp_gender}
-			<tr>
-				<th>직업형태
-				<td>${employeeInfoDTO.worktime_name}
-				<th>직급
-				<td>${employeeInfoDTO.jikup}
-				<th>연봉
-				<td colspan=3>${employeeInfoDTO.salary}
-			<tr>
-				<th>직속상관
-				<th>부서이름
-				<td>${employeeInfoDTO.mgr_emp_dep_name}
-				<th>직급
-				<td>${employeeInfoDTO.mgr_emp_jikup}
-				<th>이름
-				<td colspan=2>${employeeInfoDTO.mgr_emp_name}
+				<td>&nbsp;&nbsp;<b>직원정보</b></td>
+			</tr>
 		</table>
+		
+		<table class="empContentInfo tab2" width="850" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<tr>
+				<td rowspan="6" colspan="2" width="20%">
+				<%-- <c:if test="${employeeInfoUpDTO.emp_pic='emp0000.jpg'}"> --%>
+					<img src="${ctRootImage}/default.jpg" width="100%" height="150">
+				<%-- </c:if> --%>
+					<%-- <img src="${ctRootImage}/emp_0003.jpg" width="100%" height="150"> --%>
+				<!-- <img src="../image/emp_0002.jpg"> --></td>
+				<td bgcolor="#EEEEEE" width="12%">성명</td>
+				<td width="28%"><input type="text" size="27" name="emp_name" value="${employeeInfoUpDTO.emp_name}"></td>
+				<td bgcolor="#EEEEEE" width="12%">영어명</td>
+				<td width="28%"><input type="text" size="27" name="emp_eng_name" value="${employeeInfoUpDTO.emp_eng_name}"></td>
+			</tr>
+			<tr>
+				<td bgcolor="#EEEEEE">사번</td>
+				<td><input type="text" size="27" name="emp_no" id="emp_no" value="${employeeInfoUpDTO.emp_no}"></td>
+				<%-- <td><input type="text" style="background-color:#EBEBE4; box-shadow:none; border: 1px solid lightgray" size="27" name="emp_no" id="emp_no" value="${employeeInfoUpDTO.emp_no}"></td> --%>
+				<td bgcolor="#EEEEEE">성별</td>
+				<td>
+					<c:if test="${employeeInfoUpDTO.emp_gender=='여'}">
+						<input type="radio" name="emp_gender" value="여" checked>여
+						<input type="radio" name="emp_gender" value="남">남
+					</c:if>
+					<c:if test="${employeeInfoUpDTO.emp_gender=='남'}">
+						<input type="radio" name="emp_gender" value="여">여
+						<input type="radio" name="emp_gender" value="남" checked>남
+					</c:if>
+				</td>
+			</tr>
+			<tr>			
+				<td bgcolor="#EEEEEE">주민번호</td>
+				<td><input type="text" size="27" name="jumin_num" value="${employeeInfoUpDTO.jumin_num}"></td>
+				<td bgcolor="#EEEEEE">전화번호</td>
+				<td><input type="text" size="27" name="phone" value="${employeeInfoUpDTO.phone}"></td>
+			</tr>
+			<tr>
+				<td bgcolor="#EEEEEE" rowspan="2">회사이메일</td>
+				<td rowspan="2"><input type="text" name="emp_email_office" size="27" value="${employeeInfoUpDTO.emp_email_office}"></td>
+				<td bgcolor="#EEEEEE" rowspan="2">이메일</td>
+				<td rowspan="2"><input type="text" size="27" name="emp_email" size="25" value="${employeeInfoUpDTO.emp_email}"></td>
+			<tr></tr>
+			<tr>
+				<td bgcolor="#EEEEEE">주소</td>
+				<td colspan="3"><input type="text" name="emp_addr" size="76" value="${employeeInfoUpDTO.emp_addr}"></td>
+			<tr>
+				<td colspan="6">
+					<div class="fileBox" align="left">	<!-- style="position:absolute;left:22%; -->
+						<input align="left" type="text" class="fileName" readonly="readonly">
+						<label for="uploadBtn" class="btn_file" align="left">프로필pic 수정</label>
+						<input type="file" id="uploadBtn" class="uploadBtn" name="uploadBtn">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<!-- <td colspan="6"><div align="left"><input type="file" name="profilePic" id="profilePic"></div> -->
+			</tr>
+		</table>
+		
+		
+		<br><br>
+		
+		
+		<table class="line" width="850">
+			<tr>
+				<td>&nbsp;&nbsp;<b>채용정보</b></td>
+			</tr>
+		</table>
+		<table table class="empContentInfo tab2" width="850" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<tr>
+				<td bgcolor="#EEEEEE">부서</td>
+				<td colspan="2">
+					<select name="dep_name">
+							<option value="총무부">총무부</option>
+							<option value="기획부">기획부</option>
+							<option value="영업부">영업부</option>
+							<option value="마케팅부">마케팅부</option>
+							<option value="사업부">사업부</option>
+							<option value="인사부">인사부</option>
+					</select>
+				</td>
+				<td bgcolor="#EEEEEE">채용형태</td>
+				<td colspan="2">
+					<select name="worktime_name">
+						<option value="정규직">정규직</option>
+						<option value="파견직">파견직</option>
+						<option value="기간제 근로자">기간제 근로자</option>
+						<option value="파트타임">파트타임</option>
+						<option value="인턴">인턴</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#EEEEEE">직급</td>
+				<td colspan="2">
+					<select name="jikup">
+						<option value="대표이사">대표이사</option>
+						<option value="전무이사">전무이사</option>
+						<option value="상무이사">상무이사</option>
+						<option value="부장">부장</option>
+						<option value="차장">차장</option>
+						<option value="과장">과장</option>
+						<option value="대리">대리</option>
+						<option value="주임">주임</option>
+						<option value="사원">사원</option>
+						<option value="기타">기타</option>
+					</select>
+				</td>
+				<td bgcolor="#EEEEEE">연봉</td>
+				<td colspan="2"><input type="text" name="salary" value="${employeeInfoUpDTO.salary}"></td>
+			</tr>
+			<tr>
+				<td bgcolor="#EEEEEE">입사일</td>
+				<td colspan="2"><input type="text" name="hire_dt" id="hire_dt" value="${employeeInfoUpDTO.hire_dt}"></td>
+				<td bgcolor="#EEEEEE">퇴사일</td>
+				<td colspan="2"><input type="text" name="resign_date" id="resign_date" value="${employeeInfoUpDTO.resign_date}"></td>
+			</tr>
+			<tr>
+				<td bgcolor="#EEEEEE">휴직상태</td>
+				<td colspan="4">
+					<c:if test="${employeeInfoUpDTO.is_on_leave=='F'}">
+						재직중
+					</c:if>
+					<c:if test="${employeeInfoUpDTO.is_on_leave=='T'}">
+						휴직중
+					</c:if>
+				<%-- <input type="text" name="is_on_leave" value="${employeeInfoDTO.is_on_leave}"></td> --%>
+			</tr>
+		</table>
+
+		
+		<br>
+	
+		<table class="line" width="850">
+			<tr>
+				<td>&nbsp;&nbsp;<b>직속상관정보</b></td>
+			</tr>
+		</table>
+		<table table class="empContentInfo tab2" width="850" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<tr>
+				<td bgcolor="#EEEEEE" width="10%">이름</td>
+				<td width="23%"><input type="text" name="mgr_emp_name" value="${employeeInfoUpDTO.mgr_emp_name}"></td>
+				<td bgcolor="#EEEEEE" width="13%">부서</td>
+				<td width="20%">
+					<%-- <input type="text" name="mgr_emp_dep_name" value="${employeeInfoUpDTO.mgr_emp_dep_name}"> --%>
+					<select name="mgr_emp_dep_name">
+							<option value="총무부">총무부</option>
+							<option value="기획부">기획부</option>
+							<option value="영업부">영업부</option>
+							<option value="마케팅부">마케팅부</option>
+							<option value="사업부">사업부</option>
+							<option value="인사부">인사부</option>
+					</select>
+				</td>
+				<td bgcolor="#EEEEEE" width="10%">직급</td>
+				<td width="23%">
+					<%-- <input type="text" name="mgr_emp_jikup" value="${employeeInfoUpDTO.mgr_emp_jikup}"> --%>
+					<select name="mgr_emp_jikup">
+						<option value="대표이사">대표이사</option>
+						<option value="전무이사">전무이사</option>
+						<option value="상무이사">상무이사</option>
+						<option value="부장">부장</option>
+						<option value="차장">차장</option>
+						<option value="과장">과장</option>
+						<option value="대리">대리</option>
+						<option value="주임">주임</option>
+						<option value="사원">사원</option>
+						<option value="기타">기타</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+	</form>
+		
+		
 		<br>
 		<input type="button" value=" 수정 " onclick="empInfoUp();">&nbsp;
 		<input type="button" value=" 삭제 " onclick="empInfoDel(${emp_no});">&nbsp;
-		<input type="button" value="뒤로가기" onclick="goBack();">
+		<!-- <input type="button" value="뒤로가기" onclick="goBack();"> -->
 		<form method="post" name="empUpDelForm" action="/group4erp/empUpDelProc.do">
 			<input type="hidden" name="emp_no" value="${emp_no}">
 		</form>

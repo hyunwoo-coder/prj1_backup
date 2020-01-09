@@ -20,6 +20,7 @@ import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.TranSpecDTO;
+import com.group4.erp.TranSpecSearchDTO;
 import com.group4.erp.service.AccountService;
 
 
@@ -42,11 +43,22 @@ public class AccountController {
 		
 		try {
 			
-			int corpListCnt = this.accountService.getCorpListCnt();
+			int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);
+			
+			if(corpListCnt >0 ) {
+				int selectPageNo = corpSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
+				int rowCntPerPage = corpSearchDTO.getRowCntPerPage();	//한 화면에 보여지는 행의 개수 구하기
+				int beginRowNo = selectPageNo * rowCntPerPage - rowCntPerPage +1;	//검색할 시작행 번호 구하기
+				if(corpListCnt < beginRowNo) {		//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한 페이지 번호를 1로 지정
+					corpSearchDTO.setSelectPageNo(1);
+				}
+			}
+			
 			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
 			
 			mav.addObject("corpListCnt", corpListCnt);
 			mav.addObject("corpList", corpList);
+			mav.addObject("corpSearchDTO", corpSearchDTO);
 						
 		} catch(Exception e) {
 			System.out.println("예외발생=="+e);
@@ -158,53 +170,8 @@ public class AccountController {
 		return upCnt;
 	}
 	
-	
-	/*@RequestMapping(value="/viewSearchCorp.do")
-	public ModelAndView viewSearchCorpPopup(HttpSession session, CorpSearchDTO corpSearchDTO) {
-		
-		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
-		mav.setViewName("searchCorpPopup.jsp");
-		
-		try {
-			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);		
-			
-			mav.addObject("corpList", corpList);
-			
-		} catch(Exception e) {
-			
-			System.out.println("예외 발생=="+e);
-		}
-	
-		return mav;
-	}*/
-	
-	/*@RequestMapping(value="/selectCorp.do")
-	public ModelAndView selectCorp(HttpSession session, CorpSearchDTO corpSearchDTO) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("searchCorpPopup.jsp");
-		
-		try {
-			
-			String corp_no = corpSearchDTO.getCorp_no();
-			System.out.println("검색된 사업자 번호=="+corp_no);
-			
-			CorporationDTO selectedCorp = this.accountService.getCorpInfo(corp_no);
-			
-			mav.addObject("selectedCorp", selectedCorp);
-			
-		} catch(Exception e) {
-			
-			System.out.println("예외 발생=="+e);
-		}
-	
-		return mav;
-	}*/
-	
 	@RequestMapping(value="/viewTranSpecList.do")
-	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO) {
+	public ModelAndView viewTranSpec(HttpSession session, CorpSearchDTO corpSearchDTO, TranSpecSearchDTO tranSpecSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -216,7 +183,7 @@ public class AccountController {
 			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
 			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
 			
-			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList();
+			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
 			mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			
 			mav.addObject("corp_tran_cnt", corp_tran_cnt);
@@ -256,7 +223,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/viewTranSpecIssueList.do")
-	public ModelAndView viewTranSpecIssueList(HttpSession session) {
+	public ModelAndView viewTranSpecIssueList(HttpSession session, TranSpecSearchDTO tranSpecSearchDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -266,11 +233,12 @@ public class AccountController {
 		
 		try {
 			
-			int tranSpecIssueCnt = this.accountService.getTranSpecIssueCnt();
+			int tranSpecIssueCnt = this.accountService.getTranSpecIssueCnt(tranSpecSearchDTO);
 			
-			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList();
+			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
 			mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			mav.addObject("tranSpecIssueCnt", tranSpecIssueCnt);
+			//mav.addObject("tranSpecDTO", tranSpecDTO);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);

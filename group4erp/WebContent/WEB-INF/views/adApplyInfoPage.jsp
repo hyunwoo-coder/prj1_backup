@@ -105,7 +105,7 @@
 </script>
 </head>
 <body><center>
-	<h1>광고신청현황</h1><br>
+	<h1>[광고신청현황]</h1><br>
 	<label> <span id="nowTime"> </span> [현재 광고 정보] : ${adApplyCnt}회 </label>
 	<select name="rowCntPerPage">
 						<option value="10">10

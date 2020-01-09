@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
+import com.group4.erp.EmployeeInfoUpDTO;
 import com.group4.erp.HrDayoffDTO;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
@@ -34,12 +35,25 @@ public interface HrDAO {
 	
 	List<Map<String, String>> getEmpInoutList(HrListSearchDTO hrListSearchDTO);
 
-	EmployeeInfoDTO getEmpContant(int emp_no);
+	EmployeeInfoUpDTO getEmpContant(int emp_no);
+	
+	int empInfoUpProc(EmployeeInfoUpDTO employeeInfoUpDTO);
 	
 	List<SalaryDTO> getAvgSalChart();
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
+
+	//String getMgrEmpName(EmployeeDTO employeeDTO);
 	
+	int getAddDayoffinfoCnt(EmployeeDTO employeeDTO);
+	
+	int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO);
+	
+	int dayoffUpdateProcII(HrDayoffDTO hrDayoffDTO);
+
 	int dayoffUpdateProc(HrDayoffDTO hrDayoffDTO);
+	
+	int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks);
+
 
 }

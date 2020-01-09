@@ -71,7 +71,8 @@
 		
 
 		$('[name=rowCntPerPage]').change(function(){
-			goSearch();
+			//goSearch();
+			document.eventSearchRowForm.submit();
 		});
 	
 		$(".pagingNumber").html(
@@ -258,14 +259,14 @@
 </head>
 <body><center>
 
-	<h1>이벤트 현황</h1>
+	<h1>[이벤트 현황]</h1>
     <input type="hidden" name="selectPageNo">
     <input type="hidden" name="sort">
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
 		<table border=0>
 			<tr>
 	    		<td align="left">
-	    			<label> [전체 이벤트 횟수 ] : ${eventCnt}회 </label><br>
+	    			
 	    			<label> [담당 이벤트 행사 횟수] : ${eventCnt}회 </label>
 	            	
 	            </td>
@@ -312,18 +313,22 @@
 
 	<table border="0" cellpadding="5" cellspacing="5">
 		<tr>
-			<td align="right"><select name="rowCntPerPage">
+			<td align="right"><label> [전체 이벤트 정보 ] : ${eventAllCnt}회 </label>&nbsp;
+				<form name="eventSearchRowForm" method="post" action="/group4erp/viewEventList.do">
+					<select name="rowCntPerPage">
 	              		<option value="10">10</option>
 	               		<option value="15">15</option>
 	               		<option value="20">20</option>
 	               		<option value="25">25</option>
 	               		<option value="30">30</option>
 	            	</select> 행보기
-	           </td>
+				</form>
+					
+	        </td>
 		</tr>
 		
 		<tr>
-		
+			<td>
 			<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 			<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5">
 				<tr><th></th>
@@ -437,7 +442,7 @@
 				</table><br>
 	
 			</form>
-		
+		</td>
 		</tr>
 	</table>
 	

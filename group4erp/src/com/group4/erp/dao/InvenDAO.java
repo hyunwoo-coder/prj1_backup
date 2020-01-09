@@ -50,4 +50,8 @@ public interface InvenDAO {
 	int getisbnCntUpdate(String all_order_no);
 	int getisbnCntUpdates(String all_order_no);
 	
+	int getBookStockCnt(InvenDTO invenDTO);
+	
+	ReturnSalseContentDTO getReturnContent(int return_sales_no);
+	
 }

@@ -19,7 +19,11 @@ import com.group4.erp.AdApplyDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.OrderDTO;
 import com.group4.erp.SalesInfoDTO;
+import com.group4.erp.TranSpecDTO;
 import com.group4.erp.ApprovalDTO;
+import com.group4.erp.CorpOrderDTO;
+import com.group4.erp.CorpSearchDTO;
+import com.group4.erp.service.AccountService;
 import com.group4.erp.service.ApprovalService;
 import com.group4.erp.service.MarketingService;
 
@@ -34,6 +38,9 @@ public class MarketingController {
 	
 	@Autowired
 	ApprovalService approvalService;
+	
+	@Autowired
+	AccountService accountService;
 	
 	
 	@RequestMapping(value="/viewSalesInfoList.do")
@@ -55,8 +62,13 @@ public class MarketingController {
 			int corpOrderCnt = this.marketingService.getCorpOrderTotCnt();
 			int corpTotRevenue = this.marketingService.getCorpTotRevenue();
 			
+			//int corp_order_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
+			//List<CorpOrderDTO> corp_order_list = this.accountService.getCorpOrderList(corpSearchDTO);
+			
+			List<CorpOrderDTO> corpOrderCntList = this.marketingService.getCorpOrderCntChart();
+			
 			String sales_chart_data = "[";
-			sales_chart_data += "['분류', '수량']";
+			sales_chart_data += "['분류', '주문수량', '반품수량']";
 				
 			List<SalesInfoDTO> orderInfo = this.marketingService.getOrderInfoChart();
 			
@@ -65,10 +77,56 @@ public class MarketingController {
 				sales_chart_data += orderInfo.get(i).getCategory();
 				sales_chart_data += "', ";
 				sales_chart_data += orderInfo.get(i).getBook_qty();
+				sales_chart_data += ", ";
+				sales_chart_data += orderInfo.get(i).getReturn_qty();
 				sales_chart_data += "] ";
 			}
 			sales_chart_data += "]";
 			
+			String corpOrder_chart_data = "[";
+			corpOrder_chart_data += "['분류', '수량']";
+			
+			for(int i=0; i<corpOrderCntList.size(); i++) {
+				corpOrder_chart_data += ", ['";
+				corpOrder_chart_data += corpOrderCntList.get(i).getCategory();
+				corpOrder_chart_data += "', ";
+				corpOrder_chart_data += corpOrderCntList.get(i).getBooks_qty();
+				corpOrder_chart_data += "] ";
+			}
+			corpOrder_chart_data += "]";
+			
+			
+			List<SalesInfoDTO> dailyOrderCnt = this.marketingService.getDailyOrderCnt();
+			
+			String dailyOrder_chart_data ="[";
+			dailyOrder_chart_data += "['일자', '건수']";
+			
+			for(int i=0; i<dailyOrderCnt.size(); i++) {
+				dailyOrder_chart_data += ", ['";
+				dailyOrder_chart_data += dailyOrderCnt.get(i).getOrder_dt();
+				dailyOrder_chart_data += "', ";
+				dailyOrder_chart_data += dailyOrderCnt.get(i).getBook_qty();
+				dailyOrder_chart_data += "] ";
+			}
+			
+			dailyOrder_chart_data += "]";
+			
+			
+			List<SalesInfoDTO> dailyCorpOrderCnt = this.marketingService.getDailyCorpOrderCnt();
+			
+			String dailyCorpOrder_chart_data = "[";
+			dailyCorpOrder_chart_data += "['일자', '건수']";
+			
+			for(int i=0; i<dailyCorpOrderCnt.size(); i++) {
+				dailyCorpOrder_chart_data += ", ['";
+				dailyCorpOrder_chart_data += dailyCorpOrderCnt.get(i).getOrder_dt();
+				dailyCorpOrder_chart_data += "', ";
+				dailyCorpOrder_chart_data += dailyCorpOrderCnt.get(i).getBook_qty();
+				dailyCorpOrder_chart_data += "] ";
+			}
+		
+			dailyCorpOrder_chart_data +="]";
+					
 			mav.addObject("onlineOrderCnt", online_order_cnt);
 			mav.addObject("onlineOrderList", onlineOrderList);
 			mav.addObject("salesSearchDTO", salesSearchDTO);
@@ -76,6 +134,9 @@ public class MarketingController {
 			mav.addObject("corpTotRevenue", corpTotRevenue);
 			mav.addObject("tot_revenue", tot_revenue);
 			mav.addObject("sales_chart_data", sales_chart_data);
+			mav.addObject("corpOrder_chart_data", corpOrder_chart_data);
+			mav.addObject("dailyOrder_chart_data", dailyOrder_chart_data);
+			mav.addObject("dailyCorpOrder_chart_data", dailyCorpOrder_chart_data);
 			
 		} catch(Exception e) {
 			System.out.println("viewSalesInfoList() 메소드에서 예외 발생==="+e);
@@ -115,6 +176,7 @@ public class MarketingController {
 			eventSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
 			
 			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
+			int eventAllCnt = this.marketingService.getEventAllCnt();
 			
 			if(eventCnt >0 ) {
 				int selectPageNo = eventSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
@@ -128,6 +190,7 @@ public class MarketingController {
 			List<EventDTO> eventList = this.marketingService.getEventList(eventSearchDTO);
 			
 			mav.addObject("eventCnt", eventCnt);
+			mav.addObject("eventAllCnt", eventAllCnt);
 			mav.addObject("eventList", eventList);
 			
 		} catch(Exception e) {
@@ -368,7 +431,6 @@ public class MarketingController {
 				
 		return updateCnt;		
 	}
-	
 	
 	
 }

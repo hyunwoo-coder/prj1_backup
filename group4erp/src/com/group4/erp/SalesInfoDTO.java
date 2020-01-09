@@ -15,6 +15,7 @@ public class SalesInfoDTO {
 	private String tot_cost;
 	private String tot_revenue;
 	private String category;
+	private String return_qty;
 	
 	private String searchKeyword;
 	private int selectPageNo=1;
@@ -22,9 +23,17 @@ public class SalesInfoDTO {
 	private String sort;
 	
 
+	public String getReturn_qty() {
+		return return_qty;
+	}
+	public void setReturn_qty(String return_qty) {
+		this.return_qty = return_qty;
+	}	
+
 	public String getCategory() {
 		return category;
 	}
+	
 	public void setCategory(String category) {
 		this.category = category;
 	}
