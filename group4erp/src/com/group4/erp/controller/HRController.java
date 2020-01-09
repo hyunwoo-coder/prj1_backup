@@ -144,9 +144,9 @@ public class HRController {
 		List<SalaryDTO> myPayCheckList = this.hrservice.getSalaryInfo(my_emp_no);
 		System.out.println("컨트롤러 급여명세서 조회 성공");
 
-		
 		mav.addObject("myPayCheckList", myPayCheckList);
 		mav.addObject("subMenu", "viewEmpSalInfo");
+		mav.addObject("navigator", "[인사관리]-[급여지급내역]");
 		mav.addObject("timeDTO", timeDTO);
 
 		return mav;

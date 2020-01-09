@@ -188,4 +188,12 @@ public class MarketingServiceImpl implements MarketingService {
 		return dailyCorpOrderCnt;
 	}
 
+	@Override
+	public EventDTO getMyEventInfoApproval(String document_no) {
+		// TODO Auto-generated method stub
+		EventDTO myEventInfo = this.marketingDAO.getMyEventInfoApproval(document_no);
+		
+		return myEventInfo;
+	}
+
 }

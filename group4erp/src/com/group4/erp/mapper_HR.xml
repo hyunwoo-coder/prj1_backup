@@ -189,21 +189,21 @@
 	
 	select * from(select zzz.*, rownum RNUM from(
 		select 
-		e.emp_no||'' "emp_no",
- 	    (select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
-   		e.emp_name "emp_name",
-    	e.salary*10000||'' "salary",
-    	round( (e.salary*10000)/12, -2)||'' "month_sal",
-        (select 100000 from dual) "mess_allowance",
-        (select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no ) "bus_trip_cnt",
-        (select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no) * 10000 "bus_trip_bonus",
-        round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + (select 100000 from dual)  "sum_payable",
-        round( (e.salary*10000)/12, -5) * 0.045 "pension",
-        round( (e.salary*10000)/12, -5) * 0.0323 "health", 
-        round( (e.salary*10000)/12, -5) * 0.008 "emp_insurance",
-        round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 "deduct",
-        (round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + 100000 ) - ( round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 ) "real_sal"  
-    	from employee e   
+        	e.emp_no||'' "emp_no",
+        	(select j.jikup from code_jikup j where j.jikup_cd = (select ee.jikup_cd from employee ee where ee.emp_no=e.emp_no) ) "jikup",
+           	e.emp_name "emp_name",
+       	 	e.salary*10000||'' "salary",
+        	round( (e.salary*10000)/12, -2)||'' "month_sal",
+        	(select 100000 from dual) "mess_allowance",
+        	(select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no and w.outside_start_time between (sysdate-30) and sysdate ) "bus_trip_cnt",
+        	nvl((select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no and w.outside_start_time between (sysdate-30) and sysdate ) * 10000, 0) "bus_trip_bonus",
+        	round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info w where to_number(outside_end_time - outside_start_time) >=1  and w.emp_no = e.emp_no and w.outside_start_time between (sysdate-30) and sysdate ) * 10000) + (select 100000 from dual)  "sum_payable",
+        	round( (e.salary*10000)/12, -5) * 0.045 "pension",
+        	round( (e.salary*10000)/12, -5) * 0.0323 "health", 
+        	round( (e.salary*10000)/12, -5) * 0.008 "emp_insurance",
+        	round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 "deduct",
+        	(round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info w where to_number(outside_end_time - outside_start_time) >=1 and w.emp_no = e.emp_no and w.outside_start_time between (sysdate-30) and sysdate ) * 10000) + 100000 ) - ( round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 ) "real_sal"  
+        from employee e   
     	where 1=1
     	<include refid="empSalWhere"></include>
     	order by e.emp_no asc
@@ -227,6 +227,7 @@
 		from state_of_payment			  
     	where 1=1
     	and emp_no = #{emp_no}   
+    	order by salary_dt desc
 	</select>
 
 	<select id='getAvgSalChart' resultType="com.group4.erp.SalaryDTO">

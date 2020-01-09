@@ -85,7 +85,7 @@ $(document).ready(function(){
 </form> 
 
 	<table border="0" cellpadding="5" cellspacing="5">
-		<tr>
+		<tr>			
 			<td align="right">
 	        [전체] : ${tranSpecIssueCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
@@ -94,7 +94,8 @@ $(document).ready(function(){
 	               <option value="20">20</option>
 	               <option value="25">25</option>
 	               <option value="30">30</option>
-	            </select> 행보기 </td>
+	            </select> 행보기 
+	    	</td>
 		</tr>
 		<tr>
 			<td>

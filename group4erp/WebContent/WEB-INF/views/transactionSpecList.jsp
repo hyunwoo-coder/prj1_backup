@@ -10,10 +10,19 @@
 <script>
 
 	$(document).ready(function() {
-		headerSort("transactionSpecTb", 0);
+		headerSort("tranSpecInTb", 0);
+		headerSort("tranSpecOutTb", 0);
+		
+		setTableTrBgColor(
+				"tranSpecInTb",	//테이블 class 값
+				"${headerColor}",			//헤더 tr 배경색
+				"${oddTrColor}",		//홀수행 배경색
+				"${evenTrColor}",	//짝수행 배경색
+				"${mouseOverColor}"			//마우스 온 시 배경색
+		);
 
 		setTableTrBgColor(
-				"transactionSpecTb",	//테이블 class 값
+				"tranSpecOutTb",	//테이블 class 값
 				"${headerColor}",			//헤더 tr 배경색
 				"${oddTrColor}",		//홀수행 배경색
 				"${evenTrColor}",	//짝수행 배경색
@@ -110,8 +119,9 @@
 		
 		
 		<tr><!-- 메인 목록 -->
+			
 			<td>
-			<table class="transactionSpecTb tab" name="transactionSpecTb" cellpadding="5" cellspacing="5">
+			<table class="tranSpecOutTb tab" name="transactionSpecTb" cellpadding="5" cellspacing="5">
 				<tr>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">

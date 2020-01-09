@@ -16,5 +16,7 @@ public interface ApprovalDAO {
 	int getApprovalResCnt(ApprovalSearchDTO approvalSearchDTO);
 	
 	List<ApprovalDTO> getApprovalResList(ApprovalSearchDTO approvalSearchDTO);
+	
+	int updateApprovalState(String document_no);
 
 }

@@ -242,6 +242,8 @@ public class MarketingController {
 
 			System.out.println("EventDTO.getAtchd_data==="+eventDTO.getAtchd_data());
 			System.out.println("EventDTO.eventNo==="+eventDTO.getEvnt_no());
+			
+			eventDTO.setEmp_no(Integer.parseInt(emp_no));
 					
 			insertEventCnt = this.marketingService.insertEvent(eventDTO);
 			
@@ -252,12 +254,7 @@ public class MarketingController {
 				approvalDTO.setDocument_no(eventDTO.getEvnt_no());
 				approvalDTO.setEmp_no(Integer.parseInt(emp_no));
 				
-				System.out.println("결재 실행");
-				System.out.println("approval.getDocument_no()==="+approvalDTO.getDocument_no());
-				System.out.println("approval.getEmp_no()==="+emp_no);
-				
 				insertApprovalCnt = this.approvalService.insertApproval(approvalDTO); 
-				System.out.println("결재 cnt==="+insertApprovalCnt);
 			}
 			
 				

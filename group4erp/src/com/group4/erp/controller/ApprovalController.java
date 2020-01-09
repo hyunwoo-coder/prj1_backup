@@ -13,13 +13,19 @@ import com.group4.erp.ApprovalDTO;
 import com.group4.erp.ApprovalSearchDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.EventDTO;
+import com.group4.erp.EventSearchDTO;
 import com.group4.erp.service.ApprovalService;
+import com.group4.erp.service.MarketingService;
 
 @Controller
 public class ApprovalController {
 	
 	@Autowired
 	ApprovalService approvalService;
+	
+	@Autowired
+	MarketingService marketingService;
 	
 	@RequestMapping(value="/viewApprovalList.do")
 	public ModelAndView viewApprovalList(HttpSession session, ApprovalSearchDTO approvalSearchDTO) {
@@ -51,13 +57,32 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping(value="/viewApprovalDoc.do")
-	public ModelAndView viewApprovalDoc(HttpSession session) {
+	public ModelAndView viewApprovalDoc(HttpSession session, ApprovalDTO approvalDTO, EventSearchDTO eventSearchDTO, String document_no) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewApprovalDoc");
 		mav.addObject("navigator", "[업무관리]-[문서 결재]-[결재할 문서 검토]");
+		
+		//String approvalType = approvalDTO.getDocument_no();
+		String approvalDoc = "";
+		String tableName = "";
+		
+		if(document_no.indexOf("EV") >=0 ) {
+			approvalDoc="EV";
+			tableName = "event_info";
+			eventSearchDTO.setSearchKeyword(document_no);
+			eventSearchDTO.setTableName(tableName);
+			
+			int approvalState = this.approvalService.updateApprovalState(document_no);
+			
+			EventDTO myEventInfo = this.marketingService.getMyEventInfoApproval(document_no);
+			mav.addObject("approvalInfoList", myEventInfo);
+		}
+			
+		mav.addObject("approvalDoc", approvalDoc);
+		
 		
 		return mav;
 		

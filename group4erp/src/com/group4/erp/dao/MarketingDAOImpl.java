@@ -191,4 +191,12 @@ public class MarketingDAOImpl implements MarketingDAO {
 		return dailyCorpOrderCnt;
 	}
 
+	@Override
+	public EventDTO getMyEventInfoApproval(String document_no) {
+		// TODO Auto-generated method stub
+		EventDTO myEventInfo = this.sqlSession.selectOne(mapper_namespace+"getMyEventInfoApproval", document_no);
+		
+		return myEventInfo;
+	}
+
 }

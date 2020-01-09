@@ -103,7 +103,7 @@
 <body><center>
 	<h1>[${timeDTO.now_year}년도&nbsp;${timeDTO.now_month}월분 급여대장]</h1>
 	
-	지급일 : ${timeDTO.now_year}년 ${timeDTO.now_month}월 25일	
+	지급일 : ${timeDTO.now_year}년 ${timeDTO.now_month}월 5일	
 	
 	<form name="empSalSearchForm" method="post" action="/group4erp/viewSalList.do">
 	<table class="tab">
@@ -139,7 +139,7 @@
 			
 			<tr align="center">
 				<!-- 지급내역 목록 -->
-				<td>기본급 </td> <td>식대 </td><td>수당</td><td>합계</td>
+				<td>기본급 </td> <td>식대 </td><td>보너스</td><td>합계</td>
 				<!-- 공제내역 목록-->
 				<td>고용보험</td><td>건강보험</td><td>국민연금</td><td>합계</td>
 			</tr>

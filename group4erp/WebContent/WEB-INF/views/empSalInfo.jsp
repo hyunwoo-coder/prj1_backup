@@ -32,7 +32,7 @@
 		</tr>
 		<tr align="center">
 			<!-- 지급내역 목록 -->
-			<td>기본급 </td> <td>식대 </td><td>수당</td><td>합계</td>
+			<td>기본급 </td> <td>식대 </td><td>보너스</td><td>합계</td>
 			<!-- 공제내역 목록-->
 			<td>고용보험</td><td>건강보험</td><td>국민연금</td><td>합계</td>
 		</tr>
@@ -43,7 +43,15 @@
 				<td>${myPayCheckList.salary_dt}</td>
 				<td>${myPayCheckList.month_sal}</td>
 				<td>${myPayCheckList.mess_allowance}</td>
-				<td>${myPayCheckList.bus_trip_bonus}</td>
+				<td>
+					<c:if test="${myPayCheckList.bus_trip_bonus eq null}">
+					0
+					</c:if>
+					
+					<c:if test="${!(myPayCheckList.bus_trip_bonus eq null)}">
+					${myPayCheckList.bus_trip_bonus}
+					</c:if>
+				</td>
 				<td>${myPayCheckList.sum_payable}</td>
 				
 				<td>${myPayCheckList.emp_insurance}</td>
@@ -56,7 +64,7 @@
 		 </c:forEach>
 			
 	</table>
-	
+	<h5>귀하의 노고에 감사드립니다.</h5>
 </center>
 
 </body>

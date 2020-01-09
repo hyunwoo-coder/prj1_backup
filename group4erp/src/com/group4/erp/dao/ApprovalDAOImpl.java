@@ -60,4 +60,12 @@ public class ApprovalDAOImpl implements ApprovalDAO {
 		return approvalResList;
 	}
 
+	@Override
+	public int updateApprovalState(String document_no) {
+		// TODO Auto-generated method stub
+		int approvalState = this.sqlSession.update(mapper_namespace+"updateApprovalState", document_no);
+		
+		return approvalState;
+	}
+
 }
