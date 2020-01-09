@@ -2,11 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 
-<% String emp_name = (String)session.getAttribute("emp_name"); %>
-<% String emp_no = (String)session.getAttribute("emp_no"); %>
-<% String mgr = (String)session.getAttribute("mgr"); %>
 
 <html>
+
+
+<% 
+
+	String emp_name = (String)session.getAttribute("emp_name"); 
+	String emp_no = (String)session.getAttribute("emp_no");
+	String mgr = (String)session.getAttribute("mgr"); 
+	String dep_no = (String)session.getAttribute("dep_no"); 
+	String mgr_emp_no = (String)session.getAttribute("mgr_emp_no"); 
+ %>
+ 
 <head>
 
 	<script>
@@ -171,8 +179,13 @@
 			location.href="/group4erp/viewEmpList.do";
 		}
 
-		function viewSalaryList() {		//급여지급현황조회
+		function viewSalaryList() {		//급여지급현황조회(인사부장 전용 메뉴)
 			location.href="/group4erp/viewSalList.do";
+		}
+
+		//급여명세서 조회
+		function viewSalarySpecList() {
+			location.href="/group4erp/viewEmpSalInfo.do";
 		}
 
 		function viewEmpWorkStateList() {	//직원별 근무현황 조회
@@ -362,7 +375,12 @@
 			<td nowrap>
 				<span id="subMenu5">	<!-- 인사관리 -->
 					<span id="empList" style="cursor:pointer" onClick="viewEmpList();">직원정보&nbsp;</span>
-					<span id="salaryList" style="cursor:pointer" onClick="viewSalaryList();">급여지급현황&nbsp;</span>
+					
+						<c:if test="${dep_no eq 6 && mgr_emp_no eq '100001'}">
+							<span id="salaryList" style="cursor:pointer" onClick="viewSalaryList();">급여지급현황&nbsp;</span>
+						</c:if>
+					
+					<span id="salaryList" style="cursor:pointer" onClick="viewSalarySpecList();">급여명세서 조회&nbsp;</span>		
 					<span id="empWorkState" style="cursor:pointer" onClick="viewEmpWorkStateList();">직원별 근무현황조회&nbsp;</span>
 					<span id="empDayOffList" style="cursor:pointer" onClick="viewEmpDayOffList();">직원별 휴가 현황&nbsp;</span>
 				</span>

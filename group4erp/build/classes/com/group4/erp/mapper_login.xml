@@ -31,7 +31,7 @@
 			e.emp_no||'' "emp_no",
 			e.emp_name "emp_name",
 			e.emp_eng_name "emp_eng_name",
-			e.dep_no "dep_no",
+			e.dep_no||'' "dep_no",
 			(select d.dep_name from dept d where d.dep_no=e.dep_no) "dep_name",
 			e.jikup_cd "jikup_cd",
 			(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) "jikup",
@@ -39,6 +39,7 @@
 			e.phone "phone",
 			e.emp_email "emp_email",
 			e.emp_email_office "emp_email_office",
+			e.mgr_emp_no "mgr_emp_no",
 			(select ee.emp_name from employee ee where e.mgr_emp_no = ee.emp_no) "mgr",
 			e.emp_addr "emp_addr"
 		from employee e

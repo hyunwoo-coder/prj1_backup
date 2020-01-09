@@ -15,6 +15,10 @@
 					rownum&lt;=#{rank}
 						
 		</if>
+		<if test="rank==null">
+			and rownum&lt;=10
+		
+		</if>
 		
 	</sql> 
 	
@@ -34,11 +38,25 @@
 	<select id="getKeywdSrchCntChart" resultType="com.group4.erp.BestKwdDTO">
 		select 
 			count(*) "kwd_cnt",
-			to_char(srch_dt, 'yyyy-mm-dd') "date" 
+			to_char(srch_dt, 'yy.mm.dd') "date" 
 		from keyword 
-            where srch_dt >= to_date('20200101', 'yyyymmdd')
-            group by to_char(srch_dt, 'yyyy-mm-dd')
+            where srch_dt >= to_date('20190101', 'yyyymmdd')
+            group by to_char(srch_dt, 'yy.mm.dd')
             order by 2 
+	</select>
+	
+	
+		<select id="getBestKwdListChart" parameterType="com.group4.erp.BestKwdSearchDTO" resultType="com.group4.erp.BestKwdDTO">
+		select rownum "rank", 
+				srch_kwd "srch_kwd", 
+				kwd_cnt "kwd_cnt" 
+		from 
+			(
+				select srch_key "SRCH_KWD", count(*) "KWD_CNT" from keyword
+				group by srch_key order by 2 desc
+			)
+		where 1=1
+		<include refid="bestKwdWhere" />
 	</select>
 	
 	 

@@ -65,8 +65,8 @@
 
 		var options = {
 				title: '일별 키워드 검색 건수',
-				width :500, 
-				height: 200
+				width :800, 
+				height: 500
 		};
 
 		var chart = new google.visualization.LineChart(document.getElementById('bestKwdCntChart'));
@@ -98,9 +98,9 @@
 					} else if(data.length >= len){
 						//alert("len=="+len+" / "+data.length);
 						for(var i=len; i<=data.length; i++ ) {
-							$(".bestKeywdTable tr:eq("+(i)+")").after("<tr><td align='center'>"+data[i].rank+
-																	"</td><td align='center'>"+data[i].srch_kwd+
-																	"</td><td align='center'>"+data[i].kwd_cnt+"</td></tr>");
+							$(".bestKeywdTable tr:eq("+(i)+")").after("<tr onClick='viewKwdDailyCnt("+data[i].srch_kwd+");'><td align='center'>"+data[i].rank+"</td>"+
+																	"<td align='center'>"+data[i].srch_kwd+"</td>"+
+																	"<td align='center'>"+data[i].kwd_cnt+"</td></tr>");
 							
 						}
 					}
@@ -111,6 +111,15 @@
             }
          });
 	}
+
+	function viewKwdDailyCnt(searchKeyword) {
+		alert("test");
+	}
+
+	function viewKwdDailyCnt() {
+		alert("test2");
+	}
+	
 
 
 </script>
@@ -130,19 +139,27 @@
      	
 	</form>
 	
-	<div id="bestKwdCntChart" style="width: 500px; height: 200px;"> </div><br>
-	
-	-전체-
-	<table class="bestKeywdTable tab" name="bestKeywdTable tab" cellpadding="5" cellspacing="5">
-		<th style="cursor:pointer">순위</th><th style="cursor:pointer">키워드</th><th style="cursor:pointer">검색 횟수</th>
-			<c:forEach items='${bestKwdDTOList}' var="bestKwdDTOList" varStatus="loopTagStatus">
-				<tr>
-					<td align="center">${bestKwdDTOList.rank}</td>
-					<td align="center">${bestKwdDTOList.srch_kwd}</td>
-					<td align="center">${bestKwdDTOList.kwd_cnt}</td>				
-				</tr>				
-			</c:forEach>
+	<table name="outerBorderTb" border="0" cellpadding="5" cellspacing="5" height="100%">
+		<tr>
+			<td valign="top">
+				<div id="bestKwdCntChart" style="width: 800px; height: 500px;"> </div>
+			</td>
+				
+			<td valign="top">
+				<table class="bestKeywdTable tab" name="bestKeywdTable tab" cellpadding="5" cellspacing="5">
+					<th style="cursor:pointer">순위</th><th style="cursor:pointer">키워드</th><th style="cursor:pointer">검색 횟수</th>
+						<c:forEach items='${bestKwdDTOList}' var="bestKwdDTOList" varStatus="loopTagStatus">
+							<tr onClick="viewKwdDailyCnt('${bestKwdDTOList.srch_kwd}');">
+								<td align="center">${bestKwdDTOList.rank}</td>
+								<td align="center">${bestKwdDTOList.srch_kwd}</td>
+								<td align="center">${bestKwdDTOList.kwd_cnt}</td>				
+							</tr>				
+						</c:forEach>
+				</table>
+			</td>
+		</tr>		
 	</table>
+
 </center>
 
 </body>

@@ -28,23 +28,27 @@ $(document).ready(function(){
 
 	$(".pagingNumber").html(
 			getPagingNumber(
-				"${corpListCnt}"						//검색 결과 총 행 개수
-				,"${corpSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
-				,"${corpSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
+				"${tranSpecIssueCnt}"						//검색 결과 총 행 개수
+				,"${tranSpecSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
+				,"${tranSpecSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
 				,"10"										//페이지 당 보여줄 페이지번호 개수
 				,"goSearch();"						//페이지 번호 클릭 후 실행할 자스코드
 			)
 		);
 
-	inputData('[name=rowCntPerPage]',"${tranSpecDTO.rowCntPerPage}");
-	inputData('[name=selectPageNo]',"${tranSpecDTO.selectPageNo}");
-	inputData('[name=sort]').val("${tranSpecDTO.sort}");
+	inputData('[name=rowCntPerPage]',"${tranSpecSearchDTO.rowCntPerPage}");
+	inputData('[name=selectPageNo]',"${tranSpecSearchDTO.selectPageNo}");
 
 	
 });
 
 
 	function goSearch() {
+
+		var keyword = $("[name=corpSearchForm] [name=searchKeyword]").val();
+		keyword = $.trim(keyword);
+		$("[name=corpSearchForm] [name=searchKeyword]").val(keyword);
+		
 		document.corpSearchForm.submit();
 	}
 
@@ -59,7 +63,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body><center>
-	<h1>거래명세서 발급 내역</h1>
+	<h1>[거래명세서 발급 내역]</h1>
 	
 	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecIssueList.do">
 	[검색어]&nbsp;<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
@@ -70,7 +74,7 @@ $(document).ready(function(){
 	    	
       </table>
      <input type="hidden" name="selectPageNo">
-     <input type="hidden" name="sort">
+    
 		
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>

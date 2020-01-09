@@ -49,5 +49,18 @@ public class ApprovalController {
 
 		return mav;
 	}
+	
+	@RequestMapping(value="/viewApprovalDoc.do")
+	public ModelAndView viewApprovalDoc(HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewApprovalDoc");
+		mav.addObject("navigator", "[업무관리]-[문서 결재]-[결재할 문서 검토]");
+		
+		return mav;
+		
+	}
 
 }

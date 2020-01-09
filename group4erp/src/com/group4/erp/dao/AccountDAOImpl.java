@@ -119,9 +119,9 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public int payCheckProc(List<SalaryDTO> salDTOList) {
+	public int payCheckProc() {
 		// TODO Auto-generated method stub
-		int payCheckCnt = this.sqlSession.insert(mapper_namespace+"payCheckProc", salDTOList);
+		int payCheckCnt = this.sqlSession.insert(mapper_namespace+"payCheckProc");
 		
 		return payCheckCnt;
 	}
@@ -148,6 +148,14 @@ public class AccountDAOImpl implements AccountDAO {
 		int tranSpectIssueCnt = this.sqlSession.selectOne(mapper_namespace+"getTranSpecIssueCnt", tranSpecSearchDTO);
 		
 		return tranSpectIssueCnt;
+	}
+
+	@Override
+	public int searchCorpCnt(String corp_no) {
+		// TODO Auto-generated method stub
+		int corpSearchCnt = this.sqlSession.selectOne(mapper_namespace+"getSearchCorpCnt", corp_no);
+		
+		return corpSearchCnt;
 	}
 
 }

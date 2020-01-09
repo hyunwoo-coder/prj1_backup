@@ -420,7 +420,7 @@
     </insert>
     
     <insert id="getBookStock" parameterType="com.group4.erp.InvenDTO">
-    	insert into stock_info values (#{isbn13}, 0, 1, (select emp_no from employee where emp_name=#{emp_name}) )
+    	insert into stock_info values (#{isbn13}, 0, 1)
     </insert>
     
     <select id="getBookInfo" parameterType="String" resultType="com.group4.erp.BookInfoDTO">

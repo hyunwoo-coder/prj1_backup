@@ -10,5 +10,7 @@ public interface AnalysisService {
 	List<BestKwdDTO> getBestKwdList(BestKwdSearchDTO bestKwdSearchDTO);
 	
 	List<BestKwdDTO> getKeywdSrchCntChart();
+	
+	List<BestKwdDTO> getBestKwdListChart(BestKwdSearchDTO bestKwdSearchDTO);
 
 }

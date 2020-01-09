@@ -199,19 +199,42 @@
 	</select>
 	
 	
-	<select id="getTranSpecIssue" resultType="com.group4.erp.TranSpecDTO">
-		select 
-			ti.issue_no "issue_no",
-			ti.order_no||'' "order_no",
-			ti.corp_no "corp_no",
-			(select c.corp_name from corporation_cus c where c.corp_no = ti.corp_no) "corp_name",
-			(select c.ceo_name from corporation_cus c where c.corp_no = ti.corp_no) "ceo_name",
-			ti.order_dt "order_dt",
-			ti.issue_dt "issue_dt"
-		from tran_issue_info ti
-		
+	<select id="getTranSpecIssue" parameterType="com.group4.erp.TranSpecSearchDTO" resultType="com.group4.erp.TranSpecDTO">     
+        select
+            issue_no,
+            order_no,
+            corp_no,
+            corp_name,
+            ceo_name,
+            order_dt,
+            issue_dt
+            from (
+        		select 
+					ti.issue_no "ISSUE_NO",
+					ti.order_no||'' "ORDER_NO",
+					ti.corp_no "CORP_NO",
+					(select c.corp_name from corporation_cus c where c.corp_no = ti.corp_no) "CORP_NAME",
+					(select c.ceo_name from corporation_cus c where c.corp_no = ti.corp_no) "CEO_NAME",
+					ti.order_dt "ORDER_DT",
+					to_char(ti.issue_dt, 'yyyy.mm.dd')|| '('||to_char(ti.issue_dt, 'dy', 'nls_date_language=Korean' )||')' "ISSUE_DT"
+				from tran_issue_info ti 
+			)
+			where 1=1
+			<include refid="TranSpecIssueWhere" />
 	</select>
 	
+	 <sql id="TranSpecIssueWhere">
+		<if test="searchKeyword !=null and searchKeyword.length() > 0">
+				and (
+					upper(issue_no) like upper('%${searchKeyword}%') 
+					or upper(corp_no) like upper('%${searchKeyword}%')
+					or upper(corp_name) like upper('%${searchKeyword}%')
+					or upper(ceo_name) like upper('%${searchKeyword}%')
+					or upper(order_dt) like upper('%${searchKeyword}%')
+					or upper(issue_dt) like upper('%${searchKeyword}%')
+				)			
+		</if>
+	</sql>
 	
 	<insert id="saveTempTranSpec" parameterType="com.group4.erp.TranSpecDTO">
 		insert into tran_issue_info (
@@ -251,5 +274,42 @@
 				is_on_business='y'
 			where corp_no = #{corp_no}
 	</update>
+	
+	<select id="getSearchCorpCnt" parameterType="String" resultType="int">
+	
+		select count(*) from corporation_cus
+		where corp_no=#{corp_no}
+		
+	</select>
+	
+	
+		
+	<insert id="payCheckProc">
+		insert into state_of_payment (
+			emp_no, 
+			salary_dt, 
+			real_sal, 
+			month_sal, 
+			mess_allowance, 
+			bus_trip_bonus, 
+			sum_payable, 
+			pension, 
+			health, 
+			emp_insurance, 
+			deduct)
+		select e.emp_no||'' "emp_no", 
+    		sysdate "salary_dt", 
+    		(round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + 100000 ) - ( round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 ) "real_sal",
+    		round( (e.salary*10000)/12, -2)||'' "month_sal",
+    		(select 100000 from dual) "mess_allowance",
+    		(select count(*) from work_outside_info w where to_number(w.outside_end_time - w.outside_start_time) >=1 and w.emp_no = e.emp_no) * 10000 "bus_trip_bonus",
+    		round( (e.salary*10000)/12, -2) + ( (select count(*) from work_outside_info where to_number(outside_end_time - outside_start_time) >=1 ) * 10000) + (select 100000 from dual)  "sum_payable",
+    		round( (e.salary*10000)/12, -5) * 0.045 "pension",
+    		round( (e.salary*10000)/12, -5) * 0.0323 "health", 
+    		round( (e.salary*10000)/12, -5) * 0.008 "emp_insurance",
+    		round( (e.salary*10000)/12, -5) * 0.045 + round( (e.salary*10000)/12, -5) * 0.0323 + round( (e.salary*10000)/12, -5) * 0.008 "deduct"
+    	from employee e     
+	</insert>
+	
 
 </mapper>

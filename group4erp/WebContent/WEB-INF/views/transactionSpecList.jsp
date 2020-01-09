@@ -67,7 +67,7 @@
 </script>
 </head>
 <body><center>
-	<h1>거래 내역</h1><br>
+	<h1>[거래 내역]</h1><br>
 	
 	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecList.do">
 		<table class="tab" border="0" cellpadding="5" cellspacing="5">

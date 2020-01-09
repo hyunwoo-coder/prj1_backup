@@ -1,7 +1,7 @@
 package com.group4.erp;
 
 public class ApprovalDTO {
-	
+
 	private String e_works_no;
 	private String document_no;
 	private int emp_no;
@@ -13,8 +13,17 @@ public class ApprovalDTO {
 	private String e_works_state_cd;
 	private String e_work_comment;
 	private String approval_state;
+	private String jikup;
 	
 	
+	public String getJikup() {
+		return jikup;
+	}
+
+	public void setJikup(String jikup) {
+		this.jikup = jikup;
+	}
+
 	
 	public String getE_works_no() {
 		return e_works_no;

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
 import com.group4.erp.TranSpecSearchDTO;
 import com.group4.erp.service.AccountService;
@@ -99,8 +100,18 @@ public class AccountController {
 		int insertCorpCnt = 0;
 		try {
 			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
+			
+			String corp_no = corporationDTO.getCorp_no();
+			
+			int corpSearchCnt = this.accountService.searchCorpCnt(corp_no);
+			
+			if(corpSearchCnt==0) {
+				insertCorpCnt = this.accountService.insertCorp(corporationDTO);
+			} else if(corpSearchCnt >=1) {
+				insertCorpCnt = -2;
+			}
 					
-			insertCorpCnt = this.accountService.insertCorp(corporationDTO);
+			
 				
 		} catch(Exception e) {
 			System.out.println("insertCorp() 메소드에서 예외 발생>>> "+e);
@@ -233,12 +244,14 @@ public class AccountController {
 		
 		try {
 			
+			System.out.println("tranSpecSearchDTO.getSearchKword=="+tranSpecSearchDTO.getSearchKeyword());
+			
 			int tranSpecIssueCnt = this.accountService.getTranSpecIssueCnt(tranSpecSearchDTO);
 			
 			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
 			mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			mav.addObject("tranSpecIssueCnt", tranSpecIssueCnt);
-			//mav.addObject("tranSpecDTO", tranSpecDTO);
+			mav.addObject("tranSpecSearchDTO", tranSpecSearchDTO);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
@@ -274,5 +287,32 @@ public class AccountController {
 				
 		return issueCnt;		
 	}
+	
+	
+	@RequestMapping( 
+			value="/goPayCheckProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	
+	@ResponseBody
+	public int payCheckProc() {
+		
+		int payCheckCnt = 0;
+		System.out.println("payCheckProc() 메소드 시작");
+		
+		try {
+			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
+							
+			payCheckCnt = this.accountService.payCheckProc();
+				
+		} catch(Exception e) {
+			System.out.println("payCheckProc() 메소드에서 예외 발생>>> "+e);
+			payCheckCnt = -1;
+		} 
+				
+		return payCheckCnt;		
+	}
+	
 
 }

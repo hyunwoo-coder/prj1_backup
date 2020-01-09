@@ -11,4 +11,6 @@ public interface AnalysisDAO {
 	
 	List<BestKwdDTO> getKeywdSrchCntChart();
 	
+	List<BestKwdDTO> getBestKwdListChart(BestKwdSearchDTO bestKwdSearchDTO);
+	
 }

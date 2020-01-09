@@ -68,8 +68,7 @@
 	}
 
 	function goPayCheck() {
-		//alert("급여 지급 시작");
-		alert($('[name=payListForm]').serialize());
+		
 		$.ajax({
 			url : "/group4erp/goPayCheckProc.do",				//호출할 서버쪽 URL 주소 설정
 			type : "post",										//전송 방법 설정
@@ -147,9 +146,19 @@
 			
 			<c:forEach items='${empSalList}' var="empSal" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewEmpSalInfo(${empSal.emp_no});" align="center">
-					<td>${empSal.jikup}</td><td>${empSal.emp_name}</td><td name="month_sal">${empSal.month_sal}</td><td>${empSal.mess_allowance}</td> <td> ${empSal.bus_trip_bonus}</td> <td>${empSal.sum_payable}</td>
+				
+					<td><input type="hidden" name="jikup" value="${empSal.jikup}">${empSal.jikup}</td>
+					<td><input type="hidden" name="emp_name" value="${empSal.emp_name}">${empSal.emp_name}</td>
+					<td><input type="hidden" name="month_sal" value="${empSal.month_sal}">${empSal.month_sal}</td>
+					<td><input type="hidden" name="mess_allowance" value="${empSal.mess_allowance}">${empSal.mess_allowance}</td> 
+					<td><input type="hidden" name="bus_trip_bonus" value="${empSal.bus_trip_bonus}">${empSal.bus_trip_bonus}</td> 
+					<td><input type="hidden" name="sum_payable" value="${empSal.sum_payable}">${empSal.sum_payable}</td>
 					
-					<td>${empSal.emp_insurance}</td><td>${empSal.health}</td><td>${empSal.pension}</td> <td>${empSal.deduct} </td> <td>${empSal.real_sal}</td>
+					<td><input type="hidden" name="emp_insurance" value="${empSal.emp_insurance}">${empSal.emp_insurance}</td>
+					<td><input type="hidden" name="health" value="${empSal.health}">${empSal.health}</td>
+					<td><input type="hidden" name="pension" value="${empSal.pension}">${empSal.pension}</td> 
+					<td><input type="hidden" name="deduct" value="${empSal.deduct}">${empSal.deduct} </td> 
+					<td><input type="hidden" name="real_sal" value="${empSal.real_sal}">${empSal.real_sal}</td>
 				</tr>
 			</c:forEach>
 	

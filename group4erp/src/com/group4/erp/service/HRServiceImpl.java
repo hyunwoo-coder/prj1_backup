@@ -97,12 +97,12 @@ public class HRServiceImpl implements HRService {
 	}
 
 	@Override
-	public SalaryDTO getSalaryInfo(int emp_no) {
+	public List<SalaryDTO> getSalaryInfo(int emp_no) {
 		// TODO Auto-generated method stub
 		
-		SalaryDTO salaryDTO = this.hrDAO.getSalaryInfo(emp_no);
+		List<SalaryDTO> myPayCheckList = this.hrDAO.getSalaryInfo(emp_no);
 		
-		return salaryDTO;
+		return myPayCheckList;
 	}
 
 	public EmployeeInfoUpDTO getEmpContant(int emp_no) {

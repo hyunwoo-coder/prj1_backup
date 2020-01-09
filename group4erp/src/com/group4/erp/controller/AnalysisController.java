@@ -64,6 +64,13 @@ public class AnalysisController {
 			}
 			bestKwd_chart_data += "]";
 			
+			//보류
+			//List<BestKwdDTO> bestKeywdChart = this.analysisService.getBestKwdListChart(bestKwdSearchDTO);
+			
+			//String bestKwdDailyChart_data = "[";
+			//bestKwdDailyChart_data += "['날짜', '검색횟수']";
+			
+			
 			mav.addObject("bestKwdDTOList", bestKwdDTOList);
 			//mav.addObject("bestKwdDTO", bestKwdDTO);
 			mav.addObject("bestKwd_chart_data", bestKwd_chart_data);

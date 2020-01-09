@@ -34,4 +34,12 @@ public class AnalysisDAOImpl implements AnalysisDAO {
 		return bestKeywdInfo;
 	}
 
+	@Override
+	public List<BestKwdDTO> getBestKwdListChart(BestKwdSearchDTO bestKwdSearchDTO) {
+		// TODO Auto-generated method stub
+		List<BestKwdDTO> bestKwdListChart = this.sqlSession.selectList(mapper_namespace+"getBestKwdListChart", bestKwdSearchDTO);
+		
+		return bestKwdListChart;
+	}
+
 }

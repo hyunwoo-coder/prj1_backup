@@ -31,4 +31,12 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return bestKeywdInfo;
 	}
 
+	@Override
+	public List<BestKwdDTO> getBestKwdListChart(BestKwdSearchDTO bestKwdSearchDTO) {
+		// TODO Auto-generated method stub
+		List<BestKwdDTO> bestKwdListChart = this.analysisDAO.getBestKwdListChart(bestKwdSearchDTO);
+		
+		return bestKwdListChart;
+	}
+
 }
