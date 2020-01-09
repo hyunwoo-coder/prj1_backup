@@ -1,5 +1,4 @@
 package com.group4.erp.controller;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -129,4 +128,57 @@ public class WorkController {
 			
 		}
 	
+		// /boardUpDelForm.do 접속시 호출되는 메소드 선언
+		@RequestMapping( value="/businessTripUpDelForm.do" )
+		public ModelAndView goBusinessTripUpDelForm(
+				//b_no라는 파라미터명의 파라미터값이 저장되는 매개변수 b_no 선언
+				@RequestParam(value="work_outside_seq") int work_outside_seq
+				,HttpSession session
+			) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("businessTripUpDelForm.jsp");
+			try {
+				
+				session.setAttribute("uri", "businessTripUpDelForm.do");
+				
+				//[수정/삭제할 1개의 게시판 글 정보] 얻기
+				//[BoardServiceImpl 객체]의 getBoardDTO_without_upReadcount 메소드를 호출하여 얻는다.
+				//businessTripDTO businessTripDTO = this.workService.getBoardDTO_without_upReadcount(b_no);
+				//mav.addObject("businessTripDTO", businessTripDTO);
+				System.out.println("<접속성공> [접속URL]->/boardUpDelForm.do [호출메소드]->BoardController.goBoardUpDelForm(~) \n\n\n");
+			}catch(Exception e) {
+				System.out.println("<접속실패> [접속URL]->/boardUpDelForm.do [호출메소드]->BoardController.goBoardUpDelForm(~) \n\n\n");
+			}
+			return mav;
+		}
+		
+
+		@RequestMapping(
+				value="/businessTripUpDelProc.do"
+				,method=RequestMethod.POST
+				,produces="application/json;charset=UTF-8"
+				)
+		@ResponseBody
+		public int goBoardUpDelProc(
+					@RequestParam(value="upDel") String upDel
+					,BusinessTripDTO businessTripDTO
+				) {
+
+			//수정 or 삭제 적용행의 개수가 저장되는 변수선언.
+			int boardUpDelCnt = 0;
+			
+			try {
+				
+			/*
+			 * //만약 수정 모드이면 수정 실행하고 수정 적용행의 개수를 저장 if(upDel.equals("up")){ boardUpDelCnt =
+			 * this.boardService.updateBoard(boardDTO); } //만약 삭제 모드이면 수정 실행하고 삭제 적용행의 개수를
+			 * 저장 else if(upDel.equals("del")){ boardUpDelCnt =
+			 * this.boardService.deleteBoard(boardDTO); }
+			 */
+				
+			}catch(Exception e) {
+				System.out.println("오류 발생");
+			}
+			return boardUpDelCnt;
+		}
 }

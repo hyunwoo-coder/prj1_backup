@@ -161,7 +161,7 @@ function sample6_execDaumPostcode() {
 		<tr>
 			<th>목적지</th>
 				<td>
-					<input type="text" size="50" id="destination" name="destination" readOnly>		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">											
+					<input type="text" size="50" id="destination" name="destination" >		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">											
 				</td>
 		</tr>
 		

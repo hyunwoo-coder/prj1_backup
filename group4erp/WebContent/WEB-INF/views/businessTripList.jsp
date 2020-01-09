@@ -251,8 +251,6 @@
 						</c:otherwise>
 					</c:choose>
 					
-					<th>담당자</th>
-					
 					<th>결제</th>
 				</tr>
 			</thead>
