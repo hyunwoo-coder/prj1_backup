@@ -3,6 +3,7 @@ package com.group4.erp;
 public class BusinessTripDTO {
 	private int work_outside_seq;
 	private int RNUM;
+	private String emp_id;
 	private int emp_no;
 	private String emp_name;
 	private String dep_name;
@@ -24,6 +25,12 @@ public class BusinessTripDTO {
 	}
 	public void setRNUM(int rNUM) {
 		RNUM = rNUM;
+	}
+	public String getEmp_id() {
+		return emp_id;
+	}
+	public void setEmp_id(String emp_id) {
+		this.emp_id = emp_id;
 	}
 	public int getEmp_no() {
 		return emp_no;

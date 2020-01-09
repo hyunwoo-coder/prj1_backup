@@ -13,12 +13,14 @@
 	</script>
 </c:if> --%>
 
-
 <html>
 <head>
 <meta charset="UTF-8">
 <title>출장내역 상세보기</title>
 <script>
+	function goBusinessTripUpDelForm(){
+		document.businessTripUpDelForm.submit();
+	}
 </script>
 </head>
 <body><center><br><br><br>
@@ -42,7 +44,7 @@
 				<th bgcolor="gray" width=60>부서명</th>
 				<td width=150>${businessTripDTO.dep_name}</td>
 			</tr>
-				<tr align=center>
+			<tr align=center>
 				<th bgcolor="gray">담당자 명</th>
 				<td>${businessTripDTO.mgr_name}</td>
 			</tr>
@@ -62,8 +64,7 @@
 				</td>
 		</table>
 		<table><tr heigth=3><td></table>
-		<input type="button" value="수정/삭제" onclick="goBoardUpDelForm()">&nbsp;
-		<!-- <input type="button" value="글 목록 보기" onclick="document.boardListForm.submit();"> -->
+		<input type="button" value="수정/삭제" onclick="goBusinessTripUpDelForm()">&nbsp;
 		<input type="button" value="목록보기" onclick="location.replace('/group4erp/businessTripList.do')">
 	<%-- </form>
 	<!-- [게시판목록] 화면으로 이동하는 form 태그 선언 -->
@@ -73,20 +74,20 @@
 	<form name="boardListForm" method="post" action="${ctRoot}/boardListForm.do">
 
 	</form>
-	
+	--%>
 	<!-- 수정/삭제 화면으로 이동하기 위한 form 태그 선언 -->
-	<form name="boardUpDelForm" method="post" action="${ctRoot}/boardUpDelForm.do">
+	<form name="businessTripUpDelForm" method="post" action="/group4erp/businessTripUpDelForm.do">
 		<!-- 게시판 상세보기 화면을 구성하는 글의 고유번호를 hidden 태그에 저장 -->
 		<!-- 수정/삭제를 하려면 현재 글의 고유번호를 알아야하기 때문 -->
-		<input type="hidden" name="b_no" value="${boardDTO.b_no}">
+		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">
 		<input type="hidden" name="selectPageNo" value="${param.selectPageNo}">
 		<input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}">
 	</form>
 	
 	<!-- 이전 페이지에서 온 게시판 선택 페이지 번호를 지정한 hidden태그 출력하고 [게시판 목록]화면으로 이동하는 form태그 선언 -->
-	<form name="boardRegForm" method="post" action="${ctRoot}/boardRegForm.do">
+	<%-- <form name="boardRegForm" method="post" action="${ctRoot}/boardRegForm.do">
 		<input type="hidden" name="b_no" value="${param.b_no}">
-	</form> --%>
+	</form>  --%>
 		
 </body>
 </html>

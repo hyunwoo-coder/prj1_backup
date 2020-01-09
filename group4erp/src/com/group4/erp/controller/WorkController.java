@@ -25,7 +25,10 @@ public class WorkController {
 	private WorkService workService;	
 	
 	@RequestMapping(value="/businessTripList.do")
-	public ModelAndView goBusinessTripList(HttpSession session,BusinessTripSearchDTO businessTripSearchDTO) {
+	public ModelAndView goBusinessTripList(HttpSession session
+				,BusinessTripSearchDTO businessTripSearchDTO
+				,BusinessTripDTO businessTripDTO
+				) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "businessTripList");
@@ -47,11 +50,18 @@ public class WorkController {
 				int beginRowNo = (selectPageNo*rowCntPerPage-rowCntPerPage+1);
 				//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한페이지 번호를 1로 세팅하기
 				if(getbusinessTripListAllCnt<beginRowNo) businessTripSearchDTO.setSelectPageNo(1);
+				
+
+				if(businessTripDTO.getEmp_id()== null){
+					businessTripDTO.setEmp_id((String)session.getAttribute("emp_id"));
+				}
+				
 			}
 			
 		List<Map<String, String>> getbusinessTripList = this.workService.getbusinessTripList(businessTripSearchDTO);
 		
 		System.out.println("insertBusinessTrip 컨트롤러");
+		System.out.println(businessTripDTO.getEmp_id());
 
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
@@ -139,15 +149,14 @@ public class WorkController {
 			mav.setViewName("businessTripUpDelForm.jsp");
 			try {
 				
+				
 				session.setAttribute("uri", "businessTripUpDelForm.do");
 				
-				//[수정/삭제할 1개의 게시판 글 정보] 얻기
-				//[BoardServiceImpl 객체]의 getBoardDTO_without_upReadcount 메소드를 호출하여 얻는다.
-				//businessTripDTO businessTripDTO = this.workService.getBoardDTO_without_upReadcount(b_no);
-				//mav.addObject("businessTripDTO", businessTripDTO);
-				System.out.println("<접속성공> [접속URL]->/boardUpDelForm.do [호출메소드]->BoardController.goBoardUpDelForm(~) \n\n\n");
+				
+				
+				System.out.println("<접속성공> [접속URL]->/businessTripUpDelForm.do UpDelForm(~) \n\n\n");
 			}catch(Exception e) {
-				System.out.println("<접속실패> [접속URL]->/boardUpDelForm.do [호출메소드]->BoardController.goBoardUpDelForm(~) \n\n\n");
+				System.out.println("<접속실패> [접속URL]->/businessTripUpDelForm.do UpDelForm(~) \n\n\n");
 			}
 			return mav;
 		}
@@ -159,26 +168,24 @@ public class WorkController {
 				,produces="application/json;charset=UTF-8"
 				)
 		@ResponseBody
-		public int goBoardUpDelProc(
+		public int goBusinessTripUpDelProc(
 					@RequestParam(value="upDel") String upDel
 					,BusinessTripDTO businessTripDTO
 				) {
-
 			//수정 or 삭제 적용행의 개수가 저장되는 변수선언.
-			int boardUpDelCnt = 0;
-			
+			int businessTripUpDelCnt = 0;
 			try {
 				
-			/*
-			 * //만약 수정 모드이면 수정 실행하고 수정 적용행의 개수를 저장 if(upDel.equals("up")){ boardUpDelCnt =
-			 * this.boardService.updateBoard(boardDTO); } //만약 삭제 모드이면 수정 실행하고 삭제 적용행의 개수를
-			 * 저장 else if(upDel.equals("del")){ boardUpDelCnt =
-			 * this.boardService.deleteBoard(boardDTO); }
-			 */
+			
+			  //만약 수정 모드이면 수정 실행하고 수정 적용행의 개수를 저장 
+			if(upDel.equals("up")){ businessTripUpDelCnt = this.workService.updateBusinessTrip(businessTripDTO); }
+			//만약 삭제 모드이면 수정 실행하고 삭제 적용행의 개수를 저장 
+			else if(upDel.equals("del")){ businessTripUpDelCnt = this.workService.deleteBusinessTrip(businessTripDTO); }
+			
 				
 			}catch(Exception e) {
 				System.out.println("오류 발생");
 			}
-			return boardUpDelCnt;
+			return businessTripUpDelCnt;
 		}
 }

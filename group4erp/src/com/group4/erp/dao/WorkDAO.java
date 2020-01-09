@@ -21,4 +21,10 @@ public interface WorkDAO {
 	
 	//출장 신청
 	int insertBusinessTrip(BusinessTripDTO businessTripDTO);
+	
+	//출장 신청 수정
+	int updateBusinessTrip(BusinessTripDTO businessTripDTO);
+	
+	//출장 신청 삭제
+	int deleteBusinessTrip(BusinessTripDTO businessTripDTO);
 }

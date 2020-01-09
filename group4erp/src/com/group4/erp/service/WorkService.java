@@ -20,4 +20,7 @@ public interface WorkService {
 	//출장 신청
 	int insertBusinessTrip(BusinessTripDTO businessTripDTO);
 	
+	int updateBusinessTrip(BusinessTripDTO businessTripDTO);
+
+	int deleteBusinessTrip(BusinessTripDTO businessTripDTO);
 }

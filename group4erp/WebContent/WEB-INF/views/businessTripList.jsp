@@ -104,7 +104,7 @@
 		
 		//$("#searchForm").submit()
 		
-		alert($('[name=getBusinessTripListSearchForm]').serialize());
+		//alert($('[name=getBusinessTripListSearchForm]').serialize());
 		//return;
 
 		document.getBusinessTripListSearchForm.submit();
@@ -174,7 +174,7 @@
 					<option value="dep_name">부서</option>
 					<option value="outside_start_time">출발 날짜</option>
 					<option value="outside_end_time">복귀 날짜</option>
-					<option value="travel_payment">결제 여부</option>
+					<option value="travel_payment">결제</option>
 				</select>
 				
 				<span id="searchText">
@@ -250,7 +250,7 @@
 							<th style="cursor:pointer" onclick="$('[name=sort]').val('8 asc'); goSearch();">복귀 예정 날짜</th>
 						</c:otherwise>
 					</c:choose>
-					
+					<th>담당자</th>
 					<th>결제</th>
 				</tr>
 			</thead>

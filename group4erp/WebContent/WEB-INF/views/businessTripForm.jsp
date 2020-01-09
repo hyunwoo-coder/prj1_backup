@@ -159,14 +159,14 @@ function sample6_execDaumPostcode() {
 		</tr>
 		
 		<tr>
-			<th>목적지</th>
+			<th>출장지</th>
 				<td>
 					<input type="text" size="50" id="destination" name="destination" >		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">											
 				</td>
 		</tr>
 		
 		<tr>
-			<th >출장희망일</th>
+			<th >출장날짜</th>
 				<td>
 					<input type="text" id="datepicker1" name="outside_start_time">
 					~

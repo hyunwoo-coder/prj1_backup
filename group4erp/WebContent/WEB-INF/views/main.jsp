@@ -37,6 +37,11 @@
 				<%@ include file="/WEB-INF/views/businessTripContentsForm.jsp" %>
 			</c:if>
 			
+			<!-- 출장 상세페이지 -->
+			<c:if test="${subMenu.equals('businessTripUpDelForm') }">
+				<%@ include file="/WEB-INF/views/businessTripUpDelForm.jsp" %>
+			</c:if>
+			
 			<!-- 문서 결재 -->
 			<c:if test="${subMenu.equals('viewApprovalList') }">
 				<%@ include file="/WEB-INF/views/approvalList.jsp" %>
