@@ -357,6 +357,9 @@
 	</tr>
 
 </table>
+<c:if test="${corpListCnt==0}">
+	<h4>해당 결과가 없습니다.</h4>
+</c:if>
 
 
 <br>

@@ -83,6 +83,8 @@ public class MarketingController {
 			}
 			sales_chart_data += "]";
 			
+			System.out.println("sales_chart_data=="+sales_chart_data);
+			
 			String corpOrder_chart_data = "[";
 			corpOrder_chart_data += "['분류', '수량']";
 			

@@ -9,10 +9,11 @@
 <% 
 
 	String emp_name = (String)session.getAttribute("emp_name"); 
-	String emp_no = (String)session.getAttribute("emp_no");
+	String emp_no = (String)session.getAttribute("emp_id");
 	String mgr = (String)session.getAttribute("mgr"); 
 	String dep_no = (String)session.getAttribute("dep_no"); 
 	String mgr_emp_no = (String)session.getAttribute("mgr_emp_no"); 
+	
  %>
  
 <head>
@@ -250,6 +251,10 @@
 			location.href="/group4erp/goWarehousingList.do";
 		}
 
+		function viewOurCompanyReport() {
+			location.href="/group4erp/viewOurCompanyReport.do";
+		}
+
 		function logout() {
 			location.href="/group4erp/logout.do";
 		}
@@ -401,7 +406,8 @@
 				<span id="subMenu7">	<!-- 전략분석 -->
 					<!-- <span id="salesChangeReport" style="cursor:pointer" onClick="viewSalesChangeReport();">매출추이분석&nbsp;&nbsp;&nbsp;</span> -->
 					<!-- <span id="cusClaimReport" style="cursor:pointer" onClick="viewCusClaimReport();">고객 클레임 처리 상황&nbsp;&nbsp;&nbsp;</span> -->
-					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywdReport();">전략 분석 자료 조회&nbsp;&nbsp;&nbsp;</span>					
+					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywdReport();">키워드 검색 자료 조회&nbsp;&nbsp;</span>
+					<span id="ourCompanyReport" style="cursor:pointer" onClick="viewOurCompanyReport();">회사 현황&nbsp;&nbsp;</span>					
 				</span>
 			</td>
 				<!-- <span id="subMenu8">	거래처관리 

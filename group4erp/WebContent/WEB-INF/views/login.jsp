@@ -18,7 +18,7 @@
 			, success : function(loginCnt){
 				
 				if(loginCnt==1){
-					alert("회원 로그인 성공!");
+					//alert("회원 로그인 성공!");
 					location.replace("/group4erp/goMainPage.do");
 				}
 				else{

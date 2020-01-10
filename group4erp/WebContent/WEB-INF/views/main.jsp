@@ -201,6 +201,10 @@
 			<c:if test="${subMenu.equals('viewApprovalDoc') }">
 				<%@ include file="/WEB-INF/views/approvalDoc.jsp" %>
 			</c:if>
+			
+			<c:if test="${subMenu.equals('viewOurCompanyReport') }">
+				<%@ include file="/WEB-INF/views/ourCompanyAnalysis.jsp" %>
+			</c:if>
 
 		</td>
 	</tr>

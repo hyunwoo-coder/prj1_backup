@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.group4.erp.BestKwdDTO;
 import com.group4.erp.BestKwdSearchDTO;
+import com.group4.erp.ChartDTO;
 import com.group4.erp.dao.AnalysisDAO;
 
 @Service
@@ -37,6 +38,46 @@ public class AnalysisServiceImpl implements AnalysisService {
 		List<BestKwdDTO> bestKwdListChart = this.analysisDAO.getBestKwdListChart(bestKwdSearchDTO);
 		
 		return bestKwdListChart;
+	}
+
+	@Override
+	public List<ChartDTO> getMonthlyBookRegChart() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> monthlyBookRegChart = this.analysisDAO.getMonthlyBookRegChart();
+		
+		return monthlyBookRegChart;
+	}
+
+	@Override
+	public List<ChartDTO> getBookCategoryList() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> bookCategoryList = this.analysisDAO.getBookCategoryList();
+		
+		return bookCategoryList;
+	}
+
+	@Override
+	public List<ChartDTO> getCategoryRegChart(String cat_cd) {
+		// TODO Auto-generated method stub
+		List<ChartDTO> categoryRegChart = this.analysisDAO.getCategoryRegChart(cat_cd);
+		
+		return categoryRegChart;
+	}
+
+	@Override
+	public List<ChartDTO> getEmployeeCntChart() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> employeeCntChart = this.analysisDAO.getEmployeeCntChart();
+		
+		return employeeCntChart;
+	}
+
+	@Override
+	public List<ChartDTO> getEmpHireOrResignChart() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> empHireOrResignCnt = this.analysisDAO.getEmpHireOrResignChart();
+		
+		return empHireOrResignCnt;
 	}
 
 }

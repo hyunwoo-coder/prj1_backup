@@ -12,11 +12,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>인기 키워드 분석 자료</title>
+<title>전략 분석 자료</title>
 <script>
 
 	$(document).ready(function() {
 
+		$("#bestKwdAnalysis").hide();
+		
 		$("[name=rank]").change(function() {
 			
 			var cnt = $(this).filter(":checked").length;
@@ -119,13 +121,18 @@
 	function viewKwdDailyCnt() {
 		alert("test2");
 	}
+
+	function openBestKwdData() {
+		$("#bestKwdAnalysis").show();
+	}
 	
 
 
 </script>
 </head>
 <body><center>
-	<h1>[키워드 검색 분석 자료]</h1>
+	<h1>[키워드 검색 분석 자료]</h1><br>
+	
 	<form name="keywordSearchForm" method="post" action="/group4erp/searchKeywordInfo.do">
 		<table border="0" cellpadding="5" cellspacing="5" >
 			
@@ -160,6 +167,10 @@
 		</tr>		
 	</table>
 
+</div>
+
+
+	
 </center>
 
 </body>

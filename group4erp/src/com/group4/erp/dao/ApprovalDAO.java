@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.group4.erp.ApprovalDTO;
 import com.group4.erp.ApprovalSearchDTO;
+import com.group4.erp.ChartDTO;
 
 public interface ApprovalDAO {
 	
@@ -18,5 +19,6 @@ public interface ApprovalDAO {
 	List<ApprovalDTO> getApprovalResList(ApprovalSearchDTO approvalSearchDTO);
 	
 	int updateApprovalState(String document_no);
+	
 
 }
