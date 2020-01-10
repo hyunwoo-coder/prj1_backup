@@ -173,4 +173,12 @@ public class HRServiceImpl implements HRService {
 		System.out.println("서비스 작업 성공 : " + updateCnt);
 		return updateCnt;
 	}
+
+	@Override
+	public int getMyPayCheckCnt(int emp_no) {
+		// TODO Auto-generated method stub
+		int myPayCheckCnt = this.hrDAO.getMyPayCheckCnt(emp_no);
+		
+		return myPayCheckCnt;
+	}
 }

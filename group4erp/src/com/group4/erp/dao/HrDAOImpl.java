@@ -233,4 +233,13 @@ public class HrDAOImpl implements HrDAO {
 		return 0;
 	}
 
+
+	@Override
+	public int getMyPayCheckCnt(int emp_no) {
+		// TODO Auto-generated method stub
+		int myPayCheckCnt = this.sqlSession.selectOne(mapper_namespace+"getMyPayCheckCnt", emp_no);
+		
+		return myPayCheckCnt;
+	}
+
 }

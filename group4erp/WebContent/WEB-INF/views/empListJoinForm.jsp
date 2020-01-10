@@ -18,8 +18,8 @@
    </style>
 <script>
 
-	function goJoinMember(){						
-		
+	function goJoinMember(){
+			
 		if( is_empty('[name=emp_name]') ){
 			alert("이름을 입력해주세요.");
 			$("[name=emp_name]").focus();
@@ -241,8 +241,6 @@
             </tr>
             <!-- 
             <tr>
-<<<<<<< HEAD
-=======
                <th bgcolor=#DBDBDB>직속상관이름
                <td><input type="text" name="mgr_emp_name" class="mgr_emp_name" size="10">
             </tr>

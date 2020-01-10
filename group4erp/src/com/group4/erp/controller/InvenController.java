@@ -46,6 +46,12 @@ public class InvenController {
 			List<Map<String, String>> publisher = this.invenService.getPublisher(invenSearchDTO);
 			mav.addObject("publisher",publisher);
 			
+			List<Map<String, String>> size = this.invenService.getSize();
+			mav.addObject("size", size);
+			
+			List<Map<String, String>> category = this.invenService.getCategory();
+			mav.addObject("category", category);
+			
 			List<Map<String, String>> inventory_loc = this.invenService.getInvenLoc(invenSearchDTO);
 			mav.addObject("inventory_loc", inventory_loc);
 			
@@ -119,36 +125,44 @@ public class InvenController {
 	}
 	
 	@RequestMapping(value="/goReleaseContentForm.do")
-	public ModelAndView goReleaseContentForm(
+	@ResponseBody
+	public Cus_releaseInfoDTO goReleaseContentForm(
 			@RequestParam(value="all_order_no") int all_order_no
 			,Cus_releaseInfoDTO cus_releaseInfoDTO
 			) {
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main.jsp");
-		mav.addObject("subMenu", "viewReleaseContent");
-		mav.addObject("navigator", "[재고현황]-[출고현황조회]-[상세보기]");
+		//ModelAndView mav = new ModelAndView();
+		//mav.setViewName("main.jsp");
+		//mav.addObject("subMenu", "viewReleaseContent");
+		//mav.addObject("navigator", "[재고현황]-[출고현황조회]-[상세보기]");
 		
 		String orderSize = all_order_no+"";
-		
+		Cus_releaseInfoDTO all_order = null;
+		String cus = "cus";
+		String corp = "corp";
 		try {
 			
 			if(orderSize.length()==10) {
 				Cus_releaseInfoDTO cus_order = this.invenService.getReleaseCusInfo(all_order_no);
-				mav.addObject("cus_order", cus_order);
+				cus_order.setCheck_order_num(cus);
+				all_order = cus_order;
+				//mav.addObject("cus_order", cus_order);
 			}else {
 				Cus_releaseInfoDTO corp_order = this.invenService.getReleaseCorpInfo(all_order_no);
-				mav.addObject("corp_order", corp_order);
+				corp_order.setCheck_order_num(corp);
+				
+				all_order = corp_order;
+				//mav.addObject("corp_order", corp_order);
 			}
 			
-			mav.addObject("orderSize", orderSize);
+			//mav.addObject("orderSize", orderSize);
 		}catch(Exception e) {
 			System.out.println("<출고 상세 정보 불러오기 실패>");
 			System.out.println("예외발생 =>"+e);
 		}
 		
 		
-		return mav;
+		return all_order;
 	}
 		
 
@@ -235,6 +249,7 @@ public class InvenController {
 	public ModelAndView viewBookContentForm(
 			@RequestParam(value="isbn13_search") String isbn13_search
 			,BookInfoDTO bookInfoDTO
+			,InvenSearchDTO invenSearchDTO
 			) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -250,6 +265,9 @@ public class InvenController {
 			BookInfoDTO bookInfo = this.invenService.getBookInfo(isbn13_search);
 			mav.addObject("bookInfo", bookInfo);
 			
+			List<Map<String, String>> inventory_loc = this.invenService.getInvenLoc(invenSearchDTO);
+			mav.addObject("inventory_loc", inventory_loc);
+			
 		}catch(Exception e) {
 			System.out.println("<서적 상세정보 불러오기 실패>");
 			System.out.println("에러 발생=>"+e);
@@ -257,6 +275,29 @@ public class InvenController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/goBookInfoUpProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int goBookInfoUpProc(
+			BookInfoDTO bookInfoDTO
+			) {
+		
+		int bookInfoUpCnt = 0;
+		
+		try {
+			
+			bookInfoUpCnt = this.invenService.getBookInfoUpCnt(bookInfoDTO);
+			
+		}catch(Exception e) {
+			System.out.println("<책 정보 수정 실패>");
+			System.out.println("예외 발생 =>" + e);
+		}
+		
+		return bookInfoUpCnt;
+	}
+	
 	
 	@RequestMapping(value="/goReleaseUp.do"
 			,method=RequestMethod.POST

@@ -63,7 +63,7 @@ public class WarehousingController {
 			String setToday = warehousingSearchDTO.getSearchToday();
 			if (setToday != null && setToday.length()>0) {
 				 Date d = new Date();
-				 SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+				 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				 String s = sdf.format(d).toString();
 				 warehousingSearchDTO.setDateFrom(s);
 				 warehousingSearchDTO.setDateTill(s);
@@ -75,7 +75,6 @@ public class WarehousingController {
 		}
 		return mav;
 	}
-
 
 	@RequestMapping(value = "/warehousingContentProc.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody 

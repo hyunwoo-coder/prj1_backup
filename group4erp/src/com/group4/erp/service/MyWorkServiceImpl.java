@@ -135,4 +135,10 @@ public class MyWorkServiceImpl implements MyWorkService{
 		
 		return searchRemain;
 	}
+	public int getEmpDayoffTot() {
+		
+		int empDayoffTot = this.myWorkDAO.getEmpDayoffTot();
+		
+		return empDayoffTot;
+	}
 }

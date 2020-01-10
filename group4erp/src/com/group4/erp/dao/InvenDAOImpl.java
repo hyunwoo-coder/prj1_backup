@@ -34,6 +34,21 @@ public class InvenDAOImpl implements InvenDAO{
 		
 		return publisher;
 	}
+	
+	public List<Map<String, String>> getSize(){
+		List<Map<String, String>> size = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getSize"
+				);
+		
+		return size;
+	}
+	public List<Map<String, String>> getCategory(){
+		List<Map<String, String>> category = this.sqlSession.selectList(
+				"com.group4.erp.dao.invenSearchDAO.getCategory"
+				);
+		
+		return category;
+	}
 
 	public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO){
 		
@@ -226,5 +241,21 @@ public class InvenDAOImpl implements InvenDAO{
 				);
 		
 		return returnInfo;
+	}
+	
+	public int getBookInfoUpCnt(BookInfoDTO bookInfoDTO) {
+		int bookInfoUpCnt = this.sqlSession.update(
+				"com.group4.erp.dao.invenSearchDAO.getBookInfoUpCnt"
+				,bookInfoDTO
+				);
+		return bookInfoUpCnt;
+	}
+	public int getBranchUpCnt(BookInfoDTO bookInfoDTO) {
+		int branchUpCnt = this.sqlSession.update(
+				"com.group4.erp.dao.invenSearchDAO.getBranchUpCnt"
+				,bookInfoDTO
+				);
+		
+		return branchUpCnt;
 	}
 }

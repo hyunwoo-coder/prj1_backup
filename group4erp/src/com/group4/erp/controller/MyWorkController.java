@@ -151,6 +151,8 @@ public class MyWorkController {
 		
 		try {
 			
+			//int checkBeforeInsert = this.myWorkService.getCheckBeforeIn(whInsertDTO);
+			
 			int insertBeforeCnt = this.myWorkService.getInsertBeforeCnt(whInsertDTO);
 			
 			insertWareHousing = this.myWorkService.getInsertWareHousing(whInsertDTO);
@@ -177,10 +179,14 @@ public class MyWorkController {
 		
 		String emp_id = (String)session.getAttribute("emp_id");
 		int emp_no = Integer.parseInt(emp_id);
+		mav.addObject("emp_nos", emp_id);
 		try {
 			
 			Map<String, String> searchRemain = this.myWorkService.getRemain(emp_no);
 			mav.addObject("remain", searchRemain);
+			
+			int empDayoffTot = this.myWorkService.getEmpDayoffTot();
+			mav.addObject("empDayoffTot",empDayoffTot);
 			
 		}catch(Exception e) {
 			System.out.println("<휴가 신청 화면 불러오기 실패>");

@@ -105,11 +105,108 @@ $(document).ready(function(){
 		goSearchRelease();
 	}
 	
-	function goReleaseContentForm(all_order_no){
-		//alert("all_order_no="+all_order_no);
-		//return;
+	function goClose(){
+		$('[name=thisTr]').remove();
+	}
+	
+	function goReleaseContentForm(ele,all_order_no){
+		/*
 		var str = "all_order_no="+all_order_no;
 		location.href="/group4erp/goReleaseContentForm.do?"+str;
+		*/
+		/*
+		alert("all_order_no="+all_order_no+"  ele=>"+ele);
+		return;
+		*/
+		var str = "all_order_no="+all_order_no;
+		
+		var test = $(ele).parent();
+		/*
+		alert(test.html());
+		return;
+		*/
+	    var delTr = $('[name=thisTr]');
+	    if(delTr.size()>0){
+	         delTr.remove();
+	    }
+		
+		$.ajax({
+			//호출할 서버쪽 URL주소 설정
+			url : "/group4erp/goReleaseContentForm.do"
+			//전송 방법 설정
+			, type : "POST"
+			//서버로 보낼 파라미터명과 파라미터값을 설정
+			, data : str
+			, dataType : "JSON"
+			//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+			//매개변수 upDelCnt에는 입력 행의 개수가 들어온다.
+			, success : function(data){
+				if(data!=null){
+					if(data.check_order_num=='cus'){
+						$("#contecntTable1 td:eq(0)").text(data.isbn13);
+						$("#contecntTable1 td:eq(1)").text(data.cus_id);
+						$("#contecntTable1 td:eq(2)").text(data.book_name);
+						$("#contecntTable1 td:eq(3)").text(data.order_delivery_addr);
+						$("#contecntTable1 td:eq(4)").text(data.order_dt);
+						$("#contecntTable1 td:eq(5)").text(data.book_qty);
+						$("#contecntTable1 td:eq(6)").text(data.publisher);
+						$("#contecntTable1 td:eq(7)").text(data.book_price);
+						$("#contecntTable1 td:eq(8)").text(data.all_book_price);
+						$("#contecntTable1 td:eq(9)").text(data.emp_name);
+						var insert = "<tr name='thisTr' bgcolor='white'><td colspan=5>"+$("#allContent #contecnt1").html()+"</td></tr>"
+						
+						test.after(insert);
+						return;
+					}
+					if(data.check_order_num=='corp'){
+						if(data.branch_name==null){
+							$("#contecntTable2 td:eq(0)").text(data.isbn13);
+							$("#contecntTable2 td:eq(1)").text(data.cus_id);
+							$("#contecntTable2 td:eq(2)").text(data.book_name);
+							$("#contecntTable2 td:eq(3)").text(data.order_delivery_addr);
+							$("#contecntTable2 td:eq(4)").text(data.corp_name);
+							$("#contecntTable2 td:eq(5)").text(data.corp_area);
+							$("#contecntTable2 td:eq(6)").text(data.ceo_name);
+							$("#contecntTable2 td:eq(7)").text(data.order_dt);
+							$("#contecntTable2 td:eq(8)").text(data.book_qty);
+							$("#contecntTable2 td:eq(9)").text(data.publisher);
+							$("#contecntTable2 td:eq(10)").text(data.book_price);
+							$("#contecntTable2 td:eq(11)").text(data.all_book_price);
+							$("#contecntTable2 td:eq(12)").text(data.emp_name);
+							
+							var insert = "<tr name='thisTr' bgcolor='white'><td colspan=5>"+$("#allContent #contecnt2").html()+"</td></tr>"
+							
+							test.after(insert);
+							return;
+						}
+						if(data.branch_name!=null){
+							$("#contecntTable3 td:eq(0)").text(data.isbn13);
+							$("#contecntTable3 td:eq(1)").text(data.emp_name);
+							$("#contecntTable3 td:eq(2)").text(data.book_name);
+							$("#contecntTable3 td:eq(3)").text(data.branch_name);
+							$("#contecntTable3 td:eq(4)").text(data.order_dt);
+							$("#contecntTable3 td:eq(5)").text(data.book_qty);
+							$("#contecntTable3 td:eq(6)").text(data.publisher);
+							
+							var insert = "<tr name='thisTr' bgcolor='white'><td colspan=5>"+$("#allContent #contecnt3").html()+"</td></tr>"
+							
+							test.after(insert);
+							return;
+							
+						}
+					}
+					
+				}
+				
+				
+			}
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function(){
+				alert("서버 접속 실패");
+			}
+		});
+		
+		
 	}
 	
 	function searchToday(){
@@ -174,15 +271,15 @@ $(document).ready(function(){
 		<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 			<th>지역
-			<td align=center colspan=3>
+			<td align=left colspan=3>
 	        	<c:forEach items="${requestScope.inventory_loc}" var="inven" varStatus="loopTagStatus">
              		<input type="checkbox" name="inventory_loc" value="${inven.branch_name}">${inven.branch_name}
             	</c:forEach>
 			<tr>
 			<th>일자
-			<td width=300>
-				<input type="text" id="datepicker1" name="dateFrom" size=10>&nbsp;~&nbsp;
-				<input type="text" id="datepicker2" name="dateTill" size=10>
+			<td>
+				<input type="text" id="datepicker1" name="dateFrom">&nbsp;~&nbsp;
+				<input type="text" id="datepicker2" name="dateTill">
 			<th>출판사
 			<td align=center>
 				<select name="searchPublisher">
@@ -193,10 +290,10 @@ $(document).ready(function(){
 				</select>
 			<tr>
 			<th>키워드
-			<td colspan=4><input type="text" name="keyword1" size=50>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<td colspan=3><input type="text" name="keyword1" size=50>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a style="cursor:pointer" onclick="searchToday();">[금일 검색]</a>
-			<input type="hidden" name="searchToday">
+			
 		</table>
 		<br>
 			<button onClick="goSearchRelease();">검색</button>
@@ -214,6 +311,7 @@ $(document).ready(function(){
                </select> 행보기
      	</table>
       	<input type="hidden" name="selectPageNo" value="${invenSearchDTO.selectPageNo}">
+      	<input type="hidden" name="searchToday">
 		</form>
 
 		<br><br><br>
@@ -222,24 +320,136 @@ $(document).ready(function(){
 				<th>번호<th>출고번호<th>출고일시<th>주문번호<th>비고
 			<c:forEach items="${requestScope.releaseList}" var="release" varStatus="loopTagStatus">
 	            <tr>
-		          	<td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${releaseListCnt-
+		          	<td style="cursor:pointer" onClick="goReleaseContentForm(this,${release.all_order_no});" align=center>${releaseListCnt-
 		                  (invenSearchDTO.selectPageNo*invenSearchDTO.rowCntPerPage-invenSearchDTO.rowCntPerPage+1+loopTagStatus.index)
 		                  +1}
-		            <td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${release.release_no}
-		            <td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${release.release_dt}
-		            <td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>${release.all_order_no}
+		            <td style="cursor:pointer" onClick="goReleaseContentForm(this,${release.all_order_no});" align=center>${release.release_no}
+		            <td style="cursor:pointer" onClick="goReleaseContentForm(this,${release.all_order_no});" align=center>${release.release_dt}
+		            <td style="cursor:pointer" onClick="goReleaseContentForm(this,${release.all_order_no});" align=center>${release.all_order_no}
 	            	<c:if test="${release.release_dt=='X'}">
 	            		<td align=center>
 	            		<input type="button" value="출고" onclick="goReleaseUp(${release.all_order_no});">
 	            	</c:if>
 	            	<c:if test="${release.release_dt.length()>1}">
-	            		<td style="cursor:pointer" onClick="goReleaseContentForm(${release.all_order_no});" align=center>	
+	            		<td style="cursor:pointer" onClick="goReleaseContentForm(this,${release.all_order_no});" align=center>	
 	            		------
 	            	</c:if>
          	</c:forEach>
 		</table>
 		<br>
 		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+	<div id="allContent" style="display:none;">
+		<div id="contecnt1" style="dispaly:none;">
+			<table border=0 width=700>
+	 			<tr>
+	 				<td align=right>
+						<a href="javascript:goClose();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[닫기]</a>
+			</table>
+			<table class="tab" id="contecntTable1" border=1 bordercolor="#000000" cellpadding=5 align=center>
+				<tr>
+					<th>책번호
+					<td colspan=2>111
+					<th>고객ID
+					<td colspan=2>222
+				<tr>
+					<th>책이름
+					<td colspan=5>333
+				<tr>
+					<th>고객 배송지
+					<td colspan=5>444
+				<tr>
+					<th>주문일시
+					<td>555
+					<th>주문 수량
+					<td>
+					<th>출판사
+					<td>
+				<tr>
+					<th>책가격
+					<td>
+					<th>총 가격
+					<td>
+					<th>담당직원
+					<td>
+			</table>
+		</div>
+		
+		<div id="contecnt2" style="dispaly:none;">
+			<table border=0 width=700>
+	 			<tr>
+	 				<td align=right>
+						<a href="javascript:goClose();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[닫기]</a>
+			</table>
+			<table class="tab" id="contecntTable2" border=1 bordercolor="#000000" cellpadding=5 align=center>
+				<tr>
+					<th>책번호
+					<td colspan=2>
+					<th>사업자ID
+					<td colspan=2>
+				<tr>
+					<th>책이름
+					<td colspan=5>
+				<tr>
+					<th>사업자 배송지
+					<td colspan=5>
+				<tr>
+					<th>회사명
+					<td>
+					<th>분야
+					<td>
+					<th>대표자명
+					<td>
+				<tr>
+					<th>주문일시
+					<td>
+					<th>주문 수량
+					<td>
+					<th>출판사
+					<td>
+				<tr>
+					<th>책가격
+					<td>
+					<th>총 가격
+					<td>
+					<th>담당직원
+					<td>
+			</table>
+		</div>
+		
+		<div id="contecnt3" style="dispaly:none;">
+			<table border=0 width=700>
+	 			<tr>
+	 				<td align=right>
+						<a href="javascript:goClose();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[닫기]</a>
+			</table>
+			<table class="tab" id="contecntTable3" border=1 bordercolor="#000000" cellpadding=5 align=center>
+				<tr>
+					<th>책번호
+					<td colspan=2>
+					<th>담당직원
+					<td colspan=2>
+				<tr>
+					<th>책이름
+					<td colspan=5>
+				<tr>
+					<th>지사 위치
+					<td colspan=5>$
+				<tr>
+					<th>주문일시
+					<td>
+					<th>주문 수량
+					<td>
+					<th>출판사
+					<td>
+			</table>
+		</div>
+	</div>
+		<!-- <br>
+		<input type="button" value="  주문정보수정  " onclick="goUpdateRelease();">&nbsp;&nbsp;
+		<input type="button" value="  주문 삭제  " onclick="goDeleteRelease();">&nbsp;&nbsp;
+
+		</div> -->
+
 
 		<script>
 			

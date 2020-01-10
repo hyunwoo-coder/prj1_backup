@@ -117,7 +117,7 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 	public int getInsertBeforeCnt(WareHousingInsertDTO whInsertDTO) {
 		
 		int insertBeforeCnt = this.sqlSession.insert(
-				"com.group4.erp.dao.myWorkDAO.insertBefore"
+				"com.group4.erp.dao.myWorkDAO.insertWHBefore"
 				,whInsertDTO
 				);
 		
@@ -170,5 +170,13 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 				);
 		
 		return searchRemain;
+	}
+	public int getEmpDayoffTot() {
+		
+		int empDayoffTot = this.sqlSession.selectOne(
+				"com.group4.erp.dao.myWorkDAO.empDayoffTot"
+				);
+		
+		return empDayoffTot;
 	}
 }

@@ -130,12 +130,14 @@ public class HRController {
 		mav.setViewName("main.jsp");
 	
 		String emp_no = (String)session.getAttribute("emp_id");
-		System.out.println("emp_no==="+salListSearchDTO.getEmp_no());
 		int my_emp_no = Integer.parseInt(emp_no);
-		System.out.println("emp_no==="+my_emp_no);
+		System.out.println("my_emp_no==="+my_emp_no);
+		salListSearchDTO.setMy_emp_no(my_emp_no);
 	
 		TimeDTO timeDTO = this.hrservice.getTime();
 		//int emp_tot_cnt = this.hrservice.getEmpListAllCnt(salListSearchDTO);
+		
+		int myPayCheckCnt = this.hrservice.getMyPayCheckCnt(my_emp_no);
 			
 		//List<SalaryDTO> empSalInfo = this.hrservice.getEmpSalList(salListSearchDTO);
 	
@@ -144,6 +146,8 @@ public class HRController {
 		System.out.println("컨트롤러 급여명세서 조회 성공");
 
 		mav.addObject("myPayCheckList", myPayCheckList);
+		mav.addObject("salListSearchDTO", salListSearchDTO);
+		mav.addObject("myPayCheckCnt", myPayCheckCnt);
 		mav.addObject("subMenu", "viewEmpSalInfo");
 		mav.addObject("navigator", "[인사관리]-[급여지급내역]");
 		mav.addObject("timeDTO", timeDTO);
