@@ -51,12 +51,16 @@ public class WokrServiceImpl implements WorkService {
 	}
 	
 	public int updateBusinessTrip(BusinessTripDTO businessTripDTO) {
-
-		//1개 게시판 글 입력 후 입력 적용 행의 개수 리턴하기
-			//[BoardDTO 인터페이스]를 구현한 객체의 insertBoard 메소드를 호출하여 1개 게시판 글 입력 후 입력 적용 행의 개수를 리턴받는다
-		int businessTripUpDelCnt = this.workDAO.updateBusinessTrip(businessTripDTO);
 		
-		return businessTripUpDelCnt;
+		//[boardDAOImpl]객체의 getBoardCnt 메소드를 호출하여 수정할 게시판의 존재 개수를 얻는다.
+		//int businessCnt = this.workDAO.getBusinessCnt(businessTripDTO);
+		//if(businessCnt==0) return -1;
+		
+		//1개 게시판 글 입력 후 입력 적용 행의 개수 리턴하기
+		//[BoardDTO 인터페이스]를 구현한 객체의 insertBoard 메소드를 호출하여 1개 게시판 글 입력 후 입력 적용 행의 개수를 리턴받는다
+		int businessTripUpDelAppCnt = this.workDAO.updateBusinessTrip(businessTripDTO);
+		
+		return businessTripUpDelAppCnt;
 	}
 	
 	public int deleteBusinessTrip(BusinessTripDTO businessTripDTO) {
@@ -64,6 +68,15 @@ public class WokrServiceImpl implements WorkService {
 		//1개 게시판 글 입력 후 입력 적용 행의 개수 리턴하기
 			//[BoardDTO 인터페이스]를 구현한 객체의 insertBoard 메소드를 호출하여 1개 게시판 글 입력 후 입력 적용 행의 개수를 리턴받는다
 		int businessTripUpDelCnt = this.workDAO.deleteBusinessTrip(businessTripDTO);
+		
+		return businessTripUpDelCnt;
+	}
+	
+	public int approvedBusinessTrip(BusinessTripDTO businessTripDTO) {
+
+		//1개 게시판 글 입력 후 입력 적용 행의 개수 리턴하기
+			//[BoardDTO 인터페이스]를 구현한 객체의 insertBoard 메소드를 호출하여 1개 게시판 글 입력 후 입력 적용 행의 개수를 리턴받는다
+		int businessTripUpDelCnt = this.workDAO.approvedBusinessTrip(businessTripDTO);
 		
 		return businessTripUpDelCnt;
 	}

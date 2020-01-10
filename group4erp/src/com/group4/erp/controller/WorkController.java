@@ -159,26 +159,28 @@ public class WorkController {
 			return mav;
 		}
 		@RequestMapping(
-				value="/businessTripUpDelProc.do"
+				value="/businessTripUpDelAppProc.do"
 				,method=RequestMethod.POST
 				,produces="application/json;charset=UTF-8"
 				)
 		@ResponseBody
 		public int goBusinessTripUpDelProc(
-					@RequestParam(value="upDel") String upDel
+					@RequestParam(value="upDelApp") String upDelApp
 					,BusinessTripDTO businessTripDTO
 				) {
 			//수정 or 삭제 적용행의 개수가 저장되는 변수선언.
-			int businessTripUpDelCnt = 0;
+			int businessTripUpDelAppCnt = 0;
 			try {
 			  //만약 수정 모드이면 수정 실행하고 수정 적용행의 개수를 저장 
-			if(upDel.equals("up")){ businessTripUpDelCnt = this.workService.updateBusinessTrip(businessTripDTO); }
+			if(upDelApp.equals("up")){ businessTripUpDelAppCnt = this.workService.updateBusinessTrip(businessTripDTO); }
 			//만약 삭제 모드이면 수정 실행하고 삭제 적용행의 개수를 저장 
-			else if(upDel.equals("del")){ businessTripUpDelCnt = this.workService.deleteBusinessTrip(businessTripDTO); }
+			else if(upDelApp.equals("del")){ businessTripUpDelAppCnt = this.workService.deleteBusinessTrip(businessTripDTO); }
+			//만약 승인 이면 수정 실행하고 승인 적용행의 개수를 저장 
+			else if(upDelApp.equals("approved")){ businessTripUpDelAppCnt = this.workService.approvedBusinessTrip(businessTripDTO); }
 					
 			}catch(Exception e) {
 				System.out.println("오류 발생");
 			}
-			return businessTripUpDelCnt;
+			return businessTripUpDelAppCnt;
 		}
 }

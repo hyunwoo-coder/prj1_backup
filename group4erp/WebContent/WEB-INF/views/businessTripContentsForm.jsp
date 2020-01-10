@@ -47,6 +47,20 @@
 			<tr align=center>
 				<th bgcolor="gray">담당자 명</th>
 				<td>${businessTripDTO.mgr_name}</td>
+				<th bgcolor="gray">결제</th>
+				<td>
+					<c:choose>
+								<c:when test="${businessTripDTO.travel_payment eq 'Y'}">
+									승인
+								</c:when>
+								<c:when test="${businessTripDTO.travel_payment eq 'N'}">
+									반려
+								</c:when>
+								<c:otherwise>
+									대기중
+								</c:otherwise>				
+					</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<th bgcolor="gray">출장날짜</th>

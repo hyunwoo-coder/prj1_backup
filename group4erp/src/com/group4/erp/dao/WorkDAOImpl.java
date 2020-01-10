@@ -54,16 +54,24 @@ public class WorkDAOImpl implements WorkDAO{
 	}
 	
 	public int updateBusinessTrip(BusinessTripDTO businessTripDTO) {
-		int businessTripUpDelCnt = sqlSession.update(
+		int businessTripUpDelAppCnt = sqlSession.update(
 				"com.group4.erp.dao.WorkDAO.updateBusinessTrip"
 				,businessTripDTO
 			);
-		return businessTripUpDelCnt;
+		return businessTripUpDelAppCnt;
 	}
 	
 	public int deleteBusinessTrip(BusinessTripDTO businessTripDTO) {
 		int businessTripUpDelCnt = sqlSession.update(
 				"com.group4.erp.dao.WorkDAO.deleteBusinessTrip"
+				,businessTripDTO
+			);
+		return businessTripUpDelCnt;
+	}
+	
+	public int approvedBusinessTrip(BusinessTripDTO businessTripDTO) {
+		int businessTripUpDelCnt = sqlSession.update(
+				"com.group4.erp.dao.WorkDAO.approvedBusinessTrip"
 				,businessTripDTO
 			);
 		return businessTripUpDelCnt;

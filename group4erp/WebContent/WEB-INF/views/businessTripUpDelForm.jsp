@@ -54,7 +54,6 @@
 </title>
 <script>
 	$(document).ready(function(){
-		alert("${businessTripDTO.travel_payment}");
 		$("#datepicker5").datepicker({
 			dateFormat: 'yy-mm-dd'
 		});
@@ -87,13 +86,114 @@
 	        }
 	    }).open();
 	}
+function checkBusinessTripUpDelAppForm(upDelApp){
+		
+		//매개변수로 들어온 upDel에 "del"이 저장되어있으면 즉, 삭제 버튼을 눌렀으면 암호 확인하고 삭제 여부를 물어보기
+		if(upDelApp=='del'){
+			
+			$("[name=upDelApp]").val("del");
+					
+			//alert($('[name=boardUpDelForm]').serialize());		
+			
+			if(confirm("정말 삭제 하시겠습니까?")==false) return;
+		
+		}
 
+		else if(upDelApp=='up'){
+			
+			$("[name=upDelApp]").val("up");
+			
+			if( is_empty('[name=destination]') ){
+				alert("출장지를 입력해주세요.");
+				$("[name=destination]").focus();
+				return;
+			}
+			
+			if( is_empty('[name=work_outside_reason]') ){
+				alert("출장사유를 입력해주세요.");
+				$("[name=work_outside_reason]").focus();
+				return;
+			}
+			if( is_empty('[name=outside_start_time]') ){
+				alert("출장날짜를 입력해주세요.");
+				$("[name=outside_start_time]").focus();
+				return;
+			}
+			if( is_empty('[name=outside_end_time]') ){
+				alert("출장날짜를 입력해주세요.");
+				$("[name=outside_end_time]").focus();
+				return;
+			} 
+			
+		    var startDate = $( "[name=outside_start_time]" ).val();
+		    var startDateArr = startDate.split('-');
+		    var endDate = $( "[name=outside_end_time]" ).val();
+		    var endDateArr = endDate.split('-');
+		    var startDateCompare = new Date(startDateArr[0], startDateArr[1], startDateArr[2]);
+		    var endDateCompare = new Date(endDateArr[0], endDateArr[1], endDateArr[2]);
+		          
+		    if(startDateCompare.getTime() > endDateCompare.getTime()) {
+		              
+		        alert("시작날짜와 종료날짜를 확인해 주세요.");
+				$("[name=outside_start_time]").focus();
+		         return;
+		    }
+			if(confirm("정말 수정하시겠습니까?")==false){return;}	
+			
+		}
+		
+		
+		 $.ajax({
+			//호출할 서버쪽 URL주소 설정
+			url : "/group4erp/businessTripUpDelAppProc.do"
+			//전송 방법 설정
+			, type : "post"
+			//서버로 보낼 파라미터명과 파라미터값을 설정
+			, data : $('[name=businessTripUpDel]').serialize()
+			//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+			//매개변수 upDelCnt에는 입력 행의 개수가 들어온다.
+			, success : function(businessTripUpDelAppCnt){
+				alert(1);
+				if(upDelApp=='up'){
+					if(businessTripUpDelAppCnt==1){
+						alert("수정 성공!");
+						document.boardListForm.submit();
+					}else if(businessTripUpDelAppCnt==-1){
+						alert("게시물이 삭제되어 수정할 수 없습니다!");
+					}else{
+						alert("서버쪽 DB연동 실패!");
+					}
+				}else if(upDelApp=='del'){
+					if(businessTripUpDelAppCnt==1){
+						alert("삭제 성공!");
+					}else if(upDelCnt==-1){
+						alert("이미 삭제된 게시물입니다!");
+					}else{
+						alert("서버쪽 DB연동 실패!");
+					}
+				}else if(upDelApp=='app'){
+					if(businessTripUpDelAppCnt==1){
+						alert("승인 완료");
+					}else if(upDelCnt==-1){
+						alert("이미 삭제된 게시물입니다!");
+					}else if(upDelCnt==-2){
+						alert("이미 승인된 게시물입니다.");
+					}else{
+						alert("서버쪽 DB연동 실패!");
+					}
+				}
+			}
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function(){
+				alert("서버 접속 실패");
+			}
+		});
+	}
 	</script>	
 </script>
 </head>
 <body><center><br><br><br>
 	<form name="businessTripUpDel" method="post" action="/group4erp/businessTripUpDelProc.do">
-		<input type="text" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">	
 		<b>수정/삭제</b>
 		<br>
 		<table class="tbcss1" width="500" border=1 bordercolor="#000000" cellpadding=5 align=center>
@@ -130,37 +230,41 @@
 			<tr>
 				<th bgcolor="gray">출장날짜</th>
 				<td colspan=3>
-					<input type="text" id="datepicker5" value="${businessTripDTO.outside_start_time}" readonly>
+					<input type="text" id="datepicker5" name="outside_start_time" value="${businessTripDTO.outside_start_time}" readonly>
 					~
-					<input type="text" id="datepicker6" value="${businessTripDTO.outside_end_time}"  readonly>
+					<input type="text" id="datepicker6" name="outside_end_time" value="${businessTripDTO.outside_end_time}"  readonly>
 				</td>
 			</tr>
 			<tr>
 				<th bgcolor="gray">출장지</th>
 				<td colspan=3>
-					<input type="text" size="40" maxlength="50" id="destination2" name="destination2" value="${businessTripDTO.destination}"> <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+					<input type="text" size="40" maxlength="50" id="destination2" name="destination" value="${businessTripDTO.destination}"> <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 					
 				</td>
 			</tr>
 			<tr>
 				<th bgcolor="gray">출장 사유</th>
 				<td colspan=3>
-					<textarea name="content" rows="13" cols="40" maxlength="500" >${businessTripDTO.work_outside_reason}
+					<textarea name="work_outside_reason" rows="13" cols="40" maxlength="500" >${businessTripDTO.work_outside_reason}
 					</textarea>
 				</td>
 			</tr>
 		</table>
 		<table><tr heigth=4><td></table>
-		<input type="hidden" name="upDel" value="up"><input type="button" value="수정" onclick="checkBusinessTripUpDelForm()">
-		<if test="">
-		<input type="button" value="삭제" onclick="checkBusinessTripUpDelForm()">
-		</if>
+		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">	
+		<input type="hidden" name="upDelApp" value="up">
+		<input type="button" value="수정" onclick="checkBusinessTripUpDelAppForm('up')">
+		&nbsp;&nbsp;&nbsp;
+		<input type="button" value="삭제" onclick="checkBusinessTripUpDelAppForm('del')">
+		&nbsp;&nbsp;&nbsp;
+		<input type="button" value="승인" onclick="checkBusinessTripUpDelAppForm('app')">
+		&nbsp;&nbsp;&nbsp;
 		<input type="button" value="목록보기" onclick="location.replace('/group4erp/businessTripList.do')">
 	</form>
 	<form name="businessTripList" method="post" action="/group4erp/businessTripList.do">
 		<!-- 게시판 상세보기 화면을 구성하는 글의 고유번호를 hidden 태그에 저장 -->
 		<!-- 수정/삭제를 하려면 현재 글의 고유번호를 알아야하기 때문 -->
-		<input type="text" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">	
+		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">	
 		<input type="hidden" name="selectPageNo" value="${param.selectPageNo}">
 		<input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}">
 	</form>

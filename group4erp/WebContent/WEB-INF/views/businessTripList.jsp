@@ -108,10 +108,7 @@
 	}
 	//,travel_payment
 	function goBusinessTripContentsForm(work_outside_seq,emp_no,travel_payment){
-				alert(work_outside_seq)
-				alert(emp_no)
-				alert(travel_payment)
-			if( ("${businessTripDTO.emp_id}"== emp_no) && (travel_payment =="N")){
+			if( ("${businessTripDTO.emp_id}"== emp_no) && (travel_payment =="W")){
 				var str = "work_outside_seq="+work_outside_seq+"&"+emp_no+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
 				location.replace("/group4erp/businessTripUpDelForm.do?"+str )
 			}else{
@@ -224,7 +221,7 @@
 			<tbody>
 			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
-			<tr class="list" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq},${businessList.emp_no},${businessList.travel_payment});">
+			<tr class="list" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq},${businessList.emp_no},'${businessList.travel_payment}');">
 					<td align=center>${businessTripListAllCnt - businessList.RNUM + 1}</td>	
 					<td align=center>
 						${businessList.emp_name}
