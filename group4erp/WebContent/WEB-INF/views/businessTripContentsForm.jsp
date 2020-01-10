@@ -6,12 +6,12 @@
 
 
 <!-- 만약에 상세보기할 게시판 글이 없으면 경고하고 이전 화면으로 이동하기 -->
-<%-- <c:if test="${empty businessTripDTO}">
+ <c:if test="${empty businessTripDTO}">
 	<script>
 		alert("게시글이 삭제되어있습니다!");
-		location.replace("/z_spring/businessTripList.do");
+		location.replace("/group4erp/businessTripList.do");
 	</script>
-</c:if> --%>
+</c:if>
 
 <html>
 <head>
@@ -50,29 +50,29 @@
 			</tr>
 			<tr>
 				<th bgcolor="gray">출장날짜</th>
-				<td width=150 colspan=3>${businessTripDTO.outside_start_time}~${businessTripDTO.outside_end_time}</td>
+				<td colspan=3>${businessTripDTO.outside_start_time}&nbsp;~&nbsp;${businessTripDTO.outside_end_time}</td>
 			</tr>
 			<tr>
 				<th bgcolor="gray">출장지</th>
-				<td width=150 colspan=3>${businessTripDTO.destination}</td>
+				<td colspan=3>${businessTripDTO.destination}</td>
 			</tr>
 			<tr>
 				<th bgcolor="gray">출장 사유</th>
-				<td width=150 colspan=3>
+				<td colspan=3>
 					<textarea name="content" rows="13" cols="45" style="boder:0" readonly>${businessTripDTO.work_outside_reason}
 					</textarea>
 				</td>
 		</table>
 		<table><tr heigth=3><td></table>
-		<input type="button" value="수정/삭제" onclick="goBusinessTripUpDelForm()">&nbsp;
+		<!-- <input type="button" value="수정/삭제" onclick="goBusinessTripUpDelForm()">&nbsp; -->
 		<input type="button" value="목록보기" onclick="location.replace('/group4erp/businessTripList.do')">
-	<%-- </form>
+	 </form>
+	 <%--
 	<!-- [게시판목록] 화면으로 이동하는 form 태그 선언 -->
 	<!-- form 태그 내부에는 클라이언트가 보낸 파라미터값을 입력양식에 저장하고 있다. -->
 	<!-- 파라미터값을 꺼내는 방법은 EL문법을 이용한다. 달러{param.파라미터명} or 
 	{paramValues.파라미터명}이다(Values는 배열로서 checkbox가 파라미터값으로 들어올때 사용한다.-->
 	<form name="boardListForm" method="post" action="${ctRoot}/boardListForm.do">
-
 	</form>
 	--%>
 	<!-- 수정/삭제 화면으로 이동하기 위한 form 태그 선언 -->

@@ -47,7 +47,8 @@
 	 <select id='getbusinessTripListAllCnt' resultType="int">
 		select count(*) from (
 			select
-				work_outside_seq	   as "work_outside_seq"
+				w.work_outside_seq	   as "work_outside_seq"
+				,e1.emp_no			   as "emp_no"
 	    		,c.jikup               as "jikup"
 	    		,e1.emp_name           as "emp_name"
 	    		,d.dep_name            as "dep_name"
@@ -56,7 +57,7 @@
 	    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
 	    		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
 	    		,nvl(e2.emp_name,' ')  as "mgr_name"
-	    		,travel_payment		   as "travel_payment"
+	    		,w.travel_payment		   as "travel_payment"
 	  			,c.jikup_cd			   as "jikup_cd"
 		    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 		    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
@@ -71,7 +72,8 @@
 	<select id="getBusinessTripList"  parameterType="com.group4.erp.BusinessTripSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
 			select
-			work_outside_seq	   as "work_outside_seq"
+			w.work_outside_seq	   as "work_outside_seq"
+			,e1.emp_no			   as "emp_no"
     		,c.jikup               as "jikup"
     		,e1.emp_name           as "emp_name"
     		,d.dep_name            as "dep_name"
@@ -80,7 +82,7 @@
     		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
     		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
     		,nvl(e2.emp_name,' ')  as "mgr_name"
-    		,travel_payment		   as "travel_payment"
+    		,w.travel_payment	   as "travel_payment"
   			,c.jikup_cd			   as "jikup_cd"
   			,delete_yn			   as "delete_yn"
 	    from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
@@ -98,8 +100,8 @@
 		
 	<select id="getBusinessTripDTO" parameterType="int" resultType="com.group4.erp.BusinessTripDTO">
 		select
-				w.work_outside_seq	   as "work_outside_seq"
-				,w.emp_no			   as "emp_no"
+				<!-- w.work_outside_seq	   as "work_outside_seq"
+				,e1.emp_no			   as "emp_no"
 	    		,c.jikup               as "jikup"
 	    		,e1.emp_name           as "emp_name"
 	    		,d.dep_name            as "dep_name"
@@ -108,6 +110,18 @@
 	    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
 	    		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
 	    		,nvl(e2.emp_name,' ')  as "mgr_name"
+	  			,c.jikup_cd			   as "jikup_cd" -->
+	  			w.work_outside_seq	   as "work_outside_seq"
+				,e1.emp_no			   as "emp_no"
+	    		,c.jikup               as "jikup"
+	    		,e1.emp_name           as "emp_name"
+	    		,d.dep_name            as "dep_name"
+	    		,w.destination         as "destination"
+	    		,w.work_outside_reason as "work_outside_reason"
+	    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
+	    		,to_char(w.outside_end_time,'yyyy-mm-dd')    as "outside_end_time"
+	    		,nvl(e2.emp_name,' ')  as "mgr_name"
+	    		,w.travel_payment	   as "travel_payment"
 	  			,c.jikup_cd			   as "jikup_cd"
 		from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 	    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd

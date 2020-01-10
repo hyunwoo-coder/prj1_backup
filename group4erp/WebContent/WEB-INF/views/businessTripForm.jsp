@@ -182,7 +182,7 @@ function sample6_execDaumPostcode() {
 				</td>
 		</tr>
 	</table>
-		<input type="button" class="approval" value="결재" onClick="checkBusinessTripRegForm()">
+		<input type="button" class="approval" value="결재 신청" onClick="checkBusinessTripRegForm()">
 
 		<input type="button" value="초기화" onClick="reset()">
 		

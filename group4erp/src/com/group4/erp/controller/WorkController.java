@@ -39,7 +39,6 @@ public class WorkController {
 			//리스트 종개수 구하기
 			int getbusinessTripListAllCnt = this.workService.getbusinessTripListAllCnt(businessTripSearchDTO);
 			
-		
 			
 			if(getbusinessTripListAllCnt>0) {
 				//선택한 페이지 번호 구하기
@@ -138,30 +137,27 @@ public class WorkController {
 			
 		}
 	
-		// /boardUpDelForm.do 접속시 호출되는 메소드 선언
+		//businessTripUpDelForm.do 접속시 호출되는 메소드 선언
 		@RequestMapping( value="/businessTripUpDelForm.do" )
 		public ModelAndView goBusinessTripUpDelForm(
-				//b_no라는 파라미터명의 파라미터값이 저장되는 매개변수 b_no 선언
 				@RequestParam(value="work_outside_seq") int work_outside_seq
 				,HttpSession session
 			) {
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("businessTripUpDelForm.jsp");
+			mav.setViewName("main.jsp");
+			mav.addObject("subMenu", "businessTripUpDelForm"); 
+			mav.addObject("navigator", "[업무관리]-[출장신청&보고]-[수정/삭제]");
+
+			BusinessTripDTO businessTripDTO = this.workService.getBusinessTripDTO(work_outside_seq);
+			mav.addObject("businessTripDTO", businessTripDTO);
+			System.out.println("businessTripDTO");
 			try {
-				
-				
-				session.setAttribute("uri", "businessTripUpDelForm.do");
-				
-				
-				
 				System.out.println("<접속성공> [접속URL]->/businessTripUpDelForm.do UpDelForm(~) \n\n\n");
 			}catch(Exception e) {
 				System.out.println("<접속실패> [접속URL]->/businessTripUpDelForm.do UpDelForm(~) \n\n\n");
 			}
 			return mav;
 		}
-		
-
 		@RequestMapping(
 				value="/businessTripUpDelProc.do"
 				,method=RequestMethod.POST
@@ -175,14 +171,11 @@ public class WorkController {
 			//수정 or 삭제 적용행의 개수가 저장되는 변수선언.
 			int businessTripUpDelCnt = 0;
 			try {
-				
-			
 			  //만약 수정 모드이면 수정 실행하고 수정 적용행의 개수를 저장 
 			if(upDel.equals("up")){ businessTripUpDelCnt = this.workService.updateBusinessTrip(businessTripDTO); }
 			//만약 삭제 모드이면 수정 실행하고 삭제 적용행의 개수를 저장 
 			else if(upDel.equals("del")){ businessTripUpDelCnt = this.workService.deleteBusinessTrip(businessTripDTO); }
-			
-				
+					
 			}catch(Exception e) {
 				System.out.println("오류 발생");
 			}

@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -35,7 +36,6 @@
 </style>
 <script>
 	$(document).ready(function(){
-
 		$("#datepicker3").datepicker({
 			dateFormat: 'yy-mm-dd'
 		});
@@ -49,7 +49,6 @@
 			goSearch();
 		});
 		
-		//alert("${businessTripSearchDTO.selectPageNo}");
 		
 		/* alert($("[name=getBusinessTripListSearchForm] [name=selectPageNo]").val());
 		alert($("[name=getBusinessTripListSearchForm] [name=rowCntPerPage]").val()); */
@@ -74,7 +73,8 @@
 		<c:forEach items="${businessTripSearchDTO.payment}" var="payment">
 			inputData('[name=payment]',"${payment}");
 		</c:forEach> 
-		//alert("${businessTripSearchDTO.rowCntPerPage}");
+
+		
 });
 
 	
@@ -85,27 +85,12 @@
 		var  searchKey = $("#selectSearch").val();
 		var  outsideTime = $("#datepicker3").val();
 		var  comebackTime = $("#datepicker4").val();
-		/*
-		if($("#selectBox").val()=="Y"){
-			 keyword = $("#selectBox").val();
-		}else if($("#selectBox").val()=="W"){
-			keyword = $("#selectBox").val();
-		}else if($("#selectBox").val()=="N"){
-			keyword = $("#selectBox").val();
-		}else{
-			 keyword = $("#searchKeyword").val();
-		}*/
-		/* alert($("#selectBox").val()); */
-		
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
 		$("#startTime").val(outsideTime);
 		$("#endTime").val(comebackTime);
 		
-		//$("#searchForm").submit()
-		
-		//alert($('[name=getBusinessTripListSearchForm]').serialize());
-		//return;
+
 
 		document.getBusinessTripListSearchForm.submit();
 	}
@@ -121,28 +106,19 @@
 	function goBusinessTripForm(){
 		location.replace("/group4erp/businessTripForm.do");
 	}
-
-	function goBusinessTripContentsForm(work_outside_seq){
-		var str = "work_outside_seq="+work_outside_seq+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
-		location.replace("/group4erp/businessTripContentsForm.do?"+str )
+	//,travel_payment
+	function goBusinessTripContentsForm(work_outside_seq,emp_no,travel_payment){
+				alert(work_outside_seq)
+				alert(emp_no)
+				alert(travel_payment)
+			if( ("${businessTripDTO.emp_id}"== emp_no) && (travel_payment =="N")){
+				var str = "work_outside_seq="+work_outside_seq+"&"+emp_no+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
+				location.replace("/group4erp/businessTripUpDelForm.do?"+str )
+			}else{
+				var str = "work_outside_seq="+work_outside_seq+"&"+emp_no+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
+				location.replace("/group4erp/businessTripContentsForm.do?"+str )}
 	}
-/* 
-	$(function(){
-		$('#selectSearch').change(function(){
-	        if( $('#selectSearch').val() =='travel_payment' ){
-	        	$('#layer').show();
-		       	$('#searchText').hide();
-	        }
-	        else if( $('#selectSearch').val() !='travel_payment' ){
-		       	$('#searchText').show();
-	        	$('#layer').hide();
-	        } else{
-	        	alert(4);
-	        	$('#selectBox').hide();
 	
-	        }
-	    });
-	}); */
 </script>
 
 </head>
@@ -181,16 +157,6 @@
 					<input type="text" id="searchKeyword">&nbsp;&nbsp;
 				</span>
 				
-				<!-- 
-				<span id="layer" style="display:none">
-					<select id="selectBox" name="selectBox">
-						<option value="" selected="selected"></option>
-						<option value="Y">승인</option>
-						<option value="W">대기중</option>
-						<option value="N">반려</option>	
-					</select>
-				</span> 
-				 -->
 				<input type="button" value=" 검색 " onClick="goSearch();">		
 				
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goAllSearch();">
@@ -213,7 +179,8 @@
         <input type="hidden" name="startTime" id="startTime">
         <input type="hidden" name="endTime" id="endTime">
         <input type="hidden" name="sort" id="sort">
-       <!--  <input type="text" name="payment" id="payment"> -->
+	    <!-- <input type="hidden" name="travel_payment" id="travel_payment"> -->
+        <!--  <input type="text" name="payment" id="payment"> -->
         <!-- <input type="hidden" name="work_outside_seq" id="work_outside_seq"> -->
         
 	</form>
@@ -257,14 +224,10 @@
 			<tbody>
 			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
-			<tr style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq});">
-					<%-- <td align=center>${businessList.RNUM}</td>	 --%>
+			<tr class="list" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq},${businessList.emp_no},${businessList.travel_payment});">
 					<td align=center>${businessTripListAllCnt - businessList.RNUM + 1}</td>	
 					<td align=center>
 						${businessList.emp_name}
-						<%-- <a href="javascript:alert('${businessList.work_outside_seq}')"> 
-							<c:out value="${businessList.emp_name}"/>
-						</a> --%>
 					</td>
 					<td align=center>${businessList.jikup}</td>
 					<td align=center>${businessList.dep_name}</td>
@@ -281,7 +244,7 @@
 						</c:choose>
 					</td>
 					<td>
-					<c:choose>
+						<c:choose>
 							<c:when test="${businessList.travel_payment eq 'Y'}">
 								승인
 							</c:when>

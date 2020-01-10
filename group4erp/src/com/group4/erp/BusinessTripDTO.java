@@ -13,6 +13,8 @@ public class BusinessTripDTO {
 	private String work_outside_reason;
 	private String outside_start_time;
 	private String outside_end_time;
+	private String travel_payment;
+
 	
 	public int getWork_outside_seq() {
 		return work_outside_seq;
@@ -86,6 +88,11 @@ public class BusinessTripDTO {
 	public void setMgr_name(String mgr_name) {
 		this.mgr_name = mgr_name;
 	}
-	
+	public String getTravel_payment() {
+		return travel_payment;
+	}
+	public void setTravel_payment(String travel_payment) {
+		this.travel_payment = travel_payment;
+	}
 
 }
