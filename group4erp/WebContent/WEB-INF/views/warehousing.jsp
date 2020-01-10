@@ -329,6 +329,8 @@ td{
 					<th>일자
 					<td style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
 						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">&nbsp;&nbsp;
+					<td><a style="cursor:pointer" onclick="goTodaySearch();">[금일 검색]</a>
+					<!-- 
 					<th>출판사
 					<td style="text-align:left">
 						<select name="searchPublisher">
@@ -338,23 +340,17 @@ td{
 								<option value="${publisher.publisher}">${publisher.publisher}</option>
 							</c:forEach>
 						</select></td>
-
-					
+					 -->
 				</tr>
 				<tr>
 					<th>키워드
 					<td style="text-align:left" colspan=3>
 						<input type="text" name="wh_keyword" size=50>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a style="cursor:pointer" onclick="goTodaySearch();">[금일 검색]</a>
 					</td>
 					
 				</tr>
-				
-
 			</table>
 			<br>
-
 			<script>
 	        $("#dateFrom").datepicker({ dateFormat: 'yy-mm-dd', onClose: function( selectedDate ) {    
                 // 시작일(fromDate) datepicker가 닫힐때

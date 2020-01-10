@@ -73,6 +73,7 @@ $(document).ready(function(){
 		document.book_inventory_search_form.reset();
 		$("[name=book_inventory_search_form] [name=selectPageNo]").val(1);
 		$("[name=book_inventory_search_form] [name=rowCntPerPage]").val(10);
+		$("[name=book_inventory_search_form] [name=sort]").val('');
 		goSearchBookInven();
    }
    
@@ -83,13 +84,14 @@ $(document).ready(function(){
    }
    
    function goBookContentForm(isbn13_search){
-	   
-	 
-	   
 	   //alert("상세보기 구현중"+str);
 	   //return;
 	   var str = "isbn13_search="+isbn13_search;
 	   location.href="/group4erp/viewBookContentForm.do?"+str;
+   }
+   
+   function goAllReset(){
+	   document.book_inventory_search_form.reset();
    }
 
 </script>
@@ -118,6 +120,10 @@ $(document).ready(function(){
          <tr>
          <th>분야
          <td align=left colspan=5>
+         	<c:forEach items="${requestScope.category}" var="cat" varStatus="loopTagStatus">
+         		<input type="checkbox" name="category_name" value="${cat.cat_name}">${cat.cat_name}
+         	</c:forEach>
+         	<!-- 
             <input type="checkbox" name="category_name" value="소설">소설
             <input type="checkbox" name="category_name" value="사회">사회
             <input type="checkbox" name="category_name" value="과학">과학
@@ -128,9 +134,14 @@ $(document).ready(function(){
             <input type="checkbox" name="category_name" value="여행">여행
             <input type="checkbox" name="category_name" value="잡지">잡지
             <input type="checkbox" name="category_name" value="요리">요리
+             -->
          <tr> 
          <th>판형
          <td align=left colspan=5>
+        	 <c:forEach items="${requestScope.size}" var="size" varStatus="loopTagStatus">
+         		<input type="checkbox" name="size_cd" value="${loopTagStatus.index+1}">${size.size_name}
+         	</c:forEach>
+         	<!-- 
             <input type="checkbox" name="size_cd" value="01">신국판
             <input type="checkbox" name="size_cd" value="02">국판
             <input type="checkbox" name="size_cd" value="03">46판
@@ -138,6 +149,7 @@ $(document).ready(function(){
             <input type="checkbox" name="size_cd" value="05">크라운판
             <input type="checkbox" name="size_cd" value="06">국배판
             <input type="checkbox" name="size_cd" value="07">타블로이드
+             -->
          <tr>
          <th>지역
 
@@ -164,7 +176,8 @@ $(document).ready(function(){
       <!-- </div> -->
       <br>
       <input type="button" value="  검색  " onclick="goSearchBookInven();">&nbsp;&nbsp;
-      <input type="button" value="모두검색" onclick="goAllSearchBookInven();">
+      <input type="button" value="모두검색" onclick="goAllSearchBookInven();">&nbsp;&nbsp;
+      <input type="button" value="초기화" onclick="goAllReset();">
       
       <table border=0 width=700>
          <tr>

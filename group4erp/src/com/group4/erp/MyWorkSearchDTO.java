@@ -8,7 +8,15 @@ public class MyWorkSearchDTO {
 	private String[] category;
 	private String searchCategory = "전체";
 	private String emp_no;
+	private String is_print;
 	
+	
+	public String getIs_print() {
+		return is_print;
+	}
+	public void setIs_print(String is_print) {
+		this.is_print = is_print;
+	}
 	public String getEmp_no() {
 		return emp_no;
 	}

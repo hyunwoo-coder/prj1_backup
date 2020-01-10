@@ -41,4 +41,5 @@ public interface MyWorkDAO {
 	int getUpDayoffInfo(HrDayoffJoinDTO dayoffJoinDTO);
 	
 	Map<String, String> getRemain(int emp_no);
+	int getEmpDayoffTot();
 }

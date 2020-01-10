@@ -35,4 +35,5 @@ public interface MyWorkService {
 	int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO);
 	
 	Map<String, String> getRemain(int emp_no);
+	int getEmpDayoffTot();
 }

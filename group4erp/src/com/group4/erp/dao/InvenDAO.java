@@ -12,6 +12,8 @@ public interface InvenDAO {
 	List<Map<String, String>> getBranch(InvenSearchDTO invenSearchDTO);
 	
 	List<Map<String, String>> getPublisher(InvenSearchDTO invenSearchDTO);
+	List<Map<String, String>> getSize();
+	List<Map<String, String>> getCategory();
 	
 	List<Map<String, String>> getInvenLoc(InvenSearchDTO invenSearchDTO);
 	
@@ -53,5 +55,8 @@ public interface InvenDAO {
 	int getBookStockCnt(InvenDTO invenDTO);
 	
 	ReturnSalseContentDTO getReturnContent(int return_sales_no);
+	
+	int getBookInfoUpCnt(BookInfoDTO bookInfoDTO);
+	int getBranchUpCnt(BookInfoDTO bookInfoDTO);
 	
 }

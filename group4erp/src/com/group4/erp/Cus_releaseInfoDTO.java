@@ -17,8 +17,15 @@ public class Cus_releaseInfoDTO {
 	private String ceo_name;
 	private String all_order_num;
 	private String branch_name;
+	private String check_order_num = "any";
 	
 	
+	public String getCheck_order_num() {
+		return check_order_num;
+	}
+	public void setCheck_order_num(String check_order_num) {
+		this.check_order_num = check_order_num;
+	}
 	public String getBranch_name() {
 		return branch_name;
 	}

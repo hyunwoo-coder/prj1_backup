@@ -49,6 +49,9 @@
 			</foreach>
 		</if>
 		 -->
+		 <if test="is_print!=null and is_print.length()>0">
+		 	and is_print = #{is_print}
+		 </if>
 	</sql>
 	<sql id="WorkDaysListSearchWere">
 		<if test="searchEmpNo!=0">
@@ -79,7 +82,7 @@
             from book b 
             where b.emp_no = '${emp_no}'
 			<include refid="MyCareBookSearchWere" />
-			order by b.ISBN13 asc
+			order by b.reg_dt desc
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>
@@ -158,7 +161,7 @@
 		select e.emp_no	as	"emp_no" from employee e, work_days_mng w where e.emp_no = w.emp_no
 	</select>
 	
-	<insert id="insertBefore" parameterType="Hashmap">
+	<insert id="insertWHBefore" parameterType="Hashmap">
 		insert into books_inven_order_info values(
 			(select nvl(max(order_inven_no), 0)+1 from books_inven_order_info)
 			,#{isbn}
@@ -178,6 +181,11 @@
 			,null
 		)
 	</insert>
+	
+	<select id="empDayoffTot" resultType="int">
+		select count(*) from emp_dayoff_apply where start_dayoff between TRUNC(sysdate,'MM') and LAST_DAY(sysdate)
+			or end_dayoff between TRUNC(sysdate,'MM') and LAST_DAY(sysdate)
+	</select>
 	
 	<select id="selectRemain" parameterType="int" resultType="java.util.Map">
 		select

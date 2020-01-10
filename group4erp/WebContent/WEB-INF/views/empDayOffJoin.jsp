@@ -2,10 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file = "/WEB-INF/views/common.jsp" %>
-<%--
-<% String emp_name = (String)session.getAttribute("emp_name"); %>
-<% String emp_no = (String)session.getAttribute("emp_no"); %>
- --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +45,9 @@
 
 $(document).ready(function(){
 
+	//$('[name=noticeTable] ')
+	getMonth();
+	getYearMonth();
 	
 	 $("#start_dayoff").datepicker({ 
 	         dateFormat: 'yy-mm-dd'
@@ -258,35 +258,61 @@ $(document).ready(function(){
 	       alert("This is realDy =>" + realDy);
 	       return realDy;
 	}
+	
+	function getYearMonth(){
+		var today = new Date();
+
+		var YearM = "1. " + today.getFullYear() + "년 " + (today.getMonth()+1) + "월 휴가 신청 입니다";
+
+		document.getElementById('YM').innerHTML=YearM;
+		
+		//return document.getElementById('YM').innerHTML=YearM;
+	}
+	
+	function getMonth(){
+		var today = new Date();
+		
+		var notMonth = today.getMonth()+1;
+		
+		if(notMonth<10){
+			realMonth = "0"+notMonth;
+		}
+		
+		var month = "[" + realMonth + "월 휴가 신청]";
+		
+		document.getElementById('M').innerHTML=month;
+	}
+	
+	function goAllReset(){
+		document.empDayOffJoinForm.reset();
+	}
+	
 </script>
 
 </head>
 <body>
 <cneter>
-<b>[01월 휴가 신청]</b>
+
+<b><span id="M"> </span></b>
 	<br>
-	<table>
+	<table name="noticeTable">
 		<tr>
-			<td>1. 2020년 01월 휴가 신청 입니다
+			<td><span id="YM"> </span>
 		<tr>
-			<td>2. 올해 OOO님의 남은 연가는 OO일 입니다.
+			<td>2. 올해 ${emp_name}님의 남은 연가는 ${remain.remain_dayoff}일 입니다.
 		<tr>
-			<td>3. 이번달 휴가 신청자는 OO명 입니다.
+			<td>3. 이번달 휴가 신청자는 ${empDayoffTot}명 입니다.(휴가자 포함)
 		<tr>
 			<td>4. 한달에 나갈수 있는 휴가 일수는 4일이 최대이며
 		<tr>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;4일 초과시 부서장의 승인이 있어야합니다.
-		<tr>
-			<td>(날짜 유효성 검사)
 	</table>
 	<br>
 <form name="empDayOffJoinForm" method="post" action="/group4erp/empDayOffJoinProc.do">
+	<input type="hidden" name="emp_no" class="emp_no" value='${emp_nos}'>
 	<table cellpadding=5 class="tbcss1">
 		<tr>
-			<th bgcolor=#DBDBDB >사번
-			<td><input type="text" name="emp_no" class="emp_no" size="10" maxlength=20>
-		<tr>
-			<th bgcolor=#DBDBDB>휴가종류
+			<th bgcolor=#DBDBDB>휴가 종류
 			<td>
 				<select name="dayoff_cd">
 					<option value="">---------
@@ -306,7 +332,8 @@ $(document).ready(function(){
 	</table>
 </form>
 
-	<input type="button" value=" 신청 " onclick="empDayOffJoin();">&nbsp;
+	<input type="button" value=" 신청 " onclick="empDayOffJoin();">&nbsp;&nbsp;
+	<input type="button" value="초기화" onclick="goAllReset();">
 
 
 
