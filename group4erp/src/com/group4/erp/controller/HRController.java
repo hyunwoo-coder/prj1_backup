@@ -125,7 +125,6 @@ public class HRController {
 	//급여명세서(개인별) 조회 기능
 	@RequestMapping(value="/viewEmpSalInfo.do")
 	public ModelAndView viewEmpSalInfo(HttpSession session, SalListSearchDTO salListSearchDTO) {
-		
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");

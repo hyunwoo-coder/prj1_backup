@@ -109,9 +109,7 @@ public class AccountController {
 				insertCorpCnt = this.accountService.insertCorp(corporationDTO);
 			} else if(corpSearchCnt >=1) {
 				insertCorpCnt = -2;
-			}
-					
-			
+			}			
 				
 		} catch(Exception e) {
 			System.out.println("insertCorp() 메소드에서 예외 발생>>> "+e);
@@ -192,7 +190,9 @@ public class AccountController {
 		
 		try {
 			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
+			System.out.println("tranSpecSearchDTO.getSearchKeyword()==="+tranSpecSearchDTO.getSearchKeyword());
 			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
+		
 			
 			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
 			mav.addObject("tranSpecIssueList", tranSpecIssueList);
@@ -244,8 +244,6 @@ public class AccountController {
 		
 		try {
 			
-			System.out.println("tranSpecSearchDTO.getSearchKword=="+tranSpecSearchDTO.getSearchKeyword());
-			
 			int tranSpecIssueCnt = this.accountService.getTranSpecIssueCnt(tranSpecSearchDTO);
 			
 			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
@@ -271,7 +269,7 @@ public class AccountController {
 	public int issueTranSpec(TranSpecDTO tranSpecDTO) {
 		
 		int issueCnt = 0;
-		System.out.println("issueTranSpec() 메소드 시작");
+
 		System.out.println("order_no=="+tranSpecDTO.getOrder_no());
 		//System.out.println("order_dt=="+tranSpecDTO.getOrder_dt());
 		//System.out.println("corp_no=="+tranSpecDTO.getCorp_no());

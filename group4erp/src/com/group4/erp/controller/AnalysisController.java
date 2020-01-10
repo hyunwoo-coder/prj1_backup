@@ -147,8 +147,7 @@ public class AnalysisController {
 		}
 		
 		employee_chart_data += "]";
-		
-		System.out.println("viewCategoryChartReport 메소드 실행==="+cat_cd);
+
 		String bookCategory_reg_chart_data = "[";
 		bookCategory_reg_chart_data += "['기간', '건수']";
 		for(int i=0; i<categoryRegChart.size(); i++) {
@@ -160,7 +159,6 @@ public class AnalysisController {
 		}
 		
 		bookCategory_reg_chart_data += "]";
-
 		
 		String monthlyBook_reg_chart_data = "[";
 		monthlyBook_reg_chart_data += "['기간', '건수']";
@@ -173,7 +171,6 @@ public class AnalysisController {
 			monthlyBook_reg_chart_data += "] ";
 		}
 		monthlyBook_reg_chart_data += "]";
-		
 		
 		List<ChartDTO> empHireOrResignChart = this.analysisService.getEmpHireOrResignChart();
 		
@@ -192,8 +189,6 @@ public class AnalysisController {
 			empHireOrResign_data += "] ";
 		}
 		empHireOrResign_data += "]";
-		
-		System.out.println("empHireOrResign_data==="+empHireOrResign_data);
 			
 		mav.addObject("bookCategoryList", bookCategoryList);
 		mav.addObject("employee_chart_data", employee_chart_data);

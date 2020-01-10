@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 	inputData('[name=rowCntPerPage]',"${tranSpecSearchDTO.rowCntPerPage}");
 	inputData('[name=selectPageNo]',"${tranSpecSearchDTO.selectPageNo}");
-
+	inputData("[name=sort]", "${tranSpecSearchDTO.sort}");
 	
 });
 
@@ -74,7 +74,7 @@ $(document).ready(function(){
 	    	
       </table>
      <input type="hidden" name="selectPageNo">
-    
+    <input type="hidden" name="sort" >
 		
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -82,6 +82,7 @@ $(document).ready(function(){
 			<td></td>
 		</tr>
 	</table>
+
 </form> 
 
 	<table border="0" cellpadding="5" cellspacing="5">
@@ -100,8 +101,68 @@ $(document).ready(function(){
 		<tr>
 			<td>
 				<table class="tranSpecIssueList tab" name="tranSpecIssueList" cellpadding="5" cellspacing="5">
-					<tr>
-						<th>발급번호</th><th>사업자번호</th><th>상호명</th><th>사업자명</th><th>발급일시</th>
+					<tr>						
+						<c:choose>
+							<c:when test="${param.sort=='1 desc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 발급번호</th>
+							</c:when>
+							<c:when test="${param.sort=='1 asc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 발급번호</th>
+							</c:when>			
+							<c:otherwise>
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  ">발급번호</th>
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${param.sort=='3 desc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 사업자번호</th>
+							</c:when>
+							<c:when test="${param.sort=='3 asc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 사업자번호</th>
+							</c:when>			
+							<c:otherwise>
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  ">사업자번호</th>
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${param.sort=='4 desc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  "> ▼ 상호명</th>
+							</c:when>
+							<c:when test="${param.sort=='4 asc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('4 desc'); goSearch(); "> ▲ 상호명</th>
+							</c:when>			
+							<c:otherwise>
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  ">상호명</th>
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${param.sort=='5 desc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  "> ▼ 사업자명</th>
+							</c:when>
+							<c:when test="${param.sort=='5 asc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('5 desc'); goSearch(); "> ▲ 사업자명</th>
+							</c:when>			
+							<c:otherwise>
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  ">사업자명</th>
+							</c:otherwise>
+						</c:choose>
+						
+						<c:choose>
+							<c:when test="${param.sort=='7 desc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  "> ▼ 발급일시</th>
+							</c:when>
+							<c:when test="${param.sort=='7 asc'}">
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('7 desc'); goSearch(); "> ▲ 발급일시</th>
+							</c:when>			
+							<c:otherwise>
+								<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  ">발급일시</th>
+							</c:otherwise>
+						</c:choose>
+						
+						
 						<c:forEach items='${tranSpecIssueList}' var="tranSpecIssueList" varStatus="loopTagStatus">
 							<tr style="cursor:pointer">
 							<td>${tranSpecIssueList.issue_no}</td>

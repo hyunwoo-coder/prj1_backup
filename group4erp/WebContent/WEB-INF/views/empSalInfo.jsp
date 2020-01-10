@@ -65,6 +65,7 @@
 			
 	</table>
 	<h5>귀하의 노고에 감사드립니다.</h5>
+	<input type="button" value="뒤로 가기" onClick="javascript:history.go(-1);">
 </center>
 
 </body>

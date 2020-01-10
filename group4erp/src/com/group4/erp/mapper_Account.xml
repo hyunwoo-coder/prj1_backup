@@ -35,16 +35,7 @@
 		</if>
 	</sql>
 	
-	 <sql id="CorpCondition">
-		<if test="searchKeyword !=null and searchKeyword.length() > 0">
-				and (
-					upper(co.order_books_no) like upper('%${searchKeyword}%') 
-					or upper(co.corp_no) like upper('%${searchKeyword}%')
-					or upper(co.books_qty) like upper('%${searchKeyword}%')
-					or upper(co.isbn13) like upper('%${searchKeyword}%')
-				)			
-		</if>
-	</sql>
+
 	
 	<sql id="headerSort">
 		<if test="sort!=null and sort.length() > 0" >
@@ -141,19 +132,33 @@
 	
 	<select id='getCorpOrderList' parameterType = "com.group4.erp.CorpSearchDTO" resultType="com.group4.erp.CorpOrderDTO">
 		select
-    		co.order_books_no||'' "order_books_no",
-    		co.corp_no "corp_no",
-    		(select cc.corp_name from corporation_cus cc where cc.corp_no = co.corp_no) "corp_name",   
-    		(select cc.ceo_name from corporation_cus cc where cc.corp_no = co.corp_no) "ceo_name",
-    		co.books_qty "books_qty",
-    		(select b.book_price from book b where b.isbn13= co.isbn13) "book_price",
-    		(select b.book_price from book b where b.isbn13= co.isbn13) * co.books_qty "tot_cost",
-    		to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt",
-    		(select count(*) from tran_issue_info ti where ti.order_no = co.order_books_no) "issue"
-    	from corp_order_info co
-    	where co.corp_no is not null
- 		<include refid="CorpOrderHeaderSort" />
+			order_books_no "order_books_no",
+			corp_no "corp_no",
+			corp_name "corp_name",
+			ceo_name "ceo_name",
+			books_qty "books_qty",
+			book_price "book_price",
+			tot_cost "tot_cost",
+			order_dt "order_dt",
+			issue "issue"
+		from (
+			select 
+				co.order_books_no||'' "ORDER_BOOKS_NO",
+    			co.corp_no "CORP_NO",
+    			(select cc.corp_name from corporation_cus cc where cc.corp_no = co.corp_no) "CORP_NAME",   
+    			(select cc.ceo_name from corporation_cus cc where cc.corp_no = co.corp_no) "CEO_NAME",
+    			co.books_qty "BOOKS_QTY",
+    			(select b.book_price from book b where b.isbn13= co.isbn13) "BOOK_PRICE",
+    			( (select b.book_price from book b where b.isbn13= co.isbn13) * co.books_qty) "TOT_COST",
+    			to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "ORDER_DT",
+    			(select count(*) from tran_issue_info ti where ti.order_no = co.order_books_no) "ISSUE"
+    		from corp_order_info co
+		)
+		where corp_no is not null
     	<include refid="CorpCondition" />
+    	<include refid="CorpOrderHeaderSort" />
+		
+    		
 	</select>
 	
 	<sql id="CorpOrderHeaderSort">
@@ -162,7 +167,19 @@
 		</if>
 		
 		<if test="sort==null or sort.length() == 0">
-			order by co.order_dt desc
+			order by order_dt desc
+		</if>
+	</sql>
+	
+	<sql id="CorpCondition">
+		<if test="searchKeyword !=null">
+				and (
+					upper(order_books_no) like upper('%${searchKeyword}%') 
+					or upper(corp_no) like upper('%${searchKeyword}%')
+					or upper(books_qty) like upper('%${searchKeyword}%')
+					or upper(ceo_name) like upper('%${searchKeyword}%')
+					or upper(order_dt) like upper('%${searchKeyword}%')					
+				)			
 		</if>
 	</sql>
 	
@@ -221,7 +238,20 @@
 			)
 			where 1=1
 			<include refid="TranSpecIssueWhere" />
+			<include refid="headerSortTranIssue" />
 	</select>
+	
+	
+	<sql id="headerSortTranIssue">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null or sort.length() == 0">
+			order by 1 desc
+		</if>
+	</sql>
+	
 	
 	 <sql id="TranSpecIssueWhere">
 		<if test="searchKeyword !=null and searchKeyword.length() > 0">
@@ -235,6 +265,8 @@
 				)			
 		</if>
 	</sql>
+	
+	
 	
 	<insert id="saveTempTranSpec" parameterType="com.group4.erp.TranSpecDTO">
 		insert into tran_issue_info (

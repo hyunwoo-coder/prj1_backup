@@ -61,8 +61,8 @@
 					<td>${approvalResList.jikup}</td>
 					<td>${approvalResList.emp_name}</td>
 					<td>${approvalResList.document_no}</td>
-				
-					<td>${approvalResList.e_works_req_dt}</td> 
+					<td>${approvalResList.e_works_req_dt}</td>
+
 				</tr>	
 			</c:forEach>
 		
@@ -79,7 +79,7 @@
 		<span id="approvalReq"><h3>결재 요청한 서류 목록 [ ${approvalCnt} ]</h3></span>
 		<table class="approvalReqList tab" name="approvalReqList" cellpadding="5" cellspacing="5">
 			<tr>
-				<th>순서</th><th>문서일련번호</th><th>결재요청시간</th><th>상태</th>
+				<th>순서</th><th>문서일련번호</th><th>결재요청시간</th><th>상태</th><th>비고</th>
 			</tr>
 			<c:forEach items='${approvalReqList}' var="approvalReqList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewDocument();">
@@ -87,6 +87,11 @@
 					<td>${approvalReqList.document_no}</td>
 					<td>${approvalReqList.e_works_req_dt}</td> 
 					<td>${approvalReqList.approval_state}</td> 
+					<td>
+						<c:if test="${approvalReqList.approval_state eq '대기중' }">
+							<input type="button" value="삭제" onClick="deleteApproval('${approvalReqList.e_works_no}');">
+						</c:if>					
+					</td> 
 				</tr>	
 			</c:forEach>
 		
@@ -94,7 +99,8 @@
 		<c:if test="${approvalReqList.size()==0}">
 			<h5>결재를 요청한 내역이 없습니다.</h5>
 		</c:if>
-		
+		<h5>'대기중'인 결재 문서는 수정 & 삭제가 가능합니다.<br>
+		'심사중'인 결재 문건은 수정과 삭제가 불가하며, 부득이하게 취소하고자 할 경우에는 담당 부서장과 상의하시기 바랍니다.</h5>
 	</center>
 	
 </body>
