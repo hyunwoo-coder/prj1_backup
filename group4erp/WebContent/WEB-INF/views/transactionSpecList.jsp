@@ -13,6 +13,19 @@
 		headerSort("tranSpecInTb", 0);
 		headerSort("tranSpecOutTb", 0);
 		
+		$("[name=issueYn]").change(function() {
+			
+			var cnt = $(this).filter(":checked").length;
+					
+			if(cnt==1) {
+				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
+				$(this).siblings().prop("checked", false);
+				
+			} 
+
+	
+		});
+		
 		setTableTrBgColor(
 				"tranSpecInTb",	//테이블 class 값
 				"${headerColor}",			//헤더 tr 배경색
@@ -45,8 +58,9 @@
 
 		inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
-		inputData('[name=sort]').val("${corpSearchDTO.sort}");
-		
+		inputData('[name=sort]').val("${corpSearchDTO.sort}");		
+		inputData('[name=issueYn]', "${corpSearchDTO.issueYn}");
+			
 	});
 
 	function viewTranSpec(order_no) {
@@ -81,7 +95,8 @@
 	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecList.do">
 		<table class="tab" border="0" cellpadding="5" cellspacing="5">
 			<tr>
-				<td align="right">[거래명세서 발급 여부]</td><td>발급 : <input type="checkbox" name="issueTranSpec" value="y"> &nbsp; 미발급 : <input type="checkbox" name="issueTranSpec" value="n"></td>
+				<td align="right">[거래명세서 발급 여부]</td><td>발급 : <input type="checkbox" name="issueYn" value="y"> &nbsp; 
+															미발급 : <input type="checkbox" name="issueYn" value="n"></td>
 			</tr>
 			<tr>
 				<td align="right">[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
@@ -92,6 +107,7 @@
 	
      <input type="hidden" name="selectPageNo">
      <input type="hidden" name="sort">
+     <input type="hidden" name="issueYn">
 		
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -218,11 +234,12 @@
 					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  ">주문일</th>
 				</c:otherwise>
 			</c:choose>
-					<th>거래명세서 발급
+			
+				<th>거래명세서 발급</th>
 			</tr>
 	
 			<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
-			<tr style="cursor:pointer" <c:if test="${tranList.issue == 0}"> onClick="viewTranSpec('${tranList.order_books_no}'); "</c:if>>
+			<tr style="cursor:pointer" <c:if test="${tranList.issueYn == 0}"> onClick="viewTranSpec('${tranList.order_books_no}'); "</c:if>>
 				<td>${tranList.order_books_no}</td>
 				<td>${tranList.corp_no}</td>
 				<td>${tranList.corp_name}</td>
@@ -232,10 +249,10 @@
 				<td>${tranList.tot_cost}</td> --%>
 				<td>${tranList.order_dt}</td>
 				<td align="center">
-					<c:if test="${tranList.issue != 0}">
+					<c:if test="${tranList.issueYn != 0}">
 						발급완료
 					</c:if>
-					<c:if test="${tranList.issue == 0}">
+					<c:if test="${tranList.issueYn == 0}">
 						<input type="button" value="발급" onClick="issueTranSpec();"></td>
 					</c:if>
 			</tr>

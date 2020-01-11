@@ -42,6 +42,10 @@
 		inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
 		inputData('[name=sort]').val("${corpSearchDTO.sort}");
+		
+		<c:forEach items="${corpSearchDTO.corp_business_area}" var="corp_business_area">
+			inputData("[name=corp_business_area]", "${corp_business_area}");
+		</c:forEach>
 
 		//$('[name=sort]').val("${corpSearchDTO.sort}");
 
@@ -75,11 +79,7 @@
 			$(idx).val("닫기");
 			closeFlag = flag;
 
-		} else if(closeFlag == flag){
-			$(idx).val("수정");
-			closeFlag = "close";
-
-		}
+		} 
 
 		var thisTr = $(idx).parent().parent();
 		var delTr = $(".corpListMain .corpListTable [name=updateCorpInfo]");
@@ -120,8 +120,8 @@
 	function closeThisTr(idx) {
 				
 		$(idx).parent().parent().remove();
-
-		//$("[name=updateCorpBtn]").val("수정");
+		$("[name=updateCorpBtn]").val("수정");
+		
 	}
 	
 	
@@ -215,9 +215,22 @@
 <body><center>
 	<h1>[거래처 현황]</h1>
 <form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
-	[검색어]&nbsp;<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
-	
-	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+	<table name="corpSearchTb" border="0" cellpadding="5" cellspacing="5">
+		<tr>
+			<td align="right">[사업분야별]&nbsp;</td><td>
+				<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
+					<c:if test="${corp_business_area.bus_area_code eq '6'}">
+						<br>
+					</c:if>
+					<input type="checkbox" name="corp_business_area" value="${corp_business_area.bus_area_code}">${corp_business_area.bus_area_name} &nbsp;
+				</c:forEach>
+			
+			 </td>
+		</tr>
+		<tr>
+			<td align="right">[검색어]&nbsp;</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp; <input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();"> </td>
+		</tr>
+	</table>
 	
      <input type="hidden" name="selectPageNo">
      <input type="hidden" name="sort">

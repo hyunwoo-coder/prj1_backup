@@ -11,7 +11,7 @@ public class CorpOrderDTO {
 	private String book_price;
 	private String order_dt;
 	private String tot_cost;
-	private String issue;
+	private String issueYn;
 	private String category;
 	
 
@@ -23,12 +23,12 @@ public class CorpOrderDTO {
 		this.category = category;
 	}
 
-	public String getIssue() {
-		return issue;
+	public String getIssueYn() {
+		return issueYn;
 	}
 
-	public void setIssue(String issue) {
-		this.issue = issue;
+	public void setIssue(String issueYn) {
+		this.issueYn = issueYn;
 	}
 
 	public String getOrder_books_no() {

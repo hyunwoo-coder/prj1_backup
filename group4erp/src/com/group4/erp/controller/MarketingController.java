@@ -147,18 +147,6 @@ public class MarketingController {
 		return mav;
 	}
 	
-	
-	@RequestMapping(value="/viewNewBooksList.do")
-	public ModelAndView viewNewBookList(HttpSession session) {
-		
-		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
-		mav.setViewName("main.jsp");
-		mav.addObject("subMenu", "newBooksList");
-		
-		return mav;
-	}
-	
 	//이벤트 현황 조회
 	@RequestMapping(value="/viewEventList.do")
 	public ModelAndView viewEventList(HttpSession session, EventSearchDTO eventSearchDTO) {

@@ -5,7 +5,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +35,6 @@
 </style>
 
 <script>
-
-	
 
 	$(document).ready(function(){
 
@@ -273,15 +270,11 @@
 	        </tr>
 		</table>
 		<table name="searchEvntTable">
-			<tr>
-				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
-									<input type="button" value="모두검색" onClick="goSearchAll();"></td>
-			</tr>
 			<tr> <!-- DB 연동할 것 -->
 				<td>[종류별]</td><td><input type="checkbox" value="01" name="evnt_category">매대판매
 								<input type="checkbox" value="02" name="evnt_category">야외판매
 								<input type="checkbox" value="03" name="evnt_category">할인전
-								<input type="checkbox" value="04" name="evnt_category">기부행사
+								<input type="checkbox" value="04" name="evnt_category">기부행사<br>
 								<input type="checkbox" value="05" name="evnt_category">온라인 설문조사
 								<input type="checkbox" value="06" name="evnt_category">저자강연회
 								<input type="checkbox" value="07" name="evnt_category">선착순증정
@@ -293,6 +286,10 @@
 									<input type="checkbox" value="02" name="evnt_stat">진행중
 									<input type="checkbox" value="04" name="evnt_stat">종료
 				</td>
+			</tr>
+			<tr>
+				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
+									<input type="button" value="모두검색" onClick="goSearchAll();"></td>
 			</tr>
 		</table>
 		<input type="hidden" name="selectPageNo" >

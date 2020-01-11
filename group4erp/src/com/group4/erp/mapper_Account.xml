@@ -22,20 +22,6 @@
 		키값에 대응하는 데이터의 종류에 관계없이 데이터를 그대로 삽입
 	
 	 -->  
-	 <sql id="WhereCondition">
-		<if test="searchKeyword !=null and searchKeyword.length() > 0">
-				and (
-					upper(corp_no) like upper('%${searchKeyword}%') 
-					or upper(corp_name) like upper('%${searchKeyword}%')
-					or upper(ceo_name) like upper('%${searchKeyword}%')
-					or upper(corp_addr) like upper('%${searchKeyword}%')
-					or upper(corp_fax) like upper('%${searchKeyword}%')
-					or upper(corp_business_area) like upper('%${searchKeyword}%')
-				)			
-		</if>
-	</sql>
-	
-
 	
 	<sql id="headerSort">
 		<if test="sort!=null and sort.length() > 0" >
@@ -43,36 +29,82 @@
 		</if>
 		
 		<if test="sort==null or sort.length() == 0">
-			order by reg_dt desc
+			order by 9 desc
 		</if>
 	</sql>
 
 
-	<select id='getCorpListCnt' resultType="int">
-		select count(*) from corporation_cus
-		where is_on_business='y'
-		<include refid="WhereCondition" />
+	<select id='getCorpListCnt' parameterType="com.group4.erp.CorpSearchDTO" resultType="int">
+		select count(*) from corporation_cus cc
+		where cc.is_on_business='y'
+		and 1=1
+		<include refid="whereCondition" />
 	</select>
 	
 	
 	<select id='getCorpList' parameterType="com.group4.erp.CorpSearchDTO" resultType="com.group4.erp.CorporationDTO">
 		select * from (select zzz.*, rownum RNUM from (
 			select
-				corp_no "corp_no",
-				corp_name "corp_name",
-				ceo_name "ceo_name",
-				corp_addr "corp_addr",
-				corp_fax "corp_fax",
-				corp_tel "corp_tel",
-				corp_business_area "corp_business_area",
-				is_on_business "is_on_business",
-				reg_dt "reg_dt"
-			from corporation_cus
-			where is_on_business='y'
-			<include refid="WhereCondition" />
+				cc.corp_no "corp_no",
+				cc.corp_name "corp_name",
+				cc.ceo_name "ceo_name",
+				cc.corp_addr "corp_addr",
+				cc.corp_fax "corp_fax",
+				cc.corp_tel "corp_tel",
+				(select c.business_area_name from code_business_area c where c.business_area_code = cc.corp_business_area) "corp_business_area",
+				cc.is_on_business "is_on_business",
+				cc.reg_dt "reg_dt"
+			from corporation_cus cc
+			where 1=1 and
+			cc.is_on_business='y'
+			<include refid="whereCondition" />
 			<include refid="headerSort" />			
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
+	
+	
+	<sql id="whereCondition">
+		<if test="searchKeyword !=null and searchKeyword.length() > 0">
+				and (
+					upper(cc.corp_no) like upper('%${searchKeyword}%') 
+					or upper(cc.corp_name) like upper('%${searchKeyword}%')
+					or upper(cc.ceo_name) like upper('%${searchKeyword}%')
+					or upper(cc.corp_addr) like upper('%${searchKeyword}%')
+					or upper(cc.corp_fax) like upper('%${searchKeyword}%')
+					or upper(cc.corp_business_area) like upper('%${searchKeyword}%')
+				)			
+		</if>
+		
+		<if test="corp_business_area != null and corp_business_area.length>0">
+			and
+			<foreach collection="corp_business_area" item="bus_category"  open="(" separator="or" close=")">
+				<if test="bus_category.equals('1')">
+					cc.corp_business_area ='1'
+				</if>
+				<if test="bus_category.equals('2')">
+					cc.corp_business_area='2'
+				</if>
+				<if test="bus_category.equals('3')">
+					cc.corp_business_area='3'
+				</if>
+				<if test="bus_category.equals('4')">
+					cc.corp_business_area='4'
+				</if>
+				<if test="bus_category.equals('5')">
+					cc.corp_business_area='5'
+				</if>
+				<if test="bus_category.equals('6')">
+					cc.corp_business_area='6'
+				</if>
+				<if test="bus_category.equals('7')">
+					cc.corp_business_area='7'
+				</if>
+				<if test="bus_category.equals('8')">
+					cc.corp_business_area='8'
+				</if>			
+			</foreach>			
+		</if>
+	</sql>
 	
 	<select id='getCorpInfo' parameterType="String" resultType="com.group4.erp.CorporationDTO">
 		
@@ -140,7 +172,7 @@
 			book_price "book_price",
 			tot_cost "tot_cost",
 			order_dt "order_dt",
-			issue "issue"
+			issue "issueYn"
 		from (
 			select 
 				co.order_books_no||'' "ORDER_BOOKS_NO",
@@ -156,6 +188,7 @@
 		)
 		where corp_no is not null
     	<include refid="CorpCondition" />
+    	<include refid="issueYnWhere" />
     	<include refid="CorpOrderHeaderSort" />
 		
     		
@@ -177,10 +210,24 @@
 					upper(order_books_no) like upper('%${searchKeyword}%') 
 					or upper(corp_no) like upper('%${searchKeyword}%')
 					or upper(books_qty) like upper('%${searchKeyword}%')
-					or upper(ceo_name) like upper('%${searchKeyword}%')
-					or upper(order_dt) like upper('%${searchKeyword}%')					
+					or upper(corp_name) like upper('%${searchKeyword}%')
+					or upper(books_qty) like upper('%${searchKeyword}%')
+					or upper(order_dt) like upper('%${searchKeyword}%')
 				)			
 		</if>
+	</sql>
+	
+	<sql id="issueYnWhere">
+		<if test="issueYn != null">
+		and 1=1
+			<if test="issueYn.equals('y,')">
+				and issue = 1	
+			</if>
+			<if test="issueYn.equals('n,')">
+				and issue = 0	
+			</if>
+			
+		</if>	
 	</sql>
 	
 	<select id='getTranSpecCnt' parameterType = "int" resultType="int">

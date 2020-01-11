@@ -77,6 +77,8 @@ public class ApprovalController {
 			
 			int approvalState = this.approvalService.updateApprovalState(document_no);
 			
+			int event_state = this.approvalService.updateEventState(document_no);
+			
 			EventDTO myEventInfo = this.marketingService.getMyEventInfoApproval(document_no);
 			mav.addObject("approvalInfoList", myEventInfo);
 		}

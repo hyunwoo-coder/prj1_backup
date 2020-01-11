@@ -18,5 +18,7 @@ public interface ApprovalService {
 	List<ApprovalDTO> getApprovalResList(ApprovalSearchDTO approvalSearchDTO);
 	
 	int updateApprovalState(String document_no);
+	
+	int updateEventState(String document_no);
 
 }

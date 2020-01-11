@@ -64,4 +64,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalState;
 	}
 
+	@Override
+	public int updateEventState(String document_no) {
+		// TODO Auto-generated method stub
+		int eventState = this.approvalDAO.updateEventState(document_no);
+		
+		return eventState;
+	}
+
 }
