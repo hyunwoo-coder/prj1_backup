@@ -22,5 +22,8 @@ public interface ApprovalDAO {
 	
 	int updateEventState(String document_no);
 	
+	int insertApproval_dayOff(ApprovalDTO approvalDTO);
+	
+	int updateApprovalProc(ApprovalDTO approvalDTO);
 
 }

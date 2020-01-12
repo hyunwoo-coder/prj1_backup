@@ -165,6 +165,8 @@ public class MarketingController {
 			
 			eventSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
 			
+			System.out.println("allOrMine==="+eventSearchDTO.getAllOrMine());
+			
 			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
 			int eventAllCnt = this.marketingService.getEventAllCnt();
 			
@@ -182,6 +184,7 @@ public class MarketingController {
 			mav.addObject("eventCnt", eventCnt);
 			mav.addObject("eventAllCnt", eventAllCnt);
 			mav.addObject("eventList", eventList);
+			mav.addObject("eventSearchDTO", eventSearchDTO);
 			
 		} catch(Exception e) {
 			System.out.println("viewEventList() 메소드에서 예외발생=="+e);

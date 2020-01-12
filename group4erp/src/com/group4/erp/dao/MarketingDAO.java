@@ -56,5 +56,6 @@ public interface MarketingDAO {
 	
 	EventDTO getMyEventInfoApproval(String document_no);
 
-
+	int updateEvntApprovalState(EventDTO eventDTO);
+	
 }

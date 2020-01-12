@@ -1,5 +1,6 @@
 package com.group4.erp.service;
 
+import com.group4.erp.DayOffApplyDTO;
 import com.group4.erp.HrDayoffJoinDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.MyWorkSearchDTO;
@@ -140,5 +141,19 @@ public class MyWorkServiceImpl implements MyWorkService{
 		int empDayoffTot = this.myWorkDAO.getEmpDayoffTot();
 		
 		return empDayoffTot;
+	}
+	@Override
+	public String getDayOffApplyNo(int emp_no) {
+		// TODO Auto-generated method stub
+		String dayOffApplyNo = this.myWorkDAO.getDayOffApplyNo(emp_no);
+		
+		return dayOffApplyNo;
+	}
+	@Override
+	public DayOffApplyDTO getMyDayOffApproval(int my_dayoff_approval_no) {
+		// TODO Auto-generated method stub
+		DayOffApplyDTO myDayOffApplyInfo = this.myWorkDAO.getMyDayOffApproval(my_dayoff_approval_no);
+		
+		return myDayOffApplyInfo;
 	}
 }

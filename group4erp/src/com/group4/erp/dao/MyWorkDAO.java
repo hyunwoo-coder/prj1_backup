@@ -42,4 +42,8 @@ public interface MyWorkDAO {
 	
 	Map<String, String> getRemain(int emp_no);
 	int getEmpDayoffTot();
+	
+	String getDayOffApplyNo(int emp_no);
+	
+	DayOffApplyDTO getMyDayOffApproval(int my_dayoff_approval_no);
 }

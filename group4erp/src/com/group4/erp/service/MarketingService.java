@@ -55,5 +55,7 @@ public interface MarketingService {
 	List<SalesInfoDTO> getDailyCorpOrderCnt();
 	
 	EventDTO getMyEventInfoApproval(String document_no);
+	
+	int updateEvntApprovalState(EventDTO eventDTO);
 
 }

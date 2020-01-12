@@ -13,26 +13,19 @@ public class CorpSearchDTO {
 	private int books_qty;
 	private String order_dt;
 	private String sort;
-	private String corp_business_area[];
+	private String corp_business[];
+	private String corp_business_area;
 	private String issueYn;
 	
 	
-	public String getIssueYn() {
-		return issueYn;
-	}
-
-	public void setIssueYn(String issueYn) {
-		this.issueYn = issueYn;
-	}
-	
-	public String[] getCorp_business_area() {
+	public String getCorp_business_area() {
 		return corp_business_area;
 	}
 
-	public void setCorp_business_area(String[] corp_business_area) {
+	public void setCorp_business_area(String corp_business_area) {
 		this.corp_business_area = corp_business_area;
 	}
-
+	
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
@@ -113,4 +106,19 @@ public class CorpSearchDTO {
 		this.sort = sort;
 	}
 	
+	public String[] getCorp_business() {
+		return corp_business;
+	}
+	
+	public void setCorp_business(String[] corp_business) {
+		this.corp_business = corp_business;
+	}
+	
+	public String getIssueYn() {
+		return issueYn;
+	}
+	
+	public void setIssueYn(String issueYn) {
+		this.issueYn = issueYn;
+	}
 }

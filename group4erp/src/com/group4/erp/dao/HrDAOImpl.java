@@ -130,11 +130,11 @@ public class HrDAOImpl implements HrDAO {
 
 
 	@Override
-	public List<SalaryDTO> getSalaryInfo(int emp_no) {
+	public List<SalaryDTO> getSalaryInfo(SalListSearchDTO salListSearchDTO) {
 		// TODO Auto-generated method stub
 		
 		System.out.println("DAO getSalaryInfo() 메소드 실행");
-		List<SalaryDTO> myPayCheckList = this.sqlSession.selectList(mapper_namespace+"getEmpSalInfo", emp_no);
+		List<SalaryDTO> myPayCheckList = this.sqlSession.selectList(mapper_namespace+"getEmpSalInfo", salListSearchDTO);
 		
 		return myPayCheckList;
 	}

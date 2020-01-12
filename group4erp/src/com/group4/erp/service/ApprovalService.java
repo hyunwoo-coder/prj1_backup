@@ -20,5 +20,9 @@ public interface ApprovalService {
 	int updateApprovalState(String document_no);
 	
 	int updateEventState(String document_no);
+	
+	int insertApproval_dayOff(ApprovalDTO approvalDTO);
+	
+	int updateApprovalProc(ApprovalDTO approvalDTO);
 
 }

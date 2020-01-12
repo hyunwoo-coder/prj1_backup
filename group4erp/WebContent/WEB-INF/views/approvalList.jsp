@@ -37,7 +37,7 @@
 
 	function viewAppResDoc(document_no) {
 		//alert("결재 문서 보기 구현 예정");
-		alert(document_no);
+		//alert(document_no);
 		$("[name=document_no]").val(document_no);
 
 		document.approvalResListForm.submit();
@@ -52,12 +52,13 @@
 		<form name="approvalResListForm" method="post" action="/group4erp/viewApprovalDoc.do" >
 			<table class="approvalResList tab" name="approvalResList" cellpadding="5" cellspacing="5">
 			<tr>
-				<th>순서</th><th>결재 종류</th><th>직급</th><th>사원</th><th>문서일련번호</th><th>결재요청시간</th>
+				<th>번호</th><th>결재 종류</th><th>직급</th><th>사원</th><th>문서일련번호</th><th>결재요청시간</th>
 			</tr>
 			<c:forEach items='${approvalResList}' var="approvalResList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewAppResDoc('${approvalResList.document_no}');">
-					<td>${approvalResList.e_works_no}</td>
-					<td>마케팅 행사 계획서입니다</td>
+					
+					<td>${approvalResList.approval_num}</td>
+					<td>${approvalResList.document_no}</td>
 					<td>${approvalResList.jikup}</td>
 					<td>${approvalResList.emp_name}</td>
 					<td>${approvalResList.document_no}</td>

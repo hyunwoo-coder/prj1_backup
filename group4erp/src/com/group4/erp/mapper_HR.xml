@@ -211,8 +211,8 @@
 	
 	</select>
 	
-	<select id='getEmpSalInfo' parameterType="int" resultType="com.group4.erp.SalaryDTO">
-	
+	<select id='getEmpSalInfo' parameterType="com.group4.erp.SalListSearchDTO" resultType="com.group4.erp.SalaryDTO">
+	select * from(select zzz.*, rownum RNUM from(
 		select 
 			emp_no "emp_no",
 			to_char(salary_dt, 'yyyy.mm.dd')|| '('||to_char(salary_dt, 'dy', 'nls_date_language=Korean' )||')' "salary_dt",
@@ -227,9 +227,10 @@
 			deduct "deduct"
 		from state_of_payment			  
     	where 1=1
-    	and emp_no = #{emp_no}   
+    	and emp_no = '${emp_no}'   
     	order by salary_dt desc
-   
+    	
+    ) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
 	
 	<select id="getMyPayCheckCnt" parameterType="int" resultType="int">

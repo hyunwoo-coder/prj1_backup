@@ -35,10 +35,28 @@
 				)
 			);
 
-		inputData('[name=rowCntPerPage]',"${salListSearchDTO.rowCntPerPage}");
-		inputData('[name=selectPageNo]',"${salListSearchDTO.selectPageNo}");
-		inputData("[name=sort]", "${salListSearchDTO.sort}");
+		//검색 후 입력양식에 넣었던 검색 조건들 세팅하기
+		$('[name=rowCntPerPage]').val("${salListSearchDTO.rowCntPerPage}");
+		$('[name=selectPageNo]').val("${salListSearchDTO.selectPageNo}");
+		
+		//inputData('[name=rowCntPerPage]',"${salListSearchDTO.rowCntPerPage}");
+		//inputData('[name=selectPageNo]',"${salListSearchDTO.selectPageNo}");
+		//inputData("[name=sort]", "${salListSearchDTO.sort}");
 	});
+	
+	
+	function goSearch() {
+		
+		document.empSalForm.submit();
+	}
+
+	function goSearchAll() {
+		document.empSalForm.reset();
+
+		$('[name=corpSearchForm] [name=selectPageNo]').val("1");
+		$('[name=corpSearchForm] [name=rowCntPerPage]').val("15");
+		goSearch();
+	}
 		
 </script>
 </head>
@@ -49,6 +67,7 @@
 	<form name="empSalForm" method="post">
 	
 		<input type="hidden" name="selectPageNo">
+		<input type="hidden" name="rowCntPerPage">
     	<input type="hidden" name="sort" >
 		
 		<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>

@@ -72,4 +72,20 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return eventState;
 	}
 
+	@Override
+	public int insertApproval_dayOff(ApprovalDTO approvalDTO) {
+		// TODO Auto-generated method stub
+		int approval_dayOffCnt = this.approvalDAO.insertApproval_dayOff(approvalDTO);
+		
+		return approval_dayOffCnt;
+	}
+
+	@Override
+	public int updateApprovalProc(ApprovalDTO approvalDTO) {
+		// TODO Auto-generated method stub
+		int updateApprovalCnt = this.approvalDAO.updateApprovalProc(approvalDTO);
+		
+		return updateApprovalCnt;
+	}
+
 }

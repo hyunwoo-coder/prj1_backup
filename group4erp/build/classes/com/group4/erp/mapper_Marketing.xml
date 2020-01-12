@@ -35,8 +35,7 @@
 				</if>
 				<if test="evnt_stat.equals('04')">
 					ei.evnt_state_cd='04'
-				</if>
-				
+				</if>				
 			</foreach>			
 		</if>
 		
@@ -63,8 +62,7 @@
 				</if>
 				<if test="evnt_category.equals('07')">
 					ei.evnt_cd='07'
-				</if>
-				
+				</if>			
 			</foreach>			
 		</if>
 	</sql>
@@ -79,11 +77,10 @@
 		</if>
 	</sql>
 	
-	 
-	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
+	<select id='getEventCnt' parameterType="com.group4.erp.EventSearchDTO" resultType="int">
 		select count(*) from event_info ei
 		where 1=1
-		and ei.evnt_state_cd != 7		
+		and ei.evnt_state_cd != 7
 		<include refid="eventWhere" />
 	</select>
 	
@@ -103,10 +100,11 @@
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
-		where 1=1
+		where 1=1	
 		and ei.evnt_state_cd != 7	
 		<include refid="eventWhere" />
 		<include refid="headerSort" />
+		
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
 
@@ -290,6 +288,11 @@
 	<update id="updateEvntState">	
 			update event_info set evnt_state_cd = 4
 			where evnt_end_dt&lt;sysdate
+	</update>
+	
+	<update id="updateEvntApprovalState" parameterType="com.group4.erp.EventDTO">	
+			update event_info set evnt_state_cd = #{evnt_state_cd}
+			where evnt_no = #{document_no}
 	</update>
 	
 	<select id="getCorpOrderTotCnt" resultType="int">

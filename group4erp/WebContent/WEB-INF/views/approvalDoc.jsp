@@ -15,7 +15,7 @@
 	</c:if>
 		
 	<c:if test="${approvalDoc.equals('DO') }">	<!-- 휴가 결재 -->
-		<%--<%@ include file="/WEB-INF/views/approvalDocDayOff.jsp" %> --%>
+		<%@ include file="/WEB-INF/views/approvalDocDayOff.jsp" %>
 	</c:if>
 		
 	<c:if test="${approvalDoc.equals('BT') }"> <!-- 출장신청 결재 -->

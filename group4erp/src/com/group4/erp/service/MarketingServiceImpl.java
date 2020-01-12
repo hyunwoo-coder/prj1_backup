@@ -196,4 +196,12 @@ public class MarketingServiceImpl implements MarketingService {
 		return myEventInfo;
 	}
 
+	@Override
+	public int updateEvntApprovalState(EventDTO eventDTO) {
+		// TODO Auto-generated method stub
+		int eventApprovalState = this.marketingDAO.updateEvntApprovalState(eventDTO);
+		
+		return eventApprovalState;
+	}
+
 }

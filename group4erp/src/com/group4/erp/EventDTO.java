@@ -17,6 +17,26 @@ public class EventDTO {
 	private String evnt_comment;
 	private String atchd_data;
 	private String reg_dt;
+	private String evnt_state_cd;
+	private String document_no;
+
+	
+	
+	public String getDocument_no() {
+		return document_no;
+	}
+
+	public void setDocument_no(String document_no) {
+		this.document_no = document_no;
+	}
+
+	public String getEvnt_state_cd() {
+		return evnt_state_cd;
+	}
+
+	public void setEvnt_state_cd(String evnt_state_cd) {
+		this.evnt_state_cd = evnt_state_cd;
+	}
 
 
 	public String getReg_dt() {

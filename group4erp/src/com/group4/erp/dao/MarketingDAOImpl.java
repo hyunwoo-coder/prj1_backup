@@ -199,4 +199,12 @@ public class MarketingDAOImpl implements MarketingDAO {
 		return myEventInfo;
 	}
 
+	@Override
+	public int updateEvntApprovalState(EventDTO eventDTO) {
+		// TODO Auto-generated method stub
+		int eventAppovalState = this.sqlSession.update(mapper_namespace+"updateEvntApprovalState", eventDTO);
+		
+		return eventAppovalState;
+	}
+
 }

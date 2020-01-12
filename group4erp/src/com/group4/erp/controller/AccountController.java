@@ -42,11 +42,29 @@ public class AccountController {
 		mav.addObject("subMenu", "viewCorpList");
 		mav.addObject("navigator", "[회계관리]-[거래처 현황]");
 		
+		String corpBusiness = "";
+		
+		if(corpSearchDTO.getCorp_business()!= null) {
+			for(int i=0; i<corpSearchDTO.getCorp_business().length; i++) {
+				System.out.println("corpSearchDTO.getCorp_business.size==="+corpSearchDTO.getCorp_business()[i]);
+				
+				//if(i !=corpSearchDTO.getCorp_business().length-1) {
+				//	corpBusiness += corpSearchDTO.getCorp_business()[i] +", ";
+				//} else {
+				//	corpBusiness += corpSearchDTO.getCorp_business()[i];
+				//}
+				
+			}
+		
+		}
+		
+		//corpSearchDTO.setCorp_business_area(corpBusiness);
+		//System.out.println(corpBusiness);
 		
 		try {
 			
 			int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);
-			//System.out.println("corpSearchDTO.getCorp_business_area.size==="+corpSearchDTO.getCorp_business_area().length);
+			
 			
 			if(corpListCnt >0 ) {
 				int selectPageNo = corpSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
@@ -196,12 +214,13 @@ public class AccountController {
 			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
 			
 			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
-			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
+			//List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
 	
-			mav.addObject("tranSpecIssueList", tranSpecIssueList);		
+			//mav.addObject("tranSpecIssueList", tranSpecIssueList);		
 			mav.addObject("corp_tran_cnt", corp_tran_cnt);
 			mav.addObject("corp_tran_list", corp_tran_list);
-			mav.addObject("tranSpecIssueList", tranSpecIssueList);
+			mav.addObject("corpSearchDTO", corpSearchDTO);
+			//mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);

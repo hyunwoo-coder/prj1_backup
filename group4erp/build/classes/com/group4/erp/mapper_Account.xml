@@ -38,8 +38,42 @@
 		select count(*) from corporation_cus cc
 		where cc.is_on_business='y'
 		and 1=1
-		<include refid="whereCondition" />
+		<include refid="corpListCntWhere" />
 	</select>
+	
+	<sql id="corpListCntWhere">
+		<if test="corp_business_area != null">
+
+			<foreach collection="corp_business_area" item="corp_business_area" >
+			
+				<if test="corp_business_area.equals('1')">
+					and cc.corp_business_area ='1'
+				</if>
+				<if test="corp_business_area.equals('2')">
+					and cc.corp_business_area='2'
+				</if>
+				<if test="corp_business_area.equals('3')">
+					and cc.corp_business_area='3'
+				</if>
+				<if test="corp_business_area.equals('4')">
+					and cc.corp_business_area='4'
+				</if>
+				<if test="corp_business_area.equals('5')">
+					and cc.corp_business_area='5'
+				</if>
+				<if test="corp_business_area.equals('6')">
+					and cc.corp_business_area='6'
+				</if>
+				<if test="corp_business_area.equals('7')">
+					and cc.corp_business_area='7'
+				</if>
+				<if test="corp_business_area.equals('8')">
+					and cc.corp_business_area='8'
+				</if>			
+			</foreach>			
+		</if>
+	
+	</sql>
 	
 	
 	<select id='getCorpList' parameterType="com.group4.erp.CorpSearchDTO" resultType="com.group4.erp.CorporationDTO">
@@ -51,6 +85,7 @@
 				cc.corp_addr "corp_addr",
 				cc.corp_fax "corp_fax",
 				cc.corp_tel "corp_tel",
+				cc.corp_business_area "corp_business",
 				(select c.business_area_name from code_business_area c where c.business_area_code = cc.corp_business_area) "corp_business_area",
 				cc.is_on_business "is_on_business",
 				cc.reg_dt "reg_dt"
@@ -75,35 +110,38 @@
 				)			
 		</if>
 		
-		<if test="corp_business_area != null and corp_business_area.length>0">
-			and
-			<foreach collection="corp_business_area" item="bus_category"  open="(" separator="or" close=")">
-				<if test="bus_category.equals('1')">
-					cc.corp_business_area ='1'
+		<if test="corp_business != null">
+			
+			<foreach collection="corp_business" item="corp_business" >
+			
+				<if test="corp_business.equals('1')">
+					and cc.corp_business_area ='1'
 				</if>
-				<if test="bus_category.equals('2')">
-					cc.corp_business_area='2'
+				<if test="corp_business.equals('2')">
+					and cc.corp_business_area='2'
 				</if>
-				<if test="bus_category.equals('3')">
-					cc.corp_business_area='3'
+				<if test="corp_business.equals('3')">
+					and cc.corp_business_area='3'
 				</if>
-				<if test="bus_category.equals('4')">
-					cc.corp_business_area='4'
+				<if test="corp_business.equals('4')">
+					and cc.corp_business_area='4'
 				</if>
-				<if test="bus_category.equals('5')">
-					cc.corp_business_area='5'
+				<if test="corp_business.equals('5')">
+					and cc.corp_business_area='5'
 				</if>
-				<if test="bus_category.equals('6')">
-					cc.corp_business_area='6'
+				<if test="corp_business.equals('6')">
+					and cc.corp_business_area='6'
 				</if>
-				<if test="bus_category.equals('7')">
-					cc.corp_business_area='7'
+				<if test="corp_business.equals('7')">
+					and cc.corp_business_area='7'
 				</if>
-				<if test="bus_category.equals('8')">
-					cc.corp_business_area='8'
+				<if test="corp_business.equals('8')">
+					and cc.corp_business_area='8'
 				</if>			
 			</foreach>			
+			
 		</if>
+	
 	</sql>
 	
 	<select id='getCorpInfo' parameterType="String" resultType="com.group4.erp.CorporationDTO">

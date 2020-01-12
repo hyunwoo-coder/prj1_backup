@@ -25,7 +25,7 @@ public interface HrDAO {
 	
 	TimeDTO getTime();
 	
-	List<SalaryDTO> getSalaryInfo(int emp_no);
+	List<SalaryDTO> getSalaryInfo(SalListSearchDTO salListSearchDTO);
 	
 	int getDayOffListCnt(HrListSearchDTO hrListSearchDTO);
 	

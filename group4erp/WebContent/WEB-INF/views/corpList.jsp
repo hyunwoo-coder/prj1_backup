@@ -43,11 +43,13 @@
 		inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
 		inputData('[name=sort]').val("${corpSearchDTO.sort}");
 		
-		<c:forEach items="${corpSearchDTO.corp_business_area}" var="corp_business_area">
-			inputData("[name=corp_business_area]", "${corp_business_area}");
+		<c:forEach items="${corpSearchDTO.corp_business}" var="corp_business">
+			inputData("[name=corp_business]", "${corpSearchDTO.corp_business}");
 		</c:forEach>
 
-		//$('[name=sort]').val("${corpSearchDTO.sort}");
+		<c:forEach items="${corpSearchDTO.corp_business}" var="corp_business">
+			$('[name=corp_business]').filter("[value = ${corp_business}]").prop("checked", true);
+		</c:forEach>
 
 	});
 
@@ -70,7 +72,6 @@
 		location.replace("/group4erp/goInsertCorpPage.do");
 	}
 
-
 	var closeFlag = "close";
 	
 	function updateCorpInfo(idx, flag, corp_no, corp_name, ceo_name, business_area, corp_addr, corp_tel, corp_fax) {
@@ -85,8 +86,7 @@
 		var delTr = $(".corpListMain .corpListTable [name=updateCorpInfo]");
 		
 		if(delTr.size() > 0) {
-			//delTr.remove();
-			//thisTr.next().remove();		
+			delTr.remove();
 		}		
 		
 		//$('.corpListTable tr:eq('+idx+')').append(" <tr> <td>");
@@ -218,12 +218,21 @@
 	<table name="corpSearchTb" border="0" cellpadding="5" cellspacing="5">
 		<tr>
 			<td align="right">[사업분야별]&nbsp;</td><td>
-				<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
+				<%--<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
 					<c:if test="${corp_business_area.bus_area_code eq '6'}">
 						<br>
 					</c:if>
 					<input type="checkbox" name="corp_business_area" value="${corp_business_area.bus_area_code}">${corp_business_area.bus_area_name} &nbsp;
-				</c:forEach>
+																								
+				</c:forEach> --%>
+					<input type="checkbox" name="corp_business" value="1">IT &nbsp;
+					<input type="checkbox" name="corp_business" value="2">통신 &nbsp;
+					<input type="checkbox" name="corp_business" value="3">금융 &nbsp;
+					<input type="checkbox" name="corp_business" value="4">출판&미디어&nbsp;
+					<input type="checkbox" name="corp_business" value="5">교육&학원 &nbsp;<br>
+					<input type="checkbox" name="corp_business" value="6">운송&물류 &nbsp;
+					<input type="checkbox" name="corp_business" value="7">학교 &nbsp;
+					<input type="checkbox" name="corp_business" value="8">기타 &nbsp;	
 			
 			 </td>
 		</tr>

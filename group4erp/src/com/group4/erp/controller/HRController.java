@@ -131,8 +131,9 @@ public class HRController {
 	
 		String emp_no = (String)session.getAttribute("emp_id");
 		int my_emp_no = Integer.parseInt(emp_no);
-		System.out.println("my_emp_no==="+my_emp_no);
+
 		salListSearchDTO.setMy_emp_no(my_emp_no);
+		salListSearchDTO.setEmp_no(emp_no);
 	
 		TimeDTO timeDTO = this.hrservice.getTime();
 		//int emp_tot_cnt = this.hrservice.getEmpListAllCnt(salListSearchDTO);
@@ -142,7 +143,7 @@ public class HRController {
 		//List<SalaryDTO> empSalInfo = this.hrservice.getEmpSalList(salListSearchDTO);
 	
 		System.out.println("급여 컨트롤러 시작");
-		List<SalaryDTO> myPayCheckList = this.hrservice.getSalaryInfo(my_emp_no);
+		List<SalaryDTO> myPayCheckList = this.hrservice.getSalaryInfo(salListSearchDTO);
 		System.out.println("컨트롤러 급여명세서 조회 성공");
 
 		mav.addObject("myPayCheckList", myPayCheckList);

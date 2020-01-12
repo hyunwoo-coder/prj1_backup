@@ -10,8 +10,18 @@
 <script>
 
 	$(document).ready(function() {
-		headerSort("tranSpecInTb", 0);
+		//headerSort("tranSpecInTb", 0);
 		headerSort("tranSpecOutTb", 0);
+		
+		
+		var issueYn = '${corpSearchDTO.issueYn}';
+
+		if(issueYn != null) {
+			if(issueYn.indexOf(",") >=0) {
+				issueYn=issueYn.replace(/,/gi, "");
+			}
+			
+		}
 		
 		$("[name=issueYn]").change(function() {
 			
@@ -19,21 +29,10 @@
 					
 			if(cnt==1) {
 				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
-				$(this).siblings().prop("checked", false);
-				
+				$(this).siblings().prop("checked", false);				
 			} 
-
-	
 		});
 		
-		setTableTrBgColor(
-				"tranSpecInTb",	//테이블 class 값
-				"${headerColor}",			//헤더 tr 배경색
-				"${oddTrColor}",		//홀수행 배경색
-				"${evenTrColor}",	//짝수행 배경색
-				"${mouseOverColor}"			//마우스 온 시 배경색
-		);
-
 		setTableTrBgColor(
 				"tranSpecOutTb",	//테이블 class 값
 				"${headerColor}",			//헤더 tr 배경색
@@ -58,8 +57,16 @@
 
 		inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
-		inputData('[name=sort]').val("${corpSearchDTO.sort}");		
-		inputData('[name=issueYn]', "${corpSearchDTO.issueYn}");
+		inputData('[name=sort]', "${corpSearchDTO.sort}");		
+		inputData('[name=issueYn]', '${corpSearchDTO.issueYn}');
+		
+		
+		
+		$('[name=rowCntPerPage]').val("${corpSearchDTO.rowCntPerPage}");
+		$('[name=searchKeyword]').val("${corpSearchDTO.searchKeyword}");
+		$('[name=selectPageNo]').val("${corpSearchDTO.selectPageNo}");
+		$('[name=issueYn]').filter("[ value='${param.issueYn}' ]").prop("checked", true);	
+		//$('[name=date]').filter("[value='${date}']").prop("checked", true);
 			
 	});
 
@@ -95,8 +102,8 @@
 	<form name="corpSearchForm" method="post" action="/group4erp/viewTranSpecList.do">
 		<table class="tab" border="0" cellpadding="5" cellspacing="5">
 			<tr>
-				<td align="right">[거래명세서 발급 여부]</td><td>발급 : <input type="checkbox" name="issueYn" value="y"> &nbsp; 
-															미발급 : <input type="checkbox" name="issueYn" value="n"></td>
+				<td align="right">[거래명세서 발급 여부]</td><td>발급 : <input type="checkbox" name="issueYn" value="y" />
+															미발급 : <input type="checkbox" name="issueYn" value="n" /></td>
 			</tr>
 			<tr>
 				<td align="right">[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
