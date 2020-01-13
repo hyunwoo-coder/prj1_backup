@@ -18,7 +18,7 @@
 	
 
 		$(document).ready(function(){
-
+			getTime();
 			headerSort("dayOffList", 0);
 
 			$('[name=rowCntPerPage]').change(function(){
@@ -86,7 +86,7 @@
 			//return year + "년 " +month + "월 " + date + "일 ("+ week +") " + hour + "시 " + minute + "분 " +second + "초 ";
 		} */
 
-		var cd = null;
+		var cd = $("[name=addTr]").find("[name=dayoff_name]").val();
 		var dateS = null;
 		var dateE = null;
 		var empNo = null;
@@ -110,7 +110,7 @@
 			var remainD_origin = $(ele).children().eq(8).text();
 			
 			var addhtmlTr = "<tr name='addTr'><td colspan='14' align=center><center><div align='center' style='position:absoulte text-align:center'>⏷<br>[휴가 수정]<br>";
-			addhtmlTr += "<div style='height:10'></div><table class='tab2' width='600' id='contentTable' border=1 bordercolor='#000000' cellpadding=5 align=center>";
+			addhtmlTr += "<div style='height:10'></div><table name='upDayoff' class='tab2' width='600' id='contentTable' border=1 bordercolor='#000000' cellpadding=5 align=center>";
 			addhtmlTr += "<tr><th>휴가종류</th><td><select name=dayoff_name>";
 			
 			addhtmlTr += "<option value='연차'>연차</option><option value='월차'>월차</option>"
@@ -208,83 +208,120 @@
 		                return noWeekend;
 		            }
 		        } */
-	        $("#dateFrom").datepicker({ 
-		    	        dateFormat: 'yy-mm-dd'
-			    	    ,defaultDate : dtfromval
-			    	    ,minDate : 'today'
-		        		,onClose: function( selectedDate ) {   
-							//$("#dateTill").datepicker({minDate:selectedDate});
-			        		$("#dateTill").datepicker( "option", "minDate", selectedDate );
-						}       
-						,onSelect: function() { 
-							var dateObject = $(this).datepicker('getDate');
-							cd = $("[name=addTr]").find("[name=dayoff_name]").val();
-							dateS = $("[name=addTr]").find("[name=start_dayoff]").val();
-							dateE = $("[name=addTr]").find("[name=end_dayoff]").val();
-							empNo = $("[name=addTr]").find("[name=emp_no]").val();
-							remainD = $("[name=addTr]").find("[name=remain_dayoff]").val();
-					        
-							var realDy = finalDayoff(dateS, dateE, remainD); 
-							//alert("realDy => "+realDy);
-							
-				 			if(realDy > remainD){
-								alert( realDy+"일 선택 => 사용 가능한 휴가일을 초과하였습니다.");
-								return;
-							}
-							if(realDy > 5){
-								alert( realDy+"일 선택=> 1회 최대 휴가 사용 가능일 수는 5일입니다.");
-								return;
-							} 
+		    //$("[name=dayoff_name]").change(function(){
+		    	cd = $("[name=addTr]").find("[name=dayoff_name]").val();
+				dateS = $("[name=addTr]").find("[name=start_dayoff]").val();
+				dateE = $("[name=addTr]").find("[name=end_dayoff]").val();
+				empNo = $("[name=addTr]").find("[name=emp_no]").val();
+				remainD = $("[name=addTr]").find("[name=remain_dayoff]").val();
+				var realDy = finalDayoff(dateS, dateE, remainD); 
+
+				if(cd=='반차'){
+					$("[name=upDayoff] tr:eq(2)").hide();
+					inputData("[name=end_dayoff]", dateS);
+					realDy = 0.5;
+	            }else{
+	            	$("[name=upDayoff] tr:eq(2)").show();
+	            	$("#dateFrom").datepicker({ 
+			    	        dateFormat: 'yy-mm-dd'
+				    	    ,defaultDate : dtfromval
+				    	    ,minDate : 'today'
+			        		,onClose: function( selectedDate ) {   
+								//$("#dateTill").datepicker({minDate:selectedDate});
+				        		$("#dateTill").datepicker( "option", "minDate", selectedDate );
+							}       
+							,onSelect: function() { 
+								var dateObject = $(this).datepicker('getDate');
+								cd = $("[name=addTr]").find("[name=dayoff_name]").val();
+								dateS = $("[name=addTr]").find("[name=start_dayoff]").val();
+								dateE = $("[name=addTr]").find("[name=end_dayoff]").val();
+								empNo = $("[name=addTr]").find("[name=emp_no]").val();
+								remainD = $("[name=addTr]").find("[name=remain_dayoff]").val();
+						        
+								var realDy = finalDayoff(dateS, dateE, remainD); 
+								//alert("realDy => "+realDy);
+								if(cd!='출산'){
+						 			if(realDy > remainD){
+										alert( realDy+"일 선택 => 사용 가능한 휴가일을 초과하였습니다.");
+										$("[name=addTr]").find("[name=start_dayoff]").val("");
+										$("[name=addTr]").find("[name=using_dayoff]").val("");
+										return;
+									}
+									if(realDy > 5){
+										alert( realDy+"일 선택=> 1회 최대 휴가 사용 가능일 수는 5일입니다.");
+										$("[name=addTr]").find("[name=start_dayoff]").val("");
+										$("[name=addTr]").find("[name=using_dayoff]").val("");
+										return;
+									} 
+								}
+								$("[name=addTr]").find("[name=using_dayoff]").val(realDy);
+								var usingD = $("[name=addTr]").find("[name=using_dayoff]").val();
+								updatedata = "dayoff_name="+cd+"&start_dayoff="+dateS+"&end_dayoff="+dateE+"&emp_no="+empNo+"&using_dayoff="+usingD+"dayoff_apply_dt="+dayoff_apply_dt;
+								//$("[name=addTr]").find("[name=using_dayoff]").val(realDy);
+								//var usingD = $("[name=addTr]").find("[name=using_dayoff]").val();
+								//updatedata = "dayoff_name="+cd+"&start_dayoff="+dateS+"&end_dayoff="+dateE+"&emp_no="+empNo+"&using_dayoff="+usingD;
+								//alert("updatedata => " + updatedata);
+						    }
+						    ,beforeShowDay:$.datepicker.noWeekends 
+					});
+					//$( "#dateFrom" ).datepicker().datepicker("setDate", dtfromval);
+					//$( "#dateFrom" ).datepicker("setDate", dtfromval);
 				
-							$("[name=addTr]").find("[name=using_dayoff]").val(realDy);
-							var usingD = $("[name=addTr]").find("[name=using_dayoff]").val();
-							updatedata = "dayoff_name="+cd+"&start_dayoff="+dateS+"&end_dayoff="+dateE+"&emp_no="+empNo+"&using_dayoff="+usingD;
-							//alert("updatedata => " + updatedata);
-					    }
-					    ,beforeShowDay:$.datepicker.noWeekends 
-			});
-			//$( "#dateFrom" ).datepicker().datepicker("setDate", dtfromval);
-			//$( "#dateFrom" ).datepicker("setDate", dtfromval);
-			
-	        $("#dateTill").datepicker({ 
-		        		dateFormat: 'yy-mm-dd'
-		        		,defaultDate : dttillval
-		        		,minDate : dtfromval
-			        	,onClose: function( selectedDate ) {
-                			//$("#dateFrom").datepicker({maxDate:selectedDate});
-			        		// $("#dateFrom").datepicker( "option", "maxDate", selectedDate );
-	            		}
-						,onSelect: function() { 
-					        var dateObject = $(this).datepicker('getDate');
-							cd = $("[name=addTr]").find("[name=dayoff_name]").val();
-							dateS = $("[name=addTr]").find("[name=start_dayoff]").val();
-							dateE = $("[name=addTr]").find("[name=end_dayoff]").val();
-							empNo = $("[name=addTr]").find("[name=emp_no]").val();
-							remainD = $("[name=addTr]").find("[name=remain_dayoff]").val();
-					        
-							var realDy = finalDayoff(dateS, dateE, remainD); 
-							//alert("realDy => "+realDy);
-							
-				 			if(realDy > remainD){
-								alert( realDy + " => 사용 가능한 휴가일을 초과하였습니다.");
-								$("[name=addTr]").find("[name=end_dayoff]").val("");
-								return;
-							}
-							if(realDy > 5){
-								alert( realDy + " => 1회 최대 휴가 사용 가능일 수는 5일입니다.");
-								$("[name=addTr]").find("[name=end_dayoff]").val("");
-								return;
-							} 
-				
-							$("[name=addTr]").find("[name=using_dayoff]").val(realDy);
-							var usingD = $("[name=addTr]").find("[name=using_dayoff]").val();
-							updatedata = "dayoff_name="+cd+"&start_dayoff="+dateS+"&end_dayoff="+dateE+"&emp_no="+empNo+"&using_dayoff="+usingD+"dayoff_apply_dt="+dayoff_apply_dt;;
-							//alert("updatedata => " + updatedata);
-					        //alert($(this).val()); 
-					    } 
-					    ,beforeShowDay:$.datepicker.noWeekends
-					         
-            });
+		        	$("#dateTill").datepicker({ 
+			        		dateFormat: 'yy-mm-dd'
+			        		,defaultDate : dttillval
+			        		,minDate : dtfromval
+				        	,onClose: function( selectedDate ) {
+	                			//$("#dateFrom").datepicker({maxDate:selectedDate});
+				        		// $("#dateFrom").datepicker( "option", "maxDate", selectedDate );
+		            		}
+							,onSelect: function() { 
+						        var dateObject = $(this).datepicker('getDate');
+								cd = $("[name=addTr]").find("[name=dayoff_name]").val();
+								dateS = $("[name=addTr]").find("[name=start_dayoff]").val();
+								dateE = $("[name=addTr]").find("[name=end_dayoff]").val();
+								empNo = $("[name=addTr]").find("[name=emp_no]").val();
+								remainD = $("[name=addTr]").find("[name=remain_dayoff]").val();
+						        
+								var realDy = finalDayoff(dateS, dateE, remainD); 
+								//alert("realDy => "+realDy);
+								if(cd!='출산'){
+						 			if(realDy > remainD){
+										alert( realDy + " => 사용 가능한 휴가일을 초과하였습니다.");
+										$("[name=addTr]").find("[name=end_dayoff]").val("");
+										$("[name=addTr]").find("[name=using_dayoff]").val("");
+										return;
+									}
+									if(realDy > 5){
+										alert( realDy + " => 1회 최대 휴가 사용 가능일 수는 5일입니다.");
+										$("[name=addTr]").find("[name=end_dayoff]").val("");
+										$("[name=addTr]").find("[name=using_dayoff]").val("");
+										return;
+									} 
+								}
+								$("[name=addTr]").find("[name=using_dayoff]").val(realDy);
+								var usingD = $("[name=addTr]").find("[name=using_dayoff]").val();
+								updatedata = "dayoff_name="+cd+"&start_dayoff="+dateS+"&end_dayoff="+dateE+"&emp_no="+empNo+"&using_dayoff="+usingD+"dayoff_apply_dt="+dayoff_apply_dt;
+					
+								//$("[name=addTr]").find("[name=using_dayoff]").val(realDy);
+								//var usingD = $("[name=addTr]").find("[name=using_dayoff]").val();
+								//updatedata = "dayoff_name="+cd+"&start_dayoff="+dateS+"&end_dayoff="+dateE+"&emp_no="+empNo+"&using_dayoff="+usingD+"dayoff_apply_dt="+dayoff_apply_dt;
+								
+								//alert("updatedata => " + updatedata);
+						        //alert($(this).val()); 
+						    } 
+						    ,beforeShowDay:$.datepicker.noWeekends
+						         
+	            	});
+			    
+					
+	            }
+			//});
+
+		        
+	       
+
+            
 
 			//var cd = $("[name=addTr]").find("[name=dayoff_cd]").val();
 			//var dateS = $("[name=addTr]").find("[name=start_dayoff]").val();
@@ -315,11 +352,6 @@
 				//alert(updatedata);
 //	        });
 
-
-
-            
-
-            
 			//$("[name=addTr]").find("[name=start_dayoff]").change(function(){
 				//alert(2);
 				//$("[name=addTr]").find("[name=using_dayoff]").val(realDy); 
@@ -334,15 +366,26 @@
 
 		//alert($("[name=addTr]").find("[name=start_dayoff]").val());
 		
-
-
+		//var applycnt = 0;
+		
+		var cd = $("[name=addTr]").find("[name=dayoff_name]").val();
+		var dateS = null;
+		var dateE = null;
+		var empNo = null;
+		var remainD = null;
+		var remainD_origin = null;
+		var realDy = null;
+		var updatedata = null;
+		var dayoff_apply_dt = null;		
 		
 
-		//var applycnt = 0;
-
 		function dayoffUpdate(up){
-			//alert(updatedata);
-			//return;
+			alert(updatedata);
+			
+			if(cd==null || dateS==null || dateE==null || empNo==null || realDy==null || updatedata==null){
+				alert('모두 선택해주시기 바랍니다.');
+			}
+			return;
 			$.ajax({
                 url : "/group4erp/dayoffUpdateProc.do"
                 , type: "post"
@@ -479,8 +522,30 @@
 	       	} 
 	       	//alert("This is cnt =>" + cnt);
 	       	realDy = count-cnt+1;
-	       	//alert("This is realDy =>" + realDy);
+	       	alert("This is realDy =>" + realDy);
 	       	return realDy;
+		}
+
+		function logout() {
+			location.href="/group4erp/logout.do";
+		}
+
+
+		function getTime() {
+			var today = new Date();
+			var year = today.getFullYear();
+			var month = today.getMonth()+1;
+			var week = today.getDay();
+			var date = today.getDate();
+			var week = ["일", "월", "화", "수", "목", "금", "토"][today.getDay()];
+			var amPm = "오후";
+			if(month<10) {
+				month = "0"+month;
+			}
+			if(date<10) {
+				date = "0"+date;
+			}
+			document.getElementById("getTime").innerHTML = "기준일 : "+year+"년 "+month+"월 "+date+"일("+week+") ";
 		}
 
 		
@@ -491,7 +556,7 @@
 <body><center>
 
 	<h1 style="font-size:15pt">[직원 휴가 신청 현황]</h1><br>
-	<div id="nowtime" onload="getNowtime();">기준일 :</div><br><br>
+	<div id="getTime" onload="getTime();"></div><br><br>
 	
 	<form name="empDayoffSearch" method="post" action="/group4erp/viewEmpDayOffList.do">
 			<table border="1" bordercolor="#C0C0C0" class="tab2" cellpadding="5" cellspacing="0" align=center>
@@ -616,13 +681,13 @@
 					
 					<c:choose>
 						<c:when test="${param.sort=='end_dayoff desc'}">
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 복귀 예정일</th>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 휴가 종료일</th>
 						</c:when>
 						<c:when test="${param.sort=='end_dayoff asc'}">
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('end_dayoff desc'); goDayoffSearch();">▲ 복귀 예정일</th>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('end_dayoff desc'); goDayoffSearch();">▲ 휴가 종료일</th>
 						</c:when>
 						<c:otherwise>
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('end_dayoff asc'); goDayoffSearch();">복귀 예정일</th>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('end_dayoff asc'); goDayoffSearch();">휴가 종료일</th>
 						</c:otherwise>
 					</c:choose>
 					<th bgcolor="black" style="cursor:pointer">휴가 신청일수</th>

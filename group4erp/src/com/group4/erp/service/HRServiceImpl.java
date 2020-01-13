@@ -117,9 +117,30 @@ public class HRServiceImpl implements HRService {
 
 	@Override
 	public int empInfoUpProc(EmployeeInfoUpDTO employeeInfoUpDTO) {
-		int empInfoUpdate = this.hrDAO.empInfoUpProc(employeeInfoUpDTO);
-		return empInfoUpdate;
+		int empInfoUpdate = 0;
+		String emp_no = employeeInfoUpDTO.getEmp_no();
+		if(emp_no.length() < 6) {
+			System.out.println(employeeInfoUpDTO.toString());
+			int newEmpConfirm = this.hrDAO.newEmpConfirmProc(employeeInfoUpDTO);
+			if(newEmpConfirm != 1) {
+				return 0;
+			}
+		}else {
+			System.out.println(employeeInfoUpDTO.toString());
+			empInfoUpdate = this.hrDAO.empInfoUpProc(employeeInfoUpDTO);
+		}
+		return empInfoUpdate;	
+			
 	}
+	
+	/*
+	 * @Override public EmployeeInfoUpDTO getEmpNoEmpPic(EmployeeInfoUpDTO
+	 * employeeInfoUpDTO) { EmployeeInfoUpDTO noEmp_pic =
+	 * this.hrDAO.getEmpNoEmpPic(employeeInfoUpDTO); return noEmp_pic; }
+	 */
+
+	
+	
 
 	@Override
 	public List<SalaryDTO> getAvgSalChart() {
@@ -135,8 +156,8 @@ public class HRServiceImpl implements HRService {
 	
 	
 	@Override
-	public int getAddDayoffinfoCnt(EmployeeDTO employeeDTO) {
-		int addDayoffinfo = this.hrDAO.getAddDayoffinfoCnt(employeeDTO);
+	public int getAddDayoffinfoCnt(EmployeeInfoUpDTO employeeInfoUpDTO) {
+		int addDayoffinfo = this.hrDAO.getAddDayoffinfoCnt(employeeInfoUpDTO);
 		return addDayoffinfo;
 	}
 

@@ -39,13 +39,17 @@ public interface HrDAO {
 	
 	int empInfoUpProc(EmployeeInfoUpDTO employeeInfoUpDTO);
 	
+	int newEmpConfirmProc(EmployeeInfoUpDTO employeeInfoUpDTO);
+	
+	/* EmployeeInfoUpDTO getEmpNoEmpPic(EmployeeInfoUpDTO employeeInfoUpDTO); */
+	
 	List<SalaryDTO> getAvgSalChart();
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
 
 	//String getMgrEmpName(EmployeeDTO employeeDTO);
 	
-	int getAddDayoffinfoCnt(EmployeeDTO employeeDTO);
+	int getAddDayoffinfoCnt(EmployeeInfoUpDTO employeeInfoUpDTO);
 	
 	int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO);
 	

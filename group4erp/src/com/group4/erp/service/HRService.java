@@ -39,11 +39,13 @@ public interface HRService {
 	
 	int empInfoUpProc(EmployeeInfoUpDTO employeeInfoUpDTO);
 	
+	/* EmployeeInfoUpDTO getEmpNoEmpPic(EmployeeInfoUpDTO employeeInfoUpDTO); */
+	
 	List<SalaryDTO> getAvgSalChart();
 	
 	int getNewEmpInsertCnt(EmployeeDTO employeeDTO);
 	
-	int getAddDayoffinfoCnt(EmployeeDTO employeeDTO);
+	int getAddDayoffinfoCnt(EmployeeInfoUpDTO employeeInfoUpDTO);
 	
 	int dayoffUpdateProcI(HrDayoffDTO hrDayoffDTO);
 	

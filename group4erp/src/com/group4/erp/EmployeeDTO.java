@@ -5,8 +5,6 @@ public class EmployeeDTO {
 	//수정중
 	private String emp_name;
 	private String emp_eng_name;
-	private int dep_no;
-	private int salary;
 	private String jumin_num;
 	private String emp_gender;
 	private String phone;
@@ -17,37 +15,9 @@ public class EmployeeDTO {
 	private String emp_pwd;
 	private String jikup;
 	private String mgr;
-	private int jikup_cd;
 	private int worktime_cd;
+	private String emp_pic;
 	
-	
-	public String getMgr() {
-		return mgr;
-	}
-	public void setMgr(String mgr) {
-		this.mgr = mgr;
-	}
-	
-	
-	public String getJikup() {
-		return jikup;
-	}
-	public void setJikup(String jikup) {
-		this.jikup = jikup;
-	}
-	
-	public int getWorktime_cd() {
-		return worktime_cd;
-	}
-	public void setWorktime_cd(int worktime_cd) {
-		this.worktime_cd = worktime_cd;
-	}
-	public int getJikup_cd() {
-		return jikup_cd;
-	}
-	public void setJikup_cd(int jikup_cd) {
-		this.jikup_cd = jikup_cd;
-	}
 	public String getEmp_name() {
 		return emp_name;
 	}
@@ -59,18 +29,6 @@ public class EmployeeDTO {
 	}
 	public void setEmp_eng_name(String emp_eng_name) {
 		this.emp_eng_name = emp_eng_name;
-	}
-	public int getDep_no() {
-		return dep_no;
-	}
-	public void setDep_no(int dep_no) {
-		this.dep_no = dep_no;
-	}
-	public int getSalary() {
-		return salary;
-	}
-	public void setSalary(int salary) {
-		this.salary = salary;
 	}
 	public String getJumin_num() {
 		return jumin_num;
@@ -120,6 +78,33 @@ public class EmployeeDTO {
 	public void setEmp_pwd(String emp_pwd) {
 		this.emp_pwd = emp_pwd;
 	}
+	public String getJikup() {
+		return jikup;
+	}
+	public void setJikup(String jikup) {
+		this.jikup = jikup;
+	}
+	public String getMgr() {
+		return mgr;
+	}
+	public void setMgr(String mgr) {
+		this.mgr = mgr;
+	}
+	public int getWorktime_cd() {
+		return worktime_cd;
+	}
+	public void setWorktime_cd(int worktime_cd) {
+		this.worktime_cd = worktime_cd;
+	}
+	public String getEmp_pic() {
+		return emp_pic;
+	}
+	public void setEmp_pic(String emp_pic) {
+		this.emp_pic = emp_pic;
+	}
+	
+	
+	
 	
 	
 	

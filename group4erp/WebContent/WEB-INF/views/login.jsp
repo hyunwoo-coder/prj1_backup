@@ -18,7 +18,7 @@
 			, success : function(loginCnt){
 				
 				if(loginCnt==1){
-					alert("회원 로그인 성공!");
+					//alert("회원 로그인 성공!");
 					location.replace("/group4erp/goMainPage.do");
 				}
 				else{
@@ -40,7 +40,10 @@
 	function deleteMembership(){
 		location.replace("/group4erp/godelete.do");
 	}*/
-
+	function insertNewEmp() {
+		//alert("신규 사원 추가 기능 구현");
+		location.href="/group4erp/viewNewEmpJoin.do"
+	}
 </script>
 
 </head>
@@ -59,6 +62,7 @@
 </form>
 
 <input type="button" name="loginBtn" value="로그인" onClick="checkLoginInfo();">&nbsp;
+<input type="button" value="신규사원등록" onClick="insertNewEmp();">
 <!-- <input type="button" name="joinBtn" value="사원등록" onClick="joinMembership();">&nbsp;
 <input type="button" name="deleteBtn" value="사원삭제" onClick="deleteMembership();"> -->
 
