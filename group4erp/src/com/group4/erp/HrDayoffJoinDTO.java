@@ -6,8 +6,15 @@ public class HrDayoffJoinDTO {
 	private String start_dayoff;
 	private String end_dayoff;
 	private int using_dayoff;
+	private double harf_dayoff;
 	
 	
+	public double getHarf_dayoff() {
+		return harf_dayoff;
+	}
+	public void setHarf_dayoff(double harf_dayoff) {
+		this.harf_dayoff = harf_dayoff;
+	}
 	public int getEmp_no() {
 		return emp_no;
 	}

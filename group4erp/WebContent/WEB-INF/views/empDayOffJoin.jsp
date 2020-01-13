@@ -49,6 +49,51 @@ $(document).ready(function(){
 	getMonth();
 	getYearMonth();
 	
+	
+	
+	
+	
+	//alert($('[name=empDayOffJoinForm] td:eq(1)').text());
+	
+	$('[name=dayoff_cd]').change(function(){
+		var dayval = $('[name=dayoff_cd]').val();
+
+		if(dayval==05){
+			
+			$('[name=empDayOffJoinForm] td:eq(1)').children().hide()
+			
+			$('[name=empDayOffJoinForm] td:eq(1) #start_dayoff').show()
+			
+
+			
+			 $("#start_dayoff").datepicker({ 
+		         dateFormat: 'yy-mm-dd'
+		        ,defaultDate : 'today'
+		        ,minDate : 'today'
+		        /*
+		        ,onClose: function( selectedDate ) {   
+		         //$("#dateTill").datepicker({minDate:selectedDate});
+		           $("#end_dayoff").datepicker( "option", "minDate", selectedDate );
+			      } 
+				 */
+				,beforeShowDay:$.datepicker.noWeekends 
+			});
+		}else{
+			
+			$('[name=empDayOffJoinForm] td:eq(1)').children().show()
+			
+		}
+		
+	});
+	
+	 
+	
+	
+	
+	
+	
+	
+	
 	 $("#start_dayoff").datepicker({ 
 	         dateFormat: 'yy-mm-dd'
 	        ,defaultDate : 'today'
@@ -62,11 +107,12 @@ $(document).ready(function(){
 	         dateS = $("[name=start_dayoff]").val();
 	         dateE = $("[name=end_dayoff]").val();
 	         remainD = $("[name=remain_dayoff]").val();
+	         var dayval = $('[name=dayoff_cd]').val();
 	           
 	         var realDy = finalDayoff(dateS, dateE); 
 	         //alert("realDy => "+realDy);
-	         
-	          if(realDy > remainD){
+
+	         if(realDy > remainD){
 	            alert( realDy + " => 사용 가능한 휴가일을 초과하였습니다.");
 	            return;
 	         }
@@ -94,6 +140,7 @@ $(document).ready(function(){
 	         dateS = $("[name=start_dayoff]").val();
 	         dateE = $("[name=end_dayoff]").val();
 	         remainD = $("[name=remain_dayoff]").val();
+	         var dayval = $('[name=dayoff_cd]').val();
 	           
 	         var realDy = finalDayoff(dateS, dateE); 
 	         //alert("realDy => "+realDy);
@@ -145,6 +192,17 @@ $(document).ready(function(){
 		
 		$('[name=using_dayoff]').val(usingDay+1);
 		*/
+		
+		if( $('[name=dayoff_cd]').val()==05 ){
+			$('#end_dayoff').val($('#start_dayoff').val());
+			$('[name=using_dayoff]').val(1);
+			$('[name=harf_dayoff]').val(0.5);
+		}
+		
+		/*
+		alert($('[name=empDayOffJoinForm]').serialize());
+		return;
+		*/
 		$.ajax({
 			//호출할 서버쪽 URL주소 설정
 			url : "/group4erp/goDayOffProc.do"
@@ -157,7 +215,7 @@ $(document).ready(function(){
 			, success : function(insertCnt){
 				if(insertCnt==1){
 					alert("휴가 신청 성공");
-					//location.replace("/group4erp/goBookList.do")
+					location.replace("/group4erp/viewEmpDayOffList.do")
 				}else if(insertCnt==0){
 					alert("휴가 신청 실패");
 				}else if(insertCnt==-2){
@@ -325,10 +383,11 @@ $(document).ready(function(){
 		<tr>
 		<th bgcolor=#DBDBDB >휴가 기간
 			<td>
-				<input type="text" id="start_dayoff" name="start_dayoff" size="20" maxlength=20>&nbsp;~&nbsp;
+				<input type="text" id="start_dayoff" name="start_dayoff" size="20" maxlength=20>&nbsp;<font> ~ </font>&nbsp;
 				<input type="text" id="end_dayoff" name="end_dayoff" size="20" maxlength=20>
 				<input type="hidden" name="using_dayoff" class="using_dayoff">
 				<input type="hidden" name="remain_dayoff" class="remain_dayoff" value="${remain.remain_dayoff}">
+				<input type="hidden" name="harf_dayoff" >
 	</table>
 </form>
 
