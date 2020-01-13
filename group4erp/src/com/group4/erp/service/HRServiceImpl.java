@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group4.erp.ApprovalDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.EmployeeInfoUpDTO;
@@ -181,4 +182,13 @@ public class HRServiceImpl implements HRService {
 		
 		return myPayCheckCnt;
 	}
+
+	@Override
+	public int updateDayOffApprovalProc(ApprovalDTO approvalDTO) {
+		// TODO Auto-generated method stub
+		int myDayOffApproval = this.hrDAO.updateDayOffApprovalProc(approvalDTO);
+		
+		return myDayOffApproval;
+	}
+
 }

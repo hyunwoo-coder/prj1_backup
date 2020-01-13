@@ -237,7 +237,7 @@
         to_char(d.start_dayoff, 'yyyy-mm-dd') "start_dayoff",    
         to_char(d.end_dayoff, 'yyyy-mm-dd') "end_dayoff",    
         d.confirm "confirm"   
-        from emp_dayoff_apply d   where 1=1   and d.dayoff_apply_no=#{dayoff_apply_no} and d.confirm='N' or d.confirm='n'
+        from emp_dayoff_apply d   where 1=1   and d.dayoff_apply_no=#{dayoff_apply_no}
 	</select>
 	
 	

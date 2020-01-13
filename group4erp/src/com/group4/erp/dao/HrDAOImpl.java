@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.group4.erp.SalaryDTO;
 import com.group4.erp.TimeDTO;
+import com.group4.erp.ApprovalDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.EmployeeInfoUpDTO;
@@ -241,5 +242,16 @@ public class HrDAOImpl implements HrDAO {
 		
 		return myPayCheckCnt;
 	}
+
+
+	@Override
+	public int updateDayOffApprovalProc(ApprovalDTO approvalDTO) {
+		// TODO Auto-generated method stub
+		int myDayOffApproval = this.sqlSession.update(mapper_namespace+"updateDayOffApprovalProc", approvalDTO);
+		
+		return myDayOffApproval;
+	}
+
+
 
 }

@@ -425,7 +425,7 @@
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
 					<td class="delCheckBox" align=center>
-						<c:if test="${eventList.evnt_stat eq '대기중' }">
+						<c:if test="${eventList.evnt_stat eq '대기중'|| eventList.evnt_stat eq '반려' }">
 							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
 						</c:if>
 					</td>
@@ -435,7 +435,7 @@
 					<td align=center>${eventList.evnt_start_dt}</td>
 					<td align=center>${eventList.evnt_end_dt}</td>
 					<td align=center>${eventList.evnt_stat}</td>
-					<td><c:if test="${eventList.evnt_stat eq '대기중' }">
+					<td><c:if test="${eventList.evnt_stat eq '대기중'|| eventList.evnt_stat eq '반려'}">
 							<input type="button" name="updateBtn" value="수정" onClick="updateEventInfo(this,'${eventList.evnt_no}', '${eventList.evnt_title}', '${eventList.evnt_start_dt}', '${eventList.evnt_end_dt}');">
 						</c:if>
 					</td>

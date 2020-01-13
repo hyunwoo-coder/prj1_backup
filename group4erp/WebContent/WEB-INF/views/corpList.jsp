@@ -44,11 +44,11 @@
 		inputData('[name=sort]').val("${corpSearchDTO.sort}");
 		
 		<c:forEach items="${corpSearchDTO.corp_business}" var="corp_business">
-			inputData("[name=corp_business]", "${corpSearchDTO.corp_business}");
+			inputData("[name=corpSearchForm] [name=corp_business]", "${corpSearchDTO.corp_business}");
 		</c:forEach>
 
 		<c:forEach items="${corpSearchDTO.corp_business}" var="corp_business">
-			$('[name=corp_business]').filter("[value = ${corp_business}]").prop("checked", true);
+			$("[name=corpSearchForm] [name=corp_business]").filter("[value = ${corp_business}]").prop("checked", true);
 		</c:forEach>
 
 	});

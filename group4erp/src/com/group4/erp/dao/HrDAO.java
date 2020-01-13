@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 
+import com.group4.erp.ApprovalDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.EmployeeInfoDTO;
 import com.group4.erp.EmployeeInfoUpDTO;
@@ -56,6 +57,8 @@ public interface HrDAO {
 	int getUpdateCnt(Map<String, String> emp_no_in_time_out_time_check_inout_name_remarks);
 	
 	int getMyPayCheckCnt(int emp_no);
+	
+	int updateDayOffApprovalProc(ApprovalDTO approvalDTO);
 
 
 }
