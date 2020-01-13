@@ -252,7 +252,7 @@
    </div>
    
 
-   <table class="returnOrderTable tab" name="returnOrderTable" width="700" cellpadding="5" cellspacing="5" align=center>
+   <table class="returnOrderTable tab" width="700" name="returnOrderTable" cellpadding="5" cellspacing="5" align=center>
       <tr>
       <c:choose>
          <c:when test="${param.sort=='1 desc'}">

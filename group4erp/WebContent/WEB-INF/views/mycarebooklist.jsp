@@ -56,20 +56,14 @@
 		inputData("[name=selectPageNo]", "${myWorkSearchDTO.selectPageNo}");
 		inputData("[name=rowCntPerPage]", "${myWorkSearchDTO.rowCntPerPage}");
 		inputData("[name=search_keyword]", "${myWorkSearchDTO.search_keyword}");
+		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
+		inputData("[name=is_print]", "${myWorkSearchDTO.is_print}");
 
-/* 
-<<<<<<< HEAD
+		/* 
 		<c:forEach items="${myWorkSearchDTO.category}" var="category">
 			inputData("[name=category]", "${category}");
 		</c:forEach>
 		 */
-		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
-		 
-		$('[name=fillbtu]').click(function(){
-			alert('999');
-			return;
-			booKInvenFill($('[name=index13]').val(), $('[name=isbn13]').val())
-		});
 	});
 	
 	function goSearchMyWorkList(){
@@ -84,14 +78,15 @@
 		
 		$('[name=search_keyword]').val(search_keyword);
 
-		//document.mycarebooklist.submit();
+		document.mycarebooklist.submit();
 		
+		/*
 		$.ajax({
 			url : "/group4erp/goMyCareBookList.do"
 			, type : "post"
 		  , data : document.mycarebooklist.submit()
 		});
-		
+		*/
 	}
 	
 	function goAllSearchMyWorkList(){
@@ -106,32 +101,22 @@
    
    function booKInvenFill(idx,isbn) {
 
-      alert("도서 발주 기능 구현중 "+idx+"/"+isbn);
-      if(idx>=0){
-    	  var thisTr = $('.mycarebookTable tbody tr:eq('+idx+')')
-    	  var trindex = thisTr.index();
-    	  alert("idx>=0 -> "+ trindex);
-    	  $('.mycarebookTable tbody tr:eq('+idx+') td').last().children().addClass('fillbtu');
-      }else{
-    	  var thisTr = $(idx).parent().parent();
-    	  var trindex = thisTr.index();
-    	  alert("else -> "+ trindex);
-    	  $(idx).addClass('fillbtu');
-      }
+      //alert("도서 발주 기능 구현중 "+idx+"/"+isbn);
+  
+   	  var thisTr = $(idx).parent().parent();
+   	  var trindex = thisTr.index();
+   	  $(idx).addClass('fillbtu');
+
       //alert('999');
       var delTr = $('.mycarebookTable [name=test]');
       if(delTr.size()>0){
     	  delTr.remove();
       }
       
-      
       //alert(trindex);
-      
       //$('.mycarebookTable tbody tr:eq('+idx+')').append(" <tr> <td>");
       //$('.mycarebookTable tbody tr:eq('+idx+')').after(" <tr align=center> <td colspan=7> </td> </tr>");
-      
       //var str = $('.qqq').html();
-          
       //var thisTr = $(idx).parent().parent();
       
       
@@ -144,7 +129,8 @@
       wares += "<tr> <th>공급률 <td><input tyep='text' name='supply_rate' value='60'>%&nbsp;&nbsp;&nbsp;*(기본 60%)"
       wares += "</table> </from>"
       wares += "<div style='heigth:100;'></div>"
-      wares += "<input type='button' value='발주신청' name='wareHousing'>  </div>"
+      wares += "<input type='button' value='발주신청' name='wareHousing'> &nbsp;&nbsp;"
+      wares += "<input type='button' value='닫기' onclick='closeTr();'> </div>"
 
       thisTr.after(wares);
 
@@ -155,17 +141,9 @@
                 var dateObject = $(this).datepicker('getDate');
             }
        });   
-      
-      $('.fillbtu').removeAttr('name');
-      
-      //alert(trindex+','+isbn);
-      
-      $('.fillbtu').attr(
-    	{'value':'닫기','onclick':'closeTr('+trindex+','+isbn+');'}	  
-      );
+
       
       //$('.mycarebookTable tbody tr:eq('+idx+')').after(wares);
-      
       //$('.mycarebookTable tbody tr:eq('+(idx+1)+') td:eq(0)').html(wares);
       //var sss =  $('.mycarebookTable tbody tr:eq('+(idx+1)+') td:eq(0)').html();
       //alert(sss);
@@ -191,58 +169,13 @@
  
    }
    
-   function closeTr(index, isbn){
-
-	   alert(index+','+isbn);
-
+   function closeTr(){
 	   $('[name=test]').remove();
-	   
-	   $('.fillbtu').remove();
-	   
-	   
-	   var btuStr = "<input type='button' value='발주' name='fillbtu'>";
-	   btuStr += "<input type=hidden name=fillisbn13 value="+isbn+">";
-	   btuStr += "<input type=hidden name=fillindex13 value="+index+">";
-	   
-	   $('.mycarebookTable tbody tr:eq('+index+') td').last().html(btuStr);
-	   
-		$('[name=fillbtu]').click(function(){
-		   $('[name=test]').remove();
-		   
-		   $('.fillbtu').remove();
-		   
-		   
-		   var btuStr = "<input type='button' value='발주' name='fillbtu'>";
-		   btuStr += "<input type=hidden name=fillisbn13 value="+isbn+">";
-		   btuStr += "<input type=hidden name=fillindex13 value="+index+">";
-		   
-		   $('.mycarebookTable tbody tr:eq('+index+') td').last().html(btuStr);
-		   
-			alert( $('.fillbtu').val() );
-			alert('restart');
-			var data1 = $('[name=fillindex13]').val();
-			var data2 = $('[name=fillisbn13]').val();
-			booKInvenFill(data1, data2)
-			$('[name=fillindex13]').remove();
-			$('[name=fillisbn13]').remove();
-			return;
-		});
-		return;
-	   
    }
    
-   function testtest(){
-	   /*
-	   alert($('[name=isbn13]').val());
-	   alert($('[name=index13]').val());
-	   alert($('[name=fillbtu]').val());
-	   */
-
- 	  //$('.mycarebookTable tbody tr:eq(0) td').last().children().addClass('fillbtu');
-	   alert( $('[name=fillbtu]').val() );
-	   alert( $('[name=fillbtu]').index() );
-   }
-   
+	function goAllReset(){
+		document.mycarebooklist.reset();
+	}
 
    
 
@@ -300,8 +233,8 @@
          <tr>
          <th bgcolor="gray">절판 상황
          <td align=left>
-            <input type="radio" name="is_not_print" value="절판">절판
-            <input type="radio" name="is_not_print" value="판매중">판매중
+            <input type="radio" name="is_print" value="y">절판
+            <input type="radio" name="is_print" value="n">판매중
          
          <tr>
          <th bgcolor="gray">키워드
@@ -318,7 +251,8 @@
       <!-- </div> -->
       <br>
       <input type="button" value="  검색  " onclick="goSearchMyWorkList();">&nbsp;&nbsp;
-      <input type="button" value="모두검색" onclick="goAllSearchMyWorkList();">
+      <input type="button" value="모두검색" onclick="goAllSearchMyWorkList();">&nbsp;&nbsp;
+      <input type="button" value="초기화" onclick="goAllReset();">
       <table border=0 width=700>
          <tr>
             <td align=right>
@@ -362,8 +296,6 @@
       <br>
         <input type="hidden" name="selectPageNo">
       <div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
-   		<a>발주 2번 되는것 막아야함</a>
-   		<input type="button" value=test onclick="testtest();">
    		
 </body>
 </html>

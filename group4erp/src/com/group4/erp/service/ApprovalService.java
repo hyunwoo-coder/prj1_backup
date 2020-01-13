@@ -16,5 +16,13 @@ public interface ApprovalService {
 	int getApprovalResCnt(ApprovalSearchDTO approvalSearchDTO);
 	
 	List<ApprovalDTO> getApprovalResList(ApprovalSearchDTO approvalSearchDTO);
+	
+	int updateApprovalState(String document_no);
+	
+	int updateEventState(String document_no);
+	
+	int insertApproval_dayOff(ApprovalDTO approvalDTO);
+	
+	int updateApprovalProc(ApprovalDTO approvalDTO);
 
 }

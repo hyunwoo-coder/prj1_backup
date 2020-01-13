@@ -1,4 +1,5 @@
 package com.group4.erp.service;
+import com.group4.erp.DayOffApplyDTO;
 import com.group4.erp.HrDayoffJoinDTO;
 import com.group4.erp.InvenSearchDTO;
 import com.group4.erp.MyWorkSearchDTO;
@@ -35,4 +36,9 @@ public interface MyWorkService {
 	int getDayoffJoinCnt(HrDayoffJoinDTO dayoffJoinDTO);
 	
 	Map<String, String> getRemain(int emp_no);
+	int getEmpDayoffTot();
+	
+	String getDayOffApplyNo(int emp_no);
+	
+	DayOffApplyDTO getMyDayOffApproval(int my_dayoff_approval_no);
 }

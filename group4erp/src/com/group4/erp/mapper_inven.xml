@@ -304,11 +304,18 @@
 	</select>
 	
 	<select id="getPublisherList" parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
-		select distinct publisher as "publisher" from book
+		select distinct publisher as "publisher" from book order by 1 asc
 	</select>
 
+	<select id="getSize" resultType="java.util.HashMap">
+		select size_name as "size_name" from code_book_size order by 1
+	</select>
+	<select id="getCategory" resultType="java.util.HashMap">
+		select cat_name as "cat_name" from code_category order by 1
+	</select>
+	
 	<select id="getInven_loc" parameterType="com.group4.erp.InvenSearchDTO" resultType="java.util.HashMap">
-		select branch_name as "branch_name" from code_branch
+		select branch_name as "branch_name" from code_branch order by 1
 	</select>
 	
 	<!-- 출고현황 -->
@@ -415,12 +422,12 @@
 
     
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">
-    	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor ) values
-    		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor} )
+    	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor, reg_dt ) values
+    		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor}, sysdate )
     </insert>
     
     <insert id="getBookStock" parameterType="com.group4.erp.InvenDTO">
-    	insert into stock_info values (#{isbn13}, 0, 1, (select emp_no from employee where emp_name=#{emp_name}) )
+    	insert into stock_info values (#{isbn13}, 0, 1 )
     </insert>
     
     <select id="getBookInfo" parameterType="String" resultType="com.group4.erp.BookInfoDTO">
@@ -434,7 +441,7 @@
     		,b.publisher	"publisher"
     		,(select cs.size_name from code_book_size cs where cs.size_cd=(select bk.size_cd from book bk where bk.isbn13=b.isbn13))	"size_name"
     		,b.is_print	"is_print"
-    		,b.published_dt	"published_dt"
+    		,to_char(b.published_dt, 'YYYY-MM-DD')	"published_dt"
     		,(select e.emp_name from employee e where e.emp_no=(select bk.emp_no from book bk where bk.isbn13=b.isbn13)) "emp_name"
     		,(select cb.branch_name from code_branch cb where cb.branch_cd=(select si.branch_cd from stock_info si where si.isbn13=b.isbn13)) "branch_name"
     		,(select si.isbn_cnt from stock_info si where si.isbn13=b.isbn13) "isbn_cnt"
@@ -444,6 +451,26 @@
     		and b.isbn13=#{isbn13_search}
     </select>
     
+    <update id="getBookInfoUpCnt" parameterType="com.group4.erp.BookInfoDTO">
+    	update book set
+    		book_name=#{book_name}
+    		,cat_cd=(select cat_cd from code_category where cat_name=#{cat_name})
+    		,book_price=#{book_price}
+    		,writer=#{writer}
+    		,publisher=#{publisher}
+    		,size_cd=(select size_cd from code_book_size where size_name=#{size_name})
+    		,is_print=#{is_print}
+    		,emp_no=(select emp_no from employee where emp_name=#{emp_name})
+    		,published_dt=#{published_dt}
+    		,editor=#{editor}
+    	where isbn13=#{isbn13}
+    </update>
+    <update id="getBranchUpCnt" parameterType="com.group4.erp.BookInfoDTO">
+    	update stock_info set
+    		branch_cd=(select branch_cd from code_branch where branch_name=#{branch_name})
+    		,isbn_cnt=#{isbn_cnt}
+    	where isbn13=#{isbn13}
+    </update>
     
     <select id="getOrderCnt" parameterType="String" resultType="int">
     	select book_qty from order_info where order_no=#{all_order_no}

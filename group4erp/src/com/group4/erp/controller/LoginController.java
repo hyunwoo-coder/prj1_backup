@@ -59,10 +59,15 @@ public class LoginController {
 			   emp_idCnt = this.loginService.getEmpIdCnt(map);
 			   System.out.println("<접속성공> [접속URL]->/loginProc.do [호출메소드]->LoginController.loginProc(~) \n");
 			   if(emp_idCnt==1) {
+				   
+				   String dep_no = empInfo.getDep_no()+"";
+				   
 				   session.setAttribute("emp_id", emp_id);
 				   session.setAttribute("emp_name", empInfo.getEmp_name());
 				   session.setAttribute("jikup", empInfo.getJikup());
 				   session.setAttribute("mgr", empInfo.getMgr());
+				   session.setAttribute("mgr_emp_no", empInfo.getMgr_emp_no());
+				   session.setAttribute("dep_no", dep_no);
 			   }
 			 
 			     

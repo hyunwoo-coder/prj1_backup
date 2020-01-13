@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.group4.erp.service.ApprovalService;
 import com.group4.erp.service.HRService;
 
 import java.util.*;
@@ -23,6 +25,9 @@ public class MyWorkController {
 	
 	@Autowired
 	MyWorkService myWorkService;
+	
+	@Autowired
+	ApprovalService approvalService;
 	
 	//담당 상품 조회
 	@RequestMapping(value="/goMyCareBookList.do")
@@ -151,6 +156,8 @@ public class MyWorkController {
 		
 		try {
 			
+			//int checkBeforeInsert = this.myWorkService.getCheckBeforeIn(whInsertDTO);
+			
 			int insertBeforeCnt = this.myWorkService.getInsertBeforeCnt(whInsertDTO);
 			
 			insertWareHousing = this.myWorkService.getInsertWareHousing(whInsertDTO);
@@ -177,10 +184,14 @@ public class MyWorkController {
 		
 		String emp_id = (String)session.getAttribute("emp_id");
 		int emp_no = Integer.parseInt(emp_id);
+		mav.addObject("emp_nos", emp_id);
 		try {
 			
 			Map<String, String> searchRemain = this.myWorkService.getRemain(emp_no);
 			mav.addObject("remain", searchRemain);
+			
+			int empDayoffTot = this.myWorkService.getEmpDayoffTot();
+			mav.addObject("empDayoffTot",empDayoffTot);
 			
 		}catch(Exception e) {
 			System.out.println("<휴가 신청 화면 불러오기 실패>");
@@ -196,7 +207,7 @@ public class MyWorkController {
 			,produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public int goDayOffProc(
-			HrDayoffJoinDTO dayoffJoinDTO
+			HrDayoffJoinDTO dayoffJoinDTO, ApprovalDTO approvalDTO
 			) {
 		
 		int insertDayoffJoin = 0;
@@ -205,6 +216,24 @@ public class MyWorkController {
 			
 			insertDayoffJoin = this.myWorkService.getDayoffJoinCnt(dayoffJoinDTO);
 			
+			//휴가 신청 DB에 성공적으로 저장되었다면 결재 테이블에 저장할 단계(조충래 추가)
+			if(insertDayoffJoin > 0) {
+				
+				//결재 문서 번호 
+				String document_no="DO-";
+				int emp_no = dayoffJoinDTO.getEmp_no();
+				
+				String dayOff_apply_no = this.myWorkService.getDayOffApplyNo(emp_no);
+				
+				document_no += dayOff_apply_no;
+				
+				approvalDTO.setDocument_no(document_no);
+				approvalDTO.setEmp_no(emp_no);
+				
+				int approval_dayOff = this.approvalService.insertApproval_dayOff(approvalDTO);
+				
+			}
+			//---------------------------------------------------
 		}catch(Exception e) {
 			System.out.println("<휴가 신청 실패>");
 			System.out.println("예외 발생=>"+e);

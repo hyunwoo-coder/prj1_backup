@@ -35,8 +35,7 @@
 				</if>
 				<if test="evnt_stat.equals('04')">
 					ei.evnt_state_cd='04'
-				</if>
-				
+				</if>				
 			</foreach>			
 		</if>
 		
@@ -63,8 +62,7 @@
 				</if>
 				<if test="evnt_category.equals('07')">
 					ei.evnt_cd='07'
-				</if>
-				
+				</if>			
 			</foreach>			
 		</if>
 	</sql>
@@ -79,11 +77,10 @@
 		</if>
 	</sql>
 	
-	 
-	<select id='getEventCnt' parameterType = "com.group4.erp.EventSearchDTO" resultType="int">
+	<select id='getEventCnt' parameterType="com.group4.erp.EventSearchDTO" resultType="int">
 		select count(*) from event_info ei
 		where 1=1
-		and ei.evnt_state_cd != 7		
+		and ei.evnt_state_cd != 7
 		<include refid="eventWhere" />
 	</select>
 	
@@ -103,10 +100,11 @@
             ei.evnt_comment "evnt_comment",
             ei.atchd_data "atchd_data"
         from event_info ei
-		where 1=1
+		where 1=1	
 		and ei.evnt_state_cd != 7	
 		<include refid="eventWhere" />
 		<include refid="headerSort" />
+		
 		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
 
@@ -153,7 +151,7 @@
 			)
 			values (
 			  #{evnt_no},	
-			  '${emp_no}',
+			  #{emp_no},
 			  #{evnt_cd},
 			  #{evnt_title},
 			  #{tot_est_cost},
@@ -292,6 +290,11 @@
 			where evnt_end_dt&lt;sysdate
 	</update>
 	
+	<update id="updateEvntApprovalState" parameterType="com.group4.erp.EventDTO">	
+			update event_info set evnt_state_cd = #{evnt_state_cd}
+			where evnt_no = #{document_no}
+	</update>
+	
 	<select id="getCorpOrderTotCnt" resultType="int">
 		select count(*) from corp_order_info
 		where corp_no is not null
@@ -336,6 +339,27 @@
         group by to_char(order_dt, 'yy-mm-dd')
         order by 2
 		
+	</select>
+	
+	<select id="getMyEventInfoApproval" parameterType="String" resultType="com.group4.erp.EventDTO">
+       	select
+			i.evnt_no "evnt_no",
+			i.emp_no "emp_no",
+			(select c.jikup from code_jikup c
+        		where c.jikup_cd = (select e.jikup_cd from employee e 
+        							where e.emp_no=(select ee.emp_no from event_info ee where ee.evnt_no=i.evnt_no) ) ) "jikup",
+			(select e.emp_name from employee e where e.emp_no=i.emp_no) "emp_name",
+			(select to_char(ap.e_works_req_dt, 'yyyy-mm-dd') || '('||to_char(ap.e_works_req_dt, 'dy', 'nls_date_language=Korean' )||')' from e_works_info ap where ap.document_no = i.evnt_no) "reg_dt",
+			i.evnt_title "evnt_title",
+			i.tot_est_cost "tot_est_cost",
+			i.tot_cost "tot_cost",
+			to_char(i.evnt_start_dt, 'yyyy-mm-dd') || '('||to_char(i.evnt_start_dt, 'dy', 'nls_date_language=Korean' )||')' "evnt_start_dt",
+			to_char(i.evnt_end_dt, 'yyyy-mm-dd') || '('||to_char(i.evnt_end_dt, 'dy', 'nls_date_language=Korean' )||')' "evnt_end_dt",
+			i.evnt_state_cd "evnt_state_cd",
+			nvl(i.evnt_comment, '없음') "evnt_comment",
+			nvl(i.atchd_data, '없음') "atchd_data"
+		from event_info i
+		where i.evnt_no=#{evnt_no}
 	</select>
 	
 		

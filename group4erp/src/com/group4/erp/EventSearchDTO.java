@@ -9,8 +9,26 @@ public class EventSearchDTO {
 	private String evnt_category[];
 	private String evnt_stat[];
 	private String sort;
-
+	private String tableName;
+	private String allOrMine;
 	
+	
+	public String getAllOrMine() {
+		return allOrMine;
+	}
+
+	public void setAllOrMine(String allOrMine) {
+		this.allOrMine = allOrMine;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
 	public String getEmp_no() {
 		return emp_no;
 	}

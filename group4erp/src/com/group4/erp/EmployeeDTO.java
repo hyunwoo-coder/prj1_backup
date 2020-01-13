@@ -13,12 +13,21 @@ public class EmployeeDTO {
 	private String emp_email;
 	private String emp_email_office;
 	private String mgr_emp_name;
+	private String mgr_emp_no;
 	private String emp_addr;
 	private String emp_pwd;
 	private String jikup;
 	private String mgr;
 	private int jikup_cd;
 	private int worktime_cd;
+	
+
+	public String getMgr_emp_no() {
+		return mgr_emp_no;
+	}
+	public void setMgr_emp_no(String mgr_emp_no) {
+		this.mgr_emp_no = mgr_emp_no;
+	}
 	
 	
 	public String getMgr() {

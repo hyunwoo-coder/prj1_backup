@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.group4.erp.CorpOrderDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
+import com.group4.erp.SalaryDTO;
 import com.group4.erp.TranSpecDTO;
 import com.group4.erp.TranSpecSearchDTO;
 import com.group4.erp.service.AccountService;
@@ -41,9 +42,29 @@ public class AccountController {
 		mav.addObject("subMenu", "viewCorpList");
 		mav.addObject("navigator", "[회계관리]-[거래처 현황]");
 		
+		String corpBusiness = "";
+		
+		if(corpSearchDTO.getCorp_business()!= null) {
+			for(int i=0; i<corpSearchDTO.getCorp_business().length; i++) {
+				System.out.println("corpSearchDTO.getCorp_business.size==="+corpSearchDTO.getCorp_business()[i]);
+				
+				//if(i !=corpSearchDTO.getCorp_business().length-1) {
+				//	corpBusiness += corpSearchDTO.getCorp_business()[i] +", ";
+				//} else {
+				//	corpBusiness += corpSearchDTO.getCorp_business()[i];
+				//}
+				
+			}
+		
+		}
+		
+		//corpSearchDTO.setCorp_business_area(corpBusiness);
+		//System.out.println(corpBusiness);
+		
 		try {
 			
 			int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);
+			
 			
 			if(corpListCnt >0 ) {
 				int selectPageNo = corpSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
@@ -55,9 +76,11 @@ public class AccountController {
 			}
 			
 			List<CorporationDTO> corpList = this.accountService.getCorpList(corpSearchDTO);
+			List<CorporationDTO> business_area = this.accountService.getBusiness_area();
 			
 			mav.addObject("corpListCnt", corpListCnt);
 			mav.addObject("corpList", corpList);
+			mav.addObject("corp_business_area", business_area);
 			mav.addObject("corpSearchDTO", corpSearchDTO);
 						
 		} catch(Exception e) {
@@ -99,8 +122,16 @@ public class AccountController {
 		int insertCorpCnt = 0;
 		try {
 			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
-					
-			insertCorpCnt = this.accountService.insertCorp(corporationDTO);
+			
+			String corp_no = corporationDTO.getCorp_no();
+			
+			int corpSearchCnt = this.accountService.searchCorpCnt(corp_no);
+			
+			if(corpSearchCnt==0) {
+				insertCorpCnt = this.accountService.insertCorp(corporationDTO);
+			} else if(corpSearchCnt >=1) {
+				insertCorpCnt = -2;
+			}			
 				
 		} catch(Exception e) {
 			System.out.println("insertCorp() 메소드에서 예외 발생>>> "+e);
@@ -177,18 +208,19 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTranSpecList");
-		mav.addObject("navigator", "[회계관리]-[거래명세서]");
+		mav.addObject("navigator", "[회계관리]-[거래 내역]");
 		
 		try {
 			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
+			
 			List<CorpOrderDTO> corp_tran_list = this.accountService.getCorpOrderList(corpSearchDTO);
-			
-			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
-			mav.addObject("tranSpecIssueList", tranSpecIssueList);
-			
+			//List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
+	
+			//mav.addObject("tranSpecIssueList", tranSpecIssueList);		
 			mav.addObject("corp_tran_cnt", corp_tran_cnt);
 			mav.addObject("corp_tran_list", corp_tran_list);
-			mav.addObject("tranSpecIssueList", tranSpecIssueList);
+			mav.addObject("corpSearchDTO", corpSearchDTO);
+			//mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
@@ -238,7 +270,7 @@ public class AccountController {
 			List<TranSpecDTO> tranSpecIssueList = this.accountService.getTranSpecIssueList(tranSpecSearchDTO);
 			mav.addObject("tranSpecIssueList", tranSpecIssueList);
 			mav.addObject("tranSpecIssueCnt", tranSpecIssueCnt);
-			//mav.addObject("tranSpecDTO", tranSpecDTO);
+			mav.addObject("tranSpecSearchDTO", tranSpecSearchDTO);
 			
 		} catch(Exception e) {
 			System.out.println("예외 발생=="+e);
@@ -258,7 +290,7 @@ public class AccountController {
 	public int issueTranSpec(TranSpecDTO tranSpecDTO) {
 		
 		int issueCnt = 0;
-		System.out.println("issueTranSpec() 메소드 시작");
+
 		System.out.println("order_no=="+tranSpecDTO.getOrder_no());
 		//System.out.println("order_dt=="+tranSpecDTO.getOrder_dt());
 		//System.out.println("corp_no=="+tranSpecDTO.getCorp_no());
@@ -274,5 +306,32 @@ public class AccountController {
 				
 		return issueCnt;		
 	}
+	
+	
+	@RequestMapping( 
+			value="/goPayCheckProc.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	
+	@ResponseBody
+	public int payCheckProc() {
+		
+		int payCheckCnt = 0;
+		System.out.println("payCheckProc() 메소드 시작");
+		
+		try {
+			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
+							
+			payCheckCnt = this.accountService.payCheckProc();
+				
+		} catch(Exception e) {
+			System.out.println("payCheckProc() 메소드에서 예외 발생>>> "+e);
+			payCheckCnt = -1;
+		} 
+				
+		return payCheckCnt;		
+	}
+	
 
 }

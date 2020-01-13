@@ -35,12 +35,14 @@ public interface AccountDAO {
 	
 	List<TranSpecDTO> getTranSpecIssueList(TranSpecSearchDTO tranSpecSearchDTO);
 	
-	int payCheckProc(List<SalaryDTO> salDTOList);
+	int payCheckProc();
 	
 	List<CorporationDTO> getBusiness_area();
 	
 	int updateCorpInfo(CorporationDTO corpDTO);
 	
 	int getTranSpecIssueCnt(TranSpecSearchDTO tranSpecSearchDTO);
+	
+	int searchCorpCnt(String corp_no);
 
 }

@@ -117,9 +117,9 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int payCheckProc(List<SalaryDTO> salDTOList) {
+	public int payCheckProc() {
 		// TODO Auto-generated method stub
-		int payCheckCnt = this.accountDAO.payCheckProc(salDTOList);
+		int payCheckCnt = this.accountDAO.payCheckProc();
 		
 		return payCheckCnt;
 	}
@@ -146,5 +146,13 @@ public class AccountServiceImpl implements AccountService {
 		int tranSpecIssueCnt = this.accountDAO.getTranSpecIssueCnt(tranSpecSearchDTO);
 		
 		return tranSpecIssueCnt;
+	}
+
+	@Override
+	public int searchCorpCnt(String corp_no) {
+		// TODO Auto-generated method stub
+		int corpSearchCnt = this.accountDAO.searchCorpCnt(corp_no);
+		
+		return corpSearchCnt;
 	}
 }

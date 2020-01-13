@@ -125,60 +125,35 @@ public class HRController {
 	//급여명세서(개인별) 조회 기능
 	@RequestMapping(value="/viewEmpSalInfo.do")
 	public ModelAndView viewEmpSalInfo(HttpSession session, SalListSearchDTO salListSearchDTO) {
-		
 
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("main.jsp");
+	
+		String emp_no = (String)session.getAttribute("emp_id");
+		int my_emp_no = Integer.parseInt(emp_no);
 
-		
-		System.out.println("salListSearchDTO.getEmp_no()==="+salListSearchDTO.getEmp_no());
-		
-		int emp_no = Integer.parseInt(salListSearchDTO.getEmp_no());
-
+		salListSearchDTO.setMy_emp_no(my_emp_no);
+		salListSearchDTO.setEmp_no(emp_no);
 	
 		TimeDTO timeDTO = this.hrservice.getTime();
-
-		int emp_tot_cnt = this.hrservice.getEmpListAllCnt(salListSearchDTO);
+		//int emp_tot_cnt = this.hrservice.getEmpListAllCnt(salListSearchDTO);
 		
-		System.out.println("emp_tot_cnt=="+emp_tot_cnt);
-		
+		int myPayCheckCnt = this.hrservice.getMyPayCheckCnt(my_emp_no);
+			
 		//List<SalaryDTO> empSalInfo = this.hrservice.getEmpSalList(salListSearchDTO);
 	
 		System.out.println("급여 컨트롤러 시작");
-		SalaryDTO salaryDTO = this.hrservice.getSalaryInfo(emp_no);
+		List<SalaryDTO> myPayCheckList = this.hrservice.getSalaryInfo(salListSearchDTO);
 		System.out.println("컨트롤러 급여명세서 조회 성공");
 
-		mav.setViewName("main.jsp");
-		mav.addObject("salaryInfo", salaryDTO);
+		mav.addObject("myPayCheckList", myPayCheckList);
+		mav.addObject("salListSearchDTO", salListSearchDTO);
+		mav.addObject("myPayCheckCnt", myPayCheckCnt);
 		mav.addObject("subMenu", "viewEmpSalInfo");
+		mav.addObject("navigator", "[인사관리]-[급여지급내역]");
 		mav.addObject("timeDTO", timeDTO);
 
 		return mav;
-	}
-	
-	
-	@RequestMapping( 
-			value="/goPayCheckProc.do"
-			,method=RequestMethod.POST
-			,produces="application/json;charset=UTF-8"
-	)
-	
-	@ResponseBody
-	public int payCheckProc(List<SalaryDTO> salDTOList) {
-		
-		int payCheckCnt = 0;
-		System.out.println("payCheckProc() 메소드 시작");
-		
-		try {
-			//BoardServiceImpl 객체의 insertBoard 메소드 호출로 게시판 입력하고 게시판 입력 적용 행의 개수를 얻는다.
-					
-			payCheckCnt = this.accountService.payCheckProc(salDTOList);
-				
-		} catch(Exception e) {
-			System.out.println("payCheckProc() 메소드에서 예외 발생>>> "+e);
-			payCheckCnt = -1;
-		} 
-				
-		return payCheckCnt;		
 	}
 	
 	

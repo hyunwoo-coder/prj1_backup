@@ -4,6 +4,7 @@ public class EventDTO {
 
 	private String evnt_no;
 	private String emp_name;
+	private String jikup;
 	private int emp_no;
 	private int evnt_cd;
 	private String evnt_category;
@@ -15,8 +16,45 @@ public class EventDTO {
 	private String evnt_stat;
 	private String evnt_comment;
 	private String atchd_data;
+	private String reg_dt;
+	private String evnt_state_cd;
+	private String document_no;
 
 	
+	
+	public String getDocument_no() {
+		return document_no;
+	}
+
+	public void setDocument_no(String document_no) {
+		this.document_no = document_no;
+	}
+
+	public String getEvnt_state_cd() {
+		return evnt_state_cd;
+	}
+
+	public void setEvnt_state_cd(String evnt_state_cd) {
+		this.evnt_state_cd = evnt_state_cd;
+	}
+
+
+	public String getReg_dt() {
+		return reg_dt;
+	}
+
+	public void setReg_dt(String reg_dt) {
+		this.reg_dt = reg_dt;
+	}
+
+	public String getJikup() {
+		return jikup;
+	}
+
+	public void setJikup(String jikup) {
+		this.jikup = jikup;
+	}
+
 	public int getEmp_no() {
 		return emp_no;
 	}

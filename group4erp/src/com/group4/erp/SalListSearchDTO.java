@@ -6,6 +6,22 @@ public class SalListSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String emp_no;
+	private String sort;
+	private int my_emp_no;
+
+	public int getMy_emp_no() {
+		return my_emp_no;
+	}
+	public void setMy_emp_no(int my_emp_no) {
+		this.my_emp_no = my_emp_no;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	
 	public String getEmp_no() {
 		return emp_no;

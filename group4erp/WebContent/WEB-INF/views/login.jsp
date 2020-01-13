@@ -18,7 +18,7 @@
 			, success : function(loginCnt){
 				
 				if(loginCnt==1){
-					alert("회원 로그인 성공!");
+					//alert("회원 로그인 성공!");
 					location.replace("/group4erp/goMainPage.do");
 				}
 				else{
@@ -41,6 +41,36 @@
 		location.replace("/group4erp/godelete.do");
 	}*/
 
+	function goCEOLogin(str){
+		
+		$('[name=emp_pwd]').val(1111);
+		
+		if( str=='대표이사' ){
+			$('[name=emp_id]').val(100001);
+			checkLoginInfo();
+		}
+		if( str=='기획부장' ){
+			$('[name=emp_id]').val(200003);
+			checkLoginInfo();
+		}
+		if( str=='영업부장' ){
+			$('[name=emp_id]').val(300004);
+			checkLoginInfo();
+		}
+		if( str=='마케팅부장' ){
+			$('[name=emp_id]').val(400005);
+			checkLoginInfo();
+		}
+		if( str=='사업부장' ){
+			$('[name=emp_id]').val(500003);
+			checkLoginInfo();
+		}
+		if( str=='인사부장' ){
+			$('[name=emp_id]').val(600001);
+			checkLoginInfo();
+		}
+	}
+	
 </script>
 
 </head>
@@ -61,6 +91,14 @@
 <input type="button" name="loginBtn" value="로그인" onClick="checkLoginInfo();">&nbsp;
 <!-- <input type="button" name="joinBtn" value="사원등록" onClick="joinMembership();">&nbsp;
 <input type="button" name="deleteBtn" value="사원삭제" onClick="deleteMembership();"> -->
+<br>
+<br>
+<input type="button" value="대표이사" name="easyLogin" onclick="goCEOLogin('대표이사');">&nbsp;
+<input type="button" value="기획부장" name="easyLogin" onclick="goCEOLogin('기획부장');">&nbsp;
+<input type="button" value="영업부장" name="easyLogin" onclick="goCEOLogin('영업부장');">&nbsp;
+<input type="button" value="마케팅부장" name="easyLogin" onclick="goCEOLogin('마케팅부장');">&nbsp;
+<input type="button" value="사업부장" name="easyLogin" onclick="goCEOLogin('사업부장');">&nbsp;
+<input type="button" value="인사부장" name="easyLogin" onclick="goCEOLogin('인사부장');">&nbsp;
 
 </body>
 </html>

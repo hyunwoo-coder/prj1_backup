@@ -35,6 +35,18 @@ public class InvenServiceImpl implements InvenService{
 		return publisher;
 	}
 
+
+	public List<Map<String, String>> getSize(){
+		List<Map<String, String>> size = this.invenDAO.getSize();
+		
+		return size;
+	}
+	public List<Map<String, String>> getCategory(){
+		List<Map<String, String>> category = this.invenDAO.getCategory();
+		
+		return category;
+	}
+	
    public List<Map<String,String>> getBookList(InvenSearchDTO invenSearchDTO) {
 
 		List<Map<String,String>> getBookList = this.invenDAO.getBookList(invenSearchDTO);
@@ -203,5 +215,17 @@ public class InvenServiceImpl implements InvenService{
 		ReturnSalseContentDTO returnInfo = this.invenDAO.getReturnContent(return_sales_no);
 		
 		return returnInfo;
+	}
+	
+	public int getBookInfoUpCnt(BookInfoDTO bookInfoDTO) {
+		
+		int bookInfoUpCnt = this.invenDAO.getBookInfoUpCnt(bookInfoDTO);
+		
+		int branchUpCnt = this.invenDAO.getBranchUpCnt(bookInfoDTO);
+		if(branchUpCnt==0) {
+			return -2;
+		}
+		
+		return bookInfoUpCnt;
 	}
 }
