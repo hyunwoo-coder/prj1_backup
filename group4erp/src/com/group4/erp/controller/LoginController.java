@@ -98,7 +98,7 @@ public class LoginController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");
-		
+		mav.addObject("subMenu", "mainPage");
 		return mav;
 	}
 	
@@ -110,14 +110,7 @@ public class LoginController {
 		
 		return mav;
 	}
-	@RequestMapping(value="/godelete.do")
-	public ModelAndView deleteMembership() {
-		System.out.println("사원삭제 시작");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("delete.jsp");
-		
-		return mav;
-	}
+	
 	
 	
 	@RequestMapping(value="/logout.do")
