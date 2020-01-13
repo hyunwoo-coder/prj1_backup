@@ -98,7 +98,6 @@
 		inputData('[name=rowCntPerPage]',"${eventSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${eventSearchDTO.selectPageNo}");
 		inputData("[name=searchKeyword]", "${eventSearchDTO.searchKeyword}");
-		inputData("[name=allOrMine]", "${eventSearchDTO.allOrMine}");
 		inputData("[name=sort]", "${eventSearchDTO.sort}");
 		
 
@@ -286,10 +285,10 @@
 	        </tr>
 		</table><br>
 		<table name="searchEvntTable">
-			<tr>
+			<!-- <tr>
 				<td>[행사별] </td><td><input type="checkbox" name="allOrMine" value='a'>전체보기 &nbsp;
 									<input type="checkbox" name="allOrMine" value='m'>담당 행사만 보기</td>
-			</tr>
+			</tr> -->
 			<tr> <!-- DB 연동할 것 -->
 				<td valign="top">[종류별]</td><td><input type="checkbox" value="01" name="evnt_category">매대판매
 								<input type="checkbox" value="02" name="evnt_category">야외판매

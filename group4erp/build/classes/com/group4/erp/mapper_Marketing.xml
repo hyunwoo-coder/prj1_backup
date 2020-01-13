@@ -80,7 +80,7 @@
 	<select id='getEventCnt' parameterType="com.group4.erp.EventSearchDTO" resultType="int">
 		select count(*) from event_info ei
 		where 1=1
-		<include refid="eventWhere" />
+		and ei.emp_no = #{emp_no}
 	</select>
 	
 	
