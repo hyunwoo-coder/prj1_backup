@@ -138,6 +138,8 @@ public class HRController {
 		TimeDTO timeDTO = this.hrservice.getTime();
 		//int emp_tot_cnt = this.hrservice.getEmpListAllCnt(salListSearchDTO);
 		
+		System.out.println("salListSearchDTO.getRowCnt=="+salListSearchDTO.getRowCntPerPage());
+		
 		int myPayCheckCnt = this.hrservice.getMyPayCheckCnt(my_emp_no);
 			
 		//List<SalaryDTO> empSalInfo = this.hrservice.getEmpSalList(salListSearchDTO);
