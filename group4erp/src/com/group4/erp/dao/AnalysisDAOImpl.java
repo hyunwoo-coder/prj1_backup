@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group4.erp.BestKwdDTO;
 import com.group4.erp.BestKwdSearchDTO;
+import com.group4.erp.ChartDTO;
 
 @Repository
 public class AnalysisDAOImpl implements AnalysisDAO {
@@ -32,6 +33,54 @@ public class AnalysisDAOImpl implements AnalysisDAO {
 		List<BestKwdDTO> bestKeywdInfo = this.sqlSession.selectList(mapper_namespace+"getKeywdSrchCntChart");
 		
 		return bestKeywdInfo;
+	}
+
+	@Override
+	public List<BestKwdDTO> getBestKwdListChart(BestKwdSearchDTO bestKwdSearchDTO) {
+		// TODO Auto-generated method stub
+		List<BestKwdDTO> bestKwdListChart = this.sqlSession.selectList(mapper_namespace+"getBestKwdListChart", bestKwdSearchDTO);
+		
+		return bestKwdListChart;
+	}
+
+	@Override
+	public List<ChartDTO> getMonthlyBookRegChart() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> monthlyBookRegChart = this.sqlSession.selectList(mapper_namespace+"getMonthlyBookRegChart");
+		
+		return monthlyBookRegChart;
+	}
+
+	@Override
+	public List<ChartDTO> getBookCategoryList() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> bookCategoryList = this.sqlSession.selectList(mapper_namespace+"getBookCategoryList");
+		
+		return bookCategoryList;
+	}
+
+	@Override
+	public List<ChartDTO> getCategoryRegChart(String cat_cd) {
+		// TODO Auto-generated method stub
+		List<ChartDTO> categoryRegChart = this.sqlSession.selectList(mapper_namespace+"getCategoryRegChart", cat_cd);
+		
+		return categoryRegChart;
+	}
+
+	@Override
+	public List<ChartDTO> getEmployeeCntChart() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> employeeCntChart = this.sqlSession.selectList(mapper_namespace+"getEmployeeCntChart");
+		
+		return employeeCntChart;
+	}
+
+	@Override
+	public List<ChartDTO> getEmpHireOrResignChart() {
+		// TODO Auto-generated method stub
+		List<ChartDTO> empHireOrResignCnt = this.sqlSession.selectList(mapper_namespace+"getEmpHireOrResignChart");
+		
+		return empHireOrResignCnt;
 	}
 
 }

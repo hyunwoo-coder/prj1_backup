@@ -22,6 +22,7 @@ import com.group4.erp.SalesInfoDTO;
 import com.group4.erp.WarehousingSearchDTO;
 import com.group4.erp.BestKwdDTO;
 import com.group4.erp.BestKwdSearchDTO;
+import com.group4.erp.ChartDTO;
 import com.group4.erp.service.AnalysisService;
 
 
@@ -64,6 +65,13 @@ public class AnalysisController {
 			}
 			bestKwd_chart_data += "]";
 			
+			//보류
+			//List<BestKwdDTO> bestKeywdChart = this.analysisService.getBestKwdListChart(bestKwdSearchDTO);
+			
+			//String bestKwdDailyChart_data = "[";
+			//bestKwdDailyChart_data += "['날짜', '검색횟수']";
+			
+			
 			mav.addObject("bestKwdDTOList", bestKwdDTOList);
 			//mav.addObject("bestKwdDTO", bestKwdDTO);
 			mav.addObject("bestKwd_chart_data", bestKwd_chart_data);
@@ -102,5 +110,124 @@ public class AnalysisController {
 		//System.out.println( warehContent.getBook_name() );
 		return bestKwdDTOList;
 	}
+	
+	
+	@RequestMapping(value="/viewOurCompanyReport.do")
+	public ModelAndView viewOurCompanyReport(HttpSession session, ChartDTO chartDTO, String cat_cd) {
+		
+		ModelAndView mav = new ModelAndView();
+		//mav.setViewName("eventScheduleForm.jsp");
+		
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewOurCompanyReport");
+		mav.addObject("navigator", "[전략분석]-[회사 현황]");
+		
+		if(cat_cd==null || cat_cd.equals(null)) {
+			cat_cd = "1";
+		}
+		
+		System.out.println("cat_cd==="+cat_cd);
+		
+		List<ChartDTO> bookCategoryList = this.analysisService.getBookCategoryList();
+		
+		List<ChartDTO> monthlyBookRegChart = this.analysisService.getMonthlyBookRegChart();
+		
+		List<ChartDTO> categoryRegChart = this.analysisService.getCategoryRegChart(cat_cd);
+		
+		List<ChartDTO> employeeChart = this.analysisService.getEmployeeCntChart();
+		
+		String employee_chart_data = "[";
+		employee_chart_data += "['직급', '인원수']";
+		for(int i=0; i<employeeChart.size(); i++) {
+			employee_chart_data += ", ['";
+			employee_chart_data += employeeChart.get(i).getJikup();
+			employee_chart_data += "', ";
+			employee_chart_data += employeeChart.get(i).getCnt();
+			employee_chart_data += "] ";
+		}
+		
+		employee_chart_data += "]";
+
+		String bookCategory_reg_chart_data = "[";
+		bookCategory_reg_chart_data += "['기간', '건수']";
+		for(int i=0; i<categoryRegChart.size(); i++) {
+			bookCategory_reg_chart_data += ", ['";
+			bookCategory_reg_chart_data += categoryRegChart.get(i).getDt();
+			bookCategory_reg_chart_data += "', ";
+			bookCategory_reg_chart_data += categoryRegChart.get(i).getCnt();
+			bookCategory_reg_chart_data += "] ";
+		}
+		
+		bookCategory_reg_chart_data += "]";
+		
+		String monthlyBook_reg_chart_data = "[";
+		monthlyBook_reg_chart_data += "['기간', '건수']";
+		
+		for(int i=0; i<monthlyBookRegChart.size(); i++) {
+			monthlyBook_reg_chart_data += ", ['";
+			monthlyBook_reg_chart_data += monthlyBookRegChart.get(i).getDt();
+			monthlyBook_reg_chart_data += "', ";
+			monthlyBook_reg_chart_data += monthlyBookRegChart.get(i).getCnt();
+			monthlyBook_reg_chart_data += "] ";
+		}
+		monthlyBook_reg_chart_data += "]";
+		
+		List<ChartDTO> empHireOrResignChart = this.analysisService.getEmpHireOrResignChart();
+		
+		String empHireOrResign_data = "[";
+		empHireOrResign_data += "['기간', '총원', '채용인원수', '퇴사인원수']";
+		
+		for(int i=0; i<empHireOrResignChart.size(); i++) {
+			empHireOrResign_data += ", ['";
+			empHireOrResign_data += empHireOrResignChart.get(i).getDt();
+			empHireOrResign_data += "', ";
+			empHireOrResign_data += empHireOrResignChart.get(i).getTot_cnt();
+			empHireOrResign_data += ", ";
+			empHireOrResign_data += empHireOrResignChart.get(i).getHire_cnt();
+			empHireOrResign_data += ", ";
+			empHireOrResign_data += empHireOrResignChart.get(i).getResign_cnt();
+			empHireOrResign_data += "] ";
+		}
+		empHireOrResign_data += "]";
+			
+		mav.addObject("bookCategoryList", bookCategoryList);
+		mav.addObject("employee_chart_data", employee_chart_data);
+		mav.addObject("monthlyBook_reg_chart_data", monthlyBook_reg_chart_data);
+		mav.addObject("empHireOrResign_data", empHireOrResign_data);
+		mav.addObject("bookCategory_reg_chart_data", bookCategory_reg_chart_data);
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/viewCategoryChart.do", 
+			method = RequestMethod.POST, 
+			produces = "application/json;charset=UTF-8")
+	@ResponseBody 
+	public ModelAndView viewCategoryChartReport(HttpSession session, ChartDTO chartDTO, String cat_cd) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		List<ChartDTO> categoryRegChart = this.analysisService.getCategoryRegChart(cat_cd);
+		System.out.println("viewCategoryChartReport 메소드 실행==="+cat_cd);
+		String bookCategory_reg_chart_data = "[";
+		bookCategory_reg_chart_data += "['기간', '건수']";
+		for(int i=0; i<categoryRegChart.size(); i++) {
+			bookCategory_reg_chart_data += ", ['";
+			bookCategory_reg_chart_data += categoryRegChart.get(i).getDt();
+			bookCategory_reg_chart_data += "', ";
+			bookCategory_reg_chart_data += categoryRegChart.get(i).getCnt();
+			bookCategory_reg_chart_data += "] ";
+		}
+		
+		bookCategory_reg_chart_data += "]";
+		
+		System.out.println(bookCategory_reg_chart_data);
+		
+		mav.addObject("bookCategory_reg_chart_data", bookCategory_reg_chart_data);
+		
+		return mav;
+	}
+	
 	
 }

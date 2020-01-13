@@ -24,17 +24,21 @@
 			} 
 
 		});
+
+		
 		
 	});
 
 	function checkRegForm() {
-		//alert("유효성 체크");
 
+		//alert("유효성 체크");
+		
 		if(is_empty("[name = corp_no]")) {
 			alert("사업자 번호를 입력해주세요.");
 			$("[name = corp_no]").focus();
 
 			return;
+			
 		} else {
 
 			var corp_no = $("[name=corp_no]").val();
@@ -45,6 +49,8 @@
 			if(flag==false) {
 				alert("사업자 번호 형태는 OOO-OO-OOOOO입니다.");
 				$("[name=corp_no]").val("");
+
+				return;
 			}
 		}
 
@@ -88,6 +94,39 @@
 			$("[name = corp_tel]").focus();
 
 			return;
+		} else {
+			
+			var thisObj = $("[name=corp_tel]");
+			
+			var corp_tel_num = thisObj.val(); 
+			
+			var regExp = new RegExp(/^[0-9]{7,11}$/);
+			var flag = regExp.test(corp_tel_num);
+
+			if(flag==false) {
+				alert("연락처는 -를 제외한 숫자 7~11자로 입력하세요.");
+				thisObj.val("");
+
+				return;
+			}
+
+		}
+
+		if(!is_empty("[name = corp_fax]")) {
+
+			var thisObj = $("[name=corp_fax]");
+			
+			var corp_fax_num = thisObj.val(); 
+			
+			var regExp = new RegExp(/^[0-9]{7,11}$/);
+			var flag = regExp.test(corp_fax_num);
+
+			if(flag==false) {
+				alert("fax번호는 -를 제외한 숫자 7~11자로 입력하세요.");
+				thisObj.val("");
+
+				return;
+			}
 		}
 
 		if(confirm("정말 저장하겠습니까?")==false) {
@@ -106,6 +145,8 @@
 					location.replace("/group4erp/viewCorpList.do");
 					} else if(insertCorpCnt==0) {		//글 등록 개수가 0이면 경고
 						alert("거래처 등록에 실패했습니다. 관리자에게 문의 바랍니다.");
+					} else if(insertCorpCnt==-2) {
+						alert("이미 등록되어 있는 업체입니다.");
 					} else {
 						alert("서버 오류 발생! 관리자에게 문의 바람!");
 					}				
@@ -130,30 +171,30 @@
 		
 		<table class="insertCorpTable tab" name="insertCorpTable" cellpadding="5" cellspacing="5">
 			<tr>
-				<td>사업자 번호</td><td><input tyep="text" name="corp_no" maxlength="12" ></td>
+				<td>사업자 번호</td><td><input type="text" name="corp_no" maxlength="12" ></td>
 			</tr>
 			<tr>
-				<td>상호명</td><td><input tyep="text" name="corp_name" maxlength="30"></td>
+				<td>상호명</td><td><input type="text" name="corp_name" maxlength="30"></td>
 			</tr>
 			<tr>
-				<td>사업자명</td><td><input tyep="text" name="ceo_name" maxlength="30"></td>
+				<td>사업자명</td><td><input type="text" name="ceo_name" maxlength="30"></td>
 			</tr>
 			<tr>
 				<td>사업분야</td>
 				<td>
 					<c:forEach items='${business_area}' var="business_area" varStatus="loopTagStatus">
-						<input type="checkbox" name="corp_business_area" value="${business_area.bus_area_name}">${business_area.bus_area_name}&nbsp;
+						<input type="checkbox" name="corp_business_area" value="${business_area.bus_area_code}">${business_area.bus_area_name}&nbsp;
 					</c:forEach>
 				</td>
 			</tr>
 			<tr>
-				<td>소재지</td><td><input tyep="text" name="corp_addr" maxlength="100"></td>
+				<td>소재지</td><td><input type="text" name="corp_addr" maxlength="100"></td>
 			</tr>
 			<tr>
-				<td>연락처</td><td><input tyep="text" name="corp_tel" maxlength="20"></td>
+				<td>연락처</td><td><input type="text" name="corp_tel" maxlength="11" placeholder="- 제외한 숫자 7~11자 입력"></td>
 			</tr>
 			<tr>
-				<td>FAX</td><td><input tyep="text" name="corp_fax" maxlength="15"></td>
+				<td>FAX</td><td><input type="text" name="corp_fax" maxlength="15"></td>
 			</tr>
 					
 		</table> <br>

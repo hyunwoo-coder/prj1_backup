@@ -2,11 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 
-<% String emp_name = (String)session.getAttribute("emp_name"); %>
-<% String emp_no = (String)session.getAttribute("emp_id"); %>
-<% String mgr = (String)session.getAttribute("mgr"); %>
-
 <html>
+
+
+<% 
+
+	String emp_name = (String)session.getAttribute("emp_name"); 
+	String emp_no = (String)session.getAttribute("emp_id");
+	String mgr = (String)session.getAttribute("mgr"); 
+	String dep_no = (String)session.getAttribute("dep_no"); 
+	String mgr_emp_no = (String)session.getAttribute("mgr_emp_no"); 
+	
+ %>
+ 
 <head>
 
 	<script>
@@ -171,8 +179,13 @@
 			location.href="/group4erp/viewEmpList.do";
 		}
 
-		function viewSalaryList() {		//급여지급현황조회
+		function viewSalaryList() {		//급여지급현황조회(인사부장 전용 메뉴)
 			location.href="/group4erp/viewSalList.do";
+		}
+
+		//급여명세서 조회
+		function viewSalarySpecList() {
+			location.href="/group4erp/viewEmpSalInfo.do";
 		}
 
 		function viewEmpWorkStateList() {	//직원별 근무현황 조회
@@ -235,6 +248,10 @@
 
 		function goMyIntoList(){
 			location.href="/group4erp/goWarehousingList.do";
+		}
+
+		function viewOurCompanyReport() {
+			location.href="/group4erp/viewOurCompanyReport.do";
 		}
 
 		function logout() {
@@ -362,7 +379,12 @@
 			<td nowrap>
 				<span id="subMenu5">	<!-- 인사관리 -->
 					<span id="empList" style="cursor:pointer" onClick="viewEmpList();">직원정보&nbsp;</span>
-					<span id="salaryList" style="cursor:pointer" onClick="viewSalaryList();">급여지급현황&nbsp;</span>
+					
+						<c:if test="${dep_no eq 6 && mgr_emp_no eq '100001'}">
+							<span id="salaryList" style="cursor:pointer" onClick="viewSalaryList();">급여지급현황&nbsp;</span>
+						</c:if>
+					
+					<span id="salaryList" style="cursor:pointer" onClick="viewSalarySpecList();">급여명세서 조회&nbsp;</span>		
 					<span id="empWorkState" style="cursor:pointer" onClick="viewEmpWorkStateList();">직원별 근무현황조회&nbsp;</span>
 					<span id="empDayOffList" style="cursor:pointer" onClick="viewEmpDayOffList();">직원별 휴가 현황&nbsp;</span>
 				</span>
@@ -383,7 +405,8 @@
 				<span id="subMenu7">	<!-- 전략분석 -->
 					<!-- <span id="salesChangeReport" style="cursor:pointer" onClick="viewSalesChangeReport();">매출추이분석&nbsp;&nbsp;&nbsp;</span> -->
 					<!-- <span id="cusClaimReport" style="cursor:pointer" onClick="viewCusClaimReport();">고객 클레임 처리 상황&nbsp;&nbsp;&nbsp;</span> -->
-					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywdReport();">전략 분석 자료 조회&nbsp;&nbsp;&nbsp;</span>					
+					<span id="bestKeywordReport" style="cursor:pointer" onClick="viewBestKeywdReport();">키워드 검색 자료 조회&nbsp;&nbsp;</span>
+					<span id="ourCompanyReport" style="cursor:pointer" onClick="viewOurCompanyReport();">회사 현황&nbsp;&nbsp;</span>					
 				</span>
 			</td>
 				<!-- <span id="subMenu8">	거래처관리 

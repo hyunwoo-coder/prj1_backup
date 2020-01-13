@@ -189,13 +189,17 @@
 		 								,destination
 		 								,work_outside_reason
 		 								,outside_start_time
-		 								,outside_end_time)
-   				values( work_outside_info_seq.nextval
+		 								,outside_end_time
+		 								,travel_payment
+		 								,delete_yn
+		 								)
+   				values( (select nvl(max(work_outside_seq), 0)+1 from work_outside_info),
    				 		,#{emp_no}
    				 		,#{destination}
    				 		,#{work_outside_reason}
    				 		,#{outside_start_time}
    				 		,#{outside_end_time}
-   				 		)
+   				 		'W',
+   				 		'N')
 	</insert>
 </mapper>

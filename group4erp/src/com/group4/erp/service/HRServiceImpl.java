@@ -97,12 +97,12 @@ public class HRServiceImpl implements HRService {
 	}
 
 	@Override
-	public SalaryDTO getSalaryInfo(int emp_no) {
+	public List<SalaryDTO> getSalaryInfo(SalListSearchDTO salListSearchDTO) {
 		// TODO Auto-generated method stub
 		
-		SalaryDTO salaryDTO = this.hrDAO.getSalaryInfo(emp_no);
+		List<SalaryDTO> myPayCheckList = this.hrDAO.getSalaryInfo(salListSearchDTO);
 		
-		return salaryDTO;
+		return myPayCheckList;
 	}
 
 	public EmployeeInfoUpDTO getEmpContant(int emp_no) {
@@ -172,5 +172,13 @@ public class HRServiceImpl implements HRService {
 		int updateCnt = this.hrDAO.getUpdateCnt(emp_no_in_time_out_time_check_inout_name_remarks);
 		System.out.println("서비스 작업 성공 : " + updateCnt);
 		return updateCnt;
+	}
+
+	@Override
+	public int getMyPayCheckCnt(int emp_no) {
+		// TODO Auto-generated method stub
+		int myPayCheckCnt = this.hrDAO.getMyPayCheckCnt(emp_no);
+		
+		return myPayCheckCnt;
 	}
 }

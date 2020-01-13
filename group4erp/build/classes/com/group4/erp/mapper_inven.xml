@@ -422,8 +422,8 @@
 
     
     <insert id="getSignUpBook" parameterType="com.group4.erp.InvenDTO">
-    	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor ) values
-    		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor} )
+    	insert into book ( isbn13, book_name, cat_cd, book_price, book_pages, writer, publisher, size_cd, is_print, emp_no, published_dt, editor, reg_dt ) values
+    		( #{isbn13}, #{book_name}, #{cat_cd}, #{book_price}, #{book_pages}, #{writer}, #{publisher}, #{size_cd}, #{is_print}, (select emp_no from employee where emp_name=#{emp_name}), to_date(#{datepicker}, 'YYYY-MM-DD'), #{editor}, sysdate )
     </insert>
     
     <insert id="getBookStock" parameterType="com.group4.erp.InvenDTO">

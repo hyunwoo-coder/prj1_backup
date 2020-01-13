@@ -83,6 +83,8 @@ public class MarketingController {
 			}
 			sales_chart_data += "]";
 			
+			System.out.println("sales_chart_data=="+sales_chart_data);
+			
 			String corpOrder_chart_data = "[";
 			corpOrder_chart_data += "['분류', '수량']";
 			
@@ -145,18 +147,6 @@ public class MarketingController {
 		return mav;
 	}
 	
-	
-	@RequestMapping(value="/viewNewBooksList.do")
-	public ModelAndView viewNewBookList(HttpSession session) {
-		
-		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("eventScheduleForm.jsp");
-		mav.setViewName("main.jsp");
-		mav.addObject("subMenu", "newBooksList");
-		
-		return mav;
-	}
-	
 	//이벤트 현황 조회
 	@RequestMapping(value="/viewEventList.do")
 	public ModelAndView viewEventList(HttpSession session, EventSearchDTO eventSearchDTO) {
@@ -175,6 +165,8 @@ public class MarketingController {
 			
 			eventSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
 			
+			System.out.println("allOrMine==="+eventSearchDTO.getAllOrMine());
+			
 			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
 			int eventAllCnt = this.marketingService.getEventAllCnt();
 			
@@ -192,6 +184,7 @@ public class MarketingController {
 			mav.addObject("eventCnt", eventCnt);
 			mav.addObject("eventAllCnt", eventAllCnt);
 			mav.addObject("eventList", eventList);
+			mav.addObject("eventSearchDTO", eventSearchDTO);
 			
 		} catch(Exception e) {
 			System.out.println("viewEventList() 메소드에서 예외발생=="+e);
@@ -242,6 +235,8 @@ public class MarketingController {
 
 			System.out.println("EventDTO.getAtchd_data==="+eventDTO.getAtchd_data());
 			System.out.println("EventDTO.eventNo==="+eventDTO.getEvnt_no());
+			
+			eventDTO.setEmp_no(Integer.parseInt(emp_no));
 					
 			insertEventCnt = this.marketingService.insertEvent(eventDTO);
 			
@@ -252,12 +247,7 @@ public class MarketingController {
 				approvalDTO.setDocument_no(eventDTO.getEvnt_no());
 				approvalDTO.setEmp_no(Integer.parseInt(emp_no));
 				
-				System.out.println("결재 실행");
-				System.out.println("approval.getDocument_no()==="+approvalDTO.getDocument_no());
-				System.out.println("approval.getEmp_no()==="+emp_no);
-				
 				insertApprovalCnt = this.approvalService.insertApproval(approvalDTO); 
-				System.out.println("결재 cnt==="+insertApprovalCnt);
 			}
 			
 				

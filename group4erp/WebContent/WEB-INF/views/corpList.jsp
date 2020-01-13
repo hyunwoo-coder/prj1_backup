@@ -42,8 +42,14 @@
 		inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
 		inputData('[name=sort]').val("${corpSearchDTO.sort}");
+		
+		<c:forEach items="${corpSearchDTO.corp_business}" var="corp_business">
+			inputData("[name=corp_business]", "${corpSearchDTO.corp_business}");
+		</c:forEach>
 
-		//$('[name=sort]').val("${corpSearchDTO.sort}");
+		<c:forEach items="${corpSearchDTO.corp_business}" var="corp_business">
+			$('[name=corp_business]').filter("[value = ${corp_business}]").prop("checked", true);
+		</c:forEach>
 
 	});
 
@@ -66,7 +72,6 @@
 		location.replace("/group4erp/goInsertCorpPage.do");
 	}
 
-
 	var closeFlag = "close";
 	
 	function updateCorpInfo(idx, flag, corp_no, corp_name, ceo_name, business_area, corp_addr, corp_tel, corp_fax) {
@@ -75,18 +80,13 @@
 			$(idx).val("닫기");
 			closeFlag = flag;
 
-		} else if(closeFlag == flag){
-			$(idx).val("수정");
-			closeFlag = "close";
-
-		}
+		} 
 
 		var thisTr = $(idx).parent().parent();
 		var delTr = $(".corpListMain .corpListTable [name=updateCorpInfo]");
 		
 		if(delTr.size() > 0) {
-			//delTr.remove();
-			//thisTr.next().remove();		
+			delTr.remove();
 		}		
 		
 		//$('.corpListTable tr:eq('+idx+')').append(" <tr> <td>");
@@ -120,8 +120,8 @@
 	function closeThisTr(idx) {
 				
 		$(idx).parent().parent().remove();
-
-		//$("[name=updateCorpBtn]").val("수정");
+		$("[name=updateCorpBtn]").val("수정");
+		
 	}
 	
 	
@@ -215,9 +215,31 @@
 <body><center>
 	<h1>[거래처 현황]</h1>
 <form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
-	[검색어]&nbsp;<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
-	
-	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+	<table name="corpSearchTb" border="0" cellpadding="5" cellspacing="5">
+		<tr>
+			<td align="right">[사업분야별]&nbsp;</td><td>
+				<%--<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
+					<c:if test="${corp_business_area.bus_area_code eq '6'}">
+						<br>
+					</c:if>
+					<input type="checkbox" name="corp_business_area" value="${corp_business_area.bus_area_code}">${corp_business_area.bus_area_name} &nbsp;
+																								
+				</c:forEach> --%>
+					<input type="checkbox" name="corp_business" value="1">IT &nbsp;
+					<input type="checkbox" name="corp_business" value="2">통신 &nbsp;
+					<input type="checkbox" name="corp_business" value="3">금융 &nbsp;
+					<input type="checkbox" name="corp_business" value="4">출판&미디어&nbsp;
+					<input type="checkbox" name="corp_business" value="5">교육&학원 &nbsp;<br>
+					<input type="checkbox" name="corp_business" value="6">운송&물류 &nbsp;
+					<input type="checkbox" name="corp_business" value="7">학교 &nbsp;
+					<input type="checkbox" name="corp_business" value="8">기타 &nbsp;	
+			
+			 </td>
+		</tr>
+		<tr>
+			<td align="right">[검색어]&nbsp;</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp; <input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();"> </td>
+		</tr>
+	</table>
 	
      <input type="hidden" name="selectPageNo">
      <input type="hidden" name="sort">
@@ -357,6 +379,9 @@
 	</tr>
 
 </table>
+<c:if test="${corpListCnt==0}">
+	<h4>해당 결과가 없습니다.</h4>
+</c:if>
 
 
 <br>

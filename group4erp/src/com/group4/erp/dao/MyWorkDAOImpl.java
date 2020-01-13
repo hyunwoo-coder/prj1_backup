@@ -179,4 +179,18 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 		
 		return empDayoffTot;
 	}
+	@Override
+	public String getDayOffApplyNo(int emp_no) {
+		// TODO Auto-generated method stub
+		String dayOffApplyNo = this.sqlSession.selectOne("com.group4.erp.dao.myWorkDAO.getDayOffApplyNo", emp_no);
+		
+		return dayOffApplyNo;
+	}
+	@Override
+	public DayOffApplyDTO getMyDayOffApproval(int dayoff_approval_no) {
+		// TODO Auto-generated method stub
+		DayOffApplyDTO dayOffApplyDTO = this.sqlSession.selectOne("com.group4.erp.dao.myWorkDAO.getMyDayOffApproval", dayoff_approval_no);
+		
+		return dayOffApplyDTO;
+	}
 }

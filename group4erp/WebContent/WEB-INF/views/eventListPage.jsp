@@ -5,7 +5,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,9 +36,20 @@
 
 <script>
 
-	
-
 	$(document).ready(function(){
+		
+		$("[name=allOrMine]").change(function() {
+			
+			var cnt = $(this).filter(":checked").length;
+			var rank='';
+
+			if(cnt==1) {
+				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
+				$(this).siblings().prop("checked", false);
+				//rank = $(this).filter(":checked").val();
+			} 
+	
+		});
 
 		$("#evnt_start_dt").datepicker({
 	   	 	onSelect: function() { 
@@ -77,7 +87,7 @@
 	
 		$(".pagingNumber").html(
 			getPagingNumber(
-				"${eventCnt}"						//검색 결과 총 행 개수
+				"${eventCnt}"						//검색 결과 총 이벤트 개수
 				,"${eventSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
 				,"${eventSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
 				,"10"										//페이지 당 보여줄 페이지번호 개수
@@ -88,7 +98,9 @@
 		inputData('[name=rowCntPerPage]',"${eventSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${eventSearchDTO.selectPageNo}");
 		inputData("[name=searchKeyword]", "${eventSearchDTO.searchKeyword}");
+		inputData("[name=allOrMine]", "${eventSearchDTO.allOrMine}");
 		inputData("[name=sort]", "${eventSearchDTO.sort}");
+		
 
 		<c:forEach items="${eventSearchDTO.evnt_category}" var="evnt_category">
 			inputData("[name=evnt_category]", "${evnt_category}");
@@ -267,21 +279,22 @@
 			<tr>
 	    		<td align="left">
 	    			
-	    			<label> [담당 이벤트 행사 횟수] : ${eventCnt}회 </label>
+	    			<label> [전체 행사 횟수] : ${eventAllCnt}회 </label><br>
+	    			<label> ${emp_name} ${jikup} 님 담당 행사 : ${eventCnt}회</label>
 	            	
 	            </td>
 	        </tr>
-		</table>
+		</table><br>
 		<table name="searchEvntTable">
 			<tr>
-				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
-									<input type="button" value="모두검색" onClick="goSearchAll();"></td>
+				<td>[행사별] </td><td><input type="checkbox" name="allOrMine" value='a'>전체보기 &nbsp;
+									<input type="checkbox" name="allOrMine" value='m'>담당 행사만 보기</td>
 			</tr>
 			<tr> <!-- DB 연동할 것 -->
-				<td>[종류별]</td><td><input type="checkbox" value="01" name="evnt_category">매대판매
+				<td valign="top">[종류별]</td><td><input type="checkbox" value="01" name="evnt_category">매대판매
 								<input type="checkbox" value="02" name="evnt_category">야외판매
 								<input type="checkbox" value="03" name="evnt_category">할인전
-								<input type="checkbox" value="04" name="evnt_category">기부행사
+								<input type="checkbox" value="04" name="evnt_category">기부행사<br>
 								<input type="checkbox" value="05" name="evnt_category">온라인 설문조사
 								<input type="checkbox" value="06" name="evnt_category">저자강연회
 								<input type="checkbox" value="07" name="evnt_category">선착순증정
@@ -293,6 +306,10 @@
 									<input type="checkbox" value="02" name="evnt_stat">진행중
 									<input type="checkbox" value="04" name="evnt_stat">종료
 				</td>
+			</tr>
+			<tr>
+				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
+									<input type="button" value="모두검색" onClick="goSearchAll();"></td>
 			</tr>
 		</table>
 		<input type="hidden" name="selectPageNo" >
@@ -313,7 +330,7 @@
 
 	<table border="0" cellpadding="5" cellspacing="5">
 		<tr>
-			<td align="right"><label> [전체 이벤트 정보 ] : ${eventAllCnt}회 </label>&nbsp;
+			<td align="right">
 				<form name="eventSearchRowForm" method="post" action="/group4erp/viewEventList.do">
 					<select name="rowCntPerPage">
 	              		<option value="10">10</option>
@@ -322,8 +339,7 @@
 	               		<option value="25">25</option>
 	               		<option value="30">30</option>
 	            	</select> 행보기
-				</form>
-					
+				</form>					
 	        </td>
 		</tr>
 		
@@ -440,13 +456,15 @@
 				</tr> --%>		 
 					</c:forEach>
 				</table><br>
+					<c:if test="${empty eventList}">
+					<h5><center>해당 결과가 없습니다.</center></h5>
+					</c:if>
 	
 			</form>
 		</td>
 		</tr>
 	</table>
-	
-	
+
 	
 	<form name="deleteEvntForm" method="post" action="/group4erp/deleteEvntProc.do">
 		<input type="hidden" name="evnt_no">

@@ -35,20 +35,38 @@
 <script>
 
 	$(document).ready(function() {
+		
+		
+		var evnt_from_date = '';
+		
+		//이벤트 행사는 시작 계획일 1달 전까지 결재 신청
+		//$.datepicker.setDefaults({
+		//	minDate : "+1M",
+		//	maxDate : "+2M",
+		//});
+		
+		
 		$("#evnt_start_dt").datepicker({
-   	 	onSelect: function() { 
-   	 		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
-   	    	 var dateObject = $(this).datepicker('getDate');
-   	    	 //alert(dateObject.val()); 
-   			}
+			
+			onClose: function( selectedDate ) {   
+        		$("#evnt_end_dt").datepicker( 'option', 'minDate', selectedDate );
+			}, 
+			onSelect: function() { 
+   	 			//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
+   	    	 	var dateObject = $(this).datepicker('getDate');
+   	    		
+   			}	 
 		});
-
+		
 		$("#evnt_end_dt").datepicker({
-    		onSelect: function() { 
+			
+			onSelect: function() { 
     			//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
        			var dateObject = $(this).datepicker('getDate');
-       		 	//alert(dateObject.val()); 
-   			}
+       		 	
+   			},
+   			
+  
 		});
 
 
@@ -174,7 +192,7 @@
 </head>
 <body><center>
 <h1>[이벤트 신청 페이지]</h1>
-	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
+	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do" enctype="multipart/form-data">
 		<table class="tab" cellpadding="5" cellspacing="5">
 			<tr>
 				<td colspan="2">이벤트 일련번호</td><td colspan="2"> <span id="event_no">EV00-00${eventNo}</span> </td>
@@ -210,8 +228,19 @@
 		
 		</table><br>
 		<script>
-	    	$("#evnt_start_dt").datepicker({ dateFormat: 'yy-mm-dd' });
-	    	$("#evnt_end_dt").datepicker({ dateFormat: 'yy-mm-dd' });
+	    	$("#evnt_start_dt").datepicker({ dateFormat: 'yy-mm-dd', minDate : "+1M", maxDate : "+3M"});
+	    	
+	    	
+			$("#evnt_start_dt").change(function() {
+				evnt_from_date = $("#evnt_start_dt").val();
+				//alert(event_from_date);
+				//$("evnt_end_dt").datepicker('option', 'minDate', evnt_from_date);
+			});
+			
+			evnt_from_date = $("#evnt_start_dt").val();
+			$("#evnt_end_dt").datepicker({ dateFormat: 'yy-mm-dd', minDate : '+1M', maxDate : "+3M" });
+		
+    	
 	    </script>
 	    
 		<input type="button" value="결재" onClick="checkForm();">
