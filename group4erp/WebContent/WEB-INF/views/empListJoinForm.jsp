@@ -201,7 +201,7 @@
 	                    type: 'POST',
 	                    success: function(result){
 	                        alert("사원 등록이 완료되었습니다.");
-	                        location.replace("/group4erp/viewEmpList.do");
+	                        location.replace("/group4erp/loginForm.do");
 
 	                    }
 				       	//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
