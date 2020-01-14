@@ -56,7 +56,7 @@
 function checkBusinessTripRegForm(){
 		
 		if( is_empty($("#emp_no")) ){
-			alert("이름을 입력해주세요.");
+			alert("사원번호를 입력해주세요.");
 			$("#emp_no").focus();
 			return;
 		}
@@ -87,7 +87,7 @@ function checkBusinessTripRegForm(){
 	          
 	    if(startDateCompare.getTime() > endDateCompare.getTime()) {
 	              
-	        alert("시작날짜와 종료날짜를 확인해 주세요.");
+	        alert("출발날짜와 복귀날짜를 확인해 주세요.");
 			$("[name=outside_start_time]").focus();
 	         return;
 	    }
@@ -97,15 +97,11 @@ function checkBusinessTripRegForm(){
 			$("#work_outside_reason").focus();
 			return;
 		}
-		/* if( is_valid_email("[name=email]")==false ){
-			alert("이메일 형식을 벗어납니다.");
+		if( is_valid_pattern($("#emp_no"), /^[0-9]{6}$/)==false ){
+			alert("사원번호 숫자 4개를 입력해주세요");
 			return;
 		}
 		
-		if( is_valid_pattern("[name=pwd]", /^[0-9]{4}$/)==false ){
-			alert("암호는 숫자 4개를 입력해주세요");
-			return;
-		} */
 		if(confirm("정말 저장하시겠습니까?")==false){return;}
 		
 		$.ajax({

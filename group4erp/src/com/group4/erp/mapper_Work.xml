@@ -147,14 +147,15 @@
 		 								,travel_payment
 		 								,delete_yn
 		 								)
-   				values( (select nvl(max(work_outside_seq), 0)+1 from work_outside_info),
+   				values( WORK_OUTSIDE_INFO_SEQ.NEXTVAL
    				 		,#{emp_no}
    				 		,#{destination}
    				 		,#{work_outside_reason}
    				 		,#{outside_start_time}
    				 		,#{outside_end_time}
-   				 		'W',
-   				 		'N')
+   				 		,'W'
+   				 		,'N'
+   				 		)
 	</insert>
 	 
 	<update id="deleteBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
