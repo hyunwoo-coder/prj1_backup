@@ -11,11 +11,9 @@
 
 $(document).ready(function(){   
 
-
    $('[name=rowCntPerPage]').change(function(){
       goSearchBookInven();
    });
-   
    
    $(".pagingNumber").html(
          getPagingNumber(
@@ -149,10 +147,9 @@ $(document).ready(function(){
             <input type="checkbox" name="size_cd" value="05">크라운판
             <input type="checkbox" name="size_cd" value="06">국배판
             <input type="checkbox" name="size_cd" value="07">타블로이드
-             -->
+            -->
          <tr>
          <th>지역
-
          <td align=left colspan=5>
          	 <c:forEach items="${requestScope.inventory_loc}" var="inven" varStatus="loopTagStatus">
              	<input type="checkbox" name="inventory_loc" value="${loopTagStatus.index+1}">${inven.branch_name}

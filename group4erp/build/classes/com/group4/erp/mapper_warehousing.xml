@@ -103,7 +103,7 @@
 	</select>
 	
 	<select id="getBranch" parameterType="com.group4.erp.WarehousingSearchDTO" resultType="java.util.HashMap">
-		select branch_name as "branch" from code_branch
+		select branch_name as "branch" from code_branch order by 1
 	</select>
 	
 	

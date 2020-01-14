@@ -204,7 +204,12 @@
 			,#{emp_no}
 			,to_date(to_char(sysdate, 'YYYY-MM-DD'), 'YYYY-MM-DD')
 			,#{dayoff_cd}
+			<if test="dayoff_cd==5">
+			,#{harf_dayoff}
+			</if>
+			<if test="dayoff_cd!=5">
 			,#{using_dayoff}
+			</if>
 			,to_date(#{start_dayoff}, 'YYYY-MM-DD')
 			,to_date(#{end_dayoff}, 'YYYY-MM-DD')
 			,'N'
@@ -212,7 +217,18 @@
 	</insert>
 	
 	<update id="updateDayoff" parameterType="com.group4.erp.HrDayoffJoinDTO">
-		update emp_dayoff_info set remain_dayoff=remain_dayoff-#{using_dayoff} where emp_no=#{emp_no}
+		update emp_dayoff_info set
+		remain_dayoff=remain_dayoff-
+			<if test="dayoff_cd==5">
+			#{harf_dayoff}
+			</if>
+			<if test="dayoff_cd!=5">
+			#{using_dayoff}
+			</if> where emp_no=#{emp_no}
+	</update>
+	
+	<update id="upExceptionDayoffInfo" parameterType="com.group4.erp.HrDayoffJoinDTO">
+		update emp_dayoff_info set dayoff_tot = dayoff_tot+#{using_dayoff} where emp_no=#{emp_no}
 	</update>
 	
 	

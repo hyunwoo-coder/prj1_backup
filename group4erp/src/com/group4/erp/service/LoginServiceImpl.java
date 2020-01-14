@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.group4.erp.EmpApprovalCheckDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.dao.LoginDAO;
 
@@ -43,6 +44,18 @@ public class LoginServiceImpl implements LoginService {
 		return loginEmpInfo;
 	}
 	
-	
+	public EmpApprovalCheckDTO getApprovalCheck(String jumin) {
+		
+		/*
+		int checkJoin = this.loginDAO.getCheckJoinCnt();
+		if(checkJoin == 0) {
+			return -2;
+		}*/
+		
+		EmpApprovalCheckDTO loginInfo = this.loginDAO.getApprovalCheck(jumin);
+		
+		return loginInfo;
+		
+	}
 
 }

@@ -49,6 +49,10 @@
 		and e.emp_no=#{emp_id}
 	</select>
 	
+	<select id="getApprovalCheck" parameterType="String" resultType="com.group4.erp.EmpApprovalCheckDTO">
+		select emp_pwd, emp_no from employee where jumin_num=#{jumin}
+	</select>
+	
 </mapper>
 
 
