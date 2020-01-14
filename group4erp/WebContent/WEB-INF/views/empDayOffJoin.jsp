@@ -45,15 +45,10 @@
 
 $(document).ready(function(){
 
-	//$('[name=noticeTable] ')
 	getMonth();
 	getYearMonth();
+
 	
-	
-	
-	
-	
-	//alert($('[name=empDayOffJoinForm] td:eq(1)').text());
 	
 	$('[name=dayoff_cd]').change(function(){
 		var dayval = $('[name=dayoff_cd]').val();
@@ -64,20 +59,22 @@ $(document).ready(function(){
 			
 			$('[name=empDayOffJoinForm] td:eq(1) #start_dayoff').show()
 			
-
+			$("[name=end_dayoff]").val('');
 			
+			/*
 			 $("#start_dayoff").datepicker({ 
 		         dateFormat: 'yy-mm-dd'
 		        ,defaultDate : 'today'
 		        ,minDate : 'today'
-		        /*
+		        
 		        ,onClose: function( selectedDate ) {   
 		         //$("#dateTill").datepicker({minDate:selectedDate});
 		           $("#end_dayoff").datepicker( "option", "minDate", selectedDate );
 			      } 
-				 */
+				 
 				,beforeShowDay:$.datepicker.noWeekends 
 			});
+			*/
 		}else{
 			
 			$('[name=empDayOffJoinForm] td:eq(1)').children().show()
@@ -112,6 +109,11 @@ $(document).ready(function(){
 	         var realDy = finalDayoff(dateS, dateE); 
 	         //alert("realDy => "+realDy);
 
+	         if(dayval==3 || dayval==4 || dayval==6){
+	        	 $("[name=using_dayoff]").val(realDy);
+	     		return;
+	     	}
+	         
 	         if(realDy > remainD){
 	            alert( realDy + " => 사용 가능한 휴가일을 초과하였습니다.");
 	            return;
@@ -144,6 +146,11 @@ $(document).ready(function(){
 	           
 	         var realDy = finalDayoff(dateS, dateE); 
 	         //alert("realDy => "+realDy);
+	         
+	         if(dayval==3 || dayval==4 || dayval==6){
+	        	 $("[name=using_dayoff]").val(realDy);
+	     		return;
+	     	}
 	         
 	          if(realDy > remainD){
 	            alert( realDy + " => 사용 가능한 휴가일을 초과하였습니다.");
@@ -199,10 +206,15 @@ $(document).ready(function(){
 			$('[name=harf_dayoff]').val(0.5);
 		}
 		
+		if( $('[name=harf_dayoff]').val()==null || $('[name=harf_dayoff]').val().length<=0 ){
+			$('[name=harf_dayoff]').val(1);
+		}
+		
 		/*
 		alert($('[name=empDayOffJoinForm]').serialize());
 		return;
 		*/
+		
 		$.ajax({
 			//호출할 서버쪽 URL주소 설정
 			url : "/group4erp/goDayOffProc.do"
@@ -311,9 +323,9 @@ $(document).ready(function(){
 	            //alert( applyhldys[i] );
 
 	       } 
-	       alert("This is cnt =>" + cnt);
+	       //alert("This is cnt =>" + cnt);
 	       realDy = count-cnt+1;
-	       alert("This is realDy =>" + realDy);
+	       //alert("This is realDy =>" + realDy);
 	       return realDy;
 	}
 	
@@ -342,6 +354,7 @@ $(document).ready(function(){
 	}
 	
 	function goAllReset(){
+		$('[name=empDayOffJoinForm] td:eq(1)').children().show()
 		document.empDayOffJoinForm.reset();
 	}
 	

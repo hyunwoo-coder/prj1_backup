@@ -227,6 +227,10 @@
 			</if> where emp_no=#{emp_no}
 	</update>
 	
+	<update id="upExceptionDayoffInfo" parameterType="com.group4.erp.HrDayoffJoinDTO">
+		update emp_dayoff_info set dayoff_tot = dayoff_tot+#{using_dayoff} where emp_no=#{emp_no}
+	</update>
+	
 	
 	<select id="getDayOffApplyNo" parameterType="int" resultType="String">
 		select dayoff_apply_no||''

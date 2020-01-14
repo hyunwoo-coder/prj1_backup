@@ -73,7 +73,7 @@
 		 </if>
 	</sql>
 	
-	 
+
 	 <select id='getbusinessTripListAllCnt' resultType="int">
 		select count(*) from (
 			select
