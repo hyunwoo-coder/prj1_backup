@@ -43,7 +43,6 @@
 			dateFormat: 'yy-mm-dd'
 		});
 		
-
 		
 		$('[name=rowCntPerPage]').change(function(){
 			goSearch();
@@ -85,6 +84,8 @@
 		var  searchKey = $("#selectSearch").val();
 		var  outsideTime = $("#datepicker3").val();
 		var  comebackTime = $("#datepicker4").val();
+
+		
 		$("#searchKey").val(searchKey);
 		$("#keyword").val(keyword);
 		$("#startTime").val(outsideTime);
@@ -106,9 +107,26 @@
 	function goBusinessTripForm(){
 		location.replace("/group4erp/businessTripForm.do");
 	}
-	//,travel_payment
-	function goBusinessTripContentsForm(work_outside_seq,emp_no,travel_payment){
-			if( ("${businessTripDTO.emp_id}"== emp_no) && (travel_payment =="W")){
+	//,travel_payment${businessList.work_outside_seq}
+																					
+	function goBusinessTripContentsForm(work_outside_seq,emp_no,travel_payment,dep_no,mgr_no,jikup){
+			if( 
+				(
+					("${businessTripDTO.login_emp_id}"== emp_no)
+						||
+					(
+					("${businessTripDTO.login_mgr_no}"==mgr_no)
+						&&
+					("${businessTripDTO.login_dep_no}"==dep_no)
+					)
+						||
+					("${businessTripDTO.login_dep_no}"==6)
+						||
+					("${businessTripDTO.login_jikup}"=="대표이사")
+				) 
+				&& 
+				(travel_payment =="W")){
+				  alert($('[name=getBusinessTripListSearchForm]').serialize());
 				var str = "work_outside_seq="+work_outside_seq+"&"+emp_no+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
 				location.replace("/group4erp/businessTripUpDelForm.do?"+str )
 			}else{
@@ -124,39 +142,47 @@
 	<h1>[출장 리스트]</h1>
 	<form name="getBusinessTripListSearchForm" method="post" action="/group4erp/businessTripList.do">
 		
-     <table>
+     <table border="1">
      	<tr>
-     		<td>
-				출발날짜<input type="text" id="datepicker3" readonly>
+     		<th>출장 날짜</th>
+     		<td colspan="2">
+				출발<input type="text" id="datepicker3" readonly>
 				~
-				복귀날짜<input type="text" id="datepicker4" readonly>
+				복귀<input type="text" id="datepicker4" readonly>
 				&nbsp;&nbsp;&nbsp;
 			</td>
      	</tr>
      	<tr>
-     		<td>
+     		<th>결제 상태</th>
+     		<td colspan="2">
      			<input type="checkbox" name='payment' class="payment" value="Y">승인
          		<input type="checkbox" name='payment' class="payment" value="W">대기중
          		<input type="checkbox" name='payment' class="payment" value="N">반려
      		</td>
      	</tr>
-     </table>   
-		검색조건<select id = "selectSearch">
+      	<tr>
+      		<th>검색조건</th>
+      		<td >
+			<select id = "selectSearch">
 					<option>------</option>
 					<option value="emp_name">성명</option>
 					<option value="dep_name">부서</option>
 					<option value="outside_start_time">출발 날짜</option>
 					<option value="outside_end_time">복귀 날짜</option>
 					<option value="travel_payment">결제</option>
-				</select>
-				
+			</select>
 				<span id="searchText">
 					<input type="text" id="searchKeyword">&nbsp;&nbsp;
 				</span>
-				
+			</td>
+		</tr>
+		</table>
+	 	<table><td></td></table>
 				<input type="button" value=" 검색 " onClick="goSearch();">		
-				
-	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goAllSearch();">
+				&nbsp;&nbsp;
+				<input type="button" value="모두검색" onClick="goAllSearch();">
+			
+		
 	 <table border=0 width=700>
 	 	<tr>
 	    	<td align=right>
@@ -181,10 +207,9 @@
         <!-- <input type="hidden" name="work_outside_seq" id="work_outside_seq"> -->
         
 	</form>
-	<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 	
 	<div id="blankArea"><br></div>
-		<table class="businessTripListTable tbcss1" name="businessTripListTable" cellpadding="5" cellspacing="5">		
+		<table class="businessTripListTable tbcss1"  border="1" name="businessTripListTable" cellpadding="5" cellspacing="5">		
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -221,7 +246,12 @@
 			<tbody>
 			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
-			<tr class="list" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq},${businessList.emp_no},'${businessList.travel_payment}');">
+			<tr class="list" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq}
+																						,${businessList.emp_no}
+																						,'${businessList.travel_payment}'
+																						,${businessList.dep_no}
+																						,${businessList.mgr_no}
+																						,'${businessList.jikup}');">
 					<td align=center>${businessTripListAllCnt - businessList.RNUM + 1}</td>	
 					<td align=center>
 						${businessList.emp_name}
@@ -261,6 +291,7 @@
 		<input type="button" value="등록" onClick="goBusinessTripForm();">	
 		<br><br>
 		
+		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 		
 <c:if test=" ${boardListAllCnt==0}">
    		검색 결과가 없습니다

@@ -51,8 +51,20 @@ public class WorkController {
 				if(getbusinessTripListAllCnt<beginRowNo) businessTripSearchDTO.setSelectPageNo(1);
 				
 
-				if(businessTripDTO.getEmp_id()== null){
-					businessTripDTO.setEmp_id((String)session.getAttribute("emp_id"));
+				if(businessTripDTO.getLogin_emp_id()== null){
+					businessTripDTO.setLogin_emp_id((String)session.getAttribute("emp_id"));
+				}
+				if(businessTripDTO.getLogin_jikup()== null){
+					businessTripDTO.setLogin_jikup((String)session.getAttribute("jikup"));
+				}
+				if(businessTripDTO.getLogin_mgr()== null){
+					businessTripDTO.setLogin_mgr((String)session.getAttribute("mgr"));
+				}
+				if(businessTripDTO.getLogin_mgr_no()== null){
+					businessTripDTO.setLogin_mgr_no((String)session.getAttribute("mgr_emp_no"));
+				}
+				if(businessTripDTO.getLogin_dep_no()==null){
+					businessTripDTO.setLogin_dep_no((String)session.getAttribute("dep_no"));
 				}
 				
 			}
@@ -60,7 +72,11 @@ public class WorkController {
 		List<Map<String, String>> getbusinessTripList = this.workService.getbusinessTripList(businessTripSearchDTO);
 		
 		System.out.println("insertBusinessTrip 컨트롤러");
-		System.out.println(businessTripDTO.getEmp_id());
+		System.out.println(businessTripDTO.getLogin_emp_id()+"=로그인한 아이디");
+		System.out.println(businessTripDTO.getLogin_jikup()+"=직급");
+		System.out.println(businessTripDTO.getLogin_mgr()+"=상관명");
+		System.out.println(businessTripDTO.getLogin_mgr_no()+"=상관번호");
+		System.out.println(businessTripDTO.getLogin_dep_no()+"=부서번호");
 
 		mav.addObject("businessTripList", getbusinessTripList);
 		mav.addObject("businessTripListAllCnt", getbusinessTripListAllCnt);
@@ -88,6 +104,7 @@ public class WorkController {
 	@RequestMapping(value="/businessTripContentsForm.do")
 	public ModelAndView goBusinessTripContentsForm(
 			@RequestParam(value="work_outside_seq") int work_outside_seq
+			,HttpSession session
 			) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -98,7 +115,6 @@ public class WorkController {
 		try {
 			
 			BusinessTripDTO businessTripDTO = this.workService.getBusinessTripDTO(work_outside_seq);
-			
 			mav.addObject("businessTripDTO", businessTripDTO);
 			
 		}catch(Exception e) {
@@ -148,8 +164,28 @@ public class WorkController {
 			mav.addObject("subMenu", "businessTripUpDelForm"); 
 			mav.addObject("navigator", "[업무관리]-[출장신청&보고]-[수정/삭제]");
 
+			
+			
 			BusinessTripDTO businessTripDTO = this.workService.getBusinessTripDTO(work_outside_seq);
 			mav.addObject("businessTripDTO", businessTripDTO);
+			
+			if(businessTripDTO.getLogin_emp_id()== null){
+				businessTripDTO.setLogin_emp_id((String)session.getAttribute("emp_id"));
+			}
+			if(businessTripDTO.getLogin_jikup()== null){
+				businessTripDTO.setLogin_jikup((String)session.getAttribute("jikup"));
+			}
+			if(businessTripDTO.getLogin_mgr()== null){
+				businessTripDTO.setLogin_mgr((String)session.getAttribute("mgr"));
+			}
+			if(businessTripDTO.getLogin_mgr_no()== null){
+				businessTripDTO.setLogin_mgr_no((String)session.getAttribute("mgr_emp_no"));
+			}
+			if(businessTripDTO.getLogin_dep_no()==null){
+				businessTripDTO.setLogin_dep_no((String)session.getAttribute("dep_no"));
+			}
+			
+			
 			System.out.println("businessTripDTO");
 			try {
 				System.out.println("<접속성공> [접속URL]->/businessTripUpDelForm.do UpDelForm(~) \n\n\n");
@@ -176,7 +212,7 @@ public class WorkController {
 			//만약 삭제 모드이면 수정 실행하고 삭제 적용행의 개수를 저장 
 			else if(upDelApp.equals("del")){ businessTripUpDelAppCnt = this.workService.deleteBusinessTrip(businessTripDTO); }
 			//만약 승인 이면 수정 실행하고 승인 적용행의 개수를 저장 
-			else if(upDelApp.equals("approved")){ businessTripUpDelAppCnt = this.workService.approvedBusinessTrip(businessTripDTO); }
+			else if(upDelApp.equals("app")){ businessTripUpDelAppCnt = this.workService.approvedBusinessTrip(businessTripDTO); }
 					
 			}catch(Exception e) {
 				System.out.println("오류 발생");

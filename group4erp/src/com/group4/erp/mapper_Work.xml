@@ -51,7 +51,9 @@
 				,e1.emp_no			   as "emp_no"
 	    		,c.jikup               as "jikup"
 	    		,e1.emp_name           as "emp_name"
+                ,e1.mgr_emp_no         as "mgr_no"
 	    		,d.dep_name            as "dep_name"
+	    		,d.dep_no			   as "dep_no"
 	    		,w.destination         as "destination"
 	    		,w.work_outside_reason as "work_outside_reason"
 	    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
@@ -76,7 +78,9 @@
 			,e1.emp_no			   as "emp_no"
     		,c.jikup               as "jikup"
     		,e1.emp_name           as "emp_name"
+            ,e1.mgr_emp_no         as "mgr_no"
     		,d.dep_name            as "dep_name"
+	    	,d.dep_no			   as "dep_no"
     		,w.destination         as "destination"
     		,w.work_outside_reason as "work_outside_reason"
     		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
@@ -115,7 +119,9 @@
 				,e1.emp_no			   as "emp_no"
 	    		,c.jikup               as "jikup"
 	    		,e1.emp_name           as "emp_name"
+	            ,e1.mgr_emp_no         as "mgr_no"
 	    		,d.dep_name            as "dep_name"
+		    	,d.dep_no			   as "dep_no"
 	    		,w.destination         as "destination"
 	    		,w.work_outside_reason as "work_outside_reason"
 	    		,to_char(w.outside_start_time,'yyyy-mm-dd')  as "outside_start_time"
@@ -123,6 +129,7 @@
 	    		,nvl(e2.emp_name,' ')  as "mgr_name"
 	    		,w.travel_payment	   as "travel_payment"
 	  			,c.jikup_cd			   as "jikup_cd"
+	  			,delete_yn			   as "delete_yn"
 		from work_outside_info w inner join employee e1 on w.emp_no=e1.emp_no
 	    	 inner join code_jikup c on c.jikup_cd=e1.jikup_cd
 	    	 inner join dept d on d.dep_no=e1.dep_no
@@ -150,19 +157,19 @@
    				 		'N')
 	</insert>
 	 
-	<!-- <update id="deleteBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
-		update work_outside_info set delete_yn= 'Y' where work_outside_seq=#{work_outside_seq} and emp_no= #{emp_id}
-	</update> -->
+	<update id="deleteBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
+		update work_outside_info set delete_yn= 'Y' where work_outside_seq=#{work_outside_seq}
+	</update>
 	
 	<update id="updateBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
 		update work_outside_info set destination=#{destination}, work_outside_reason=#{work_outside_reason}, outside_start_time=#{outside_start_time}, outside_end_time=#{outside_end_time}
-												 where work_outside_seq=#{work_outside_seq} 
+												 where work_outside_seq=#{work_outside_seq}
 	</update>
 	
-	<!-- <update id="approvedBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
+	<update id="approvedBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
 		update work_outside_info set travel_payment= 'Y'
-												where (work_outside_seq=#{work_outside_seq}) and (#{loginDep_no}=6  로그인 한 사람이 인사부 이거나) or
-														r (#{dep_no}=#{loginDep_no} and #{loginDepjikup_cd}=4 로그인 한 사람의 직급코드가 4번이면 ) 
-	</update> -->
+												where (work_outside_seq=#{work_outside_seq}) <!-- and (#{loginDep_no}=6  로그인 한 사람이 인사부 이거나) or
+														r (#{dep_no}=#{loginDep_no} and #{loginDepjikup_cd}=4 로그인 한 사람의 직급코드가 4번이면 )  -->
+	</update>
 	
 </mapper>

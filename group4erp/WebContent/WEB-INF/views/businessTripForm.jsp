@@ -78,6 +78,19 @@ function checkBusinessTripRegForm(){
 			$("#datepicker2").focus();
 			return;
 		}
+		var startDate = $( "[name=outside_start_time]" ).val();
+	    var startDateArr = startDate.split('-');
+	    var endDate = $( "[name=outside_end_time]" ).val();
+	    var endDateArr = endDate.split('-');
+	    var startDateCompare = new Date(startDateArr[0], startDateArr[1], startDateArr[2]);
+	    var endDateCompare = new Date(endDateArr[0], endDateArr[1], endDateArr[2]);
+	          
+	    if(startDateCompare.getTime() > endDateCompare.getTime()) {
+	              
+	        alert("시작날짜와 종료날짜를 확인해 주세요.");
+			$("[name=outside_start_time]").focus();
+	         return;
+	    }
 
 		if( is_empty($("#work_outside_reason")) ){
 			alert("출장사유를 입력해주세요.");

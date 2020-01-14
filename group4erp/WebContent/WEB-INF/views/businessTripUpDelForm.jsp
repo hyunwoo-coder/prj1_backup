@@ -60,8 +60,18 @@
 		$("#datepicker6").datepicker({
 			dateFormat: 'yy-mm-dd'
 		});
-
-	//alert();
+		
+		if(
+			("${businessTripDTO.login_emp_id}"=="${businessTripDTO.mgr_no}")
+				||
+			("${businessTripDTO.login_dep_no}"==6)
+				||
+			("${businessTripDTO.login_jikup}"=="대표이사")
+		  ){
+				$(".approved").show();
+			}else{
+				$(".approved").hide();
+			}
 	});
 	function sample6_execDaumPostcode() {
 	    new daum.Postcode({
@@ -97,18 +107,13 @@ function checkBusinessTripUpDelAppForm(upDelApp){
 			
 			if(confirm("정말 삭제 하시겠습니까?")==false) return;
 		
-		}
-
-		else if(upDelApp=='up'){
-			
+		}else if(upDelApp=='up'){
 			$("[name=upDelApp]").val("up");
-			
 			if( is_empty('[name=destination]') ){
 				alert("출장지를 입력해주세요.");
 				$("[name=destination]").focus();
 				return;
 			}
-			
 			if( is_empty('[name=work_outside_reason]') ){
 				alert("출장사유를 입력해주세요.");
 				$("[name=work_outside_reason]").focus();
@@ -124,8 +129,7 @@ function checkBusinessTripUpDelAppForm(upDelApp){
 				$("[name=outside_end_time]").focus();
 				return;
 			} 
-			
-		    var startDate = $( "[name=outside_start_time]" ).val();
+			var startDate = $( "[name=outside_start_time]" ).val();
 		    var startDateArr = startDate.split('-');
 		    var endDate = $( "[name=outside_end_time]" ).val();
 		    var endDateArr = endDate.split('-');
@@ -137,11 +141,17 @@ function checkBusinessTripUpDelAppForm(upDelApp){
 		        alert("시작날짜와 종료날짜를 확인해 주세요.");
 				$("[name=outside_start_time]").focus();
 		         return;
-		    }
-			if(confirm("정말 수정하시겠습니까?")==false){return;}	
-			
+		    }if(confirm("정말 수정하시겠습니까?")==false){return;}
+		    
+		}else if(upDelApp=='app'){
+			$("[name=upDelApp]").val("app");
+			if(confirm("정말 승인 하시겠습니까?")==false)
+			 return;
 		}
-		
+			
+		    	
+			
+
 		
 		 $.ajax({
 			//호출할 서버쪽 URL주소 설정
@@ -153,12 +163,11 @@ function checkBusinessTripUpDelAppForm(upDelApp){
 			//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
 			//매개변수 upDelCnt에는 입력 행의 개수가 들어온다.
 			, success : function(businessTripUpDelAppCnt){
-				alert(1);
 				if(upDelApp=='up'){
 					if(businessTripUpDelAppCnt==1){
 						alert("수정 성공!");
-						document.boardListForm.submit();
-					}else if(businessTripUpDelAppCnt==-1){
+						location.replace('/group4erp/businessTripList.do')
+					}else if(upCnt==-1){
 						alert("게시물이 삭제되어 수정할 수 없습니다!");
 					}else{
 						alert("서버쪽 DB연동 실패!");
@@ -166,7 +175,8 @@ function checkBusinessTripUpDelAppForm(upDelApp){
 				}else if(upDelApp=='del'){
 					if(businessTripUpDelAppCnt==1){
 						alert("삭제 성공!");
-					}else if(upDelCnt==-1){
+						location.replace('/group4erp/businessTripList.do')
+					}else if(delCnt==-1){
 						alert("이미 삭제된 게시물입니다!");
 					}else{
 						alert("서버쪽 DB연동 실패!");
@@ -174,9 +184,10 @@ function checkBusinessTripUpDelAppForm(upDelApp){
 				}else if(upDelApp=='app'){
 					if(businessTripUpDelAppCnt==1){
 						alert("승인 완료");
-					}else if(upDelCnt==-1){
+						location.replace('/group4erp/businessTripList.do')
+					}else if(businessTripUpDelAppCnt==-1){
 						alert("이미 삭제된 게시물입니다!");
-					}else if(upDelCnt==-2){
+					}else if(businessTripUpDelAppCnt==-2){
 						alert("이미 승인된 게시물입니다.");
 					}else{
 						alert("서버쪽 DB연동 실패!");
@@ -250,21 +261,32 @@ function checkBusinessTripUpDelAppForm(upDelApp){
 				</td>
 			</tr>
 		</table>
-		<table><tr heigth=4><td></table>
-		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">	
-		<input type="hidden" name="upDelApp" value="up">
-		<input type="button" value="수정" onclick="checkBusinessTripUpDelAppForm('up')">
-		&nbsp;&nbsp;&nbsp;
-		<input type="button" value="삭제" onclick="checkBusinessTripUpDelAppForm('del')">
-		&nbsp;&nbsp;&nbsp;
-		<input type="button" value="승인" onclick="checkBusinessTripUpDelAppForm('app')">
-		&nbsp;&nbsp;&nbsp;
-		<input type="button" value="목록보기" onclick="location.replace('/group4erp/businessTripList.do')">
+		<table><tr heigth=4><td></td></table>
+		<table>
+			<tr heigth=4>
+				<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">	
+				<input type="hidden" name="upDelApp" value="up">
+				<td>
+					<div class="approved" style="display:none">
+							<input type="button" value="승인" onclick="checkBusinessTripUpDelAppForm('app')">
+					</div>
+				</td>
+				<td>
+					<input type="button" value="수정" onclick="checkBusinessTripUpDelAppForm('up')">
+				</td>
+				<td>
+					<input type="button" value="삭제" onclick="checkBusinessTripUpDelAppForm('del')">
+				</td>
+				<td>
+					<input type="button" value="목록보기" onclick="location.replace('/group4erp/businessTripList.do')">
+				</td>
+			</tr>
+		</table>
 	</form>
 	<form name="businessTripList" method="post" action="/group4erp/businessTripList.do">
 		<!-- 게시판 상세보기 화면을 구성하는 글의 고유번호를 hidden 태그에 저장 -->
 		<!-- 수정/삭제를 하려면 현재 글의 고유번호를 알아야하기 때문 -->
-		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">	
+		<input type="hidden" name="work_outside_seq" value="${businessTripDTO.work_outside_seq}">
 		<input type="hidden" name="selectPageNo" value="${param.selectPageNo}">
 		<input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}">
 	</form>
