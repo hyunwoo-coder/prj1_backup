@@ -85,8 +85,8 @@
 				cc.corp_addr "corp_addr",
 				cc.corp_fax "corp_fax",
 				cc.corp_tel "corp_tel",
-				cc.corp_business_area "corp_business",
-				(select c.business_area_name from code_business_area c where c.business_area_code = cc.corp_business_area) "corp_business_area",
+				cc.corp_business_area "corp_business_area",
+				<!-- (select c.business_area_name from code_business_area c where c.business_area_code = cc.corp_business_area) "corp_business_area", -->
 				cc.is_on_business "is_on_business",
 				cc.reg_dt "reg_dt"
 			from corporation_cus cc

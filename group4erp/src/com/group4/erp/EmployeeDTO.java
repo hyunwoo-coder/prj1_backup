@@ -18,10 +18,30 @@ public class EmployeeDTO {
 	private String emp_pwd;
 	private String jikup;
 	private String mgr;
+	private String ceo_no;
+	private String ceo_name;
+	
 	private int jikup_cd;
 	private int worktime_cd;
 	
+	
 
+	public String getCeo_no() {
+		return ceo_no;
+	}
+	
+	public void setCeo_no(String ceo_no) {
+		this.ceo_no = ceo_no;
+	}
+	
+	public String getCeo_name() {
+		return ceo_name;
+	}
+	
+	public void setCeo_name(String ceo_name) {
+		this.ceo_name = ceo_name;
+	}
+	
 	public String getMgr_emp_no() {
 		return mgr_emp_no;
 	}

@@ -288,7 +288,9 @@
                 then '휴가후'
             end as "dayoffState"
 		from EMP_DAYOFF_APPLY da
-		where 1=1 <include refid="dayoffWhere" />
+		where 1=1 
+		and da.confirm in ('Y', 'N')
+		<include refid="dayoffWhere" />
 		<if test="sort!=null and sort.length()>0">
  			order by ${sort}
  		</if>
@@ -300,12 +302,12 @@
 	</select>
 	
 	
-	
-	
-	
-	
-	
-	
+	<update id="updateDayOffApprovalProc" parameterType="com.group4.erp.ApprovalDTO">
+		update emp_dayoff_apply set
+		confirm = #{confirm}
+		where dayoff_apply_no=#{doc_no}
+	</update>
+
 	
 	<update id="dayoffUpdateProcI" parameterType="com.group4.erp.HrDayoffDTO">
 		update EMP_DAYOFF_INFO
