@@ -20,7 +20,6 @@ public class ApprovalDTO {
 	private int mgr_emp;
 	
 
-	
 	public int getMgr_emp() {
 		return mgr_emp;
 	}

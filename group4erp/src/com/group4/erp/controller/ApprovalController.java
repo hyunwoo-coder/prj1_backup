@@ -165,7 +165,7 @@ public class ApprovalController {
 			method=RequestMethod.POST, 
 			produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public int updateEvntApprovalProc(ApprovalDTO approvalDTO, EventDTO eventDTO, String approvalYn, String document_no) {
+	public int updateEvntApprovalProc(ApprovalDTO approvalDTO, EventDTO eventDTO, String approvalYn, String document_no, String e_work_comment) {
 	
 		int approvalUpCnt = 0;
 		int evntUpCnt = 0;
@@ -174,9 +174,12 @@ public class ApprovalController {
 			
 			System.out.println("approvalYn==="+approvalYn);
 			System.out.println("document_no==="+document_no);
+			System.out.println("반려사유==="+e_work_comment);
 			
 			approvalDTO.setE_works_state_cd(approvalYn);
 			approvalDTO.setDocument_no(document_no);
+			approvalDTO.setE_work_comment(e_work_comment);
+			
 			eventDTO.setEvnt_state_cd(approvalYn);
 			eventDTO.setEvnt_no(document_no);
 
@@ -219,7 +222,7 @@ public class ApprovalController {
 			
 			String confirm = "";
 			
-			if(approvalYn=="7" || approvalYn.equals("7")) {	//승인되었을 때				
+			if(approvalYn=="7" || approvalYn.equals("7") || approvalYn=="5" || approvalYn.equals("5")) {	//승인되었을 때				
 				confirm="Y";
 				approvalDTO.setConfirm(confirm);
 				approvalUpCnt = this.approvalService.updateApprovalProc(approvalDTO);

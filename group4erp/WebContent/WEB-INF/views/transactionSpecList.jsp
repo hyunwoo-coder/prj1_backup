@@ -61,11 +61,10 @@
 		inputData('[name=issueYn]', '${corpSearchDTO.issueYn}');
 		
 		
-		
 		$('[name=rowCntPerPage]').val("${corpSearchDTO.rowCntPerPage}");
 		$('[name=searchKeyword]').val("${corpSearchDTO.searchKeyword}");
 		$('[name=selectPageNo]').val("${corpSearchDTO.selectPageNo}");
-		$('[name=issueYn]').filter("[ value='${param.issueYn}' ]").prop("checked", true);	
+		$('[name=issueYn]').filter("[ value='${param.issueYn}' ]").prop("checked", true);
 		//$('[name=date]').filter("[value='${date}']").prop("checked", true);
 			
 	});

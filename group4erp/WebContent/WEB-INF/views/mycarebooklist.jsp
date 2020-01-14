@@ -58,12 +58,11 @@
 		inputData("[name=search_keyword]", "${myWorkSearchDTO.search_keyword}");
 		inputData("[name=searchCategory]", "${myWorkSearchDTO.searchCategory}");
 		inputData("[name=is_print]", "${myWorkSearchDTO.is_print}");
-
-		/* 
+		
 		<c:forEach items="${myWorkSearchDTO.category}" var="category">
 			inputData("[name=category]", "${category}");
 		</c:forEach>
-		 */
+		
 	});
 	
 	function goSearchMyWorkList(){
@@ -188,7 +187,7 @@
    <form name="mycarebooklist" method="post" action="/group4erp/goMyCareBookList.do">
    <!-- <div class="table_layout"> -->
    <input type="hidden" name="emp_no" value="<%=(String)session.getAttribute("emp_id") %>">
-      <table class="tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
+      <table class="mycarebookSearch tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
          <!-- <colgroup>
             <col width="20%" />
             <col width="*" />
@@ -231,10 +230,10 @@
                <option value="출판사5">출판사5
                 --> --%>
          <tr>
-         <th bgcolor="gray">절판 상황
+         <th bgcolor="gray">판매여부
          <td align=left>
-            <input type="radio" name="is_print" value="y">절판
-            <input type="radio" name="is_print" value="n">판매중
+            <input type="radio" name="is_print" value="y">판매중
+            <input type="radio" name="is_print" value="n">절판
          
          <tr>
          <th bgcolor="gray">키워드
@@ -271,23 +270,23 @@
       <table class="mycarebookTable tab" border=0 cellspacing=5 cellpadding=5 >
       	<thead>
          <tr bgcolor="gray">
-            <th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
+            <th>ISBN13<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
         </thead>
         <tbody>    
          <c:forEach items="${requestScope.MyCareBookList}" var="MyCareBookList" varStatus="loopTagStatus">
          <tr>   
 			
-            <td align=center>${MyCareBookList.ISBN13}
-            <td align=center>${MyCareBookList.book_name}
-            <td align=center>${MyCareBookList.cat_name}
-            <td align=center>${MyCareBookList.book_price}
-            <td align=center>${MyCareBookList.ISBN_cnt}
-            <td align=center>${MyCareBookList.branch_name}
+            <td align=center>${MyCareBookList.isbn13}</td>
+            <td align=center>${MyCareBookList.book_name}</td>
+            <td align=center>${MyCareBookList.cat_name}</td>
+            <td align=center>${MyCareBookList.book_price}</td>
+            <td align=center>${MyCareBookList.isbn_cnt}</td>
+            <td align=center>${MyCareBookList.branch_name}</td>
             <td align=center>
-               <c:if test="${MyCareBookList.ISBN_cnt < 100}">
-                  <input type="button" value="발주" onClick="booKInvenFill(this,'${MyCareBookList.ISBN13}');" >
+               <c:if test="${MyCareBookList.isbn_cnt < 100}">
+                  <input type="button" value="발주" onClick="booKInvenFill(this,'${MyCareBookList.isbn13}');" >
                </c:if>
-               <c:if test="${MyCareBookList.ISBN_cnt >= 100}">
+               <c:if test="${MyCareBookList.isbn_cnt >= 100}">
                   --
                </c:if>  
          </c:forEach>

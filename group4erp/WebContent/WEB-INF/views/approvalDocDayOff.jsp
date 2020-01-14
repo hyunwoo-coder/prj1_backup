@@ -12,7 +12,7 @@
 <script>
 
 	function responseDayOffApproval() {
-		//alert("결재 시작");
+		alert("결재 시작");
 
 		$.ajax({
 			url : "/group4erp/updateDayOffApproavalProc.do",				//호출할 서버쪽 URL 주소 설정

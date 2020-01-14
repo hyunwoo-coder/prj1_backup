@@ -316,8 +316,16 @@
 	</form>
 	
 	<input type="button" value="이벤트 신청" onClick="reserveEvent();">&nbsp;
-	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br>
-	<div id="comment" style="color:red;">대기중인 이벤트 행사만 삭제할 수 있습니다.</div>
+	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br><br>
+	
+	<table name="comment" cellpadding="5" cellspacing="5">
+		<tr>
+			<td align="left" style="color:red;">
+				<h5>* 대기중인 이벤트 행사만 삭제할 수 있습니다.<br>
+				 * 이벤트 행사는 최소 1달 전에 신청하셔야 합니다.</h5>
+			</td>
+		</tr>
+	</table>
 	
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>

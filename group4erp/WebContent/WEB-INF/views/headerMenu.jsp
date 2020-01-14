@@ -343,7 +343,7 @@
 			<th width="100" id="menu" style="cursor:pointer" onMouseOver="javascirpt:viewAccoutingMenu();" onClick="viewTranLog();"><a href="#">회계관리</a></th><td widht="50" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<th width="100" id="menu" style="cursor:pointer" onMouseOver="javascirpt:viewBigDataMenu();" onClick="viewBestKeywdReport();"><a href="#">전략분석</a></th><td widht="50" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<!-- <th style="cursor:pointer" onMouseOver="javascirpt:viewBuyerMenu();">거래처관리</th><td widht="100" onMouseOver="hideSubMenu();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> -->
-			<td id="menu" align="right" colspan="2"><h5>${emp_name} ${jikup}님 안녕하세요.^^</h5> <input type="button" value="로그아웃" onClick="logout();">
+			<td id="menu" align="left" colspan="2"><h5>${emp_name} ${jikup}님 <br>안녕하세요.^^</h5> <input type="button" value="로그아웃" onClick="logout();">
 			</td>
 			
 		</tr>
