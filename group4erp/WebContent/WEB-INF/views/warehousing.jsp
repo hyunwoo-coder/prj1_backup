@@ -306,10 +306,10 @@ td{
 
 </head>
 <body><center>
-	<h1 class="fontNormal">[입고 현황]</h1><br>
+	<h1>[입고 현황]</h1><br>
 	
 	<form name="warehousingSearchForm" method="post" action="/group4erp/goWarehousingList.do">
-			<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
+			<table class="tab2" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
 				<tr>
 					<th bgcolor="gray">지역
 					<td style="text-align:left" colspan=3 >
@@ -326,9 +326,9 @@ td{
 	         --%>
 
 	         	<tr>
-					<th>일자
-					<td style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom">
-						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill">&nbsp;&nbsp;
+					<th bgcolor="gray">일자
+					<td style="text-align:left" ><input type="text" id="dateFrom" name="dateFrom" size='25'>
+						&nbsp;~&nbsp;<input type="text" id="dateTill" name="dateTill" size='25'>
 					<td><a style="cursor:pointer" onclick="goTodaySearch();">[금일 검색]</a>
 					<!-- 
 					<th>출판사
@@ -343,9 +343,9 @@ td{
 					 -->
 				</tr>
 				<tr>
-					<th>키워드
+					<th bgcolor="gray">키워드
 					<td style="text-align:left" colspan=3>
-						<input type="text" name="wh_keyword" size=50>
+						<input type="text" name="wh_keyword" size=72>
 					</td>
 					
 				</tr>
@@ -446,7 +446,9 @@ td{
          
            <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
 					<tr class="trcolor" style="cursor:pointer">
-						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${(loopTagStatus.index)+1}</td>
+						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">
+						${warehousingListCnt-(warehousingDTO.selectPageNo*warehousingDTO.rowCntPerPage-warehousingDTO.rowCntPerPage+1+loopTagStatus.index)+1}
+						</td>
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_dt}</td>
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_no}</td>
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.order_inven_no}</td>

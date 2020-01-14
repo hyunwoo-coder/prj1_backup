@@ -3,7 +3,8 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,200,300,350,400,500,600,700,800,900&display=swap');
 
 body {
-		background: #EBFBFF;	  
+		/* background: #EBFBFF; */	
+		background: white;
 		font-family: 'Noto Sans KR', sans-serif;
 }
 .tab, .tab td, .tab th{
@@ -32,32 +33,39 @@ body {
 	
 }
 td{
-	font-weight:300; 
+	font-weight:380; 
 	
 }
 
 th{
 	
-	font-weight: 350; 
+	font-weight: 450; 
 	font-size:11pt ;
 }
 .fontLight{
 	
 	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 300; 
+	font-weight: 350; 
 	font-size: 11pt ;
 	
 }
 .fontNormal{
 	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 500; 
-	font-size: 11pt ;
+	font-weight: 410; 
+	font-size: 14pt ;
+	color : #666666;
 	
 }
 .fontBold{
 	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 700;
 	font-size: 11pt ;
+}
+
+h1{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 600;
+	font-size: 17pt ;
 }
 
 

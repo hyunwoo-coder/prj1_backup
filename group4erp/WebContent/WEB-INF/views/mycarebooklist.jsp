@@ -64,6 +64,13 @@
 			inputData("[name=category]", "${category}");
 		</c:forEach>
 		 */
+
+		$("[name=is_print]").change(function(){
+			if ( $(this).is(":checked") ){
+				$(this).siblings().prop("checked", false);
+			}
+			$(this).siblings().prop("checked", false);
+		});
 	});
 	
 	function goSearchMyWorkList(){
@@ -193,8 +200,6 @@
             <col width="20%" />
             <col width="*" />
          </colgroup> -->
-         <tr bgcolor="gray">
-         <th width=50>구분<th>내용
          
          <%-- 
          <tr>
@@ -233,8 +238,8 @@
          <tr>
          <th bgcolor="gray">절판 상황
          <td align=left>
-            <input type="radio" name="is_print" value="y">절판
-            <input type="radio" name="is_print" value="n">판매중
+            <input type="checkbox" name="is_print" value="y">절판
+            <input type="checkbox" name="is_print" value="n">판매중
          
          <tr>
          <th bgcolor="gray">키워드

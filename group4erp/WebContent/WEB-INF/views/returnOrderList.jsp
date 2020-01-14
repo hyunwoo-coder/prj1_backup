@@ -179,7 +179,7 @@
 </script>
 </head>
 <body><center>
-   <h1 class="fontBold">반품 현황</h1>
+   <h1>반품 현황</h1>
    
    <form name="returnSearchForm" method="post" action="/group4erp/goReturnOrderList.do">
    <table class="tab" name="tab1" cellpadding="5" cellspacing="5">

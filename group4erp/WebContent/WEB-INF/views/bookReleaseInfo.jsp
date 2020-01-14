@@ -102,6 +102,7 @@ $(document).ready(function(){
 	function goAllSearchRelease(){
 		//alert("모두검색 기능 구현중");
 		document.bookReleaseSearch.reset();
+		//$("[name=book_inventory_search_form] [name=sort]").val('');
 		goSearchRelease();
 	}
 	

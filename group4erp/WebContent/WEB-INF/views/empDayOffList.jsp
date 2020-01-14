@@ -34,7 +34,7 @@
 					"${getDayOffListCnt}"					//검색 결과 총 행 개수
 					,"${hrListSearchDTO.selectPageNo}"		//선택된 현재 페이지 번호
 					,"${hrListSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
-					,"10"									//페이지 당 보여줄 페이지번호 개수
+					,"5"									//페이지 당 보여줄 페이지번호 개수
 					,"goDayoffSearch();"					//페이지 번호 클릭 후 실행할 자스 코드
 				)
 			);
@@ -804,7 +804,9 @@
 
 				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">
 					<tr style="cursor:pointer; font-size:11pt;" onclick="addUpdelTr(this,'${dayoff.emp_no}')">
-						<td align=center>${loopTagStatus.index+1}</td>
+						<td align=center>
+						${getDayOffListCnt-(hrListSearchDTO.selectPageNo*hrListSearchDTO.rowCntPerPage-hrListSearchDTO.rowCntPerPage+1+loopTagStatus.index)+1}
+						</td>
 						<td align=center>${dayoff.dayoff_apply_no}</td>
 						<td align=center>${dayoff.dep_name}</td>
 						<td align=center>${dayoff.jikup}</td>
