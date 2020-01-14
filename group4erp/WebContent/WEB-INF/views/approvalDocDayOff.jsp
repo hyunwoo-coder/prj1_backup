@@ -48,12 +48,20 @@
 		
 		<tr>
 			<td align="right" ><table name="jikup" border="1" cellpadding="5" cellspacing="0"><tr><td  width="90" align="center">기안자 </td><td  width="90" align="center">부서장</td><td width="90" align="center">대표이사 </td> </tr> 
-														<tr><td align="center">${myDayOffApplyInfo.jikup} ${myDayOffApplyInfo.emp_name} </td><td align="center">
+														<tr><td align="center">${myDayOffApplyInfo.emp_name} </td><td align="center">
 																											<% String mgr_no = (String)session.getAttribute("mgr_emp_no"); 
-																												
+																													String emp = (String)session.getAttribute("emp_id");
+																													System.out.println("mgr_no==="+mgr_no);
+																													String ceo_no = (String)session.getAttribute("ceo_no");
+																													System.out.println("ceo_no==="+ceo_no);
 																												if(mgr_no != null) { %>
-																												<input type="radio" name="approvalYn" value="7">승인 &nbsp;
-																												<input type="radio" name="approvalYn" value="6">반려 &nbsp;
+																													<input type="radio" name="approvalYn" value="7">승인 &nbsp;
+																													<input type="radio" name="approvalYn" value="6">반려 &nbsp;
+																													<input type="hidden" name="mgr_emp" value='<%=emp %>'>
+																												<% } else if(mgr_no==null && ceo_no!=null) { %>
+																													
+																													
+																													<label>${myDayOffApplyInfo.mgr_name}</label>
 																												
 																												<% } %>
 														

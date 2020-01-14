@@ -215,7 +215,7 @@
 <body><center>
 	<h1>[거래처 현황]</h1>
 <form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
-	<table name="corpSearchTb" border="0" cellpadding="5" cellspacing="5">
+	<table class="corpSearchTb tab" name="corpSearchTb" border="0" cellpadding="5" cellspacing="5">
 		<tr>
 			<td align="right">[사업분야별]&nbsp;</td><td>
 				<%--<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">

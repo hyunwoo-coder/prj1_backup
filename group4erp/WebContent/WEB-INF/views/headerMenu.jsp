@@ -354,7 +354,7 @@
 				<span id="subMenu1"> <!-- 업무관리 -->
 					<span class="subMenu" id="myCareBookList" style="cursor:pointer" onClick="myCareBookList();">담당 상품 조회&nbsp;&nbsp;&nbsp;</span>
 					<!--<span id="myCareBookList " style="cursor:pointer" onClick="myCareBookList();">담당 상품 조회&nbsp;&nbsp;&nbsp;</span>  -->
-					<span class="subMenu" id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&&nbsp;&nbsp;&nbsp;</span>
+					<span class="subMenu" id="businessTripForm" style="cursor:pointer" onClick="businessTripForm();">출장신청&nbsp;&nbsp;&nbsp;</span>
 					<span class="subMenu" id="viewMyWorkTime" style="cursor:pointer" onClick="viewMyWorkTime();">근태조회&nbsp;&nbsp;&nbsp;</span>
 					<span class="subMenu" id="viewMyWorkTime" style="cursor:pointer" onClick="viewApprovalList();">문서 결재&nbsp;&nbsp;&nbsp;</span>
 					<!-- <span id="viewMyWorkTime" style="cursor:pointer" onClick="approvalDoc();">문서 결재&nbsp;&nbsp;&nbsp;</span> -->

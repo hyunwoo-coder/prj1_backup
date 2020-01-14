@@ -274,7 +274,7 @@
     <input type="hidden" name="selectPageNo">
     <input type="hidden" name="sort">
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
-		<table border=0>
+		<table class="searchEvntTable tab" border="0" cellpadding="5" cellspacing="5">
 			<tr>
 	    		<td align="left">
 	    			
@@ -284,7 +284,7 @@
 	            </td>
 	        </tr>
 		</table><br>
-		<table name="searchEvntTable">
+		<table class="searchEvntTable tab" name="searchEvntTable" cellpadding="5" cellspacing="5">
 			<!-- <tr>
 				<td>[행사별] </td><td><input type="checkbox" name="allOrMine" value='a'>전체보기 &nbsp;
 									<input type="checkbox" name="allOrMine" value='m'>담당 행사만 보기</td>

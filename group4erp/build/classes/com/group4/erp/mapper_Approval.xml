@@ -78,7 +78,7 @@
 			ap.document_no "document_no",
 			ap.emp_no "emp_no",        
             ap.mgr_emp_no "mgr_emp_no",
-            <!-- (select e.emp_name from employee e where e.mgr_emp_no = ap.emp_no) "mgr_name", -->	
+            (select e.emp_name from employee e where e.emp_no = ap.mgr_emp_no) "mgr_name", 
 			(select c.jikup from code_jikup c where c.jikup_cd = (select e.jikup_cd from employee e where e.emp_no = ap.emp_no) )  "jikup",
 			(select e.emp_name from employee e where e.emp_no = ap.emp_no) "emp_name",			
 			to_char(ap.e_works_req_dt, 'yyyy.mm.dd(dy) hh24:mi:ss', 'nls_date_language=Korean') "e_works_req_dt",

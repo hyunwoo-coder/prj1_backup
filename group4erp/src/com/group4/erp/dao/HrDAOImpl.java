@@ -104,6 +104,28 @@ public class HrDAOImpl implements HrDAO {
 		return dayoffUpdateCnt;
 	}
 	
+	
+	@Override
+	public int dayoffDeleteProcI(HrDayoffDTO hrDayoffDTO) {
+		int dayoffDeleteCntI = this.sqlSession.update(
+				mapper_namespace+"dayoffDeleteProcI"
+				,hrDayoffDTO
+				);
+		return dayoffDeleteCntI;
+	}
+	@Override
+	public int dayoffDeleteProcII(HrDayoffDTO hrDayoffDTO) {
+		int dayoffDeleteCntII = this.sqlSession.delete(
+				mapper_namespace+"dayoffDeleteProcII"
+				,hrDayoffDTO
+				);
+		return dayoffDeleteCntII;
+	}
+
+
+
+	
+	
 
 	
 	@Override
@@ -178,6 +200,25 @@ public class HrDAOImpl implements HrDAO {
 				);
 		return empInfoUpdate;
 	}
+	
+	public int newEmpConfirmProc(EmployeeInfoUpDTO employeeInfoUpDTO) {
+		int	newEmpConfirm = this.sqlSession.update(
+					mapper_namespace+"newEmpConfirmProc"
+					,employeeInfoUpDTO
+					);
+		return newEmpConfirm;
+	}
+	
+	/*
+	 * public EmployeeInfoUpDTO getEmpNoEmpPic(EmployeeInfoUpDTO employeeInfoUpDTO)
+	 * { EmployeeInfoUpDTO noEmp_pic = this.sqlSession.selectOne(
+	 * mapper_namespace+"getEmpNoEmpPic" ,employeeInfoUpDTO ); return noEmp_pic; }
+	 */
+	
+	
+	
+	
+	
 
 
 	@Override
@@ -198,11 +239,11 @@ public class HrDAOImpl implements HrDAO {
 		return newEmpInsertCnt;
 	}
 	
-	public int getAddDayoffinfoCnt(EmployeeDTO employeeDTO) {
+	public int getAddDayoffinfoCnt(EmployeeInfoUpDTO employeeInfoUpDTO) {
 		
 		int addDayoffinfo = this.sqlSession.insert(
 				mapper_namespace+"getAddDayoffinfo"
-				,employeeDTO
+				,employeeInfoUpDTO
 				);
 				
 		return addDayoffinfo;

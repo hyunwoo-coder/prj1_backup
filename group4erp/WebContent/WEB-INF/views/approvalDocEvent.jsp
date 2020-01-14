@@ -66,8 +66,8 @@
 																													<input type="hidden" name="mgr_emp" value='<%=emp %>'>
 																												<% } else if(mgr_no==null && ceo_no!=null) { %>
 																													
-																													<% String dep_manager = (String)session.getAttribute("dep_manager"); %>
-																													<label><%=dep_manager %></label>
+																													
+																													<label>${approvalInfoList.mgr_name}</label>
 																												
 																												<% } %>
 																												
