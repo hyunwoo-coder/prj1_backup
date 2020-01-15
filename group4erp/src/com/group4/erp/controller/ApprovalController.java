@@ -77,8 +77,6 @@ public class ApprovalController {
 			approvalResList = this.approvalService.getApprovalResList(approvalSearchDTO);
 		}
 		
-		
-		
 		approvalReqList = this.approvalService.getApprovalReqList(approvalSearchDTO);
 		
 		
@@ -196,7 +194,7 @@ public class ApprovalController {
 			} */
 			
 		} catch(Exception e) {
-			System.out.println("deleteCorpProc() 메소드에서 예외 발생 >>> "+e);
+			System.out.println("updateEvntApprovalProc() 메소드에서 예외 발생 >>> "+e);
 		}
 				
 		return approvalUpCnt;

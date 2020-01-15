@@ -194,7 +194,7 @@
 				<td>연락처</td><td><input type="text" name="corp_tel" maxlength="11" placeholder="- 제외한 숫자 7~11자 입력"></td>
 			</tr>
 			<tr>
-				<td>FAX</td><td><input type="text" name="corp_fax" maxlength="15"></td>
+				<td>FAX</td><td><input type="text" name="corp_fax" maxlength="15" placeholder="- 제외한 숫자 7~11자 입력"></td>
 			</tr>
 					
 		</table> <br>

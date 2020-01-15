@@ -193,13 +193,19 @@ public class MarketingController {
 	
 	//이벤트 신청 페이지 보기
 	@RequestMapping(value="/eventScheduling.do")
-	public ModelAndView eventScheduling(HttpSession session) {
+	public ModelAndView eventScheduling(HttpSession session, String evnt_no, String document_no) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "eventReserve");
 		mav.addObject("navigator", "[마케팅관리]-[이벤트행사 현황]-[이벤트신청]");
+		
+		if(evnt_no != null) {
+			
+			System.out.println("재결재합니다. document_no==="+evnt_no);
+			
+		}
 		
 		try {
 			int eventAllCnt = this.marketingService.getEventAllCnt();

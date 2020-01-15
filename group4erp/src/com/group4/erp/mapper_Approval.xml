@@ -27,7 +27,8 @@
 			(select e.emp_name from employee e where e.emp_no = ap.mgr_emp_no) "mgr_name",
 			to_char(ap.e_works_req_dt, 'yyyy.mm.dd(dy) hh24:mi:ss', 'nls_date_language=Korean') "e_works_req_dt",
 			ap.e_works_state_cd "e_works_state_cd",
-			(select c.evnt_state_name from code_ad_state c where c.evnt_state_cd = ap.e_works_state_cd) "approval_state"
+			(select c.evnt_state_name from code_ad_state c where c.evnt_state_cd = ap.e_works_state_cd) "approval_state",
+			ap.e_work_comment "e_work_comment"
 		from e_works_info ap
 		where 1=1
 		and ap.emp_no = #{emp_no}
@@ -38,7 +39,7 @@
 	<select id="getApprovalResCnt" parameterType="com.group4.erp.ApprovalSearchDTO" resultType="int">
 		select count(*) from e_works_info ap
 		where 1=1
-		and e_works_state_cd not in (1, 6, 7)
+		and e_works_state_cd in (1, 6, 7)
 		and ap.mgr_emp_no = #{emp_no}
 
 	</select>
@@ -90,7 +91,7 @@
 	</select>
 	
 	
-	<sql id="WhereCondition">
+	<!-- <sql id="WhereCondition">
 	
 		<if test="isCEO==1">
 			and ap.e_works_state_cd = '7'	
@@ -101,7 +102,7 @@
 			and ap.mgr_emp_no = #{emp_no}
 		</if>
 		
-	</sql>
+	</sql> -->
 	
 	
 	

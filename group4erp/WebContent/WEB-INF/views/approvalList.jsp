@@ -31,6 +31,14 @@
 				"${mouseOverColor}"			//마우스 온 시 배경색
 		);
 
+		$(document).on('click','#reApproval', function () {
+
+		    var document_no = $(this).attr("value");
+		    
+		    reApprovalProc(document_no);
+		    	
+		});
+
 
 	});
 
@@ -46,7 +54,7 @@
 
 
 
-	function updateApprovalInfo(idx, e_works_no, document_no, approval_state) {
+	function updateApprovalInfo(idx, e_works_no, document_no, approval_state, e_work_comment) {
 		
 		var thisTr = $(idx);
 		var delTr = $('.approvalReqList [name=test]');
@@ -55,31 +63,32 @@
 			delTr.remove();
 		}
 
-		//alert(document_no + " / "+approval_state);
-		
-				var htmlCode = "<tr name='test' align=center> <td colspan=7>"
-			htmlCode += "<form name='updateEventForm'>"
+		var htmlCode = "<tr name='test' align=center> <td colspan=7>"
+			//htmlCode += "<form name='updateEventForm'>"
 			htmlCode += "<table class='innertable tab' name='innertable' align='center'>"
 		    htmlCode += "<tr> <th colspan='2' align='center'>결재받은 내용입니다. </tr>"
-			htmlCode += "<tr> <th>문서 번호</th> <td><input type='text' name='document_no' value='"+document_no+"'></td></tr>"
-		    htmlCode += "<tr> <th>결과</th> <td><input type='text' name='approval_state' value='"+approval_state+"'></td></tr>"
-		   	htmlCode += "<tr> <th>메시지</th> <td><textarea name='e_work_comment'/></td></tr>"
+			htmlCode += "<tr> <th>문서 번호</th> <td><label>'"+document_no+"'</label></td></tr>"
+		    htmlCode += "<tr> <th>결과</th> <td><label>'"+approval_state+"'</label></td></tr>"
+		   	htmlCode += "<tr> <th>메시지</th> <td><textarea name='e_work_comment' cols='40' row='5'>"+e_work_comment+"</textarea></td></tr>"
 		    htmlCode += "</table>"
 		    htmlCode += "<input type='hidden' name='e_work_no' value="+e_works_no+">"
 		    htmlCode += "<input type='hidden' name='document_no' value="+document_no+">"
 
 		    if(approval_state == '대기중') {
-		    	htmlCode += "<input type='button' value='다시 결재요청하기' name='updateApproval' onClick='updateApprovalProc();'>&nbsp;"
-				htmlCode += "<input type='button' value='삭제' name='deleteApprovalBtn' onClick='deleteApproval('"+document_no+"');' >&nbsp;"
+		    	htmlCode += "<input type='button' value='다시 결재요청하기' id='reApproval' >&nbsp;"
+				htmlCode += "<input type='button' value='삭제' name='deleteApprovalBtn' onClick='deleteApproval('"+document_no+"');'>&nbsp;"
 
 			} else if(approval_state=='부서장 승인' || approval_state=='최종 승인') {
 
-			} else {
-				htmlCode += "<input type='button' value='다시 결재요청하기' name='updateApproval' onClick='updateApprovalProc();'>"
+			} else if(approval_state == '반려'){	//반려되었을 때 적용
+				//htmlCode += "<input type='button' value='다시 결재요청하기' id='reApproval' onClick='reApprovalProc('"+document_no+"');'>&nbsp;"
+				htmlCode += "<button id ='reApproval' name='reApproval' value='"+document_no+"'>다시결재하기</button>&nbsp;"
+				//htmlCode += "<input type='button' value='삭제' name='deleteApprovalBtn' onClick='deleteApproval('"+document_no+"');' >&nbsp;"
+				htmlCode += "<button id = 'removeApproval' name='removeApproval' value='"+document_no+"'>삭제</button>&nbsp;"
 			}
 
 			htmlCode += "<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
-		    htmlCode += "</form>"
+		    //htmlCode += "</form>"
 			htmlCode += "</tr>"
   
 		   
@@ -93,9 +102,11 @@
 
 	}
 
-	function updateApprovalProc() {
-		alert("다시 결재 요청합니다.");
-	
+	function reApprovalProc(document_no) {
+		alert("다시 결재 요청합니다. "+document_no);
+
+		location.replace("/group4erp/eventScheduling.do?evnt_no="+document_no);
+
 	}
 
 
@@ -146,7 +157,7 @@
 						<tr> </tr>
 					</c:when>	
 					<c:otherwise>
-						<tr style="cursor:pointer" onClick="updateApprovalInfo(this, '${approvalReqList.e_works_no}', '${approvalReqList.document_no}', '${approvalReqList.approval_state}');">
+						<tr style="cursor:pointer" onClick="updateApprovalInfo(this, '${approvalReqList.e_works_no}', '${approvalReqList.document_no}', '${approvalReqList.approval_state}', '${approvalReqList.e_work_comment}');">
 					</c:otherwise>
 				</c:choose>
 					<td>${approvalReqList.e_works_no}</td>
@@ -154,7 +165,7 @@
 					<td>${approvalReqList.e_works_req_dt}</td> 
 					<td align="center">${approvalReqList.approval_state}</td> 
 					<td>
-						<c:if test="${approvalReqList.approval_state eq '대기중' }">
+						<c:if test="${approvalReqList.approval_state eq '대기중' || approvalReqList.approval_state eq '반려'}">
 							삭제 가능
 						</c:if>					
 					</td> 
