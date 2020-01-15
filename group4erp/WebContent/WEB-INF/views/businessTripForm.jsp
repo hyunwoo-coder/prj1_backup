@@ -60,10 +60,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		document.businessTripForm.reset();
 	}
 
-	function checkBusinessTripRegForm() {
 
-		if (is_empty($("#emp_no"))) {
-			alert("이름을 입력해주세요.");
+	function checkBusinessTripRegForm(){
+		
+		if( is_empty($("#emp_no")) ){
+			alert("사원번호를 입력해주세요.");
+
 			$("#emp_no").focus();
 			return;
 		}
@@ -85,25 +87,33 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			$("#datepicker2").focus();
 			return;
 		}
+		var startDate = $( "[name=outside_start_time]" ).val();
+	    var startDateArr = startDate.split('-');
+	    var endDate = $( "[name=outside_end_time]" ).val();
+	    var endDateArr = endDate.split('-');
+	    var startDateCompare = new Date(startDateArr[0], startDateArr[1], startDateArr[2]);
+	    var endDateCompare = new Date(endDateArr[0], endDateArr[1], endDateArr[2]);
+	          
+	    if(startDateCompare.getTime() > endDateCompare.getTime()) {
+	              
+	        alert("출발날짜와 복귀날짜를 확인해 주세요.");
+			$("[name=outside_start_time]").focus();
+	         return;
+	    }
 
 		if (is_empty($("#work_outside_reason"))) {
 			alert("출장사유를 입력해주세요.");
 			$("#work_outside_reason").focus();
 			return;
 		}
-		/* if( is_valid_email("[name=email]")==false ){
-			alert("이메일 형식을 벗어납니다.");
+		if( is_valid_pattern($("#emp_no"), /^[0-9]{6}$/)==false ){
+			alert("사원번호 숫자 4개를 입력해주세요");
 			return;
 		}
 		
-		if( is_valid_pattern("[name=pwd]", /^[0-9]{4}$/)==false ){
-			alert("암호는 숫자 4개를 입력해주세요");
-			return;
-		} */
-		if (confirm("정말 저장하시겠습니까?") == false) {
-			return;
-		}
 
+		if(confirm("정말 저장하시겠습니까?")==false){return;}
+		
 		$.ajax({
 			url : "/group4erp/businessTripRegProc.do",
 			type : "post",
@@ -154,23 +164,48 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 <title>출장신청&보고</title>
 </head>
 <body>
-	<form name="businessTrip" id="businessTrip" method="post"
-		action="/group4erp/businessTripRegProc.do">
-		<b>출장 신청서</b>
-		<table class="tbcss1" name=work_outside_info cellpadding="5"
-			cellspacing="5">
-			<tr>
-				<th>사원 번호</th>
-				<td><input type="text" id=emp_no name="emp_no"></td>
-			</tr>
 
+	<form name="businessTrip" id="businessTrip" method="post" action="/group4erp/businessTripRegProc.do">
+	<b>출장 신청서</b>
+	<table class="tbcss1" name=work_outside_info cellpadding="5" cellspacing="5">
+		<tr>
+			<th>사원 번호</th>
+				<td>
+					<input type="text" id=emp_no name="emp_no">
+				</td>
+		</tr>
+		
+		<tr>
+			<th>출장지</th>
+				<td>
+					<input type="text" size="50" id="destination" name="destination" >		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">											
+				</td>
+		</tr>
+		
+		<tr>
+			<th >출장날짜</th>
+				<td>
+					<input type="text" id="datepicker1" name="outside_start_time">
+					~
+					<input type="text" id="datepicker2" name="outside_end_time">
+					&nbsp;&nbsp;&nbsp;
+				</td>
+		</tr>
 			<tr>
 				<th>목적지</th>
 				<td><input type="text" size="50" id="destination"
 					name="destination" readOnly> <input type="button"
 					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
 			</tr>
-
+		<tr>
+			<th >출장 사유</th>
+				<td >
+					<textarea name="work_outside_reason" cols="50" rows="10" id="work_outside_reason" maxlenght="500"></textarea>
+				</td>
+		</tr>
+		</table>
+		
+		<input type="button" class="approval" value="결재 신청" onClick="checkBusinessTripRegForm()">
 			<tr>
 				<th>출장희망일</th>
 				<td><input type="text" id="datepicker1"

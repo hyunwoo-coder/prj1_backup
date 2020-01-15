@@ -67,7 +67,10 @@
 		$('[name=corpSearchForm] [name=rowCntPerPage]').val("15");
 		goSearch();
 	}
-
+	
+	function goReset() {
+		document.corpSearchForm.reset();
+	}
 	function insertCorp() {
 		//alert("거래처 추가");
 		location.replace("/group4erp/goInsertCorpPage.do");
@@ -240,7 +243,10 @@
 			 </td>
 		</tr>
 		<tr>
-			<td align="right">[검색어]&nbsp;</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp; <input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();"> </td>
+			<td align="right">[검색어]&nbsp;</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp; <input type="button" value="검색" onClick="goSearch();">
+														&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+														&nbsp;&nbsp;<input type="button" value="초기화" onClick="goReset();">
+														 </td>
 		</tr>
 	</table>
 	
@@ -257,7 +263,7 @@
 	</tr>
 	<tr>
 	<form name="corpSearchRowPageForm" method="post" action="/group4erp/viewCorpList.do">
-		<td align="right">[전체] : ${corpListCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
+		<td align="right">[전체] : ${corpListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
 	               <option value="15">15</option>

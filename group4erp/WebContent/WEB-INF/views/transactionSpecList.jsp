@@ -82,7 +82,7 @@
 		
 		document.corpSearchForm.submit();
 	}
-
+	goReset
 
 	function goSearchAll() {
 		document.corpSearchForm.reset();
@@ -92,7 +92,10 @@
 		goSearch();
 	}
 
-
+	function goReset() {
+		document.corpSearchForm.reset();
+	}
+	
 </script>
 </head>
 <body><center>
@@ -105,7 +108,10 @@
 															미발급 : <input type="checkbox" name="issueYn" value="n" /></td>
 			</tr>
 			<tr>
-				<td align="right">[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+				<td align="right">[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;
+													<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
+													<input type="button" value="모두검색" onClick="goSearchAll();">&nbsp;&nbsp;
+													<input type="button" value="초기화" onClick="goReset();">
 				</td>
 			</tr>
 		</table>

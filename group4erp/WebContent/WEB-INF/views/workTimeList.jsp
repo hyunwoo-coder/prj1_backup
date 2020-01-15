@@ -53,23 +53,26 @@
 		});
 		 */
 	}
+
+	function reset(){
+		document.workStateListSearch.reset();
+	}
 </script>
 
 </head>
 <body><center>
 	<h1>[근태 조회]</h1><br>
 	<form name="workStateListSearch" method="post" action="/group4erp/goMyWorkTime.do">
-		<table class="searchTb tab" name="searchTb" cellpadding="5" cellspacing="5" border="0" align="center">
-		<tr>
-			<td>[사번 검색]</td><td><select name="searchEmpNo">
-							<option value="0">전체
-							<c:forEach items="${requestScope.searchEmpNo}" var="searchEmpNo" varStatus="loopTagStatus">
-								<option value="${searchEmpNo.emp_no}">${searchEmpNo.emp_no}
-							</c:forEach>
-						</select>
-						</td>
-			</td>
-		</tr>
+
+		<table border=0 width=70% align=center>
+			<select name="searchEmpNo">
+				<option value="0">전체
+				<c:forEach items="${requestScope.searchEmpNo}" var="searchEmpNo" varStatus="loopTagStatus">
+				<option value="${searchEmpNo.emp_no}">${searchEmpNo.emp_no}
+				</c:forEach>
+			</select>
+			<input type="button" onClick="reset()" value="초기화">
+
 		</table>
 		<input type="hidden" name="selectPageNo">
 	</form>

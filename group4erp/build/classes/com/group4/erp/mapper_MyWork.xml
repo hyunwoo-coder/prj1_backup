@@ -101,8 +101,7 @@
             where emp_no = '${emp_no}'
 			<include refid="MyCareBookSearch" />
 			order by reg_dt desc
-		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
-			
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>			
 	</select>
 	
 	

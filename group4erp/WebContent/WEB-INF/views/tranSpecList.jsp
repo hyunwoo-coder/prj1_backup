@@ -59,7 +59,10 @@ $(document).ready(function(){
 		$('[name=corpSearchForm] [name=rowCntPerPage]').val("15");
 		goSearch();
 	}
-
+	
+	function goReset() {
+		document.corpSearchForm.reset();
+	}
 </script>
 </head>
 <body><center>
@@ -69,6 +72,7 @@ $(document).ready(function(){
 	[검색어]&nbsp;<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 	
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+	&nbsp;&nbsp;<input type="button" value="초기화" onClick="goReset();">
 	 <table border=0>
 	 	<tr>
 	    	
