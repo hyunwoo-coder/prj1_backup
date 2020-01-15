@@ -89,6 +89,7 @@
 
 		$('[name=corpSearchForm] [name=selectPageNo]').val("1");
 		$('[name=corpSearchForm] [name=rowCntPerPage]').val("15");
+		$("[name=corpSearchForm] [name=sort]").val('');
 		goSearch();
 	}
 
@@ -153,7 +154,7 @@
 				<tr>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 주문번호</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 주문번호</th>
 					</c:when>
 					<c:when test="${param.sort=='1 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 주문번호</th>
@@ -165,7 +166,7 @@
 		
 				<c:choose>
 					<c:when test="${param.sort=='2 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 asc'); goSearch();  "> ▼ 사업자번호</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 사업자번호</th>
 					</c:when>
 					<c:when test="${param.sort=='2 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('2 desc'); goSearch(); "> ▲ 사업자번호</th>
@@ -177,7 +178,7 @@
 		
 				<c:choose>
 					<c:when test="${param.sort=='3 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 상호명</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 상호명</th>
 					</c:when>
 					<c:when test="${param.sort=='3 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 상호명</th>
@@ -201,7 +202,7 @@
 		
 			<c:choose>
 				<c:when test="${param.sort=='5 desc'}">
-					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 asc'); goSearch();  "> ▼ 주문수량</th>
+					<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 주문수량</th>
 				</c:when>
 				<c:when test="${param.sort=='5 asc'}">
 					<th style="cursor:pointer" onClick="$('[name=sort]').val('5 desc'); goSearch(); "> ▲ 주문수량</th>
@@ -237,7 +238,7 @@
 		
 			<c:choose>
 				<c:when test="${param.sort=='8 desc'}">
-					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 주문일</th>
+					<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 주문일</th>
 				</c:when>
 				<c:when test="${param.sort=='8 asc'}">
 					<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 주문일</th>

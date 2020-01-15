@@ -59,11 +59,21 @@
 		</if>
 	</sql>
 	
+	<sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null or sort==''">
+			order by 13, b.reg_dt desc
+		</if>
+	</sql>
+	
 	<!--=============================================================================================================================================-->
 	<!-- 담당 상품 조회 -->
 	<!--=============================================================================================================================================-->
 	<select id='getMyCareBookList' parameterType="com.group4.erp.MyWorkSearchDTO" resultType="java.util.HashMap">
-		select * from(select zzz.*, rownum RNUM from(
+		<!-- select * from(select zzz.*, rownum RNUM from(
 			 select                 
                  isbn13 "isbn13",
                  book_name "book_name",
@@ -101,7 +111,29 @@
             where emp_no = '${emp_no}'
 			<include refid="MyCareBookSearch" />
 			order by reg_dt desc
-		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>			
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>		 -->	
+
+		select * from(select zzz.*, rownum RNUM from(
+			select
+                b.ISBN13                     as "ISBN13"
+                ,b.book_name                 as "book_name"
+                ,(select cc.cat_name from code_category cc where cc.cat_cd=b.cat_cd) as "cat_name"
+                ,b.book_price              as "book_price"
+                ,b.book_pages||''         as "book_pages"
+                ,b.writer                 as "writer"
+                ,b.publisher                 as "publisher"
+                ,b.size_cd||''             as "size_cd"
+                ,b.is_print             as "is_print"
+                ,b.emp_no||''                as "emp_no"
+                ,to_char(b.published_dt,'YYYY-MM-DD') as "published_dt" 
+                ,b.editor                    as "editor"
+                ,(select si.ISBN_cnt from stock_info si where b.ISBN13 = si.ISBN13) as  "ISBN_cnt"
+                ,(select c.branch_name from code_branch c where c.branch_cd in(select bc.branch_cd from stock_info bc where bc.ISBN13 in(b.ISBN13))) as  "branch_name"
+            from book b 
+            where b.emp_no = '${emp_no}'
+			<include refid="headerSort"/>
+		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+
 	</select>
 	
 	
@@ -216,7 +248,13 @@
 			from work_days_mng w, employee e, dept d, code_jikup cj
 			where w.emp_no=e.emp_no and e.dep_no=d.dep_no and e.jikup_cd=cj.jikup_cd
 			<include refid="WorkDaysListSearchWere" />
-			order by emp_no asc
+			<if test="sort!=null and sort.length() > 0" >
+				order by ${sort}
+			</if>
+			
+			<if test="sort==null or sort==''">
+				order by w.emp_no
+			</if>
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>
