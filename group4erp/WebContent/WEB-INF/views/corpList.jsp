@@ -65,6 +65,7 @@
 
 		$('[name=corpSearchForm] [name=selectPageNo]').val("1");
 		$('[name=corpSearchForm] [name=rowCntPerPage]').val("15");
+		$("[name=corpSearchForm] [name=sort]").val('');
 		goSearch();
 	}
 	
@@ -280,7 +281,7 @@
 		<th></th>
 		<c:choose>
 			<c:when test="${param.sort=='corp_no desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_no asc'); goSearch();  "> ▲ 사업자번호</th>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▲ 사업자번호</th>
 			</c:when>
 			<c:when test="${param.sort=='corp_no asc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_no desc'); goSearch(); "> ▼ 사업자번호</th>
@@ -292,7 +293,7 @@
 		
 		<c:choose>
 			<c:when test="${param.sort=='corp_name desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_name asc'); goSearch(); "> ▲ 거래처명</th>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch(); "> ▲ 거래처명</th>
 			</c:when>
 			<c:when test="${param.sort=='corp_name asc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_name desc'); goSearch(); "> ▼ 거래처명</th>
@@ -304,7 +305,7 @@
 		
 		<c:choose>
 			<c:when test="${param.sort=='ceo_name desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('ceo_name asc'); goSearch(); "> ▲ 사업자명</th>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch(); "> ▲ 사업자명</th>
 			</c:when>
 			<c:when test="${param.sort=='ceo_name asc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('ceo_name desc'); goSearch(); "> ▼ 사업자명</th>
@@ -317,7 +318,7 @@
 		
 		<c:choose>
 			<c:when test="${param.sort=='corp_business_area desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_business_area asc'); goSearch(); "> ▲ 사업분야</th>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch(); "> ▲ 사업분야</th>
 			</c:when>
 			<c:when test="${param.sort=='corp_business_area asc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_business_area desc'); goSearch(); "> ▼ 사업분야</th>
@@ -330,7 +331,7 @@
 		
 		<c:choose>
 			<c:when test="${param.sort=='corp_addr desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_addr asc'); goSearch(); "> ▲ 소재지</th>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch(); "> ▲ 소재지</th>
 			</c:when>
 			<c:when test="${param.sort=='corp_addr asc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_addr desc'); goSearch(); "> ▼ 소재지</th>
@@ -343,7 +344,7 @@
 		
 		<c:choose>
 			<c:when test="${param.sort=='corp_tel desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_tel asc'); goSearch(); "> ▲ 연락처</th>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch(); "> ▲ 연락처</th>
 			</c:when>
 			<c:when test="${param.sort=='corp_tel asc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_tel desc'); goSearch(); "> ▼ 연락처</th>
@@ -356,7 +357,7 @@
 		
 		<c:choose>
 			<c:when test="${param.sort=='corp_fax desc'}">
-				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_fax asc'); goSearch(); "> ▲ FAX</th>
+				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch(); "> ▲ FAX</th>
 			</c:when>
 			<c:when test="${param.sort=='corp_fax asc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val('corp_fax desc'); goSearch(); "> ▼ FAX</th>
