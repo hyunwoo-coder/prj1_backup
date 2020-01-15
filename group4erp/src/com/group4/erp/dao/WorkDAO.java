@@ -24,4 +24,8 @@ public interface WorkDAO {
 	int deleteBusinessTrip(BusinessTripDTO businessTripDTO);
 	//출장 승인
 	int approvedBusinessTrip(BusinessTripDTO businessTripDTO);
+	//삭제할 게시판 존재 개수
+	//int getBusinessDelCnt(BusinessTripDTO businessTripDTO);
+	//업데이트할 게시판 존재 개수
+	//int getBusinessAppCnt(BusinessTripDTO businessTripDTO);
 }

@@ -76,4 +76,11 @@ public class WorkDAOImpl implements WorkDAO{
 			);
 		return businessTripUpDelCnt;
 	}
+	/*public int getBusinessDelCnt(BusinessTripDTO businessTripDTO) {
+		int delCnt = this.sqlSession.selectOne(
+				"com.group4.erp.dao.WorkDAO.getBusinessDelCnt"
+				,businessTripDTO
+			);
+		return delCnt;
+	}*/
 }

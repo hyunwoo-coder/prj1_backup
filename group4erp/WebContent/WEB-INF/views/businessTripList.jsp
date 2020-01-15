@@ -100,12 +100,11 @@
 		//$("#searchForm").submit()
 		$('[name=getBusinessTripListSearchForm] [name=rowCntPerPage]').val('10');
 		$('[name=getBusinessTripListSearchForm] [name=selectPageNo]').val('1');
-		$('[name=getBusinessTripListSearchForm] [name=sort]').val("outside_start_time desc");
 		goSearch();
 	}
 	
-	function goBusinessTripForm(){
-		location.replace("/group4erp/businessTripForm.do");
+	function goReset(){
+		document.getBusinessTripListSearchForm.reset();
 	}
 	//,travel_payment${businessList.work_outside_seq}
 																					
@@ -115,9 +114,9 @@
 					("${businessTripDTO.login_emp_id}"== emp_no)
 						||
 					(
-					("${businessTripDTO.login_mgr_no}"==mgr_no)
-						&&
-					("${businessTripDTO.login_dep_no}"==dep_no)
+						("${businessTripDTO.login_mgr_no}"==mgr_no)
+							&&
+						("${businessTripDTO.login_dep_no}"==dep_no)
 					)
 						||
 					("${businessTripDTO.login_dep_no}"==6)
@@ -140,9 +139,9 @@
 <body>
 <center>
 	<h1>[출장 리스트]</h1>
-	<form name="getBusinessTripListSearchForm" method="post" action="/group4erp/businessTripList.do">
+	<form name="getBusinessTripListSearchForm" id="getBusinessTripListSearchForm" method="post" action="/group4erp/businessTripList.do">
 		
-     <table border="1">
+     <table class="tab" >
      	<tr>
      		<th>출장 날짜</th>
      		<td colspan="2">
@@ -180,7 +179,9 @@
 	 	<table><td></td></table>
 				<input type="button" value=" 검색 " onClick="goSearch();">		
 				&nbsp;&nbsp;
-				<input type="button" value="모두검색" onClick="goAllSearch();">
+				<input type="button" value="모두검색" onClick="goAllSearch();">		
+				&nbsp;&nbsp;
+				<input type="button" value="초기화" onClick="goReset();">
 			
 		
 	 <table border=0 width=700>
@@ -209,7 +210,7 @@
 	</form>
 	
 	<div id="blankArea"><br></div>
-		<table class="businessTripListTable tbcss1"  border="1" name="businessTripListTable" cellpadding="5" cellspacing="5">		
+		<table class="businessTripListTable tab"  name="businessTripListTable" cellpadding="5" cellspacing="5">		
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -246,7 +247,7 @@
 			<tbody>
 			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
-			<tr class="list" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq}
+			<tr class="tab" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq}
 																						,${businessList.emp_no}
 																						,'${businessList.travel_payment}'
 																						,${businessList.dep_no}

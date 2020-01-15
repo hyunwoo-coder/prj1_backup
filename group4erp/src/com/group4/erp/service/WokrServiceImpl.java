@@ -70,10 +70,9 @@ public class WokrServiceImpl implements WorkService {
 	
 	public int deleteBusinessTrip(BusinessTripDTO businessTripDTO) {
 		
-		/*
-		 * int delCnt = this.workDAO.getBusinessDelCnt(businessTripDTO); if(delCnt==0)
-		 * return -1;
-		 */
+		 //int delCnt = this.workDAO.getBusinessDelCnt(businessTripDTO); if(delCnt==0)
+		 //return -1;
+		 
 		
 		//1개 게시판 글 입력 후 입력 적용 행의 개수 리턴하기
 			//[BoardDTO 인터페이스]를 구현한 객체의 insertBoard 메소드를 호출하여 1개 게시판 글 입력 후 입력 적용 행의 개수를 리턴받는다
@@ -83,14 +82,13 @@ public class WokrServiceImpl implements WorkService {
 	}
 	
 	public int approvedBusinessTrip(BusinessTripDTO businessTripDTO) {
+	
+		//int delCnt = this.workDAO.getBusinessDelCnt(businessTripDTO); if(delCnt==0)
+		//return -1;
+			
 		
-		/*
-		 * int delCnt = this.workDAO.getBusinessDelCnt(businessTripDTO); if(delCnt==0)
-		 * return -1;
-		 * 
-		 * int appCnt = this.workDAO.getBusinessAppCnt(businessTripDTO); if(appCnt==0)
-		 * return -2;
-		 */
+		//int appCnt = this.workDAO.getBusinessAppCnt(businessTripDTO); if(appCnt==0)
+		//return -2;
 		
 		//1개 게시판 글 입력 후 입력 적용 행의 개수 리턴하기
 			//[BoardDTO 인터페이스]를 구현한 객체의 insertBoard 메소드를 호출하여 1개 게시판 글 입력 후 입력 적용 행의 개수를 리턴받는다

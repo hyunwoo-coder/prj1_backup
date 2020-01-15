@@ -176,6 +176,13 @@
       
       goSearch();
    }
+   
+	function goReset(){
+		//alert(1)
+			document.returnSearchForm.reset();
+		//$('[name=bookReleaseSearch]').reset();
+	}
+
 </script>
 </head>
 <body><center>
@@ -206,7 +213,8 @@
    </table>
    <br>
    <input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
-   <input type="button" value="모두검색" onClick="goSearchAll();">
+   <input type="button" value="모두검색" onClick="goSearchAll();">&nbsp;&nbsp;
+   <input type="button" value="초기화" onClick="goReset();">
     <table border=0 width=700>
        <tr>
           <td align=right>

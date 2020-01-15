@@ -95,7 +95,6 @@ $(document).ready(function(){
 		
 		//alert($('[name=dateFrom]').val());
 		//return;
-		
 		document.bookReleaseSearch.submit();
 	}
 
@@ -108,6 +107,7 @@ $(document).ready(function(){
 	function goClose(){
 		$('[name=thisTr]').remove();
 	}
+
 	
 	function goReleaseContentForm(ele,all_order_no){
 		/*
@@ -262,13 +262,19 @@ $(document).ready(function(){
 		});
 		
 	}
+
+	function goReset(){
+		document.bookReleaseSearch.reset();
+		//$('[name=bookReleaseSearch]').reset();
+	}
+	
 </script>
 
 </head>
 <body><center>
 <h1>[출고 현황]</h1>
 		<form name="bookReleaseSearch" method="post" action="/group4erp/goReleaseList.do">
-		<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="tab" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 			<th>지역
 			<td align=left colspan=3>
@@ -278,7 +284,8 @@ $(document).ready(function(){
 			<tr>
 			<th>일자
 			<td>
-				<input type="text" id="datepicker1" name="dateFrom">&nbsp;~&nbsp;
+				<input type="text" id="datepicker1" name="dateFrom">
+				&nbsp;~&nbsp;
 				<input type="text" id="datepicker2" name="dateTill">
 			<th>출판사
 			<td align=center>
@@ -296,8 +303,9 @@ $(document).ready(function(){
 			
 		</table>
 		<br>
-			<button onClick="goSearchRelease();">검색</button>
-			<button onClick="goAllSearchRelease();">모두검색</button>
+			<input type="button" onClick="goSearchRelease();" value="검색">
+			<input type="button" onClick="goAllSearchRelease();" value="모두검색">
+			<input type="button" onClick="goReset();" value="초기화">
      	<table border=0 width=700>
          <tr>
             <td align=right>

@@ -169,8 +169,7 @@
 	
 	<update id="approvedBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
 		update work_outside_info set travel_payment= 'Y'
-												where (work_outside_seq=#{work_outside_seq}) <!-- and (#{loginDep_no}=6  로그인 한 사람이 인사부 이거나) or
-														r (#{dep_no}=#{loginDep_no} and #{loginDepjikup_cd}=4 로그인 한 사람의 직급코드가 4번이면 )  -->
+												where work_outside_seq=#{work_outside_seq}
 	</update>
 	
 </mapper>

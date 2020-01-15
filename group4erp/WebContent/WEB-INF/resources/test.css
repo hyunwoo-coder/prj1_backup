@@ -62,8 +62,8 @@ th{
 
 
 .button {
-    /*float:right;
-    background-color:#fbfbfb;*/
+    float:right;
+    background-color:#fbfbfb;
     background-color: #4CAF50;
     border-radius: 5px;
     align-items: center; 
@@ -79,7 +79,6 @@ th{
 	font-weight: 500; 
 	font-size:9pt;
 }
-
 
 
 
@@ -122,5 +121,6 @@ button:hover:before,button:hover:after{
   transition:800ms ease all;
 }
 
+ */
 
 

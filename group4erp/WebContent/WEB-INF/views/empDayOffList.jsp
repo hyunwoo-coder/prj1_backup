@@ -69,6 +69,9 @@
 			goDayoffSearch();
 		}
 
+		function goReset(){
+			document.empDayoffSearch.reset();
+		}
 		/* function getNowtime() {
 			var today = new Date();
 			var year = today.getFullYear(); 
@@ -464,8 +467,9 @@
 			<br>
 	      <table><tr height=5><td></table>
 	      
-			<button onClick="goDayoffSearch();">검색</button>
-			<button onClick="goDayoffSearchAll();">모두검색</button>
+			<input type="button" value="검색" onClick="goDayoffSearch();">
+			<input type="button" value="모두검색" onClick="goDayoffSearchAll();">
+			<input type="button" value="초기화" onClick="goReset();">
 	    
 	      <table border=0 width=63%>
 				<tr>

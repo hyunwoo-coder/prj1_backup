@@ -300,7 +300,9 @@ td{
 		}
 
 
-
+		function goReset(){
+				document.warehousingSearchForm.reset();
+		}
 
 	</script>
 
@@ -366,8 +368,9 @@ td{
       
       <table><tr height=5><td></table>
       
-		<button onClick="goWhSearch();">검색</button>
-		<button onClick="goWhSearchAll();">모두검색</button>
+		<input type="button" value="검색" onClick="goWhSearch();">
+		<input type="button" value="모두검색" onClick="goWhSearchAll();">
+		<input type="button" value="초기화" onClick="goReset();">
     
       <table border=0 width=70%>
 			<tr>

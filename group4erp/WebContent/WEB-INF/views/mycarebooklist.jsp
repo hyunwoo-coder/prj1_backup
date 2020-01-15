@@ -193,8 +193,8 @@
             <col width="20%" />
             <col width="*" />
          </colgroup> -->
-         <tr bgcolor="gray">
-         <th width=50>구분<th>내용
+         <tr>
+         <!-- <th width=50>구분<th>내용 -->
          
          <%-- 
          <tr>
@@ -231,13 +231,13 @@
                <option value="출판사5">출판사5
                 --> --%>
          <tr>
-         <th bgcolor="gray">절판 상황
+         <th>절판 상황
          <td align=left>
             <input type="radio" name="is_print" value="y">절판
             <input type="radio" name="is_print" value="n">판매중
          
          <tr>
-         <th bgcolor="gray">키워드
+         <th>키워드
          <td>
             <select name="searchCategory">
                <option value="전체">전체
@@ -271,12 +271,12 @@
       <table class="mycarebookTable tab" border=0 cellspacing=5 cellpadding=5 >
       	<thead>
          <tr bgcolor="gray">
-            <th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
+            <th>번호<th>책번호<th>책 이름<th>카테고리<th>가격<th>수량<th>보유지점<th>비고
         </thead>
         <tbody>    
          <c:forEach items="${requestScope.MyCareBookList}" var="MyCareBookList" varStatus="loopTagStatus">
          <tr>   
-			
+			<td align=center>${MyCareBookList.RNUM}</td>
             <td align=center>${MyCareBookList.ISBN13}
             <td align=center>${MyCareBookList.book_name}
             <td align=center>${MyCareBookList.cat_name}

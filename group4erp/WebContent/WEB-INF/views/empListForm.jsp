@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
 
@@ -70,7 +70,9 @@ $(document).ready(function(){
 		*/
 		//location.replace("......");
 	}
-	
+	function reset(){
+		document.empListSearchForm.reset();
+	}
 </script>
 </head>
 <body>
@@ -78,12 +80,13 @@ $(document).ready(function(){
 	<h1>[직원 리스트]</h1>
 
 	<form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">
-	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
+		[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">
 
 	<!-- <form name="empListSearchForm" method="post" action="/group4erp/viewEmpList.do">
 	[검색어]<input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();"> -->
 
 	&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
+	&nbsp;&nbsp;<input type="button" value="초기화" onClick="reset();">
 	 <table border=0 width=700>
 	 	<tr>
 	    	<td align=right>

@@ -123,10 +123,15 @@
 	function goSearchAll() {
 		document.searchEvntForm.reset();
 
+		$('[name=searchEvntForm] [name=sort]').val("1");
 		$('[name=searchEvntForm] [name=selectPageNo]').val("1");
 		$('[name=searchEvntForm] [name=rowCntPerPage]').val("15");
 		
 		goSearch();
+	}
+
+	function goReset(){
+		document.searchEvntForm.reset();
 	}
 
 	function updateEventInfo(idx, evnt_no, evnt_title, evnt_start_dt, evnt_end_dt) {
@@ -308,7 +313,9 @@
 			</tr>
 			<tr>
 				<td>[검색어]</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp;<input type="button" value="검색" onClick="goSearch();">&nbsp;&nbsp;
-									<input type="button" value="모두검색" onClick="goSearchAll();"></td>
+									<input type="button" value="모두검색" onClick="goSearchAll();">
+									<input type="button" value="초기화" onClick="goReset();">
+							</td>
 			</tr>
 		</table>
 		<input type="hidden" name="selectPageNo" >

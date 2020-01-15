@@ -82,8 +82,8 @@
             from book b 
             where b.emp_no = '${emp_no}'
 			<include refid="MyCareBookSearchWere" />
-			order by b.reg_dt desc
-		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
+			order by b.publisher desc
+		) zzz order by RNUM desc) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>
 	

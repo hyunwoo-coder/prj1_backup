@@ -37,6 +37,10 @@
 		});
 		 */
 	}
+
+	function reset(){
+		document.workStateListSearch.reset();
+	}
 </script>
 
 </head>
@@ -50,6 +54,7 @@
 				<option value="${searchEmpNo.emp_no}">${searchEmpNo.emp_no}
 				</c:forEach>
 			</select>
+			<input type="button" onClick="reset()" value="초기화">
 		</table>
 		<table border=0>
 			<tr>
