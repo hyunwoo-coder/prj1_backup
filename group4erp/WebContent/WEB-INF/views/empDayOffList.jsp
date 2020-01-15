@@ -68,6 +68,7 @@
 			document.empDayoffSearch.reset();
 			$("[name=empDayoffSearch] [name=selectPageNo]").val(1)
 			$("[name=empDayoffSearch] [name=rowCntPerPage]").val(10);
+			$("[name=empDayoffSearch] [name=sort]").val('');
 			goDayoffSearch();
 		}
 
@@ -737,7 +738,7 @@
 					
 					<c:choose>
 						<c:when test="${param.sort=='(select j.jikup_cd from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = da.emp_no) desc'}">
-							<th bgcolor="black" style="cursor:pointer" onclick="$(''); goDayoffSearch();">▼ 직급</th>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 직급</th>
 						</c:when>
 						<c:when test="${param.sort=='(select j.jikup_cd from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = da.emp_no) asc'}">
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup_cd from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = da.emp_no) desc'); goDayoffSearch();">▲ 직급
@@ -746,8 +747,31 @@
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select j.jikup_cd from code_jikup j, employee e where e.jikup_cd = j.jikup_cd and e.emp_no = da.emp_no) asc'); goDayoffSearch();">직급
 						</c:otherwise>
 					</c:choose>
-					<th bgcolor="black" style="cursor:pointer">성명</th>
-					<th bgcolor="black" style="cursor:pointer">휴가 종류</th>
+					
+					<c:choose>
+						<c:when test="${param.sort=='5 desc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 성명</th>
+						</c:when>
+						<c:when test="${param.sort=='5 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('5 desc'); goDayoffSearch();">▲ 성명
+						</c:when>
+						<c:otherwise>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('5 asc'); goDayoffSearch();">성명
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${param.sort=='6 desc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 휴가 종류</th>
+						</c:when>
+						<c:when test="${param.sort=='6 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('6 desc'); goDayoffSearch();">▲ 휴가 종류
+						</c:when>
+						<c:otherwise>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('6 asc'); goDayoffSearch();">휴가 종류
+						</c:otherwise>
+					</c:choose>
+					
 					<c:choose>
 						<c:when test="${param.sort=='start_dayoff desc'}">
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 휴가 시작일</th>
@@ -771,7 +795,18 @@
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('end_dayoff asc'); goDayoffSearch();">휴가 종료일</th>
 						</c:otherwise>
 					</c:choose>
-					<th bgcolor="black" style="cursor:pointer">휴가 신청일수</th>
+					
+					<c:choose>
+						<c:when test="${param.sort=='da.using_dayoff desc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 휴가 신청일수</th>
+						</c:when>
+						<c:when test="${param.sort=='da.using_dayoff asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('da.using_dayoff desc'); goDayoffSearch();">▲ 휴가 신청일수</th>
+						</c:when>
+						<c:otherwise>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('da.using_dayoff asc'); goDayoffSearch();">휴가 신청일수</th>
+						</c:otherwise>
+					</c:choose>
 					
 					<c:choose>
 						<c:when test="${param.sort=='(select remain_dayoff from emp_dayoff_info where emp_no = da.emp_no) desc'}">
@@ -785,7 +820,17 @@
 						</c:otherwise>
 					</c:choose>
 					
-					<th bgcolor="black" style="cursor:pointer">총 휴가일</th>
+					<c:choose>
+						<c:when test="${param.sort=='(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) desc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 총 휴가일</th>
+						</c:when>
+						<c:when test="${param.sort=='(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) desc'); goDayoffSearch();">▲ 총 휴가일</th>
+						</c:when>
+						<c:otherwise>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) asc'); goDayoffSearch();">총 휴가일</th>
+						</c:otherwise>
+					</c:choose>
 					
 					<c:choose>
 						<c:when test="${param.sort=='dayoff_apply_dt desc'}">
@@ -798,8 +843,29 @@
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('dayoff_apply_dt asc'); goDayoffSearch();">신청일</th>
 						</c:otherwise>
 					</c:choose>
-					<th bgcolor="black" style="cursor:pointer">결재</th>
-					<th bgcolor="black" style="cursor:pointer">휴가상태</th>
+					<c:choose>
+						<c:when test="${param.sort=='13 desc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 결재</th>
+						</c:when>
+						<c:when test="${param.sort=='13 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('13 desc'); goDayoffSearch();">▲ 결재
+						</c:when>
+						<c:otherwise>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('13 asc'); goDayoffSearch();">결재
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${param.sort=='14 desc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 휴가상태</th>
+						</c:when>
+						<c:when test="${param.sort=='14 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('14 desc'); goDayoffSearch();">▲ 휴가상태
+						</c:when>
+						<c:otherwise>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('14 asc'); goDayoffSearch();">휴가상태
+						</c:otherwise>
+					</c:choose>
 				</tr>
 
 				<c:forEach items="${requestScope.getDayOffList}" var="dayoff" varStatus="loopTagStatus">
@@ -814,7 +880,7 @@
 						<td align=center>${dayoff.dayoff_name}</td>
 						<td align=center>${dayoff.start_dayoff}</td>
 						<td align=center>${dayoff.end_dayoff}</td>
-						<td align=center>${dayoff.using_dayoff}</td>
+						<td align=center>${dayoff.using_dayoff=='.5'?'0.5':dayoff.using_dayoff}</td>
 						<td align=center>${dayoff.remain_dayoff}</td>
 						<td align=center>${dayoff.dayoff_tot}</td>
 						<td align=center>${dayoff.dayoff_apply_dt}</td>

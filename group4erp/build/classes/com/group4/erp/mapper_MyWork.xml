@@ -59,6 +59,16 @@
 		</if>
 	</sql>
 	
+	<sql id="headerSort">
+		<if test="sort!=null and sort.length() > 0" >
+			order by ${sort}
+		</if>
+		
+		<if test="sort==null or sort==''">
+			order by 13, b.reg_dt desc
+		</if>
+	</sql>
+	
 	<!--=============================================================================================================================================-->
 	<!-- 담당 상품 조회 -->
 	<!--=============================================================================================================================================-->
@@ -81,8 +91,7 @@
                 ,(select c.branch_name from code_branch c where c.branch_cd in(select bc.branch_cd from stock_info bc where bc.ISBN13 in(b.ISBN13))) as  "branch_name"
             from book b 
             where b.emp_no = '${emp_no}'
-			<include refid="MyCareBookSearchWere" />
-			order by b.reg_dt desc
+			<include refid="headerSort"/>
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>
@@ -152,7 +161,13 @@
 			from work_days_mng w, employee e, dept d, code_jikup cj
 			where w.emp_no=e.emp_no and e.dep_no=d.dep_no and e.jikup_cd=cj.jikup_cd
 			<include refid="WorkDaysListSearchWere" />
-			order by emp_no asc
+			<if test="sort!=null and sort.length() > 0" >
+				order by ${sort}
+			</if>
+			
+			<if test="sort==null or sort==''">
+				order by w.emp_no
+			</if>
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 			
 	</select>

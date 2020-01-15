@@ -206,38 +206,38 @@ $(document).ready(function(){
 
 		<br>
 		<form>
-			<table class="bookTable tab" border=0 cellspacing=0 cellpadding=5>
+			<table class="bookTable tab" border=0 cellspacing=0 cellpadding=5 width="80%">
 				<tr>
-					<th>번호
+					<th width="6%">번호
 					 <c:choose>
 							<c:when test="${param.sort=='isbn13 desc'}">
-								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('isbn13 asc'); goSearchBookInven();">▼책번호
+								<th width="14%" style="cursor: pointer"
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼책번호
 							</c:when>
 							<c:when test="${param.sort=='isbn13 asc'}">
-								<th style="cursor: pointer"
+								<th width="14%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('isbn13 desc'); goSearchBookInven();">▲책번호
 								
 							</c:when>
 							<c:otherwise>
-								<th style="cursor: pointer"
+								<th width="14%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('isbn13 asc'); goSearchBookInven();">책번호
 							</c:otherwise>
 					</c:choose> 
 						
 					<c:choose>
 							<c:when test="${param.sort=='book_name desc'}">
-								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('book_name asc'); goSearchBookInven();">▼책이름
+								<th width="30%" style="cursor: pointer"
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼책이름
 								
 							</c:when>
 							<c:when test="${param.sort=='book_name asc'}">
-								<th style="cursor: pointer"
+								<th width="30%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('book_name desc'); goSearchBookInven();">▲책이름
 								
 							</c:when>
 							<c:otherwise>
-								<th style="cursor: pointer"
+								<th width="30%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('book_name asc'); goSearchBookInven();">책이름
 								
 							</c:otherwise>
@@ -245,32 +245,32 @@ $(document).ready(function(){
 					
 					<c:choose>
 							<c:when test="${param.sort=='3 desc'}">
-								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('3 asc'); goSearchBookInven();">▼카테고리
+								<th width="6%" style="cursor: pointer"
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼카테고리
 							</c:when>
 							<c:when test="${param.sort=='3 asc'}">
-								<th style="cursor: pointer"
+								<th width="6%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('3 desc'); goSearchBookInven();">▲카테고리
 							</c:when>
 							<c:otherwise>
-								<th style="cursor: pointer"
+								<th width="6%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('3 asc'); goSearchBookInven();">카테고리
 							</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
 							<c:when test="${param.sort=='publisher desc'}">
-								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('publisher asc'); goSearchBookInven();">▼출판사
+								<th width="10%" style="cursor: pointer"
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼출판사
 								
 							</c:when>
 							<c:when test="${param.sort=='publisher asc'}">
-								<th style="cursor: pointer"
+								<th width="10%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('publisher desc'); goSearchBookInven();">▲출판사
 								
 							</c:when>
 							<c:otherwise>
-								<th style="cursor: pointer"
+								<th width="10%" style="cursor: pointer"
 									onclick="$('[name=sort]').val('publisher asc'); goSearchBookInven();">출판사
 								
 							</c:otherwise>
@@ -279,7 +279,7 @@ $(document).ready(function(){
 					<c:choose>
 							<c:when test="${param.sort=='is_print desc'}">
 								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('is_print asc'); goSearchBookInven();">▼절판여부
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼절판여부
 								
 							</c:when>
 							<c:when test="${param.sort=='is_print asc'}">
@@ -297,7 +297,7 @@ $(document).ready(function(){
 					<c:choose>
 							<c:when test="${param.sort=='to_number(book_price) desc'}">
 								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('to_number(book_price) asc'); goSearchBookInven();">▼가격
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼가격
 								
 							</c:when>
 							<c:when test="${param.sort=='to_number(book_price) asc'}">
@@ -316,7 +316,7 @@ $(document).ready(function(){
 							<c:when
 								test="${param.sort=='(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) desc'}">
 								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) asc'); goSearchBookInven();">▼수량
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼수량
 							</c:when>
 							<c:when
 								test="${param.sort=='(select s.isbn_cnt from stock_info s where s.isbn13=b.isbn13) asc'}">
@@ -332,7 +332,7 @@ $(document).ready(function(){
 					<c:choose>
 							<c:when test="${param.sort=='12 desc'}">
 								<th style="cursor: pointer"
-									onclick="$('[name=sort]').val('12 asc'); goSearchBookInven();">▼재고위치
+									onclick="$('[name=sort]').val(''); goSearchBookInven();">▼재고위치
 							</c:when>
 							<c:when test="${param.sort=='12 asc'}">
 								<th style="cursor: pointer"

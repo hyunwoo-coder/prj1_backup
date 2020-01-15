@@ -269,7 +269,7 @@ $(document).ready(function(){
 <body><center>
 <h1>[출고 현황]</h1>
 		<form name="bookReleaseSearch" method="post" action="/group4erp/goReleaseList.do">
-		<table class="tab" width="600" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="tab2"  border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
 			<th>지역
 			<td align=left colspan=3>
@@ -313,12 +313,62 @@ $(document).ready(function(){
      	</table>
       	<input type="hidden" name="selectPageNo" value="${invenSearchDTO.selectPageNo}">
       	<input type="hidden" name="searchToday">
+      	<input type="hidden" name="sort">
 		</form>
 
 		<br><br><br>
-		<table class="releaseListTable tab" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+		<table class="releaseListTable tab" width="80%" border=1 bordercolor="#000000" cellpadding=5 align=center>
 			<tr>
-				<th>번호<th>출고번호<th>출고일시<th>주문번호<th>비고
+				<th width="10%">No
+				<c:choose>
+							<c:when test="${param.sort=='r.release_no desc'}">
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val(''); goSearchRelease();">▼출고번호
+							</c:when>
+							<c:when test="${param.sort=='r.release_no asc'}">
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val('r.release_no desc'); goSearchRelease();">▲출고번호
+								
+							</c:when>
+							<c:otherwise>
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val('r.release_no asc'); goSearchRelease();">출고번호
+							</c:otherwise>
+					</c:choose> 
+						
+					<c:choose>
+							<c:when test="${param.sort=='r.release_dt desc'}">
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val(''); goSearchRelease();">▼출고일시
+								
+							</c:when>
+							<c:when test="${param.sort=='r.release_dt asc'}">
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val('r.release_dt desc'); goSearchRelease();">▲출고일시
+								
+							</c:when>
+							<c:otherwise>
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val('r.release_dt asc'); goSearchRelease();">출고일시
+								
+							</c:otherwise>
+					</c:choose> 
+					
+					<c:choose>
+							<c:when test="${param.sort=='3 desc'}">
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val(''); goSearchRelease();">▼주문번호
+							</c:when>
+							<c:when test="${param.sort=='3 asc'}">
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val('3 desc'); goSearchRelease();">▲주문번호
+							</c:when>
+							<c:otherwise>
+								<th width="20%" style="cursor: pointer"
+									onclick="$('[name=sort]').val('3 asc'); goSearchRelease();">주문번호
+							</c:otherwise>
+					</c:choose>
+				<th width="10%">비고
 			<c:forEach items="${requestScope.releaseList}" var="release" varStatus="loopTagStatus">
 	            <tr>
 		          	<td style="cursor:pointer" onClick="goReleaseContentForm(this,${release.all_order_no});" align=center>${releaseListCnt-

@@ -332,7 +332,13 @@
 			from release_info r	
 			where 1=1
 			<include refid="releaseWhere" />
-			order by "release_dt" desc
+			<if test="sort!=null and sort.length() > 0" >
+				order by ${sort}
+			</if>
+			<if test="sort==null or sort==''">
+				order by "release_dt" desc
+			</if>
+			
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
 	

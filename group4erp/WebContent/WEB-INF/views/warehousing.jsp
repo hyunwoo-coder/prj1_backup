@@ -168,6 +168,7 @@ td{
 			document.warehousingSearchForm.reset();
 			$("[name=warehousingSearchForm] [name=selectPageNo]").val(1);
 			$("[name=warehousingSearchForm] [name=rowCntPerPage]").val(10);
+			$("[name=warehousingSearchForm] [name=sort]").val('');
 			goWhSearch();
 			
 		}
@@ -385,6 +386,7 @@ td{
 	  </table>
       <input type="hidden" name="selectPageNo">
       <input type="hidden" name="searchToday">
+      <input type="hidden" name="sort">
       <%-- <input type="hidden" name="order_inven_no" value="${warehousingList.order_inven_no}"> --%>
       </form>
 
@@ -433,15 +435,61 @@ td{
 	
 	
 	<form name="warehousingList" method="post" action="/group4erp/goWarehousingList.do">
-      <table class="tableColor tab" id="thisTable" width="700" border=1 bordercolor="#000000" cellpadding=5 align=center>
+      <table class="tableColor tab" id="thisTable" width="80%" border=1 bordercolor="#000000" cellpadding=5 align=center>
          
          <tr>
-            <th style="cursor:pointer">NO</th>
-            <th style="cursor:pointer">입고일</th>
-            <th style="cursor:pointer">입고번호</th>
-            <th style="cursor:pointer">주문발주번호</th>
-            <th style="cursor:pointer">입고</th>
-          </th>
+            <th width="10%">No</th>
+            
+	           	<c:choose>
+					<c:when test="${param.sort=='wh_no desc'}">
+						<th width="20%" style="cursor: pointer"
+							onclick="$('[name=sort]').val(''); goWhSearch();">▼입고번호
+					</c:when>
+					<c:when test="${param.sort=='wh_no asc'}">
+						<th width="20%" style="cursor: pointer"
+							onclick="$('[name=sort]').val('wh_no desc'); goWhSearch();">▲입고번호
+						
+					</c:when>
+					<c:otherwise>
+						<th width="20%" style="cursor: pointer"
+							onclick="$('[name=sort]').val('wh_no asc'); goWhSearch();">입고번호
+					</c:otherwise>
+				</c:choose> 
+						
+				<c:choose>
+						<c:when test="${param.sort=='wh_dt desc'}">
+							<th width="20%" style="cursor: pointer"
+								onclick="$('[name=sort]').val(''); goWhSearch();">▼입고일
+							
+						</c:when>
+						<c:when test="${param.sort=='wh_dt asc'}">
+							<th width="20%" style="cursor: pointer"
+								onclick="$('[name=sort]').val('wh_dt desc'); goWhSearch();">▲입고일
+							
+						</c:when>
+						<c:otherwise>
+							<th width="20%" style="cursor: pointer"
+								onclick="$('[name=sort]').val('wh_dt asc'); goWhSearch();">입고일
+							
+						</c:otherwise>
+				</c:choose> 
+				
+				<c:choose>
+						<c:when test="${param.sort=='order_inven_no desc'}">
+							<th width="20%" style="cursor: pointer"
+								onclick="$('[name=sort]').val(''); goWhSearch();">▼주문발주번호
+						</c:when>
+						<c:when test="${param.sort=='order_inven_no asc'}">
+							<th width="20%" style="cursor: pointer"
+								onclick="$('[name=sort]').val('order_inven_no desc'); goWhSearch();">▲주문발주번호
+						</c:when>
+						<c:otherwise>
+							<th width="20%" style="cursor: pointer"
+								onclick="$('[name=sort]').val('order_inven_no asc'); goWhSearch();">주문발주번호
+						</c:otherwise>
+				</c:choose>
+            <th width="10%">입고</th>
+          </tr>
          
          
            <c:forEach items="${requestScope.warehousingList}" var="warehousing" varStatus="loopTagStatus">
@@ -449,8 +497,9 @@ td{
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">
 						${warehousingListCnt-(warehousingDTO.selectPageNo*warehousingDTO.rowCntPerPage-warehousingDTO.rowCntPerPage+1+loopTagStatus.index)+1}
 						</td>
-						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_dt}</td>
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_no}</td>
+						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.wh_dt}</td>
+						
 						<td align=center onClick="goWarehousingContent(this,${warehousing.order_inven_no});">${warehousing.order_inven_no}</td>
 						<c:if test="${empty warehousing.wh_dt}">
 							<td align=center> <input type="button" value="입고" onclick="goWhConfirm(${warehousing.wh_no});"></td>
