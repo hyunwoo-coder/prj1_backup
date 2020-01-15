@@ -8,15 +8,26 @@
 <meta charset="UTF-8">
 <title>YES4조 전사적자원관리 시스템 </title>
 <script>
+function CheckLoginInfo(){
+	document.loginInfo.submit();
+}
+
+function CheckLoginInfo(){
+	document.loginInfo.submit();
+	
+}
+alert("비밀번호는 영어,숫자,특수문자 조합으로 해주세요.(글자수는 6~12)")
+check.emp_pwd.focus();
+return false;
 
 
-
+}
 </script>
 
 </head>
 <body>
 <cneter>
-<form name="login_form" method="post" action="/group4erp/loginProc.do">
+<form name="join_form" method="post" action="/group4erp/joinProc.do">
 	<b>사원등록화면</b><br>
 	<table class="tbcss1" cellpadding=5 cellspacing=0>
 		<tr>
@@ -31,7 +42,7 @@
 	</table>
 </form>
 
-<input type="button" name="loginBtn" value="회원등록" onClick="checkLoginInfo();">&nbsp;
+<input type="button" name="joinBtn" value="회원등록" onClick="checkLoginInfo();">&nbsp;
 
 </body>
 </html>
