@@ -40,6 +40,15 @@
 		});
 
 
+		$(document).on('click','#removeApproval', function () {
+
+		    var document_no = $('[name=approvalReqList] [name=test]').find('[name=document_no]').val();
+		    
+		    deleteApproval(document_no);
+		    	
+		});
+
+
 	});
 
 
@@ -74,20 +83,19 @@
 		    htmlCode += "<input type='hidden' name='e_work_no' value="+e_works_no+">"
 		    htmlCode += "<input type='hidden' name='document_no' value="+document_no+">"
 
-		    if(approval_state == '대기중') {
-		    	htmlCode += "<input type='button' value='다시 결재요청하기' id='reApproval' >&nbsp;"
-				htmlCode += "<input type='button' value='삭제' name='deleteApprovalBtn' onClick='deleteApproval('"+document_no+"');'>&nbsp;"
+		    if(approval_state == '대기중' || approval_state == '반려') {
+
+				htmlCode += "<button id ='reApproval' name='reApproval' value='"+document_no+"'>다시 결재요청하기</button>&nbsp;"
+				htmlCode += "<button id = 'removeApproval' name='removeApproval' value='"+document_no+"'>삭제</button>&nbsp;"
 
 			} else if(approval_state=='부서장 승인' || approval_state=='최종 승인') {
 
-			} else if(approval_state == '반려'){	//반려되었을 때 적용
-				//htmlCode += "<input type='button' value='다시 결재요청하기' id='reApproval' onClick='reApprovalProc('"+document_no+"');'>&nbsp;"
-				htmlCode += "<button id ='reApproval' name='reApproval' value='"+document_no+"'>다시결재하기</button>&nbsp;"
-				//htmlCode += "<input type='button' value='삭제' name='deleteApprovalBtn' onClick='deleteApproval('"+document_no+"');' >&nbsp;"
-				htmlCode += "<button id = 'removeApproval' name='removeApproval' value='"+document_no+"'>삭제</button>&nbsp;"
+				
+
 			}
 
-			htmlCode += "<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
+			//htmlCode += "<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
+			htmlCode += "<button id='closeTr' name='closeTr' onClick='closeThisTr(this);'>닫기"
 		    //htmlCode += "</form>"
 			htmlCode += "</tr>"
   
@@ -103,15 +111,45 @@
 	}
 
 	function reApprovalProc(document_no) {
-		alert("다시 결재 요청합니다. "+document_no);
+		//alert("다시 결재 요청합니다. "+document_no);
 
 		location.replace("/group4erp/eventScheduling.do?evnt_no="+document_no);
 
 	}
 
 
-	function deleteApproval(test) {
-		alert("대기중, 반려된 결재 건은 삭제할 수 있습니다.");
+	function deleteApproval(document_no) {
+		//alert("삭제 로직 시작=="+document_no);
+
+		$.ajax({
+			url : "/group4erp/deleteEventApprovalProc.do?document_no="+document_no,				//호출할 서버쪽 URL 주소 설정
+			type : "post",										//전송 방법 설정
+			//data : document_no, //$('[name=approvalReqList] [name=test]').find('[name=document_no]').val(),		//서버로 보낼 파라미터명과 파라미터값을 설정
+			
+			success : function(delCnt) {
+				if(delCnt==1) {
+					alert("이벤트 결재 삭제 성공!");
+					
+					location.replace("/group4erp/viewApprovalList.do");
+				} else if(delCnt==0) {
+					alert("이벤트 결재 삭제 실패");
+
+				} else if(delCnt==-1) {	
+					//alert("업체가 이미 삭제되었습니다!");
+					
+					location.replace("/group4erp/viewApprovalList.do");
+
+				} else {
+					alert("서버쪽 DB 연동 실패!");
+				}
+			}
+
+			//서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+				alert("서버 접속 실패!");
+			}	
+		});
+		
 	}
 		
 </script>
@@ -147,6 +185,7 @@
 		<br><br><br>
 		
 		<span id="approvalReq"><h3>결재 요청한 서류 목록 [ ${approvalCnt} ]</h3></span>
+		
 		<table class="approvalReqList tab" name="approvalReqList" cellpadding="5" cellspacing="5">
 			<tr>
 				<th>순서</th><th>문서일련번호</th><th>결재요청시간</th><th>상태</th><th>비고</th>
@@ -161,7 +200,7 @@
 					</c:otherwise>
 				</c:choose>
 					<td>${approvalReqList.e_works_no}</td>
-					<td>${approvalReqList.document_no}</td>
+					<td>${approvalReqList.document_no}<input type="hidden" name="document_no" value="${approvalReqList.document_no}"></td>
 					<td>${approvalReqList.e_works_req_dt}</td> 
 					<td align="center">${approvalReqList.approval_state}</td> 
 					<td>
@@ -170,9 +209,9 @@
 						</c:if>					
 					</td> 
 				</tr>	
-			</c:forEach>
-		
+			</c:forEach>		
 		</table>
+		
 		<c:if test="${approvalReqList.size()==0}">
 			<h5>결재를 요청한 내역이 없습니다.</h5>
 		</c:if>

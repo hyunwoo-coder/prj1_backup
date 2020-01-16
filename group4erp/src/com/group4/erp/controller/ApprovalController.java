@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -78,14 +79,12 @@ public class ApprovalController {
 		}
 		
 		approvalReqList = this.approvalService.getApprovalReqList(approvalSearchDTO);
-		
-		
+				
 		mav.addObject("approvalCnt", approvalCnt);
 		mav.addObject("approvalReqList", approvalReqList);
 		mav.addObject("approvalResCnt", approvalResCnt);
 		mav.addObject("approvalResList", approvalResList);
 		
-
 		return mav;
 	}
 	
@@ -159,6 +158,7 @@ public class ApprovalController {
 		
 	}
 	
+	
 	@RequestMapping(value="/updateEventApproavalProc.do", 
 			method=RequestMethod.POST, 
 			produces="application/json;charset=UTF-8")
@@ -200,6 +200,49 @@ public class ApprovalController {
 		return approvalUpCnt;
 	}
 	
+	
+	
+	@RequestMapping(value="/deleteEventApprovalProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int deleteEvntApprovalProc(@RequestParam(value="document_no") String document_no, ApprovalDTO approvalDTO, EventDTO eventDTO) {
+	
+		int approvalUpCnt = 0;
+		int evntUpCnt = 0;
+		
+		System.out.println("deleteEvntApprovalProc() 메소드 시작==="+document_no);
+		
+		try {
+			
+			approvalDTO.setDocument_no(document_no);
+			approvalDTO.setE_works_state_cd("0");
+			eventDTO.setEvnt_state_cd("0");
+			
+			approvalUpCnt = this.approvalService.updateApprovalProc(approvalDTO);
+			evntUpCnt = this.marketingService.updateEvntApprovalState(eventDTO);
+			
+			//System.out.println("document_no==="+document_no);
+			
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
+			
+		} catch(Exception e) {
+			System.out.println("deleteEvntApprovalProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return approvalUpCnt;
+	}
+	
+	
+	
+	
 	@RequestMapping(value="/updateDayOffApproavalProc.do", 
 			method=RequestMethod.POST, 
 			produces="application/json;charset=UTF-8")
@@ -233,19 +276,6 @@ public class ApprovalController {
 				dayOffUpCnt = this.hrService.updateDayOffApprovalProc(approvalDTO);
 			}
 
-			
-			//approvalUpCnt = this.approvalService.updateApprovalProc(approvalDTO);
-			//dayOffUpCnt = this.marketingService.updateEvntApprovalState(eventDTO);
-			
-			/*if(upDel.equals("up")) {
-				upDelCnt = this.boardService.updateBoard(boardDTO);
-			}
-			
-			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
-			else {
-				upDelCnt = this.boardService.deleteBoard(boardDTO);
-			} */
-			
 		} catch(Exception e) {
 			System.out.println("updateDayOffApprovalProc() 메소드에서 예외 발생 >>> "+e);
 		}

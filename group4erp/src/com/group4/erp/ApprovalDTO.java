@@ -12,7 +12,7 @@ public class ApprovalDTO {
 	private String e_works_req_dt;
 	private String e_works_res_dt;
 	private String e_works_state_cd;
-	private String e_work_comment;
+	private String e_work_comment="";
 	private String approval_state;
 	private String jikup;
 	private String approval_num;

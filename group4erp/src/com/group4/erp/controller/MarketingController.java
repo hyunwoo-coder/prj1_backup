@@ -250,6 +250,7 @@ public class MarketingController {
 				System.out.println("approvalDTO.getDocument_no=="+approvalDTO.getDocument_no());
 				approvalDTO.setEmp_no(Integer.parseInt(emp_no));
 				System.out.println("approvalDTO.getEmp_no==="+approvalDTO.getEmp_no());
+				approvalDTO.setE_work_comment(eventDTO.getEvnt_comment());
 				
 				insertApprovalCnt = this.approvalService.insertApproval(approvalDTO); 
 			}

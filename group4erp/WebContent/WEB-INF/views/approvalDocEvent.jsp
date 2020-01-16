@@ -23,7 +23,7 @@
 			return;		
 			
 		} 
-		
+		//alert( $('.eventApprovalDoc').serialize() );
 		$.ajax({
 			url : "/group4erp/updateEventApproavalProc.do",				//호출할 서버쪽 URL 주소 설정
 			type : "post",										//전송 방법 설정

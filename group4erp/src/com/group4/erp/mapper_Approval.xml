@@ -14,6 +14,7 @@
 	<select id="getApprovalReqCnt" parameterType="com.group4.erp.ApprovalSearchDTO" resultType="int">
 		select count(*) from e_works_info ap
 		where 1=1
+		and ap.e_works_state_cd != '0'
 		and ap.emp_no = #{emp_no}
 	</select>
 	
@@ -31,6 +32,7 @@
 			ap.e_work_comment "e_work_comment"
 		from e_works_info ap
 		where 1=1
+		and ap.e_works_state_cd != '0'
 		and ap.emp_no = #{emp_no}
 		order by ap.e_works_req_dt
 	</select>
@@ -67,7 +69,7 @@
 			(select c.evnt_state_name from code_ad_state c where c.evnt_state_cd = ap.e_works_state_cd) "approval_state"
 		from e_works_info ap
 		where 1=1
-		and ap.e_works_state_cd in ('1', '6', '7')
+		and ap.e_works_state_cd in (1, 6, 7)
 		and ap.mgr_emp_no = #{emp_no}
 	</select>
 	
