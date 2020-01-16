@@ -55,7 +55,7 @@ public class ApprovalController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewApprovalList");
-		mav.addObject("navigator", "[업무관리]-[문서 결재]");
+		mav.addObject("navigator", "[업무관리] → [문서 결재]");
 		
 		int approvalCnt = 0;
 		int approvalResCnt = 0;
@@ -102,7 +102,7 @@ public class ApprovalController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewApprovalDoc");
-		mav.addObject("navigator", "[업무관리]-[문서 결재]-[결재할 문서 검토]");
+		mav.addObject("navigator", "[업무관리] → [문서 결재] → [결재할 문서 검토]");
 		
 		//String approvalType = approvalDTO.getDocument_no();
 		String approvalDoc = "";

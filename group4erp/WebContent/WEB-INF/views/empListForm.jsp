@@ -109,6 +109,7 @@ $(document).ready(function(){
 		<table class="empListTable tab" cellpadding="5" cellspacing="5">		
 			<thead>
 				<tr>
+	 				<th>번호</th>
 				<c:choose>
 					<c:when test="${param.sort=='emp_no desc'}">
 						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_no asc'); goSearch();">▼사번
@@ -120,7 +121,31 @@ $(document).ready(function(){
 						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_no asc'); goSearch();">사번
 					</c:otherwise>
 				</c:choose>
-					<th>성명<th>부서
+				
+				<c:choose>
+					<c:when test="${param.sort=='emp_name desc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_name asc'); goSearch();">▼성명
+					</c:when>
+					<c:when test="${param.sort=='emp_name asc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_name desc'); goSearch();">▲성명
+					</c:when>
+					<c:otherwise>
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_name asc'); goSearch();">성명
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${param.sort=='dep_no desc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('dep_no asc'); goSearch();">▼부서명
+					</c:when>
+					<c:when test="${param.sort=='dep_no asc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('dep_no desc'); goSearch();">▲부서명
+					</c:when>
+					<c:otherwise>
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('dep_no asc'); goSearch();">부서명
+					</c:otherwise>
+				</c:choose>
+					
 				<c:choose>
 					<c:when test="${param.sort=='jikup_cd desc'}">
 						<th style="cursor:pointer" onclick="$('[name=sort]').val('jikup_cd asc'); goSearch();">▼직급
@@ -135,7 +160,8 @@ $(document).ready(function(){
 			</thead>
 			<tbody>
 			<c:forEach items="${requestScope.getEmpBoardList}" var="empList" varStatus="loopTagStatus">
-				<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">	
+				<tr style="cursor:pointer" onClick="goEmpContentForm(${empList.emp_no});">
+					<td align=center>${getEmpBoardListCnt - empList.RNUM +1}</td>	<!-- <input type="hidden" value="${dep_no}">  -->	
 					<td align=center>${empList.emp_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
 					<td align=center>${empList.emp_name}</td>
 					<td align=center>${empList.dep_name}</td>

@@ -2,6 +2,7 @@ package com.group4.erp;
 
 public class EventDTO {
 
+	private String RNUM;
 	private String evnt_no;
 	private String emp_name;
 	private String jikup;
@@ -20,8 +21,14 @@ public class EventDTO {
 	private String evnt_state_cd;
 	private String document_no;
 
-	
-	
+
+	public String getRNUM() {
+		return RNUM;
+	}
+
+	public void setRNUM(String rNUM) {
+		RNUM = rNUM;
+	}
 	public String getDocument_no() {
 		return document_no;
 	}
@@ -37,7 +44,6 @@ public class EventDTO {
 	public void setEvnt_state_cd(String evnt_state_cd) {
 		this.evnt_state_cd = evnt_state_cd;
 	}
-
 
 	public String getReg_dt() {
 		return reg_dt;

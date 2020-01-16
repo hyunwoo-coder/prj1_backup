@@ -40,7 +40,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewCorpList");
-		mav.addObject("navigator", "[회계관리]-[거래처 현황]");
+		mav.addObject("navigator", "[회계관리] → [거래처 현황]");
 		
 		String corpBusiness = "";
 		
@@ -100,7 +100,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "goInsertCorpPage");
-		mav.addObject("navigator", "[회계관리]-[거래처등록/삭제]");
+		mav.addObject("navigator", "[회계관리] → [거래처등록/삭제]");
 		
 		List<CorporationDTO> business_area = this.accountService.getBusiness_area();
 		
@@ -208,7 +208,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTranSpecList");
-		mav.addObject("navigator", "[회계관리]-[거래 내역]");
+		mav.addObject("navigator", "[회계관리] → [거래 내역]");
 		
 		try {
 			int corp_tran_cnt = this.accountService.getCorpOrderCnt(corpSearchDTO);
@@ -236,7 +236,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTranSpecInfo");
-		mav.addObject("navigator", "[회계관리] - [거래내역 조회] - [거래명세서 발급]");
+		mav.addObject("navigator", "[회계관리] → [거래내역 조회] → [거래명세서 발급]");
 		
 		try {
 			
@@ -261,7 +261,7 @@ public class AccountController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewTranSpecIssueList");
-		mav.addObject("navigator", "[회계관리] - [거래내역 조회] - [거래명세서 발급 내역]");
+		mav.addObject("navigator", "[회계관리] → [거래내역 조회] → [거래명세서 발급 내역]");
 		
 		try {
 			
