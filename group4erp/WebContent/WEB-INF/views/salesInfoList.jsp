@@ -203,20 +203,20 @@
 		</tr>
 		
 		<tr>
-			<td>분야별 누적 주문
+			<td align="center">분야별 누적 주문
 				<div id="orderInfoChart" style="width: 700px; height: 300px;"> </div>
 			</td>
-			<td>분야별 누적 주문
+			<td align="center">분야별 누적 주문
 				<div id="corpOrderInfoChart" style="width: 700px; height: 300px;"> </div>
 			</td>
 		</tr>
 		
 		<tr>
-			<td>일자별 누적 주문
+			<td align="center">일자별 누적 주문
 				<div id="dailyOrderChart" style="width: 600px; height: 300px;"> </div>
 			</td>
 			
-			<td>일자별 누적 주문
+			<td align="center">일자별 누적 주문
 				<div id="dailyCorpOrderChart" style="width: 600px; height: 300px;"> </div>
 			</td>
 		</tr>

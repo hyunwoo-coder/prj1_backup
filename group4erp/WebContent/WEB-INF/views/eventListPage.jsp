@@ -126,6 +126,7 @@
 		$('[name=searchEvntForm] [name=sort]').val("1");
 		$('[name=searchEvntForm] [name=selectPageNo]').val("1");
 		$('[name=searchEvntForm] [name=rowCntPerPage]').val("15");
+		$("[name=searchEvntForm] [name=sort]").val('');
 		
 		goSearch();
 	}
@@ -279,7 +280,7 @@
     <input type="hidden" name="selectPageNo">
     <input type="hidden" name="sort">
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
-		<table border=0>
+		<table class="searchEvntTable tab" border="0" cellpadding="5" cellspacing="5">
 			<tr>
 	    		<td align="left">
 	    			
@@ -289,7 +290,7 @@
 	            </td>
 	        </tr>
 		</table><br>
-		<table name="searchEvntTable">
+		<table class="searchEvntTable tab" name="searchEvntTable" cellpadding="5" cellspacing="5">
 			<!-- <tr>
 				<td>[행사별] </td><td><input type="checkbox" name="allOrMine" value='a'>전체보기 &nbsp;
 									<input type="checkbox" name="allOrMine" value='m'>담당 행사만 보기</td>
@@ -323,8 +324,16 @@
 	</form>
 	
 	<input type="button" value="이벤트 신청" onClick="reserveEvent();">&nbsp;
-	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br>
-	<div id="comment" style="color:red;">대기중인 이벤트 행사만 삭제할 수 있습니다.</div>
+	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br><br>
+	
+	<table name="comment" cellpadding="5" cellspacing="5">
+		<tr>
+			<td align="left" style="color:red;">
+				<h5>* 대기중인 이벤트 행사만 삭제할 수 있습니다.<br>
+				 * 이벤트 행사는 최소 1달 전에 신청하셔야 합니다.</h5>
+			</td>
+		</tr>
+	</table>
 	
 	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 	<table>
@@ -358,7 +367,7 @@
 				<th>번호</th>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 asc'); goSearch();  "> ▼ 이벤트 번호</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 이벤트 번호</th>
 					</c:when>
 					<c:when test="${param.sort=='1 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('1 desc'); goSearch(); "> ▲ 이벤트 번호</th>
@@ -370,7 +379,7 @@
 				
 				<c:choose>
 					<c:when test="${param.sort=='3 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 asc'); goSearch();  "> ▼ 이벤트 종류</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 이벤트 종류</th>
 					</c:when>
 					<c:when test="${param.sort=='3 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('3 desc'); goSearch(); "> ▲ 이벤트 종류</th>
@@ -382,7 +391,7 @@
 				
 				<c:choose>
 					<c:when test="${param.sort=='4 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 asc'); goSearch();  "> ▼ 타이틀</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 타이틀</th>
 					</c:when>
 					<c:when test="${param.sort=='4 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('4 desc'); goSearch(); "> ▲ 타이틀</th>
@@ -394,7 +403,7 @@
 				
 				<c:choose>
 					<c:when test="${param.sort=='7 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 asc'); goSearch();  "> ▼ 시작일</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 시작일</th>
 					</c:when>
 					<c:when test="${param.sort=='7 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('7 desc'); goSearch(); "> ▲ 시작일</th>
@@ -406,7 +415,7 @@
 				
 				<c:choose>
 					<c:when test="${param.sort=='8 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 asc'); goSearch();  "> ▼ 종료일</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 종료일</th>
 					</c:when>
 					<c:when test="${param.sort=='8 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('8 desc'); goSearch(); "> ▲ 종료일</th>
@@ -418,7 +427,7 @@
 				
 				<c:choose>
 					<c:when test="${param.sort=='9 desc'}">
-						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 asc'); goSearch();  "> ▼ 상태</th>
+						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 상태</th>
 					</c:when>
 					<c:when test="${param.sort=='9 asc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val('9 desc'); goSearch(); "> ▲ 상태</th>

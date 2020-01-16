@@ -15,11 +15,13 @@ public class EventDTO {
 	private String evnt_start_dt;
 	private String evnt_end_dt;
 	private String evnt_stat;
-	private String evnt_comment;
+	private String evnt_comment="";
 	private String atchd_data;
 	private String reg_dt;
 	private String evnt_state_cd;
 	private String document_no;
+	private String mgr_name;
+	
 
 
 	public String getRNUM() {
@@ -28,6 +30,13 @@ public class EventDTO {
 
 	public void setRNUM(String rNUM) {
 		RNUM = rNUM;
+	}
+	public String getMgr_name() {
+		return mgr_name;
+	}
+
+	public void setMgr_name(String mgr_name) {
+		this.mgr_name = mgr_name;
 	}
 	public String getDocument_no() {
 		return document_no;

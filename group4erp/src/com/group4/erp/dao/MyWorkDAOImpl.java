@@ -143,6 +143,16 @@ public class MyWorkDAOImpl implements MyWorkDAO{
 		return insertDayoffJoin;
 	}
 
+	public int getUpDayoffInfoE(HrDayoffJoinDTO dayoffJoinDTO) {
+		
+		int UpExceptionDayoffInfo = this.sqlSession.update(
+				"com.group4.erp.dao.myWorkDAO.upExceptionDayoffInfo"
+				,dayoffJoinDTO
+				);
+		
+		return UpExceptionDayoffInfo;
+	}
+
 	public int getUpDayoffInfo(HrDayoffJoinDTO dayoffJoinDTO) {
 		
 		int updateDayoffInfo = this.sqlSession.update(

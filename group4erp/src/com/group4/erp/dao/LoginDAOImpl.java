@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.group4.erp.EmpApprovalCheckDTO;
 import com.group4.erp.EmployeeDTO;
 
 
@@ -43,6 +44,21 @@ public class LoginDAOImpl implements LoginDAO {
 		EmployeeDTO loginEmpInfo = this.sqlSession.selectOne("com.group4.erp.dao.loginDAO.getLoginEmpInfo", emp_id);
 		
 		return loginEmpInfo;
+	}
+	
+	public EmpApprovalCheckDTO getApprovalCheck(String jumin) {
+		
+		System.out.println("DAODAODAO");
+		
+		EmpApprovalCheckDTO loginInfo = this.sqlSession.selectOne(
+				"com.group4.erp.dao.loginDAO.getApprovalCheck"
+				,jumin
+				);
+		
+		System.out.println("DAODAODAOoutoutout");
+		
+		return loginInfo;
+		
 	}
 
 }

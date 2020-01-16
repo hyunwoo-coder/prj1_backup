@@ -36,6 +36,15 @@
 </style>
 <script>
 	$(document).ready(function(){
+
+		setTableTrBgColor(
+				"businessTripListTable",	//테이블 class 값
+				"${headerColor}",			//헤더 tr 배경색
+				"${oddTrColor}",		//홀수행 배경색
+				"${evenTrColor}",	//짝수행 배경색
+				"${mouseOverColor}"			//마우스 온 시 배경색
+		);
+		
 		$("#datepicker3").datepicker({
 			dateFormat: 'yy-mm-dd'
 		});
@@ -90,11 +99,10 @@
 		$("#keyword").val(keyword);
 		$("#startTime").val(outsideTime);
 		$("#endTime").val(comebackTime);
-		
-
 
 		document.getBusinessTripListSearchForm.submit();
 	}
+	
 	function goAllSearch(){
 		document.getBusinessTripListSearchForm.reset();
 		//$("#searchForm").submit()
@@ -106,7 +114,7 @@
 	function goReset(){
 		document.getBusinessTripListSearchForm.reset();
 	}
-	//,travel_payment${businessList.work_outside_seq}
+	
 																					
 	function goBusinessTripContentsForm(work_outside_seq,emp_no,travel_payment,dep_no,mgr_no,jikup){
 			if( 
@@ -159,6 +167,7 @@
          		<input type="checkbox" name='payment' class="payment" value="N">반려
      		</td>
      	</tr>
+
       	<tr>
       		<th>검색조건</th>
       		<td >
@@ -171,8 +180,11 @@
 					<option value="travel_payment">결제</option>
 			</select>
 				<span id="searchText">
-					<input type="text" id="searchKeyword">&nbsp;&nbsp;
+					<input type="text" id="searchKeyword">&nbsp;&nbsp;<input type="button" value=" 검색 " onClick="goSearch();">		
+				
+&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goAllSearch();">
 				</span>
+
 			</td>
 		</tr>
 		</table>
@@ -183,7 +195,6 @@
 				&nbsp;&nbsp;
 				<input type="button" value="초기화" onClick="goReset();">
 			
-		
 	 <table border=0 width=700>
 	 	<tr>
 	    	<td align=right>
@@ -214,12 +225,51 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>성명</th>
-					<th>직급</th>
-					<th>부서명</th>
+					
+			
+					<c:choose>
+						<c:when test="${param.sort=='3 desc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('outside_start_time desc'); goSearch();">▼성명</th>
+						</c:when>
+						<c:when test="${param.sort=='3 asc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('3 desc'); goSearch();">▲성명</th>
+						</c:when>
+						<c:otherwise>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('3 asc'); goSearch();">성명</th>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${param.sort=='c.jikup_cd desc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('outside_start_time desc'); goSearch();">▼직급</th>
+						</c:when>
+						<c:when test="${param.sort=='c.jikup_cd asc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('c.jikup_cd desc'); goSearch();">▲직급</th>
+						</c:when>
+						<c:otherwise>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('c.jikup_cd asc'); goSearch();">직급</th>
+						</c:otherwise>
+					</c:choose>
+					
+					
+
+					<c:choose>
+						<c:when test="${param.sort=='4 desc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('outside_start_time desc'); goSearch();">▼부서명</th>
+						</c:when>
+						<c:when test="${param.sort=='4 asc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('4 desc'); goSearch();">▲부서명</th>
+						</c:when>
+						<c:otherwise>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goSearch();">부서명</th>
+						</c:otherwise>
+					</c:choose>
+
+					
+	
 					<c:choose>
 						<c:when test="${param.sort=='7 desc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('7 asc'); goSearch();">▼출발 날짜</th>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('outside_start_time desc'); goSearch();">▼출발 날짜</th>
 						</c:when>
 						<c:when test="${param.sort=='7 asc'}">
 							<th style="cursor:pointer" onclick="$('[name=sort]').val('7 desc'); goSearch();">▲출발 날짜</th>
@@ -231,7 +281,7 @@
 					
 					<c:choose>
 						<c:when test="${param.sort=='8 desc'}">
-							<th style="cursor:pointer" onclick="$('[name=sort]').val('8 asc'); goSearch();">▼복귀 예정 날짜</th>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('outside_start_time desc'); goSearch();">▼복귀 예정 날짜</th>
 						</c:when>
 						<c:when test="${param.sort=='8 asc'}">
 							<th style="cursor:pointer" onclick="$('[name=sort]').val('8 desc'); goSearch()">▲복귀 예정 날짜</th>
@@ -240,8 +290,32 @@
 							<th style="cursor:pointer" onclick="$('[name=sort]').val('8 asc'); goSearch();">복귀 예정 날짜</th>
 						</c:otherwise>
 					</c:choose>
-					<th>담당자</th>
-					<th>결제</th>
+
+					
+					<c:choose>
+						<c:when test="${param.sort=='9 desc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('outside_start_time desc'); goSearch();">▼담당자</th>
+						</c:when>
+						<c:when test="${param.sort=='9 asc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('9 desc'); goSearch()">▲담당자</th>
+						</c:when>
+						<c:otherwise>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('9 asc'); goSearch();">담당자</th>
+						</c:otherwise>
+					</c:choose>
+					
+					
+					<c:choose>
+						<c:when test="${param.sort=='10 desc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('outside_start_time desc'); goSearch();">▼결재</th>
+						</c:when>
+						<c:when test="${param.sort=='10 asc'}">
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('10 desc'); goSearch()">▲결재</th>
+						</c:when>
+						<c:otherwise>
+							<th style="cursor:pointer" onclick="$('[name=sort]').val('10 asc'); goSearch();">결재</th>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</thead>
 			<tbody>
@@ -289,7 +363,7 @@
 			</tbody>
 		</table>
 		<br>
-		<input type="button" value="등록" onClick="goBusinessTripForm();">	
+		<input type="button" value="출장 신청" onClick="goBusinessTripForm();">	
 		<br><br>
 		
 		<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>

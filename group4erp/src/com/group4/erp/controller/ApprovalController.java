@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -77,17 +78,13 @@ public class ApprovalController {
 			approvalResList = this.approvalService.getApprovalResList(approvalSearchDTO);
 		}
 		
-		
-		
 		approvalReqList = this.approvalService.getApprovalReqList(approvalSearchDTO);
-		
-		
+				
 		mav.addObject("approvalCnt", approvalCnt);
 		mav.addObject("approvalReqList", approvalReqList);
 		mav.addObject("approvalResCnt", approvalResCnt);
 		mav.addObject("approvalResList", approvalResList);
 		
-
 		return mav;
 	}
 	
@@ -161,11 +158,12 @@ public class ApprovalController {
 		
 	}
 	
+	
 	@RequestMapping(value="/updateEventApproavalProc.do", 
 			method=RequestMethod.POST, 
 			produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public int updateEvntApprovalProc(ApprovalDTO approvalDTO, EventDTO eventDTO, String approvalYn, String document_no) {
+	public int updateEvntApprovalProc(ApprovalDTO approvalDTO, EventDTO eventDTO, String approvalYn, String document_no, String e_work_comment) {
 	
 		int approvalUpCnt = 0;
 		int evntUpCnt = 0;
@@ -174,9 +172,12 @@ public class ApprovalController {
 			
 			System.out.println("approvalYn==="+approvalYn);
 			System.out.println("document_no==="+document_no);
+			System.out.println("반려사유==="+e_work_comment);
 			
 			approvalDTO.setE_works_state_cd(approvalYn);
 			approvalDTO.setDocument_no(document_no);
+			approvalDTO.setE_work_comment(e_work_comment);
+			
 			eventDTO.setEvnt_state_cd(approvalYn);
 			eventDTO.setEvnt_no(document_no);
 
@@ -193,11 +194,54 @@ public class ApprovalController {
 			} */
 			
 		} catch(Exception e) {
-			System.out.println("deleteCorpProc() 메소드에서 예외 발생 >>> "+e);
+			System.out.println("updateEvntApprovalProc() 메소드에서 예외 발생 >>> "+e);
 		}
 				
 		return approvalUpCnt;
 	}
+	
+	
+	
+	@RequestMapping(value="/deleteEventApprovalProc.do", 
+			method=RequestMethod.POST, 
+			produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public int deleteEvntApprovalProc(@RequestParam(value="document_no") String document_no, ApprovalDTO approvalDTO, EventDTO eventDTO) {
+	
+		int approvalUpCnt = 0;
+		int evntUpCnt = 0;
+		
+		System.out.println("deleteEvntApprovalProc() 메소드 시작==="+document_no);
+		
+		try {
+			
+			approvalDTO.setDocument_no(document_no);
+			approvalDTO.setE_works_state_cd("0");
+			eventDTO.setEvnt_state_cd("0");
+			
+			approvalUpCnt = this.approvalService.updateApprovalProc(approvalDTO);
+			evntUpCnt = this.marketingService.updateEvntApprovalState(eventDTO);
+			
+			//System.out.println("document_no==="+document_no);
+			
+			/*if(upDel.equals("up")) {
+				upDelCnt = this.boardService.updateBoard(boardDTO);
+			}
+			
+			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+			else {
+				upDelCnt = this.boardService.deleteBoard(boardDTO);
+			} */
+			
+		} catch(Exception e) {
+			System.out.println("deleteEvntApprovalProc() 메소드에서 예외 발생 >>> "+e);
+		}
+				
+		return approvalUpCnt;
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/updateDayOffApproavalProc.do", 
 			method=RequestMethod.POST, 
@@ -219,7 +263,7 @@ public class ApprovalController {
 			
 			String confirm = "";
 			
-			if(approvalYn=="7" || approvalYn.equals("7")) {	//승인되었을 때				
+			if(approvalYn=="7" || approvalYn.equals("7") || approvalYn=="5" || approvalYn.equals("5")) {	//승인되었을 때				
 				confirm="Y";
 				approvalDTO.setConfirm(confirm);
 				approvalUpCnt = this.approvalService.updateApprovalProc(approvalDTO);
@@ -232,19 +276,6 @@ public class ApprovalController {
 				dayOffUpCnt = this.hrService.updateDayOffApprovalProc(approvalDTO);
 			}
 
-			
-			//approvalUpCnt = this.approvalService.updateApprovalProc(approvalDTO);
-			//dayOffUpCnt = this.marketingService.updateEvntApprovalState(eventDTO);
-			
-			/*if(upDel.equals("up")) {
-				upDelCnt = this.boardService.updateBoard(boardDTO);
-			}
-			
-			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
-			else {
-				upDelCnt = this.boardService.deleteBoard(boardDTO);
-			} */
-			
 		} catch(Exception e) {
 			System.out.println("updateDayOffApprovalProc() 메소드에서 예외 발생 >>> "+e);
 		}

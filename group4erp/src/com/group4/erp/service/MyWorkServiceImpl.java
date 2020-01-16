@@ -121,11 +121,16 @@ public class MyWorkServiceImpl implements MyWorkService{
 		}
 		
 		int insertDayoffJoin = this.myWorkDAO.getDayoffJoinCnt(dayoffJoinDTO);
-		
-		int updateDayoffInfo = this.myWorkDAO.getUpDayoffInfo(dayoffJoinDTO);
-		if(updateDayoffInfo == 0) {
-			return -2;
+		int dayoff_cd = dayoffJoinDTO.getDayoff_cd();
+		if(dayoff_cd==3 || dayoff_cd==4 || dayoff_cd==6) {
+			int UpExceptionDayoffInfo = this.myWorkDAO.getUpDayoffInfoE(dayoffJoinDTO);
+			if(UpExceptionDayoffInfo == 0 ) return -3;
+		}else {
+			int updateDayoffInfo = this.myWorkDAO.getUpDayoffInfo(dayoffJoinDTO);
+			if(updateDayoffInfo == 0) return -2;
 		}
+		
+		
 		
 		return insertDayoffJoin;
 	}

@@ -57,10 +57,6 @@ public class AccountController {
 			}
 		
 		}
-		
-		//corpSearchDTO.setCorp_business_area(corpBusiness);
-		//System.out.println(corpBusiness);
-		
 		try {
 			
 			int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);

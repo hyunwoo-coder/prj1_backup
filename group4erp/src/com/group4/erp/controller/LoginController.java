@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.group4.erp.EmpApprovalCheckDTO;
 import com.group4.erp.EmployeeDTO;
 import com.group4.erp.service.LoginService;
 
@@ -91,26 +92,51 @@ public class LoginController {
 		
 		return mav;
 	}
+<<<<<<< HEAD
+	
+	/*@RequestMapping(value="/joininsert.do")
+	public ModelAndView joinMembership() {
+=======
 	*/
 	@RequestMapping(value="/goMainPage.do")
 	public ModelAndView goMainPage(HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
+
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "mainPage");
 		return mav;
 	}
 	
-	@RequestMapping(value="/joininsert.do")
-	public ModelAndView joinMembership() {
-		System.out.println("사원등록 시작");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("join.jsp");
+	@RequestMapping(value="/checkApprovalProc.do")
+	@ResponseBody
+	public EmpApprovalCheckDTO joinMembership(
+			EmpApprovalCheckDTO empCheckDTO
+			,@RequestParam(value="jumin_num") String jumin
+			) {
+		System.out.println("승인 여부 확인 시작");
 		
-		return mav;
+		EmpApprovalCheckDTO loginInfo = null;
+		
+		try {
+			
+			loginInfo = this.loginService.getApprovalCheck(jumin);
+			
+			String checkemp = loginInfo.getEmp_no()+"";
+			if(checkemp.length()<6) {
+				loginInfo.setCheckApproval("미승인");
+			}else {
+				loginInfo.setCheckApproval("승인");
+			}
+			
+		}catch(Exception e) {
+			System.out.println("<승인 여부 확인 실패>");
+			System.out.println("예외 발생 =>"+e);
+		}
+		
+		return loginInfo;
 	}
-	
-	
+
 	
 	@RequestMapping(value="/logout.do")
 	public ModelAndView logout(
@@ -128,7 +154,7 @@ public class LoginController {
 		System.out.println("<접속성공> [접속 URI]-> /logout.do [호출 메소드]->LoginController.logout() \n");
 		
 		return mav;
-	}
+	} 
 	
 	
 }

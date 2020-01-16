@@ -94,7 +94,12 @@
 			      ,order_inven_no||'' as "order_inven_no"
 			from warehousing_info w
 			where 1=1 <include refid="warehousingList"></include>  
-			order by wh_dt desc
+			<if test="sort!=null and sort.length()>0">
+	 			order by ${sort}
+	 		</if>
+	 		<if test="sort==null or sort.length()==0">
+	 			order by wh_dt desc
+	 		</if>
 		) zzz ) where <![CDATA[ RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1} and RNUM<=${selectPageNo*rowCntPerPage} ]]>
 	</select>
 	
@@ -103,7 +108,7 @@
 	</select>
 	
 	<select id="getBranch" parameterType="com.group4.erp.WarehousingSearchDTO" resultType="java.util.HashMap">
-		select branch_name as "branch" from code_branch
+		select branch_name as "branch" from code_branch order by 1
 	</select>
 	
 	

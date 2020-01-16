@@ -19,7 +19,7 @@
 		background-repeat:no-repeat; 
 		background-size:cover;
 		background-attachment:fixed; " >
-	<tr height="40">
+	<tr height="35">
 		<td align="center"><%@ include file ="/WEB-INF/views/headerMenu.jsp" %></td>
 	</tr>
 	<tr class="main" valign="top" height="700px" >
