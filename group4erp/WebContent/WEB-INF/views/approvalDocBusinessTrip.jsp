@@ -57,8 +57,8 @@
 		<table cellpadding="5" cellspacing="5" width="700" align="center">
 		
 		<tr>
-			<td align="right" ><table name="jikup" border="1" cellpadding="5" cellspacing="0"><tr><td width="90" align="center">기안자 </td><td  width="90" align="center">부서장</td><td width="90" align="center">대표이사 </td> </tr> 
-														<tr><td align="center">${myDayOffApplyInfo.emp_name} </td><td align="center">
+			<td align="right" ><table name="jikup" border="1" cellpadding="5" cellspacing="0"><tr><td width="90" align="center">기안자 </td><td  width="90" align="center">부서장</td> </tr> 
+														<tr><td align="center">${myBTripApplyInfo.emp_name} </td><td align="center">
 																											<% String mgr_no = (String)session.getAttribute("mgr_emp_no"); 
 																													String emp = (String)session.getAttribute("emp_id");
 																													System.out.println("mgr_no==="+mgr_no);
@@ -71,43 +71,35 @@
 																												<% } else if(mgr_no==null && ceo_no!=null) { %>
 																													
 																													
-																													<label>${myDayOffApplyInfo.mgr_name}</label>
+																													<label>${myBTripApplyInfo.mgr_name}</label>
 																												
 																												<% } %>
 														
 																											</td>
-																											
-																											
-																											<td>
-																												<% if(mgr_no == null) { %>
-																											
-																													<input type="radio" name="approvalYn" value="5">승인 &nbsp;
-																													<input type="radio" name="approvalYn" value="6">반려 &nbsp; 
-																												<% } %>
-																											</td></tr></table>						
+																											</tr></table>						
 		</tr>
 			
 		<tr>
 			<table class="documentTable tab" name="documentTable" cellpadding=5" cellspacing="5" width="600">		
 				<tr>
-					<td width="100">신청번호</td><td colspan="3">${myDayOffApplyInfo.dayoff_apply_no}
-															<input type="hidden" name="document_no" value="${myDayOffApplyInfo.dayoff_apply_no}">
+					<td width="100">신청번호</td><td colspan="3">${myBTripApplyInfo.work_outside_seq}
+															<input type="hidden" name="document_no" value="${myBTripApplyInfo.work_outside_seq}">
 					</td>
 				</tr>
 				<tr>
-					<td width="100">기안자</td><td widht="200">직급 : ${myDayOffApplyInfo.jikup}&nbsp;  </td><td width="200" >성명 : ${myDayOffApplyInfo.emp_name}  </td>
+					<td width="100">기안자</td><td widht="200">직급 : ${myBTripApplyInfo.jikup}&nbsp;  </td><td width="200" >성명 : ${myBTripApplyInfo.emp_name}  </td>
 				</tr>
 				<!-- <tr>
 					<td width="100">신청 휴가</td ><td colspan="3">${myDayOffApplyInfo.dayoff_category}</td>
 				</tr>	 -->		
 				<tr>
-					<td>출장 기간</td><td colspan="2">${myDayOffApplyInfo.start_dayoff} ~ ${myDayOffApplyInfo.end_dayoff} ${myDayOffApplyInfo.using_dayoff }일간</td>
+					<td>출장 기간</td><td colspan="2">${myBTripApplyInfo.outside_start_time} ~ ${myBTripApplyInfo.outside_end_time} </td>
 				</tr>
 				<tr>
-					<td>목적지</td><td colspan="2">  파주출판단지</td>
+					<td>목적지</td><td colspan="2">${myBTripApplyInfo.destination}</td>
 				</tr>
 				<tr>
-					<td>사유</td><td colspan="2">  ***</td>
+					<td>사유</td><td colspan="2">${myBTripApplyInfo.work_outside_reason}</td>
 				</tr>
 				<tr>
 					<td width="100">메모</td><td colspan="3"><textarea name="e_work_comment" cols="40" rows="10" placeholder="반려할 시 사유를 기입해주세요."></textarea></td>

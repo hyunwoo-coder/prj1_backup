@@ -28,7 +28,6 @@ import com.group4.erp.service.AccountService;
 @Controller
 public class AccountController {
 	
-	//AccountService accountService;
 	@Autowired
 	AccountService accountService;
 	
@@ -41,13 +40,11 @@ public class AccountController {
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewCorpList");
 		mav.addObject("navigator", "[회계관리]-[거래처 현황]");
-
 		
 		try {
 			
 			int corpListCnt = this.accountService.getCorpListCnt(corpSearchDTO);
-			
-			
+						
 			if(corpListCnt >0 ) {
 				int selectPageNo = corpSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
 				int rowCntPerPage = corpSearchDTO.getRowCntPerPage();	//한 화면에 보여지는 행의 개수 구하기
@@ -71,7 +68,6 @@ public class AccountController {
 		
 		return mav;
 	}
-	
 	
 	
 	@RequestMapping(value="/goInsertCorpPage.do")
@@ -166,18 +162,10 @@ public class AccountController {
 		try {
 
 			upCnt = this.accountService.updateCorpInfo(corpDTO);
-			
-			/*if(upDel.equals("up")) {
-				upDelCnt = this.boardService.updateBoard(boardDTO);
-			}
-			
-			//만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
-			else {
-				upDelCnt = this.boardService.deleteBoard(boardDTO);
-			} */
+			System.out.println("updateCorpProc() 메소드 실행 & upCnt=="+upCnt);
 			
 		} catch(Exception e) {
-			System.out.println("deleteCorpProc() 메소드에서 예외 발생 >>> "+e);
+			System.out.println("updateCorpProc() 메소드에서 예외 발생 >>> "+e);
 		}
 				
 		return upCnt;

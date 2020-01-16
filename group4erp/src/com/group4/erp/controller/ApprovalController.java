@@ -118,10 +118,10 @@ public class ApprovalController {
 		String ceo_name = (String)session.getAttribute("ceo_name");
 		
 		int my_emp_no = Integer.parseInt(emp_no);
-		System.out.println("emp_no==="+my_emp_no);
-	
+		System.out.println("emp_no==="+my_emp_no);	
 				
 		if(document_no.indexOf("EV") >=0 ) {
+			System.out.println("이벤트 결재화면 보기");
 			approvalDoc="EV";
 			tableName = "event_info";
 			eventSearchDTO.setSearchKeyword(document_no);
@@ -134,6 +134,8 @@ public class ApprovalController {
 			EventDTO myEventInfo = this.marketingService.getMyEventInfoApproval(document_no);
 			mav.addObject("approvalInfoList", myEventInfo);
 			mav.addObject("approvalCategory", "이벤트 행사 신청 기획안입니다.");
+			
+			mav.addObject("approvalDoc", approvalDoc);
 			
 			
 		} else if(document_no.indexOf("DO") >=0) {
@@ -156,8 +158,11 @@ public class ApprovalController {
 			mav.addObject("myDayOffApplyInfo", myDayOffApplyInfo);
 			mav.addObject("approvalCategory", "휴가 신청 결재 바랍니다.");
 			
+			mav.addObject("approvalDoc", approvalDoc);
+			
 		} else if(document_no.indexOf("BT") >=0) {
 			System.out.println("출장 신청 결재화면 보기");
+			approvalDoc = "BT";
 			
 			String doc_num = document_no.substring(3);
 			
@@ -165,13 +170,10 @@ public class ApprovalController {
 			
 			System.out.println("my_dayoff_approval_no==="+my_bTrip_approval_no);
 		
-			approvalDoc = "BT";
+			
 			//tableName = "emp_day_off_apply";
 			
 			BusinessTripDTO myBTripApplyInfo = this.workService.getMyBTripApproval(my_bTrip_approval_no);
-			
-			//System.out.println("myDayOffApplyInfo.getDayoff_category()==="+myDayOffApplyInfo.getDayoff_category());
-			//System.out.println("myDayOffApplyInfo.getEmp_name()==="+myDayOffApplyInfo.getEmp_name());
 			
 			mav.addObject("myBTripApplyInfo", myBTripApplyInfo);
 			mav.addObject("approvalCategory", "출장 신청 결재 바랍니다.");

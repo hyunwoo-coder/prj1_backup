@@ -19,7 +19,7 @@
 	</c:if>
 		
 	<c:if test="${approvalDoc.equals('BT') }"> <!-- 출장신청 결재 -->
-		<%--<%@ include file="/WEB-INF/views/approvalDocBusTrip.jsp" %> --%>
+		<%@ include file="/WEB-INF/views/approvalDocBusinessTrip.jsp" %>
 	</c:if>
 		
 	<c:if test="${approvalDoc.equals('PC') }"> <!-- 급여대장 결재 -->
