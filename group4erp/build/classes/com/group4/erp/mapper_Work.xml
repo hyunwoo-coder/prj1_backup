@@ -155,7 +155,7 @@
    				 		,#{outside_end_time}
    				 		,'W'
    				 		,'N'
-   				 		)
+   				 )
 	</insert>
 	 
 	<update id="deleteBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
@@ -174,5 +174,30 @@
 		update work_outside_info set travel_payment= 'Y'
 												where work_outside_seq=#{work_outside_seq}
 	</update>
+	
+	
+	<select id="searchMyBTripApplyNo" parameterType="com.group4.erp.BusinessTripDTO" resultType="String">
+		select work_outside_seq from work_outside_info
+		where 1=1
+		and emp_no=#{emp_no}
+		and outside_start_time=#{outside_start_time}
+		and outside_end_time=#{outside_end_time}
+		and travel_payment='W' 
+	</select>
+	
+	<select id="getMyBTripApproval" parameterType="int" resultType="com.group4.erp.BusinessTripDTO">
+		select
+			work_outside_seq "work_outside_seq",
+			emp_no "emp_no",
+			destination "destination",
+			work_outside_reason "work_outside_reason",
+			outside_start_time "outside_start_time",
+			outside_end_time "outside_end_time",
+			travel_payment "travel_payment",
+			delete_yn "delete_yn"
+		from work_outside_info
+		where work_outside_seq = #{work_outside_seq}
+	
+	</select>
 	
 </mapper>

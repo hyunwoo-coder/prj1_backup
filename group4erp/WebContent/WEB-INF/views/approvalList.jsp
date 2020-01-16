@@ -75,10 +75,22 @@
 		var htmlCode = "<tr name='test' align=center> <td colspan=7>"
 			//htmlCode += "<form name='updateEventForm'>"
 			htmlCode += "<table class='innertable tab' name='innertable' align='center'>"
-		    htmlCode += "<tr> <th colspan='2' align='center'>결재받은 내용입니다. </tr>"
+
+			if(approval_state=='대기중') {
+				 htmlCode += "<tr> <th colspan='2' align='center'>아직 회신이 없습니다. </tr>"
+			} else {
+				htmlCode += "<tr> <th colspan='2' align='center'>결재받은 내용입니다. </tr>"
+			}
+			
 			htmlCode += "<tr> <th>문서 번호</th> <td><label>'"+document_no+"'</label></td></tr>"
 		    htmlCode += "<tr> <th>결과</th> <td><label>'"+approval_state+"'</label></td></tr>"
-		   	htmlCode += "<tr> <th>메시지</th> <td><textarea name='e_work_comment' cols='40' row='5'>"+e_work_comment+"</textarea></td></tr>"
+
+			if(approval_state=='부서장 승인' || approval_state=='최종 승인') {
+				htmlCode += "<tr> <th>메시지</th> <td><label>"+e_work_comment+"</label></td></tr>"
+			} else {
+				htmlCode += "<tr> <th>메시지</th> <td><textarea name='e_work_comment' cols='40' row='5'>"+e_work_comment+"</textarea></td></tr>"
+			}
+		   	
 		    htmlCode += "</table>"
 		    htmlCode += "<input type='hidden' name='e_work_no' value="+e_works_no+">"
 		    htmlCode += "<input type='hidden' name='document_no' value="+document_no+">"
@@ -88,12 +100,7 @@
 				htmlCode += "<button id ='reApproval' name='reApproval' value='"+document_no+"'>다시 결재요청하기</button>&nbsp;"
 				htmlCode += "<button id = 'removeApproval' name='removeApproval' value='"+document_no+"'>삭제</button>&nbsp;"
 
-			} else if(approval_state=='부서장 승인' || approval_state=='최종 승인') {
-
-				
-
-			}
-
+			} 
 			//htmlCode += "<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
 			htmlCode += "<button id='closeTr' name='closeTr' onClick='closeThisTr(this);'>닫기"
 		    //htmlCode += "</form>"

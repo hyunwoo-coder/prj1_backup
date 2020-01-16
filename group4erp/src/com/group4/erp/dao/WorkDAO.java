@@ -28,4 +28,10 @@ public interface WorkDAO {
 	//int getBusinessDelCnt(BusinessTripDTO businessTripDTO);
 	//업데이트할 게시판 존재 개수
 	//int getBusinessAppCnt(BusinessTripDTO businessTripDTO);
+	
+	//출장 신청시 결재 테이블에 저장할 결재번호를 만들기 위해 신청번호를 검색
+	String searchMyBTripApplyNo(BusinessTripDTO businessTripDTO);
+	
+	//결재 화면에서 불러올 출장 신청 정보를 검색함
+	BusinessTripDTO getMyBTripApproval(int my_bTrip_approval_no);
 }

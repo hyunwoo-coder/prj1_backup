@@ -69,16 +69,24 @@
 																													System.out.println("mgr_no==="+mgr_no);
 																													String ceo_no = (String)session.getAttribute("ceo_no");
 																													System.out.println("ceo_no==="+ceo_no);
-																												if(mgr_no != null) { %>
+																												
+																													
+																												if(mgr_no != null) {	//사원이 부서장에게 결재 요청했을 때 %>
 																													<input type="radio" name="approvalYn" value="7">승인 &nbsp;
 																													<input type="radio" name="approvalYn" value="6">반려 &nbsp;
 																													<input type="hidden" name="mgr_emp" value='<%=emp %>'>
-																												<% } else if(mgr_no==null && ceo_no!=null) { %>
+																												<% } else if(mgr_no==null && ceo_no!=null) {
+																													
+																														if(ceo_no.equals("100001") ) { 
+																														
+																														} else { %>
 																													
 																													
 																													<label>${approvalInfoList.mgr_name}</label>
 																												
-																												<% } %>
+																													
+																												<%  }
+																														}%>
 																												
 																											</td>
 																											

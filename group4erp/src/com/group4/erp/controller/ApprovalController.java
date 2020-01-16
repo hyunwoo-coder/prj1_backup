@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.group4.erp.ApprovalDTO;
 import com.group4.erp.ApprovalSearchDTO;
+import com.group4.erp.BusinessTripDTO;
 import com.group4.erp.CorpSearchDTO;
 import com.group4.erp.CorporationDTO;
 import com.group4.erp.DayOffApplyDTO;
@@ -23,6 +24,7 @@ import com.group4.erp.service.ApprovalService;
 import com.group4.erp.service.HRService;
 import com.group4.erp.service.MarketingService;
 import com.group4.erp.service.MyWorkService;
+import com.group4.erp.service.WorkService;
 
 @Controller
 public class ApprovalController {
@@ -38,6 +40,9 @@ public class ApprovalController {
 	
 	@Autowired
 	HRService hrService;
+	
+	@Autowired
+	WorkService workService;
 	
 	@RequestMapping(value="/viewApprovalList.do")
 	public ModelAndView viewApprovalList(HttpSession session, ApprovalSearchDTO approvalSearchDTO) {
@@ -93,6 +98,7 @@ public class ApprovalController {
 			ApprovalDTO approvalDTO, 
 			EventSearchDTO eventSearchDTO, 
 			DayOffApplyDTO dayOffApplyDTO, 
+			BusinessTripDTO businessTripDTO,
 			String document_no) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -149,11 +155,30 @@ public class ApprovalController {
 			
 			mav.addObject("myDayOffApplyInfo", myDayOffApplyInfo);
 			mav.addObject("approvalCategory", "휴가 신청 결재 바랍니다.");
-		}
 			
-		mav.addObject("approvalDoc", approvalDoc);
+		} else if(document_no.indexOf("BT") >=0) {
+			System.out.println("출장 신청 결재화면 보기");
+			
+			String doc_num = document_no.substring(3);
+			
+			int my_bTrip_approval_no = Integer.parseInt(doc_num);
+			
+			System.out.println("my_dayoff_approval_no==="+my_bTrip_approval_no);
 		
+			approvalDoc = "BT";
+			//tableName = "emp_day_off_apply";
+			
+			BusinessTripDTO myBTripApplyInfo = this.workService.getMyBTripApproval(my_bTrip_approval_no);
+			
+			//System.out.println("myDayOffApplyInfo.getDayoff_category()==="+myDayOffApplyInfo.getDayoff_category());
+			//System.out.println("myDayOffApplyInfo.getEmp_name()==="+myDayOffApplyInfo.getEmp_name());
+			
+			mav.addObject("myBTripApplyInfo", myBTripApplyInfo);
+			mav.addObject("approvalCategory", "출장 신청 결재 바랍니다.");
+			
+			mav.addObject("approvalDoc", approvalDoc);
 		
+		}
 		return mav;
 		
 	}
@@ -243,7 +268,7 @@ public class ApprovalController {
 	
 	
 	
-	@RequestMapping(value="/updateDayOffApproavalProc.do", 
+	@RequestMapping(value="/updateDayOffApprovalProc.do", 
 			method=RequestMethod.POST, 
 			produces="application/json;charset=UTF-8")
 	@ResponseBody

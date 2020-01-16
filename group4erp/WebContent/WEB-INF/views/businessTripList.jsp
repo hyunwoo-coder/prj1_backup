@@ -81,7 +81,6 @@
 		<c:forEach items="${businessTripSearchDTO.payment}" var="payment">
 			inputData('[name=payment]',"${payment}");
 		</c:forEach> 
-
 		
 });
 
@@ -139,6 +138,10 @@
 			}else{
 				var str = "work_outside_seq="+work_outside_seq+"&"+emp_no+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
 				location.replace("/group4erp/businessTripContentsForm.do?"+str )}
+	}
+
+	function goBusinessTripForm() {
+		location.href = "/group4erp/businessTripForm.do";
 	}
 	
 </script>
