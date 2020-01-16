@@ -14,7 +14,9 @@
 	function responseDayOffApproval() {
 		//alert("결재 시작");
 		
-		var approvalYn = $(".DayOffApprovalDoc").find("[name=approvalYn]").is("checked", true).val();
+		var approvalYn = $(".eventApprovalDoc").find("[name=approvalYn]:checked").val();
+		var e_work_comment = $(".eventApprovalDoc [name=documentTable]").find("[name=e_work_comment]").val();
+		
 		
 		if(approvalYn==6) {
 			alert("반려 시 사유를 기입해주세요.");
@@ -23,9 +25,9 @@
 		}
 	
 		$.ajax({
-			url : "/group4erp/updateDayOffApproavalProc.do",				//호출할 서버쪽 URL 주소 설정
+			url : "/group4erp/updateDayOffApprovalProc.do",				//호출할 서버쪽 URL 주소 설정
 			type : "post",										//전송 방법 설정
-			data : $('[name=DayOffApprovalDoc]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정	
+			data : $('.DayOffApprovalDoc').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정	
 			success : function(upCnt) {
 				if(upCnt==1) {
 					alert("결재 성공!");

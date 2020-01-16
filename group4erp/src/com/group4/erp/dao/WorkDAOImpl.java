@@ -83,4 +83,18 @@ public class WorkDAOImpl implements WorkDAO{
 			);
 		return delCnt;
 	}*/
+	@Override
+	public String searchMyBTripApplyNo(BusinessTripDTO businessTripDTO) {
+		// TODO Auto-generated method stub
+		String myBTripApplyNo = sqlSession.selectOne("com.group4.erp.dao.WorkDAO.searchMyBTripApplyNo", businessTripDTO);
+		
+		return myBTripApplyNo;
+	}
+	@Override
+	public BusinessTripDTO getMyBTripApproval(int my_bTrip_approval_no) {
+		// TODO Auto-generated method stub
+		BusinessTripDTO myBTripApplyInfo = sqlSession.selectOne("com.group4.erp.dao.WorkDAO.getMyBTripApproval", my_bTrip_approval_no);
+		
+		return myBTripApplyInfo;
+	}
 }

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.group4.erp.ApprovalDTO;
 import com.group4.erp.BusinessTripDTO;
 import com.group4.erp.BusinessTripSearchDTO;
+import com.group4.erp.service.ApprovalService;
 import com.group4.erp.service.WorkService;
 
 
@@ -24,6 +26,9 @@ public class WorkController {
 	@Autowired
 	private WorkService workService;	
 	
+	@Autowired
+	private ApprovalService approvalService;
+	
 	@RequestMapping(value="/businessTripList.do")
 	public ModelAndView goBusinessTripList(HttpSession session
 				,BusinessTripSearchDTO businessTripSearchDTO
@@ -32,7 +37,7 @@ public class WorkController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "businessTripList");
-		mav.addObject("navigator", "[업무관리]-[출장신청&보고]");
+		mav.addObject("navigator", "[업무관리]-[출장신청]");
 		
 		try {
 			
@@ -94,6 +99,7 @@ public class WorkController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "businessTripForm");
+		mav.addObject("navigator", "[업무관리]-[출장신청]");
 
 		return mav;
 		
@@ -110,7 +116,7 @@ public class WorkController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "businessTripContentsForm"); 
-		mav.addObject("navigator", "[업무관리]-[출장신청&보고]-[상세보기]");
+		mav.addObject("navigator", "[업무관리]-[출장신청]-[상세보기]");
 		
 		try {
 			
@@ -133,18 +139,35 @@ public class WorkController {
 			)
 		@ResponseBody
 		public int insertBusinessTrip(
-				BusinessTripDTO businessTripDTO
+				BusinessTripDTO businessTripDTO, ApprovalDTO approvalDTO
 		){
 			System.out.println("insertBusinessTrip 컨트롤러");
 			System.out.println(businessTripDTO.getDestination());
 			System.out.println(businessTripDTO.getEmp_no());
-			System.out.println(businessTripDTO.getOutside_start_time());
-			System.out.println(businessTripDTO.getOutside_end_time());
-			System.out.println(businessTripDTO.getWork_outside_reason());
+			System.out.println(businessTripDTO.getOutside_start_time().replace(",", ""));
+			System.out.println(businessTripDTO.getOutside_end_time().replace(",", ""));
+			System.out.println(businessTripDTO.getWork_outside_reason().replace(",", ""));
+			
 			int businessTripRegCnt = 0;
+			int bTripApprovalCnt = 0;
+			
 			try {
 				//[BoardServiceImpl 객체]의 insertBoard 메소드 호출로 게시판 입력하고 [게시판 입력 적용행의 개수] 얻기
 				businessTripRegCnt = this.workService.insertBusinessTrip(businessTripDTO);
+				
+				//결재 테이블에도 출장 신청 정보를 넣는다(조충래 추가)
+				String bTrip_no = this.workService.searchMyBTripApplyNo(businessTripDTO);
+				
+				String approval_bTrip_no = "BT-"+bTrip_no;
+				
+				//approvalDTO.setApproval_num(approval_bTrip_no);
+				approvalDTO.setDocument_no(approval_bTrip_no);
+				approvalDTO.setEmp_no(businessTripDTO.getEmp_no());
+				approvalDTO.setE_work_comment("");
+				
+				bTripApprovalCnt = this.approvalService.insertBTripApproval(approvalDTO);
+				
+				
 			}catch(Exception e) {
 				System.out.println("<에러발생>="+e);
 				businessTripRegCnt= -1;
@@ -219,4 +242,6 @@ public class WorkController {
 			}
 			return businessTripUpDelAppCnt;
 		}
+		
+		
 }

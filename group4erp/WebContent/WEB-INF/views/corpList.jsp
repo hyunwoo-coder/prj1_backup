@@ -110,9 +110,11 @@
 		htmlCode += 			"<tr> <td>소재지</td> <td><input type='text' name='corp_addr' value='"+corp_addr+"'></td> </tr>"
 		htmlCode += 			"<tr> <td>연락처</td> <td><input type='text' name='corp_tel' value="+corp_tel+"></td> </tr>"
 		htmlCode += 			"<tr> <td>FAX</td> <td><input type='text' name='corp_fax' value="+corp_fax+"></td> </tr>"
-		htmlCode += 		"</table>"
-		htmlCode += 		"<input type='button' value='저장' name='updateCorp' onClick='updateCorpInfoProc("+corp_no+");'>&nbsp;"
-		htmlCode += 		"<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
+		htmlCode += 		"</table><br>"
+		//htmlCode += 		"<input type='button' value='저장' name='updateCorp' onClick='updateCorpInfoProc("+corp_no+");'>&nbsp;"
+		//htmlCode += 		"<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
+		htmlCode +=			"<button id= 'button' value='저장' name='updateCorp' onClick='updateCorpInfoProc('"+corp_no+"');'>저장</button> &nbsp;"
+		htmlCode += 		"<button id='closeTr' name='closeTr' onClick='closeThisTr(this);'>닫기</button>"
 		htmlCode +=         "<input type='hidden' name='corp_no' value="+corp_no+">"
 		htmlCode +=  	"</form>"
 		htmlCode += "</td>"
@@ -219,19 +221,20 @@
 </head>
 <body><center>
 	<h1>[거래처 현황]</h1>
-<form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
-					<!-- 검색 테스트중 -->
-					<input type="checkbox" name="corp_business" value="IT">IT &nbsp;
-					<input type="checkbox" name="corp_business" value="통신">통신 &nbsp;
-					<input type="checkbox" name="corp_business" value="금융">금융 &nbsp;
-					<input type="checkbox" name="corp_business" value="출판&미디어">출판&미디어&nbsp;
-					<input type="checkbox" name="corp_business" value="교육&학원">교육&학원 &nbsp;<br>
-					<input type="checkbox" name="corp_business" value="운송&물류">운송&물류 &nbsp;
-					<input type="checkbox" name="corp_business" value="학교">학교 &nbsp;
-					<input type="checkbox" name="corp_business" value="기타">기타 &nbsp;		
-	<table border="0" cellpadding="5" cellspacing="5">
-		<tr>
-			<td align="right">[사업분야별]&nbsp;</td><td>
+	<form name="corpSearchForm" method="post" action="/group4erp/viewCorpList.do">
+		<!-- 검색 테스트중 -->
+		<input type="checkbox" name="corp_business" value="IT">IT &nbsp;
+		<input type="checkbox" name="corp_business" value="통신">통신 &nbsp;
+		<input type="checkbox" name="corp_business" value="금융">금융 &nbsp;
+		<input type="checkbox" name="corp_business" value="출판&미디어">출판&미디어&nbsp;
+		<input type="checkbox" name="corp_business" value="교육&학원">교육&학원 &nbsp;<br>
+		<input type="checkbox" name="corp_business" value="운송&물류">운송&물류 &nbsp;
+		<input type="checkbox" name="corp_business" value="학교">학교 &nbsp;
+		<input type="checkbox" name="corp_business" value="기타">기타 &nbsp;		
+	
+		<table border="0" cellpadding="5" cellspacing="5">
+			<tr>
+				<td align="right">[사업분야별]&nbsp;</td><td>
 				<%--<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
 					<c:if test="${corp_business_area.bus_area_code eq '6'}">
 						<br>
@@ -239,11 +242,9 @@
 					<input type="checkbox" name="corp_business_area" value="${corp_business_area.bus_area_code}">${corp_business_area.bus_area_name} &nbsp;
 																								
 				</c:forEach> --%>
-
-			
-			 </td>
-		</tr>
-		<tr>
+				</td>
+			</tr>
+			<tr>
 			<td align="right">[검색어]&nbsp;</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp; <input type="button" value="검색" onClick="goSearch();">
 														&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 														&nbsp;&nbsp;<input type="button" value="초기화" onClick="goReset();">

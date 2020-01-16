@@ -159,7 +159,11 @@ $(document).ready( function() {
 	function goClose3(){
 		$(".noAprroval").hide(1000);
 	}
-	
+
+
+	function goClient(){
+	      location.href="/group4erp/goClientLogin.do";
+	   }
 </script>
 <!-- style="display:none" -->
 </head>
@@ -219,6 +223,7 @@ $(document).ready( function() {
 <br>
 <br>
 <br>
+<input type="button" value="고객주문페이지" onclick="goClient();">
 <br>
 <br>
 <br>

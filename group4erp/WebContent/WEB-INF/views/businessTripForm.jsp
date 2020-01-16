@@ -9,10 +9,8 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
 .ui-datepicker-trigger {
@@ -24,7 +22,7 @@
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator, input[type="date"]::-webkit-inner-spin-button
-	{
+{
 	display: none;
 	appearance: none;
 }
@@ -157,28 +155,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 </script>
 
 
-
-
-
 <meta charset="UTF-8">
 <title>출장신청&보고</title>
 </head>
-<body>
-
+<body><center>
 	<form name="businessTrip" id="businessTrip" method="post" action="/group4erp/businessTripRegProc.do">
 	<b>출장 신청서</b>
-	<table class="tbcss1" name=work_outside_info cellpadding="5" cellspacing="5">
+	<table class="work_outside_info tab" name="work_outside_info" cellpadding="5" cellspacing="5">
 		<tr>
 			<th>사원 번호</th>
 				<td>
-					<input type="text" id=emp_no name="emp_no">
+					<input type="text" id="emp_no" name="emp_no">
 				</td>
 		</tr>
 		
 		<tr>
 			<th>출장지</th>
 				<td>
-					<input type="text" size="50" id="destination" name="destination" >		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">											
+					<input type="text" size="50" id="destination" name="destination" ><input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">											
 				</td>
 		</tr>
 		
@@ -191,12 +185,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 					&nbsp;&nbsp;&nbsp;
 				</td>
 		</tr>
-			<tr>
+			<!-- <tr>
 				<th>목적지</th>
 				<td><input type="text" size="50" id="destination"
 					name="destination" readOnly> <input type="button"
 					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></td>
-			</tr>
+			</tr> -->
 		<tr>
 			<th >출장 사유</th>
 				<td >
@@ -206,25 +200,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		</table>
 		
 		<input type="button" class="approval" value="결재 신청" onClick="checkBusinessTripRegForm()">
-			<tr>
-				<th>출장희망일</th>
-				<td><input type="text" id="datepicker1"
-					name="outside_start_time"> ~ <input type="text"
-					id="datepicker2" name="outside_end_time">
-					&nbsp;&nbsp;&nbsp;</td>
-			</tr>
-
-
-			<tr>
-				<th>출장 사유</th>
-				<td><textarea name="work_outside_reason" cols="50" rows="10"
-						id="work_outside_reason" maxlenght="500"></textarea></td>
-			</tr>
-		</table>
-		<input type="button" class="approval" value="결재"
-			onClick="checkBusinessTripRegForm()"> <input type="button"
-			value="초기화" onClick="reset()"> <input type="button"
-			value="목록보기" onClick="goBusinessTripList()">
+		<input type="button" value="초기화" onClick="reset()"> 
+		<input type="button" value="목록보기" onClick="goBusinessTripList()">
 	</form>
+	</center>
 </body>
 </html>

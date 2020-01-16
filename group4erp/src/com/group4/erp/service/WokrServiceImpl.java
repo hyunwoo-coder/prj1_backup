@@ -96,4 +96,20 @@ public class WokrServiceImpl implements WorkService {
 		
 		return businessTripUpDelCnt;
 	}
+
+	@Override
+	public String searchMyBTripApplyNo(BusinessTripDTO businessTripDTO) {
+		// TODO Auto-generated method stub
+		String myBTrupApplyNo = this.workDAO.searchMyBTripApplyNo(businessTripDTO);
+		
+		return myBTrupApplyNo;
+	}
+
+	@Override
+	public BusinessTripDTO getMyBTripApproval(int my_bTrip_approval_no) {
+		// TODO Auto-generated method stub
+		BusinessTripDTO myBTripApplyInfo = this.workDAO.getMyBTripApproval(my_bTrip_approval_no);
+		
+		return myBTripApplyInfo;
+	}
 }
