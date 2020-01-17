@@ -152,6 +152,7 @@
 			<td>
 			<table class="tranSpecOutTb tab" name="transactionSpecTb" cellpadding="5" cellspacing="5">
 				<tr>
+				<th>번호</th>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 주문번호</th>
@@ -253,6 +254,7 @@
 	
 			<c:forEach items='${corp_tran_list}' var="tranList" varStatus="loopTagStatus">
 			<tr style="cursor:pointer" <c:if test="${tranList.issueYn == 0}"> onClick="viewTranSpec('${tranList.order_books_no}'); "</c:if>>
+				<td>${corp_tran_cnt-tranList.RNUM+1}</td><!-- 수정필요 -->
 				<td>${tranList.order_books_no}</td>
 				<td>${tranList.corp_no}</td>
 				<td>${tranList.corp_name}</td>

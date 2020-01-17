@@ -349,11 +349,11 @@
 				<tr>
 					<th class="thset" >번호</th>
 					<c:choose>
-						<c:when test="${param.sort=='DT_WORK asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DT_WORK desc'); goSearch();">▼날짜</th>
-						</c:when>
 						<c:when test="${param.sort=='DT_WORK desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DT_WORK asc'); goSearch()">▲날짜<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼날짜</th>
+						</c:when>
+						<c:when test="${param.sort=='DT_WORK asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DT_WORK asc'); goSearch()">▲날짜</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DT_WORK asc'); goSearch();">날짜</th>
@@ -361,11 +361,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='EMP_NO asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NO desc'); goSearch();">▼사원번호</th>
-						</c:when>
 						<c:when test="${param.sort=='EMP_NO desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NO asc'); goSearch()">▲사원번호<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼사원번호</th>
+						</c:when>
+						<c:when test="${param.sort=='EMP_NO asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NO desc'); goSearch()">▲사원번호</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NO asc'); goSearch();">사원번호</th>
@@ -373,11 +373,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='EMP_NAME asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NAME desc'); goSearch();">▼성명</th>
-						</c:when>
 						<c:when test="${param.sort=='EMP_NAME desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NAME asc'); goSearch()">▲성명<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼성명</th>
+						</c:when>
+						<c:when test="${param.sort=='EMP_NAME asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NAME desc'); goSearch()">▲성명</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('EMP_NAME asc'); goSearch();">성명</th>
@@ -385,11 +385,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='DEP_NAME asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DEP_NAME desc'); goSearch();">▼부서</th>
-						</c:when>
 						<c:when test="${param.sort=='DEP_NAME desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DEP_NAME asc'); goSearch()">▲부서<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼부서</th>
+						</c:when>
+						<c:when test="${param.sort=='DEP_NAME asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DEP_NAME desc'); goSearch()">▲부서</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('DEP_NAME asc'); goSearch();">부서</th>
@@ -397,11 +397,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='JIKUP asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('JIKUP desc'); goSearch();">▼직급</th>
-						</c:when>
 						<c:when test="${param.sort=='JIKUP desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('JIKUP asc'); goSearch()">▲직급<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼직급</th>
+						</c:when>
+						<c:when test="${param.sort=='JIKUP asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('JIKUP desc'); goSearch()">▲직급</h>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('JIKUP asc'); goSearch();">직급</th>
@@ -409,11 +409,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='IN_TIME asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('IN_TIME desc'); goSearch();">▼출근시간</th>
-						</c:when>
 						<c:when test="${param.sort=='IN_TIME desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('IN_TIME asc'); goSearch()">▲출근시간<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼출근시간</th>
+						</c:when>
+						<c:when test="${param.sort=='IN_TIME asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('IN_TIME desc'); goSearch()">▲출근시간</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('IN_TIME asc'); goSearch();">출근시간</th>
@@ -421,11 +421,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='OUT_TIME asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('OUT_TIME desc'); goSearch();">▼퇴근시간</th>
-						</c:when>
 						<c:when test="${param.sort=='OUT_TIME desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('OUT_TIME asc'); goSearch()">▲퇴근시간<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼퇴근시간</th>
+						</c:when>
+						<c:when test="${param.sort=='OUT_TIME asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('OUT_TIME desc'); goSearch()">▲퇴근시간</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('OUT_TIME asc'); goSearch();">퇴근시간</th>
@@ -433,11 +433,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='WORKING_HRS asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('WORKING_HRS desc'); goSearch();">▼근무시간</th>
-						</c:when>
 						<c:when test="${param.sort=='WORKING_HRS desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('WORKING_HRS asc'); goSearch()">▲근무시간<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼근무시간</th>
+						</c:when>
+						<c:when test="${param.sort=='WORKING_HRS asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('WORKING_HRS desc'); goSearch()">▲근무시간</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('WORKING_HRS asc'); goSearch();">근무시간</th>
@@ -445,11 +445,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='CHECK_INOUT_NAME asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('CHECK_INOUT_NAME desc'); goSearch();">▼구분</th>
-						</c:when>
 						<c:when test="${param.sort=='CHECK_INOUT_NAME desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('CHECK_INOUT_NAME asc'); goSearch()">▲구분<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼구분</th>
+						</c:when>
+						<c:when test="${param.sort=='CHECK_INOUT_NAME asc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('CHECK_INOUT_NAME desc'); goSearch()">▲구분</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('CHECK_INOUT_NAME asc'); goSearch();">구분</th>
@@ -457,11 +457,11 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='REMARKS asc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('REMARKS desc'); goSearch();">▼비고</th>
+						<c:when test="${param.sort=='REMARKS desc'}">
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼비고</th>
 						</c:when>
 						<c:when test="${param.sort=='REMARKS desc'}">
-							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('REMARKS asc'); goSearch()">▲비고<th>
+							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('REMARKS desc'); goSearch()">▲비고</th>
 						</c:when>
 						<c:otherwise>
 							<th class="thset" style="cursor:pointer" onclick="$('[name=sort]').val('REMARKS asc'); goSearch();">비고</th>

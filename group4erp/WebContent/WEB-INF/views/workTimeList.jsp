@@ -40,6 +40,7 @@
 		inputData("[name=selectPageNo]", "${myWorkSearchDTO.selectPageNo}");
 		inputData("[name=rowCntPerPage]", "${myWorkSearchDTO.rowCntPerPage}");
 		inputData("[name=searchEmpNo]", "${myWorkSearchDTO.searchEmpNo}");
+		inputData("[name=sort]", "${myWorkSearchDTO.sort}");
 	});
 	
 	function goWorkStateListSearch(){
@@ -207,20 +208,22 @@
 									onclick="$('[name=sort]').val('w.days_leaving_early asc'); goWorkStateListSearch();">조퇴일수
 							</c:otherwise>
 						</c:choose>
+						
 						<c:choose>
 							<c:when test="${param.sort=='w.days_outduty desc'}">
 								<th width="8%" style="cursor: pointer"
-									onclick="$('[name=sort]').val(''); goWorkStateListSearch();">▼외근일수
+								onclick="$('[name=sort]').val(''); goWorkStateListSearch();">▼외근일수
 							</c:when>
-							<c:when test="${param.sort=='w.days_outduty  asc'}">
+							<c:when test="${param.sort=='w.days_outduty asc'}">
 								<th width="8%" style="cursor: pointer"
-									onclick="$('[name=sort]').val('w.days_outduty  desc'); goWorkStateListSearch();">▲외근일수
+								onclick="$('[name=sort]').val('w.days_outduty desc'); goWorkStateListSearch();">▲외근일수
 							</c:when>
 							<c:otherwise>
 								<th width="8%" style="cursor: pointer"
-									onclick="$('[name=sort]').val('w.days_outduty  asc'); goWorkStateListSearch();">외근일수
+								onclick="$('[name=sort]').val('w.days_outduty asc'); goWorkStateListSearch();">외근일수
 							</c:otherwise>
 						</c:choose>
+
 						<c:choose>
 							<c:when test="${param.sort=='w.days_late desc'}">
 								<th width="8%" style="cursor: pointer"

@@ -110,7 +110,7 @@ $(document).ready(function(){
 				<tr>
 	 				<th>번호</th>
 				<c:choose>
-					<c:when test="${param.sort=='emp_no desc'}">
+					<c:when test="${param.sort=='emp_no asc'}">
 						<th style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼사번
 					</c:when>
 					<c:when test="${param.sort=='emp_no asc'}">
@@ -121,11 +121,11 @@ $(document).ready(function(){
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
-					<c:when test="${param.sort=='emp_name desc'}">
-						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_name asc'); goSearch();">▼성명
-					</c:when>
 					<c:when test="${param.sort=='emp_name asc'}">
-						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_name desc'); goSearch();">▲성명
+						<th style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼성명
+					</c:when>
+					<c:when test="${param.sort=='emp_name desc'}">
+						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_name asc'); goSearch();">▲성명
 					</c:when>
 					<c:otherwise>
 						<th style="cursor:pointer" onclick="$('[name=sort]').val('emp_name asc'); goSearch();">성명
@@ -134,7 +134,7 @@ $(document).ready(function(){
 				
 				<c:choose>
 					<c:when test="${param.sort=='dep_no desc'}">
-						<th style="cursor:pointer" onclick="$('[name=sort]').val('dep_no asc'); goSearch();">▼부서명
+						<th style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼부서명
 					</c:when>
 					<c:when test="${param.sort=='dep_no asc'}">
 						<th style="cursor:pointer" onclick="$('[name=sort]').val('dep_no desc'); goSearch();">▲부서명

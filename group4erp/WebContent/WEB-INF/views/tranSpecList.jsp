@@ -106,7 +106,8 @@ $(document).ready(function(){
 		<tr>
 			<td>
 				<table class="tranSpecIssueList tab" name="tranSpecIssueList" cellpadding="5" cellspacing="5">
-					<tr>						
+					<tr>
+						<th>번호</th>						
 						<c:choose>
 							<c:when test="${param.sort=='1 desc'}">
 								<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 발급번호</th>
@@ -170,6 +171,7 @@ $(document).ready(function(){
 						
 						<c:forEach items='${tranSpecIssueList}' var="tranSpecIssueList" varStatus="loopTagStatus">
 							<tr style="cursor:pointer">
+							<td>${tranSpecIssueCnt-tranSpecIssueList.RNUM+1}</td>
 							<td>${tranSpecIssueList.issue_no}</td>
 							<td>${tranSpecIssueList.corp_no}</td>
 							<td>${tranSpecIssueList.corp_name}</td>

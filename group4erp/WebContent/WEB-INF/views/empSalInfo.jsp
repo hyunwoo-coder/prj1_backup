@@ -108,7 +108,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='salary_dt desc'}">
-								<th rowspan="2" style="cursor:pointer" onclick="$('[name=sort]').val('salary_dt asc'); goSearch();">▼지급일</th>
+								<th rowspan="2" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼지급일</th>
 							</c:when>
 							<c:when test="${param.sort=='salary_dt asc'}">
 								<th rowspan="2" style="cursor:pointer" onclick="$('[name=sort]').val('salary_dt desc'); goSearch();">▲지급일</th>
@@ -124,7 +124,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='real_sal desc'}">
-								<th rowspan="2" style="cursor:pointer" onclick="$('[name=sort]').val('real_sal asc'); goSearch();">▼실수령액</th>
+								<th rowspan="2" style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼실수령액</th>
 							</c:when>
 							<c:when test="${param.sort=='real_sal asc'}">
 								<th rowspan="2" style="cursor:pointer" onclick="$('[name=sort]').val('real_sal desc'); goSearch();">▲실수령액</th>
@@ -139,7 +139,7 @@
 						<!-- 지급내역 목록 -->
 						<c:choose>
 							<c:when test="${param.sort=='month_sal desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('month_sal asc'); goSearch();">▼기본급</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼기본급</td>
 							</c:when>
 							<c:when test="${param.sort=='month_sal asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('month_sal desc'); goSearch();">▲기본급</td>
@@ -151,7 +151,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='mess_allowance desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('mess_allowance asc'); goSearch();">▼식대</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼식대</td>
 							</c:when>
 							<c:when test="${param.sort=='mess_allowance asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('mess_allowance desc'); goSearch();">▲식대</td>
@@ -163,7 +163,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='bus_trip_bonus desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('bus_trip_bonus asc'); goSearch();">▼보너스</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼보너스</td>
 							</c:when>
 							<c:when test="${param.sort=='bus_trip_bonus asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('bus_trip_bonus desc'); goSearch();">▲보너스</td>
@@ -175,7 +175,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='sum_payable desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('sum_payable asc'); goSearch();">▼합계</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼합계</td>
 							</c:when>
 							<c:when test="${param.sort=='sum_payable asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('sum_payable desc'); goSearch();">▲합계</td>
@@ -187,7 +187,7 @@
 						<!-- 공제내역 목록-->
 						<c:choose>
 							<c:when test="${param.sort=='emp_insurance desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('emp_insurance asc'); goSearch();">▼고용보험</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼고용보험</td>
 							</c:when>
 							<c:when test="${param.sort=='emp_insurance asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('emp_insurance desc'); goSearch();">▲고용보험</td>
@@ -199,7 +199,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='health desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('health asc'); goSearch();">▼건강보험</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼건강보험</td>
 							</c:when>
 							<c:when test="${param.sort=='health asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('health desc'); goSearch();">▲건강보험</td>
@@ -211,7 +211,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='pension desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('pension asc'); goSearch();">▼국민연금</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼국민연금</td>
 							</c:when>
 							<c:when test="${param.sort=='pension asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('pension desc'); goSearch();">▲국민연금</td>
@@ -223,7 +223,7 @@
 						
 						<c:choose>
 							<c:when test="${param.sort=='deduct desc'}">
-								<td style="cursor:pointer" onclick="$('[name=sort]').val('deduct asc'); goSearch();">▼합계</td>
+								<td style="cursor:pointer" onclick="$('[name=sort]').val(''); goSearch();">▼합계</td>
 							</c:when>
 							<c:when test="${param.sort=='deduct asc'}">
 								<td style="cursor:pointer" onclick="$('[name=sort]').val('deduct desc'); goSearch();">▲합계</td>

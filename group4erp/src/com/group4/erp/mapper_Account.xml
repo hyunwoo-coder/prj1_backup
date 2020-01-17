@@ -290,7 +290,6 @@
     		to_char(co.order_dt, 'yyyy.mm.dd')|| '('||to_char(co.order_dt, 'dy', 'nls_date_language=Korean' )||')' "order_dt"
     	from corp_order_info co
     	where co.order_books_no = #{order_books_no}
-		
 	</select>
 	
 	<select id="getTranSpecIssueCnt" resultType="int">
@@ -299,7 +298,8 @@
 	</select>
 	
 	
-	<select id="getTranSpecIssue" parameterType="com.group4.erp.TranSpecSearchDTO" resultType="com.group4.erp.TranSpecDTO">     
+	<select id="getTranSpecIssue" parameterType="com.group4.erp.TranSpecSearchDTO" resultType="com.group4.erp.TranSpecDTO">   
+	select * from (select zzz.*, rownum RNUM from (  
         select
             issue_no,
             order_no,
@@ -322,6 +322,7 @@
 			where 1=1
 			<include refid="TranSpecIssueWhere" />
 			<include refid="headerSortTranIssue" />
+    )zzz)
 	</select>
 	
 	
