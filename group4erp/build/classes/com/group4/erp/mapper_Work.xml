@@ -163,8 +163,11 @@
 	</update>
 	
 	<update id="updateBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">
-		update work_outside_info set destination=#{destination}, work_outside_reason=#{work_outside_reason}, outside_start_time=#{outside_start_time}, outside_end_time=#{outside_end_time}
-												 where work_outside_seq=#{work_outside_seq}
+		update work_outside_info set destination=#{destination}
+									, work_outside_reason=#{work_outside_reason}
+									, outside_start_time=#{outside_start_time}
+									, outside_end_time=#{outside_end_time}
+								where work_outside_seq=#{work_outside_seq}
 	</update>
 	
 	<update id="approvedBusinessTrip" parameterType="com.group4.erp.BusinessTripDTO">

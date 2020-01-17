@@ -813,26 +813,26 @@
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='(select remain_dayoff from emp_dayoff_info where emp_no = da.emp_no) desc'}">
+						<c:when test="${param.sort=='4 desc'}">
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 사용가능 휴가일</th>
 						</c:when>
-						<c:when test="${param.sort=='(select remain_dayoff from emp_dayoff_info where emp_no = da.emp_no) asc'}">
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select remain_dayoff from emp_dayoff_info where emp_no = da.emp_no) desc'); goDayoffSearch();">▲ 사용가능 휴가일</th>
+						<c:when test="${param.sort=='4 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('4 desc'); goDayoffSearch();">▲ 사용가능 휴가일</th>
 						</c:when>
 						<c:otherwise>
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select remain_dayoff from emp_dayoff_info where emp_no = da.emp_no) asc'); goDayoffSearch();">사용가능 휴가일</th>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('4 asc'); goDayoffSearch();">사용가능 휴가일</th>
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) desc'}">
+						<c:when test="${param.sort=='10 desc'}">
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 총 휴가일</th>
 						</c:when>
-						<c:when test="${param.sort=='(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) asc'}">
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) desc'); goDayoffSearch();">▲ 총 휴가일</th>
+						<c:when test="${param.sort=='10 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('10 desc'); goDayoffSearch();">▲ 총 휴가일</th>
 						</c:when>
 						<c:otherwise>
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('(select dayoff_tot from emp_dayoff_info where emp_no = da.emp_no) asc'); goDayoffSearch();">총 휴가일</th>
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('10 asc'); goDayoffSearch();">총 휴가일</th>
 						</c:otherwise>
 					</c:choose>
 					
@@ -848,26 +848,26 @@
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
-						<c:when test="${param.sort=='13 desc'}">
+						<c:when test="${param.sort=='11 desc'}">
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 결재</th>
 						</c:when>
-						<c:when test="${param.sort=='13 asc'}">
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('13 desc'); goDayoffSearch();">▲ 결재
+						<c:when test="${param.sort=='11 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('11 desc'); goDayoffSearch();">▲ 결재
 						</c:when>
 						<c:otherwise>
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('13 asc'); goDayoffSearch();">결재
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('11 asc'); goDayoffSearch();">결재
 						</c:otherwise>
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${param.sort=='14 desc'}">
+						<c:when test="${param.sort=='12 desc'}">
 							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val(''); goDayoffSearch();">▼ 휴가상태</th>
 						</c:when>
-						<c:when test="${param.sort=='14 asc'}">
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('14 desc'); goDayoffSearch();">▲ 휴가상태
+						<c:when test="${param.sort=='12 asc'}">
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('12 desc'); goDayoffSearch();">▲ 휴가상태
 						</c:when>
 						<c:otherwise>
-							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('14 asc'); goDayoffSearch();">휴가상태
+							<th bgcolor="black" style="cursor:pointer" onclick="$('[name=sort]').val('12 asc'); goDayoffSearch();">휴가상태
 						</c:otherwise>
 					</c:choose>
 				</tr>

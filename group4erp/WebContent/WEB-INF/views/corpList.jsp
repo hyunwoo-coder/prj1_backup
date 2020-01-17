@@ -279,6 +279,7 @@
 			<table class="corpListTable tab" name="corpListTable" cellpadding="5" cellspacing="5">
 	<tr>
 		<th></th>
+		<th>번호</th>
 		<c:choose>
 			<c:when test="${param.sort=='corp_no desc'}">
 				<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▲ 사업자번호</th>
@@ -372,6 +373,7 @@
 	<c:forEach items='${corpList}' var="corpList" varStatus="loopTagStatus">
 				<tr style="cursor:pointer" onClick="viewCorpInfo(${empSal.emp_no});">
 					<td class="delCheckBox"><input type="checkbox" name="delCheckBox" value="${corpList.corp_no}"></td>
+					<td>${corpListCnt-corpList.RNUM+1}</td>
 					<td>${corpList.corp_no}</td>
 					<td>${corpList.corp_name}</td>
 					<td>${corpList.ceo_name}</td>

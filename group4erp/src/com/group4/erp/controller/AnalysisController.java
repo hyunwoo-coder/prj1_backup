@@ -40,7 +40,7 @@ public class AnalysisController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewkeywdAnalysis");
-		mav.addObject("navigator", "[전략분석]-[인기 키워드 현황]");
+		mav.addObject("navigator", "[전략분석] → [인기 키워드 현황]");
 		
 		try {
 			
@@ -120,7 +120,7 @@ public class AnalysisController {
 		
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewOurCompanyReport");
-		mav.addObject("navigator", "[전략분석]-[회사 현황]");
+		mav.addObject("navigator", "[전략분석] → [회사 현황]");
 		
 		if(cat_cd==null || cat_cd.equals(null)) {
 			cat_cd = "1";

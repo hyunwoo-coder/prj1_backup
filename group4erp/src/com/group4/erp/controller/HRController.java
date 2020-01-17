@@ -49,7 +49,7 @@ public class HRController {
 
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpList");
-		mav.addObject("navigator", "[인사관리]-[직원정보]");
+		mav.addObject("navigator", "[인사관리] → [직원정보]");
 
 		try {
 
@@ -113,7 +113,7 @@ public class HRController {
 
 			mav.addObject("emp_tot_cnt", emp_tot_cnt);
 			mav.addObject("subMenu", "viewSalList");
-			mav.addObject("navigator", "[인사관리]-[급여지급현황]");
+			mav.addObject("navigator", "[인사관리] → [급여지급현황]");
 
 		} catch (Exception e) {
 			System.out.println("예외발생==" + e);
@@ -153,7 +153,7 @@ public class HRController {
 		mav.addObject("salListSearchDTO", salListSearchDTO);
 		mav.addObject("myPayCheckCnt", myPayCheckCnt);
 		mav.addObject("subMenu", "viewEmpSalInfo");
-		mav.addObject("navigator", "[인사관리]-[급여지급내역]");
+		mav.addObject("navigator", "[인사관리] → [급여지급내역]");
 		mav.addObject("timeDTO", timeDTO);
 
 		return mav;
@@ -204,7 +204,7 @@ public class HRController {
 		// mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewDayOffList");
-		mav.addObject("navigator", "[인사관리]-[직원 휴가 현황]");
+		mav.addObject("navigator", "[인사관리] → [직원 휴가 현황]");
 
 		try {
 			int getDayOffListCnt = this.hrservice.getDayOffListCnt(hrListSearchDTO);
@@ -240,7 +240,7 @@ public class HRController {
 		// mav.setViewName("eventScheduleForm.jsp");
 		mav.setViewName("main.jsp");
 		mav.addObject("subMenu", "viewEmpWorkStateList");
-		mav.addObject("navigator", "[인사관리]-[직원별 근무현황조회]");
+		mav.addObject("navigator", "[인사관리] → [직원별 근무현황조회]");
 
 		try {
 
@@ -285,10 +285,9 @@ public class HRController {
 	@RequestMapping(value = "/viewNewEmpJoin.do")
 	public ModelAndView newEmpjoinMemberForm() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("empListJoinForm.jsp");
-		//mav.addObject("subMenu", "viewEmpJoinMember");
-		//mav.addObject("navigator", "[인사관리]-[직원정보]-[직원등록]");
-
+		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpJoinMember");
+		mav.addObject("navigator", "[인사관리] → [직원정보] → [직원등록]");
 		return mav;
 	}
 

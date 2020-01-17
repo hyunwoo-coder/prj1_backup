@@ -251,7 +251,6 @@
 			<if test="sort!=null and sort.length() > 0" >
 				order by ${sort}
 			</if>
-			
 			<if test="sort==null or sort==''">
 				order by w.emp_no
 			</if>

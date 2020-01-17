@@ -78,7 +78,7 @@
       inputData('[name=dateFrom]',"${returnSearchDTO.dateFrom}");
       inputData('[name=dateTill]',"${returnSearchDTO.dateTill}");
       inputData('[name=searchKeyword]',"${returnSearchDTO.searchKeyword}");
-      inputData('[name=sort]').val("${returnSearchDTO.sort}");
+      inputData('[name=sort]',"${returnSearchDTO.sort}");
       <c:forEach items="${returnSearchDTO.return_cd}" var="cdReturn">
          inputData( "[name=return_cd]", "${cdReturn}" );
       </c:forEach>
@@ -91,13 +91,11 @@
       var keyword = $("[name=returnSearchForm] [name=searchKeyword]").val();
       keyword = $.trim(keyword);
       $("[name=returnSearchForm] [name=searchKeyword]").val(keyword);
-      
       document.returnSearchForm.submit();
    }
 
    function goSearchAll() {
       document.returnSearchForm.reset();
-
       $('[name=returnSearchForm] [name=selectPageNo]').val("1");
       $('[name=returnSearchForm] [name=rowCntPerPage]').val("10");
       $("[name=returnSearchForm] [name=sort]").val('');
@@ -239,6 +237,7 @@
    
    <div id="contecnt" style="display:none;">
       <table class="tab" id="contentTable" width=600 border=1 bordercolor="#000000" cellpadding=5 align=center>
+      
          <tr>
             <th>ID</th>
             <td></td>
@@ -263,6 +262,7 @@
 
    <table class="returnOrderTable tab" width="700" name="returnOrderTable" cellpadding="5" cellspacing="5" align=center>
       <tr>
+          <th disabled>번호</th>
       <c:choose>
          <c:when test="${param.sort=='1 desc'}">
             <th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▲ 반품접수번호</th>
@@ -314,6 +314,7 @@
       </tr>
       <c:forEach items='${returnOrderList}' var="reOrder" varStatus="loopTagStatus">
          <tr style="cursor:pointer" onclick="goReturnInfo(this, '${reOrder.return_sales_no}');">
+            <td align="center">${returnOrderCnt - reOrder.RNUM + 1}</td>
             <td align="center">${reOrder.return_sales_no}</td>
             <td align="center">${reOrder.order_no}</td>
             <td align="center">${reOrder.isbn13}</td>

@@ -362,7 +362,9 @@
 			<td>
 			<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 			<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5">
-				<tr><th></th>
+				<tr>
+				<th></th>
+				<th>번호</th>
 				<c:choose>
 					<c:when test="${param.sort=='1 desc'}">
 						<th style="cursor:pointer" onClick="$('[name=sort]').val(''); goSearch();  "> ▼ 이벤트 번호</th>
@@ -438,12 +440,13 @@
 			</tr>
 			
 			<c:forEach items="${eventList}" var="eventList" varStatus="loopTagStatus">
-				<tr style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">	
+				<tr style="cursor:pointer" onClick="viewEventInfoForm(${empList.emp_no});">		
 					<td class="delCheckBox" align=center>
 						<c:if test="${eventList.evnt_stat eq '대기중'|| eventList.evnt_stat eq '반려' }">
 							<input type="checkbox" name="delCheckBox" value="${eventList.evnt_no}">
 						</c:if>
 					</td>
+					<td align=center>${eventAllCnt -eventList.RNUM+1}</td>
 					<td align=center>${eventList.evnt_no}</td>	<!-- <input type="hidden" value="${dep_no}">  -->
 					<td align=center>${eventList.evnt_category}</td>
 					<td align=center>${eventList.evnt_title}</td>
