@@ -366,6 +366,7 @@
 							onclick="$('[name=sort]').val('14 asc'); goSearchMyWorkList();">보유지점
 					</c:otherwise>
 			</c:choose>
+			<th width="8%">절판 상황
             <th width="8%">비고
         </thead>
         <tbody>    
@@ -379,7 +380,15 @@
             <td align=center>${MyCareBookList.book_price}
             <td align=center>${MyCareBookList.ISBN_cnt}
             <td align=center>${MyCareBookList.branch_name}
-
+            <td align=center>
+            	<c:choose>
+            		<c:when test="${MyCareBookList.is_print eq 'y'}">
+						출판
+					</c:when>
+					<c:when test="${MyCareBookList.is_print eq 'n'}">
+						절판
+					</c:when>
+            	</c:choose>
             <td align=center>
                <c:if test="${MyCareBookList.isbn_cnt < 100}">
                   <input type="button" value="발주" onClick="booKInvenFill(this,'${MyCareBookList.isbn13}');" >

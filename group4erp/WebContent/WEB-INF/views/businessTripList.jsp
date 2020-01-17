@@ -132,7 +132,7 @@
 				) 
 				&& 
 				(travel_payment =="W")){
-				  alert($('[name=getBusinessTripListSearchForm]').serialize());
+				  //alert($('[name=getBusinessTripListSearchForm]').serialize());
 				var str = "work_outside_seq="+work_outside_seq+"&"+emp_no+"&"+$('[name=getBusinessTripListSearchForm]').serialize();
 				location.replace("/group4erp/businessTripUpDelForm.do?"+str )
 			}else{

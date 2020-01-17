@@ -486,7 +486,9 @@
 						<td align=center> ${inout.CHECK_INOUT_NAME}</td>
 						<td align=center> ${inout.REMARKS}</td>
 						<td align=center>
-							<input type="button" value="수정" onClick="goUpdate(this,'${loopTagStatus.index+1}', '${inout.DT_WORK}','${inout.EMP_NO}');">
+							<c:if test="${inout.CHECK_INOUT_NAME != '퇴근'}">
+								<input type="button" value="수정" onClick="goUpdate(this,'${loopTagStatus.index+1}', '${inout.DT_WORK}','${inout.EMP_NO}');">
+							</c:if>
 						</td>
 						<%-- 
 						<c:if test="${inout.CHECK_INOUT_NAME != '퇴근' && inout.CHECK_INOUT_NAME != '출근'}">
