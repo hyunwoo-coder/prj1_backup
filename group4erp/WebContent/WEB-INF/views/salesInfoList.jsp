@@ -92,6 +92,7 @@
 	
 		var data3 = google.visualization.arrayToDataTable(${dailyOrder_chart_data});
 		var data4 = google.visualization.arrayToDataTable(${dailyCorpOrder_chart_data});
+		var offline_data = google.visualization.arrayToDataTable(${offline_chart_data});
 	
 		var options3 = {
 				title: '일반고객 주문 건수(일자별)',
@@ -104,15 +105,23 @@
 				width: 700,
 				height:300
 		};
+
+		var offline_option = {
+				title: '오프라인매장 판매 건수(일자별)',
+				width: 700,
+				height:300
+		};
 	
 		var chart3 = new google.visualization.LineChart(document.getElementById('dailyOrderChart'));
 		var chart4 = new google.visualization.LineChart(document.getElementById('dailyCorpOrderChart'));
+		var offline_chart = new google.visualization.LineChart(document.getElementById('dailyOfflineChart'));
 		
 		//var chart1 = new google.visualization.BarChart(document.getElementById('orderInfoChart'));
 		//var chart2 = new google.visualization.ColumnChart(document.getElementById('corpOrderInfoChart'));
 	
 		chart3.draw(data3, options3);
 		chart4.draw(data4, options4);
+		offline_chart.draw(offline_data, offline_option);
 	}
 	
 	
@@ -208,6 +217,15 @@
 			</td>
 		</tr>
 		
+		<tr>
+			<td align="center">오프라인 매장 판매 현황
+				<div id="dailyOfflineChart" style="width: 700px; height: 300px;"> </div>
+			</td>
+			<td>
+			
+			</td>
+			
+		</tr>
 		<tr>
 			<td align="center">분야별 누적 주문
 				<div id="orderInfoChart" style="width: 700px; height: 300px;"> </div>

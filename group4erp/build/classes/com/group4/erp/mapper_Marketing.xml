@@ -341,6 +341,18 @@
 		
 	</select>
 	
+	
+	<select id="getDailyOfflineSalesChart" resultType="com.group4.erp.SalesInfoDTO">
+		select
+    		count(*) "book_qty",
+    		to_char(buy_dt, 'yy-mm-dd') "buy_dt"
+    	from buy_offline_info
+    	group by to_char(buy_dt, 'yy-mm-dd')
+    	order by 2
+		
+	</select>
+	
+	
 	<select id="getMyEventInfoApproval" parameterType="String" resultType="com.group4.erp.EventDTO">
        	select
 			i.evnt_no "evnt_no",
@@ -362,6 +374,12 @@
 		from event_info i
 		where i.evnt_no=#{evnt_no}
 	</select>
+	
+	
+	<update id="updateEventReApproval" parameterType="String">
+		update event_info set evnt_state_cd='1'
+		where evnt_no = #{document_no}
+	</update>
 	
 		
 </mapper>

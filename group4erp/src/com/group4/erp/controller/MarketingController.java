@@ -126,6 +126,23 @@ public class MarketingController {
 			}
 		
 			dailyCorpOrder_chart_data +="]";
+			
+			
+			List<SalesInfoDTO> dailyOfflineSalesChart = this.marketingService.getDailyOfflineSalesChart();
+			
+			String offline_chart_data = "[";
+			offline_chart_data += "['일자', '판매량']";
+			
+			for(int i=0; i<dailyOfflineSalesChart.size(); i++) {
+				offline_chart_data += ", ['";
+				offline_chart_data += dailyOfflineSalesChart.get(i).getBuy_dt();
+				offline_chart_data += "', ";
+				offline_chart_data += dailyOfflineSalesChart.get(i).getBook_qty();
+				offline_chart_data += "] ";
+			}
+		
+			offline_chart_data +="]";
+			
 					
 			mav.addObject("onlineOrderCnt", online_order_cnt);
 			mav.addObject("onlineOrderList", onlineOrderList);
@@ -137,7 +154,9 @@ public class MarketingController {
 			mav.addObject("corpOrder_chart_data", corpOrder_chart_data);
 			mav.addObject("dailyOrder_chart_data", dailyOrder_chart_data);
 			mav.addObject("dailyCorpOrder_chart_data", dailyCorpOrder_chart_data);
+			mav.addObject("offline_chart_data", offline_chart_data);
 			
+				
 		} catch(Exception e) {
 			System.out.println("viewSalesInfoList() 메소드에서 예외 발생==="+e);
 		}
@@ -193,7 +212,7 @@ public class MarketingController {
 	
 	//이벤트 신청 페이지 보기
 	@RequestMapping(value="/eventScheduling.do")
-	public ModelAndView eventScheduling(HttpSession session, String evnt_no, String document_no) {
+	public ModelAndView eventScheduling(HttpSession session, String evnt_no, String document_no, EventDTO eventDTO) {
 		
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("eventScheduleForm.jsp");
@@ -204,6 +223,8 @@ public class MarketingController {
 		if(evnt_no != null) {
 			
 			System.out.println("재결재합니다. document_no==="+evnt_no);
+			EventDTO myEventInfo = this.marketingService.getMyEventInfoApproval(evnt_no);
+			mav.addObject("myEventReApproval", myEventInfo);
 			
 		}
 		
@@ -297,13 +318,36 @@ public class MarketingController {
 			method=RequestMethod.POST, 
 			produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public int updateEventProc(EventDTO eventDTO) {
+	public int updateEventProc(EventDTO eventDTO, ApprovalDTO approvalDTO) {
 		int upCnt = 0;
+		int upApprovalCnt = 0;
+		int myReApprovalCnt =0;
+		
+		String document_no = eventDTO.getEvnt_no();
+		System.out.println("재결재 이벤트 번호==="+document_no);
 		
 		try {
 			System.out.println("컨트롤러 updateEventProc() 메소드 실행");
-			upCnt = this.marketingService.updateEventInfo(eventDTO);
-			System.out.println("upCnt==="+upCnt);
+					
+			//이벤트 재결재시 결재 테이블에도 반영(대기중)
+			myReApprovalCnt = this.approvalService.getMyReApprovalCnt(document_no);
+			
+			if(myReApprovalCnt > 0) {
+				
+				approvalDTO.setE_works_state_cd("1");
+				approvalDTO.setDocument_no(document_no);
+				
+				eventDTO.setEvnt_state_cd("1");
+				eventDTO.setEvnt_no(document_no);
+				
+				upCnt = this.marketingService.updateEventReApproval(document_no);
+				upApprovalCnt = this.approvalService.updateApprovalProc(approvalDTO);
+			} else {
+				
+				upCnt = this.marketingService.updateEventInfo(eventDTO);
+				System.out.println("upCnt==="+upCnt);
+				
+			}
 			
 		} catch(Exception e) {
 			System.out.println("updateEventProc() 메소드에서 예외 발생 >>> "+e);

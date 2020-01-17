@@ -95,7 +95,8 @@
 			cc.is_on_business='y'
 			<include refid="whereCondition" />
 			<include refid="headerSort" />			
-		) zzz) where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
+		) zzz) 
+		where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
 	</select>
 	
 	

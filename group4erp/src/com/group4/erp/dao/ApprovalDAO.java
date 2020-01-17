@@ -31,5 +31,7 @@ public interface ApprovalDAO {
 	int updateApprovalProc(ApprovalDTO approvalDTO);
 	
 	int insertBTripApproval(ApprovalDTO approvalDTO);
+	
+	int getMyReApprovalCnt(String document_no);
 
 }

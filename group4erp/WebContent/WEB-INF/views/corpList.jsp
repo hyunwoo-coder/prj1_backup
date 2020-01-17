@@ -210,8 +210,7 @@
 			, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
 				alert("서버 접속 실패!");
 			}	
-		});
-		
+		});		
 	}
 	
 </script>
@@ -265,7 +264,7 @@
 	</tr>
 	<tr>
 	<form name="corpSearchRowPageForm" method="post" action="/group4erp/viewCorpList.do">
-		<td align="right">[전체] : ${corpListCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+		<td align="right">[전체] : ${corpListCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
 	               <option value="15">15</option>

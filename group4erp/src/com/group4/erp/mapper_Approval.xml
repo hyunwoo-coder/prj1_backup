@@ -145,11 +145,18 @@
 		where evnt_no = #{document_no}
 	</update>
 	
+
 	<update id="updateApprovalProc" parameterType="com.group4.erp.ApprovalDTO">
 		update e_works_info set 
+			e_works_req_dt = sysdate,
 			e_works_state_cd=#{e_works_state_cd},
 			e_work_comment=#{e_work_comment}
 		where document_no = #{document_no}
 	</update>
+	
+	<select id="getMyReApprovalCnt" parameterType="String" resultType="int">
+		select count(*) from e_works_info
+		where document_no = #{document_no}
+	</select>
 	 
 </mapper>

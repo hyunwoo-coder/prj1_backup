@@ -204,4 +204,20 @@ public class MarketingServiceImpl implements MarketingService {
 		return eventApprovalState;
 	}
 
+	@Override
+	public List<SalesInfoDTO> getDailyOfflineSalesChart() {
+		// TODO Auto-generated method stub
+		List<SalesInfoDTO> dailyOfflineSalesChart = this.marketingDAO.getDailyOfflineSalesChart();
+		
+		return dailyOfflineSalesChart;
+	}
+
+	@Override
+	public int updateEventReApproval(String document_no) {
+		// TODO Auto-generated method stub
+		int myEventReApproval = this.marketingDAO.updateEventReApproval(document_no);
+		
+		return myEventReApproval;
+	}
+
 }

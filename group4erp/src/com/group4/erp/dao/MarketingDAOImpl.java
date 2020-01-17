@@ -207,4 +207,20 @@ public class MarketingDAOImpl implements MarketingDAO {
 		return eventAppovalState;
 	}
 
+	@Override
+	public List<SalesInfoDTO> getDailyOfflineSalesChart() {
+		// TODO Auto-generated method stub
+		List<SalesInfoDTO> dailyOfflineSalesChart = this.sqlSession.selectList(mapper_namespace+"getDailyOfflineSalesChart");
+		
+		return dailyOfflineSalesChart;
+	}
+
+	@Override
+	public int updateEventReApproval(String document_no) {
+		// TODO Auto-generated method stub
+		int myEventReApproval = this.sqlSession.update(mapper_namespace+"updateEventReApproval", document_no);
+		
+		return myEventReApproval;
+	}
+
 }

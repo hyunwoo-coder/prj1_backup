@@ -116,4 +116,12 @@ public class ApprovalDAOImpl implements ApprovalDAO {
 		return myBTripApprovalCnt;
 	}
 
+	@Override
+	public int getMyReApprovalCnt(String document_no) {
+		// TODO Auto-generated method stub
+		int myReApprovalCnt = this.sqlSession.selectOne(mapper_namespace+"getMyReApprovalCnt", document_no);
+		
+		return myReApprovalCnt;
+	}
+
 }

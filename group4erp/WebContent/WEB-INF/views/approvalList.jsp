@@ -88,14 +88,14 @@
 			if(approval_state=='부서장 승인' || approval_state=='최종 승인') {
 				htmlCode += "<tr> <th>메시지</th> <td><label>"+e_work_comment+"</label></td></tr>"
 			} else {
-				htmlCode += "<tr> <th>메시지</th> <td><textarea name='e_work_comment' cols='40' row='5'>"+e_work_comment+"</textarea></td></tr>"
+				htmlCode += "<tr> <th>메시지</th> <td><label>"+e_work_comment+"</label></td></tr>"
 			}
 		   	
 		    htmlCode += "</table>"
 		    htmlCode += "<input type='hidden' name='e_work_no' value="+e_works_no+">"
 		    htmlCode += "<input type='hidden' name='document_no' value="+document_no+">"
 
-		    if(approval_state == '대기중' || approval_state == '반려') {
+		    if(approval_state == '반려') {
 
 				htmlCode += "<button id ='reApproval' name='reApproval' value='"+document_no+"'>다시 결재요청하기</button>&nbsp;"
 				htmlCode += "<button id = 'removeApproval' name='removeApproval' value='"+document_no+"'>삭제</button>&nbsp;"
@@ -119,8 +119,16 @@
 
 	function reApprovalProc(document_no) {
 		//alert("다시 결재 요청합니다. "+document_no);
+		if(document_no.indexOf('EV') >= 0) {
+			location.replace("/group4erp/eventScheduling.do?evnt_no="+document_no);
 
-		location.replace("/group4erp/eventScheduling.do?evnt_no="+document_no);
+		} else if(document_no.indexOf('DO') >= 0) {
+			location.replace("/group4erp/goEmpDayOffjoin.do");
+
+		} else if(document_no.indexOf('BT') >= 0) {
+			location.replace("/group4erp//businessTripForm.do");
+		}
+	
 
 	}
 

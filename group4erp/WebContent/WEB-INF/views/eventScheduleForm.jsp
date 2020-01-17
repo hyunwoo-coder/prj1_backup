@@ -186,7 +186,78 @@
 					alert("서버 접속 실패!");
 				}			
 		});
+
 	}
+
+	//재결재 로직
+	function reApprovalProc() {
+		alert("재결재 로직 시작");
+		var evnt_no = $("#event_no").html();
+		//alert(evnt_no);
+		inputData("[name=evnt_no]", evnt_no);
+		inputData("[name=emp_no]", 5);
+
+		if(is_empty("[name = evnt_title]")) {
+			alert("이벤트 타이틀을 입력해주세요.");
+			$("[name = evnt_title]").focus();
+
+			return;
+		}
+
+		if(is_empty("[name = evnt_start_dt]")) {
+			alert("이벤트 시작일을 입력해주세요.");
+			$("[name = evnt_start_dt]").focus();
+
+			return;
+		}
+
+		if(is_empty("[name = evnt_end_dt]")) {
+			alert("이벤트 종료일을 입력해주세요.");
+			$("[name = evnt_end_dt]").focus();
+
+			return;
+		}
+
+		if(is_empty("[name = tot_est_cost]")) {
+			alert("예상경비를 입력해주세요.");
+			$("[name = tot_est_cost]").focus();
+
+			return;
+		}
+		
+		if(confirm("정말 저장하겠습니까?")==false) {
+
+			return;
+		}
+
+		var money = $("[name=tot_est_cost]").val();
+		money = money.replace(/,/gi, "");
+		inputData("[name=tot_est_cost]", money);
+
+		
+		$.ajax({
+			url : "/group4erp/updateEventProc.do"	//접속할 서버쪽 url 주소 지정
+			, type : "post"					//전송 방법 설정
+			, data : $("[name = eventScheduleForm]").serialize()	//서버로 보낼 파라미터명과 파라미터값을 설정
+			, success : function(upCnt) {	//서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정. 매개변수 boardRepleCnt에는 입력된 행의 개수가 들어온다.
+														//현재 data 매개변수에는 새 글 등록 개수가 들어온다.
+				if(upCnt==1) {			//[게시판 입력 행 적용 개수]가 1개이면(insert가 1회 성공했다는 뜻)
+					alert("이벤트 재등록 성공");
+					location.replace("/group4erp/viewEventList.do");
+					} else if(upCnt==0) {		//글 등록 개수가 0이면 경고
+						alert("이벤트 재등록에 실패했습니다. 관리자에게 문의 바랍니다.");
+					} else {
+						alert("서버 오류 발생! 관리자에게 문의 바람!");
+					}				
+				}
+
+				, error : function() {		//서버의 응답을 못받았을 경우 실행할 익명함수 설정
+					alert("서버 접속 실패!");
+				}			
+		});
+
+	}
+
 
 	</script>
 </head>
@@ -195,7 +266,11 @@
 	<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do" enctype="multipart/form-data">
 		<table class="tab" cellpadding="5" cellspacing="5">
 			<tr>
-				<td colspan="2">이벤트 일련번호</td><td colspan="2"> <span id="event_no">EV00-00${eventNo}</span> </td>
+				<td colspan="2">이벤트 일련번호</td><td colspan="2">	<c:if test="${myEventReApproval != null}">
+																	<span id="event_no">${myEventReApproval.evnt_no}</span> 
+																</c:if>
+																<c:if test="${empty myEventReApproval}"> <span id="event_no">EV00-00${eventNo}</span></c:if>
+					 </td>
 			</tr>
 			<tr>
 				<td colspan="2">담당자 </td><td colspan="2">${emp_name} </td>
@@ -208,16 +283,46 @@
 										<option value="5">온라인 설문조사</option>
 										<option value="6">저자강연회</option>
 										<option value="7">선착순증정</option>
-								</select></td><td>행사명</td><td><input type="text" name="evnt_title"></td>
+								</select></td>
+				<td>행사명</td><td>
+					<c:if test="${myEventReApproval.evnt_title != null}"> 
+						<input type="text" name="evnt_title" value="${myEventReApproval.evnt_title}">
+					</c:if>
+					<c:if test="${empty myEventReApproval.evnt_title}"> 
+						<input type="text" name="evnt_title">
+					</c:if>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">이벤트 예정 일시 </td><td colspan="2">
-								<input type="text" id="evnt_start_dt" name="evnt_start_dt"> ~
-								<input type="text" id="evnt_end_dt" name="evnt_end_dt"></td>	   
+					<c:if test="${myEventReApproval.evnt_start_dt != null}"> 
+						<input type="text" id="evnt_start_dt" name="evnt_start_dt" value="${myEventReApproval.evnt_start_dt}">
+					</c:if>
+					<c:if test="${empty myEventReApproval.evnt_start_dt}"> 
+						<input type="text" id="evnt_start_dt" name="evnt_start_dt">
+					</c:if> 
+						~
+						
+					<c:if test="${myEventReApproval.evnt_end_dt != null}"> 
+						<input type="text" id="evnt_end_dt" name="evnt_end_dt" value="${myEventReApproval.evnt_end_dt}">
+					</c:if>
+					<c:if test="${empty myEventReApproval.evnt_end_dt}"> 
+						<input type="text" id="evnt_end_dt" name="evnt_end_dt">
+					</c:if>
+								
+					</td>	   
 
 			</tr>
 			<tr>
-				<td colspan="2">예상 소요 경비 </td><td colspan="2"><input type="text" name="tot_est_cost">원</td>
+				<td colspan="2">예상 소요 경비 </td><td colspan="2">
+												<c:if test="${myEventReApproval.tot_est_cost != null}"> 
+													<input type="text" name="tot_est_cost" value="${myEventReApproval.tot_est_cost}">원
+												</c:if>
+												<c:if test="${empty myEventReApproval.tot_est_cost}"> 
+													<input type="text" name="tot_est_cost" value="${myEventReApproval.tot_est_cost}">원
+												</c:if>
+												
+												</td>
 			</tr>
 			<tr>
 				<td colspan="2">첨부자료</td><td colspan="2"><input type="file" name="atchd_data"></td>
@@ -243,7 +348,12 @@
     	
 	    </script>
 	    
-		<input type="button" value="결재" onClick="checkForm();">
+	    <c:if test="${myEventReApproval != null}">
+	    	<input type="button" value="다시 결재" onClick="reApprovalProc();">
+	    </c:if>
+	   	<c:if test="${empty myEventReApproval}">
+	    	<input type="button" value="결재" onClick="checkForm();">
+	    </c:if>
 		<input type="reset" value="초기화">
 		<input type="hidden" name="evnt_no">
 		<input type="hidden" name="emp_no" value="${emp_no}">

@@ -58,4 +58,8 @@ public interface MarketingDAO {
 
 	int updateEvntApprovalState(EventDTO eventDTO);
 	
+	List<SalesInfoDTO> getDailyOfflineSalesChart();
+	
+	int updateEventReApproval(String document_no);
+	
 }

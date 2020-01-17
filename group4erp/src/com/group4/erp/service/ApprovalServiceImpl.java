@@ -112,4 +112,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return myBTripApprovalCnt;
 	}
 
+	@Override
+	public int getMyReApprovalCnt(String document_no) {
+		// TODO Auto-generated method stub
+		int myReApprovalCnt = this.approvalDAO.getMyReApprovalCnt(document_no);
+		
+		return myReApprovalCnt;
+	}
+
 }

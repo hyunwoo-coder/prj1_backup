@@ -57,5 +57,10 @@ public interface MarketingService {
 	EventDTO getMyEventInfoApproval(String document_no);
 	
 	int updateEvntApprovalState(EventDTO eventDTO);
+	
+	List<SalesInfoDTO> getDailyOfflineSalesChart();
+	
+	int updateEventReApproval(String document_no);
+	
 
 }
