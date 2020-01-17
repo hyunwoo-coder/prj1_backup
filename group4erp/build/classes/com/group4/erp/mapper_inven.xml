@@ -444,7 +444,7 @@
     		b.isbn13	"isbn13"
     		,b.book_name	"book_name"
     		,(select c.cat_name from code_category c where c.cat_cd=(select bk.cat_cd from book bk where bk.isbn13=b.isbn13))		"cat_name"
-    		,b.book_price	"book_price"
+    		,to_char(b.book_price,'999,999,999,999')	"book_price"
     		,b.book_pages	"book_pages"
     		,b.writer		"writer"
     		,b.publisher	"publisher"
