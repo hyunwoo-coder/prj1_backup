@@ -125,8 +125,12 @@
 			and (
               upper(emp_name) like upper('%${searchKeyword}%')
               or upper(emp_eng_name) like upper('%${searchKeyword}%')
+              or upper(emp_no) like upper('%${searchKeyword}%')
+              <!-- or upper(hire_dt) like upper('%${searchKeyword}%') -->
+              or upper(emp_email_office) like upper('%${searchKeyword}%')
               or upper((select d.dep_name from dept d where d.dep_no=e.dep_no)) like upper('%${searchKeyword}%')
               or upper((select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd)) like upper('%${searchKeyword}%')
+              or upper((select c.worktime_name from code_worktime c where e.worktime_cd = c.worktime_cd)) like upper('%${searchKeyword}%')
            	)
 		</if>
 	 </sql>
@@ -167,7 +171,9 @@
 				,emp_name 					as "emp_name"
 				,(select d.dep_name from dept d where d.dep_no=e.dep_no) as "dep_name"
 				,(select j.jikup from code_jikup j where j.jikup_cd=e.jikup_cd) as "jikup"
-				,(select worktime_name from code_worktime where e.worktime_cd = worktime_cd) as "worktime_name"
+				,to_char(hire_dt, 'yyyy.mm.dd(dy)', 'nls_date_language=Korean') "hire_dt"
+				,emp_email_office "emp_email_office"
+				,(select c.worktime_name from code_worktime c where e.worktime_cd = c.worktime_cd) as "worktime_name"
 			from employee e	
 			where 1=1
 			<include refid="empListWhere" />

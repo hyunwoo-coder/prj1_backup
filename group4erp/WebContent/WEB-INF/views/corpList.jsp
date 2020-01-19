@@ -22,7 +22,19 @@
 				"${evenTrColor}",	//짝수행 배경색
 				"${mouseOverColor}"			//마우스 온 시 배경색
 			);
+		
+		$("[name=corp_business_area]").change(function() {
+			
+			var cnt = $(this).filter(":checked").length;
+			var rank='';
 
+			if(cnt==1) {
+				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
+				$(this).siblings().prop("checked", false);
+				//rank = $(this).filter(":checked").val();
+			} 
+
+		});
 
 		$("[name=rowCntPerPage]").change(function() {
 			//goSearch();
@@ -39,23 +51,22 @@
 				)
 			);
 
-		inputData('[name=rowCntPerPage]',"${corpSearchDTO.rowCntPerPage}");
-		inputData('[name=selectPageNo]',"${corpSearchDTO.selectPageNo}");
+		inputData('[name=rowCntPerPage]', "${corpSearchDTO.rowCntPerPage}");
+		inputData('[name=selectPageNo]', "${corpSearchDTO.selectPageNo}");
 		inputData('[name=sort]').val("${corpSearchDTO.sort}");
 		
 		<c:forEach items="${corpSearchDTO.corp_business_area}" var="corp_business_area">
-			inputData("[name=corpSearchForm] [name=corp_business_area]", "${corpSearchDTO.corp_business_area}");		
-		</c:forEach>
-
-		<c:forEach items="${corpSearchDTO.corp_business_area}" var="corp_business_area">
-			$("[name=corpSearchForm] [name=corp_business_area]").filter("[value = ${corpSearchDTO.corp_business_area} ]").prop("checked", true);
+			inputData("[name=corp_business_area]", "${corp_business_area}");		
 		</c:forEach>
 
 	});
 
 
 	function goSearch() {
-
+		
+		var  keyword = $("#searchKeyword").val();
+		$("#searchKey").val(searchKey);
+		
 		document.corpSearchForm.submit();
 	}
 
@@ -106,7 +117,14 @@
 		htmlCode += 			"<tr> <td>사업자번호</td> <td><input type='text' name='new_corp_no' value="+corp_no+"> </td> </tr>"
 		htmlCode += 			"<tr> <td>상호명 </td> <td><input type='text' name='corp_name' value='"+corp_name+"'> </td> </tr>"
 		htmlCode += 			"<tr> <td>사업자명</td> <td><input type='text' name='ceo_name' value='"+ceo_name+"'></td> </tr>"
-		htmlCode += 			"<tr> <td>사업분야</td> <td><input type='text' name='corp_business_area' value='"+business_area+"'></td> </tr>"
+		htmlCode += 			"<tr> <td>사업분야</td> <td> <input type='checkbox' name='corp_business_area' value='1'>IT" 
+		htmlCode +=				"							<input type='checkbox' name='corp_business_area' value='2'>통신"
+		htmlCode +=				"							<input type='checkbox' name='corp_business_area' value'3'>금융"
+		htmlCode +=				"							<input type='checkbox' name='corp_business_area' value='4'>출판&미디어"
+		htmlCode +=				"							<input type='checkbox' name='corp_business_area' value='5'>교육&학원<br>"
+		htmlCode +=				"							<input type='checkbox' name='corp_business_area' value='6'>운송&물류"
+		htmlCode +=				"							<input type='checkbox' name='corp_business_area' value='7'>학교"
+		htmlCode +=				"							<input type='checkbox' name='corp_business_area' value='8'>기타</td> </tr>"
 		htmlCode += 			"<tr> <td>소재지</td> <td><input type='text' name='corp_addr' value='"+corp_addr+"'></td> </tr>"
 		htmlCode += 			"<tr> <td>연락처</td> <td><input type='text' name='corp_tel' value='"+corp_tel+"'></td> </tr>"
 		htmlCode += 			"<tr> <td>FAX</td> <td><input type='text' name='corp_fax' value='"+corp_fax+"'></td> </tr>"
@@ -227,15 +245,14 @@
 		<table border="0" cellpadding="5" cellspacing="5">
 			<tr valign="top">
 				<td align="right">[사업분야별]&nbsp;</td><td>
-				
-					<input type="checkbox" name="corp_business_area" value="IT">IT &nbsp;
-					<input type="checkbox" name="corp_business_area" value="통신">통신 &nbsp;
-					<input type="checkbox" name="corp_business_area" value="금융">금융 &nbsp;
-					<input type="checkbox" name="corp_business_area" value="출판&미디어">출판&미디어&nbsp;
-					<input type="checkbox" name="corp_business_area" value="교육&학원">교육&학원 &nbsp;<br>
-					<input type="checkbox" name="corp_business_area" value="운송&물류">운송&물류 &nbsp;
-					<input type="checkbox" name="corp_business_area" value="학교">학교 &nbsp;
-					<input type="checkbox" name="corp_business_area" value="기타">기타 &nbsp;		
+					
+					<c:forEach items="${requestScope.corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
+						<c:if test="${corp_business_area.bus_area_code eq '6'}">
+							<br>
+						</c:if>
+						<input type="checkbox" name="corp_business_area" value="${loopTagStatus.index+1}" >${corp_business_area.bus_area_name}
+							
+         			</c:forEach>
 				<%--<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
 					<c:if test="${corp_business_area.bus_area_code eq '6'}">
 						<br>
@@ -247,6 +264,7 @@
 			</tr>
 			<tr>
 			<td align="right">[검색어]&nbsp;</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp; <input type="button" value="검색" onClick="goSearch();">
+													  <input type="hidden" name="searchKey" id="searchKey" >
 														&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 														&nbsp;&nbsp;<input type="button" value="초기화" onClick="goReset();">
 														 </td>
@@ -255,9 +273,12 @@
 
 </form> 
 
+<input type="button" value="거래처 추가" onClick="insertCorp();">
+<input type="button" value="거래처 삭제" onClick="deleteCorp();">
+
 <table class="corpListMain" border="0" cellpadding="5" cellspacing="5">
 	<tr>
-		<td align="center"><div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
+		<td align="center">
 	
 	</tr>
 	<tr>
@@ -375,7 +396,7 @@
 					<td>${corpList.corp_no}</td>
 					<td>${corpList.corp_name}</td>
 					<td>${corpList.ceo_name}</td>
-					<td>${corpList.corp_business_area}</td> 
+					<td>${corpList.corp_business_name}</td> 
 					<td>${corpList.corp_addr}</td> 
 					<td>${corpList.corp_tel} </td> 
 					<td>${corpList.corp_fax} </td> 
@@ -395,8 +416,8 @@
 
 
 <br>
-<input type="button" value="거래처 추가" onClick="insertCorp();">
-<input type="button" value="거래처 삭제" onClick="deleteCorp();">
+
+<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
 
 <form name="deleteCorpForm" method="post" action="/group4erp/deleteCorpProc.do">
 	<input type="hidden" name="corp_no">

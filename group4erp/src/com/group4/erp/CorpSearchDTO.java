@@ -13,7 +13,6 @@ public class CorpSearchDTO {
 	private int books_qty;
 	private String order_dt;
 	private String sort;
-	//private String corp_business[];
 	private String corp_business_area[];
 	private String issueYn;
 	

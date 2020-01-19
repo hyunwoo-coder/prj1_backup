@@ -128,6 +128,8 @@ public class HRController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main.jsp");
+		mav.addObject("subMenu", "viewEmpSalInfo");
+		mav.addObject("navigator", "[인사관리] → [급여지급내역]");
 	
 		String emp_no = (String)session.getAttribute("emp_id");
 		int my_emp_no = Integer.parseInt(emp_no);
@@ -136,24 +138,22 @@ public class HRController {
 		salListSearchDTO.setEmp_no(emp_no);
 	
 		TimeDTO timeDTO = this.hrservice.getTime();
-		//int emp_tot_cnt = this.hrservice.getEmpListAllCnt(salListSearchDTO);
 		
-		System.out.println("salListSearchDTO.getRowCnt=="+salListSearchDTO.getRowCntPerPage());
+		System.out.println("salListSearchDTO.getRowCntPerPage=="+salListSearchDTO.getRowCntPerPage());
+		System.out.println("salListSearchDTO.getSelectPageNo=="+salListSearchDTO.getSelectPageNo());
 		
 		int myPayCheckCnt = this.hrservice.getMyPayCheckCnt(my_emp_no);
 			
-		//List<SalaryDTO> empSalInfo = this.hrservice.getEmpSalList(salListSearchDTO);
-	
-
 		System.out.println("급여 컨트롤러 시작");
+		
 		List<SalaryDTO> myPayCheckList = this.hrservice.getSalaryInfo(salListSearchDTO);
+		
 		System.out.println("컨트롤러 급여명세서 조회 성공");
 
 		mav.addObject("myPayCheckList", myPayCheckList);
-		mav.addObject("salListSearchDTO", salListSearchDTO);
+		//mav.addObject("salListSearchDTO", salListSearchDTO);
 		mav.addObject("myPayCheckCnt", myPayCheckCnt);
-		mav.addObject("subMenu", "viewEmpSalInfo");
-		mav.addObject("navigator", "[인사관리] → [급여지급내역]");
+
 		mav.addObject("timeDTO", timeDTO);
 
 		return mav;
