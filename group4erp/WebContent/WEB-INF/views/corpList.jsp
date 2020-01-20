@@ -23,22 +23,11 @@
 				"${mouseOverColor}"			//마우스 온 시 배경색
 			);
 		
-		$("[name=corp_business_area]").change(function() {
-			
-			var cnt = $(this).filter(":checked").length;
-			var rank='';
-
-			if(cnt==1) {
-				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
-				$(this).siblings().prop("checked", false);
-				//rank = $(this).filter(":checked").val();
-			} 
-
-		});
 
 		$("[name=rowCntPerPage]").change(function() {
-			//goSearch();
-			document.corpSearchRowPageForm.submit();
+			
+			goSearch();
+			//document.corpSearchRowPageForm.submit();
 		});
 	
 		$(".pagingNumber").html(
@@ -51,31 +40,37 @@
 				)
 			);
 
-		inputData('[name=rowCntPerPage]', "${corpSearchDTO.rowCntPerPage}");
-		inputData('[name=selectPageNo]', "${corpSearchDTO.selectPageNo}");
-		inputData('[name=sort]').val("${corpSearchDTO.sort}");
+		inputData("[name=rowCntPerPage]", "${corpSearchDTO.rowCntPerPage}");
+		inputData("[name=selectPageNo]", "${corpSearchDTO.selectPageNo}");
+		inputData("[name=searchKeyword]", "${corpSearchDTO.searchKeyword}");
+		inputData("[name=sort]").val("${corpSearchDTO.sort}");
 		
 		<c:forEach items="${corpSearchDTO.corp_business_area}" var="corp_business_area">
-			inputData("[name=corp_business_area]", "${corp_business_area}");		
+			inputData('[name=corp_business_area]', "${corp_business_area}");	
 		</c:forEach>
+
+		<%--<c:forEach items="${corpSearchDTO.corp_business_area}" var="corp_business_area">
+			$('[name=corp_business_area]').filter("[value='${corp_business_area}']").prop("checked", true);
+		</c:forEach>--%>
 
 	});
 
 
 	function goSearch() {
 		
-		var  keyword = $("#searchKeyword").val();
-		$("#searchKey").val(searchKey);
-		
+		var keyword = $("[name=searchKeyword]").text();
+		$("#searchKeyword").val(keyword);
+
 		document.corpSearchForm.submit();
 	}
 
 	function goSearchAll() {
 		document.corpSearchForm.reset();
 
-		$('[name=corpSearchForm] [name=selectPageNo]').val("1");
-		$('[name=corpSearchForm] [name=rowCntPerPage]').val("15");
-		$("[name=corpSearchForm] [name=sort]").val('');
+		$('[name=selectPageNo]').val("1");
+		$('[name=rowCntPerPage]').val("15");
+		$("[name=sort]").val('');
+		
 		goSearch();
 	}
 	
@@ -129,9 +124,7 @@
 		htmlCode += 			"<tr> <td>연락처</td> <td><input type='text' name='corp_tel' value='"+corp_tel+"'></td> </tr>"
 		htmlCode += 			"<tr> <td>FAX</td> <td><input type='text' name='corp_fax' value='"+corp_fax+"'></td> </tr>"
 		htmlCode += 		"</table><br>"
-		//htmlCode += 		"<input type='button' value='저장' name='updateCorp' onClick='updateCorpInfoProc("+corp_no+");'>&nbsp;"
-		//htmlCode += 		"<input type='button' value='닫기' name='closeTr' onClick='closeThisTr(this);'>&nbsp;"
-		htmlCode +=			"<button id= 'button' value='저장' name='updateCorp' onClick='updateCorpInfoProc('"+corp_no+"');'>저장</button> &nbsp;"
+		htmlCode +=			"<button id= 'button' name='updateCorp' onClick='updateCorpInfoProc("+corp_no+");'>저장</button> &nbsp;"
 		htmlCode += 		"<button id='closeTr' name='closeTr' onClick='closeThisTr(this);'>닫기</button>"
 		htmlCode +=         "<input type='hidden' name='corp_no' value="+corp_no+">"
 		htmlCode +=  	"</form>"
@@ -148,6 +141,7 @@
 		$("[name=updateCorpBtn]").val("수정");
 		
 	}
+
 	
 	function updateCorpInfoProc(corp_no) {
 
@@ -157,10 +151,10 @@
 			data : $('[name=updateCorpForm]').serialize(),		//서버로 보낼 파라미터명과 파라미터값을 설정			
 			success : function(upCnt) {
 				if(upCnt==1) {
-					alert("수정 성공!");
+					alert("업체 정보가 수정되었습니다.");
 					location.replace("/group4erp/viewCorpList.do");
 					
-				} else if(delCnt==-1) {	
+				} else if(upCnt==-1) {	
 					alert("업체가 이미 삭제되었습니다!");
 					
 					location.replace("/group4erp/viewCorpList.do");
@@ -202,7 +196,6 @@
 
 		$("[name=corp_no]").val(corp_no);
 
-		//alert($('[name=deleteCorpForm]').serialize());
 		$.ajax({
 			url : "/group4erp/deleteCorpProc.do",				//호출할 서버쪽 URL 주소 설정
 			type : "post",										//전송 방법 설정
@@ -250,8 +243,8 @@
 						<c:if test="${corp_business_area.bus_area_code eq '6'}">
 							<br>
 						</c:if>
-						<input type="checkbox" name="corp_business_area" value="${loopTagStatus.index+1}" >${corp_business_area.bus_area_name}
-							
+						<input type="checkbox" name="corp_business_area" value="${corp_business_area.bus_area_code}" >${corp_business_area.bus_area_name}
+						<!-- <input type="hidden" id="corp_business_area"> -->
          			</c:forEach>
 				<%--<c:forEach items="${corp_business_area}" var="corp_business_area" varStatus="loopTagStatus">
 					<c:if test="${corp_business_area.bus_area_code eq '6'}">
@@ -264,25 +257,25 @@
 			</tr>
 			<tr>
 			<td align="right">[검색어]&nbsp;</td><td><input type="text" name="searchKeyword">&nbsp;&nbsp; <input type="button" value="검색" onClick="goSearch();">
-													  <input type="hidden" name="searchKey" id="searchKey" >
+													   <!-- <input type="hidden" name="searchKeyword" id="searchKeyword" > -->
 														&nbsp;&nbsp;<input type="button" value="모두검색" onClick="goSearchAll();">
 														&nbsp;&nbsp;<input type="button" value="초기화" onClick="goReset();">
 														 </td>
 		</tr>
 	</table>
 
-</form> 
+
 
 <input type="button" value="거래처 추가" onClick="insertCorp();">
 <input type="button" value="거래처 삭제" onClick="deleteCorp();">
 
-<table class="corpListMain" border="0" cellpadding="5" cellspacing="5">
+<table class="tab1" border="0" cellpadding="5" cellspacing="5">
 	<tr>
 		<td align="center">
 	
 	</tr>
 	<tr>
-	<form name="corpSearchRowPageForm" method="post" action="/group4erp/viewCorpList.do">
+	<!-- <form name="corpSearchRowPageForm" method="post" action="/group4erp/viewCorpList.do"> -->
 		<td align="right">[전체] : ${corpListCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
 	            <select name="rowCntPerPage">
 	               <option value="10">10</option>
@@ -291,7 +284,8 @@
 	               <option value="25">25</option>
 	               <option value="30">30</option>
 	            </select> 행보기 </td>
-	</form>
+	<!-- </form> -->
+	</form> 
 	</tr>
 	<tr>
 		<td> 

@@ -37,7 +37,7 @@
 <script>
 
 	$(document).ready(function(){
-		
+
 		$("#evnt_start_dt").datepicker({
 	   	 	onSelect: function() { 
 	   	 		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
@@ -226,6 +226,8 @@
 					
 		if(evnt_no.length==0) {
 			alert("선택된 이벤트가 없습니다.");
+
+			return;
 		}
 
 		$("[name=evnt_no]").val(evnt_no);

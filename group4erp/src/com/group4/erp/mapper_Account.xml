@@ -29,77 +29,14 @@
 		</if>
 		
 		<if test="sort==null or sort.length() == 0">
-			order by 9 desc
+			order by cc.reg_dt desc
 		</if>
 	</sql>
 
 
-	<select id='getCorpListCnt' parameterType="com.group4.erp.CorpSearchDTO" resultType="int">
-		select count(*) from corporation_cus cc
-		where cc.is_on_business='y'
-		and 1=1
-		<include refid="corpListCntWhere" />
-	</select>
-	
-	<sql id="corpListCntWhere">
-		<if test="corp_business_area != null">
-		and
-			<foreach collection="corp_business_area" item="corp_business_area" open="(" separator=" or " close=")" >		
-			 	<if test="corp_business_area==1">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-				<if test="corp_business_area==2">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-				<if test="corp_business_area==3">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-				<if test="corp_business_area==4">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-				<if test="corp_business_area==5">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-				<if test="corp_business_area==6">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-				<if test="corp_business_area==7">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-				<if test="corp_business_area==8">
-					cc.corp_business_area=#{corp_business_area}
-				</if>
-			</foreach>			
-		</if>
-	
-	</sql>
-	
-	
-	<select id='getCorpList' parameterType="com.group4.erp.CorpSearchDTO" resultType="com.group4.erp.CorporationDTO">
-		select * from (select zzz.*, rownum RNUM from (
-			select
-				cc.corp_no "corp_no",
-				cc.corp_name "corp_name",
-				cc.ceo_name "ceo_name",
-				cc.corp_addr "corp_addr",
-				cc.corp_fax "corp_fax",
-				cc.corp_tel "corp_tel",
-				cc.corp_business_area "corp_business_area",
-				(select c.business_area_name from code_business_area c where c.business_area_code = cc.corp_business_area) "corp_business_name",
-				cc.is_on_business "is_on_business",
-				cc.reg_dt "reg_dt"
-			from corporation_cus cc
-			where 1=1 and
-			cc.is_on_business='y'
-			<include refid="whereCondition" />
-			<include refid="headerSort" />			
-		) zzz) 
-		where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
-	</select>
-	
-	
+
 	<sql id="whereCondition">
-		<if test="searchKeyword !=null and searchKeyword.length() > 0">
+		<if test="searchKeyword !=null and searchKeyword.length()>0">
 				and (
 					upper(cc.corp_no) like upper('%${searchKeyword}%') 
 					or upper(cc.corp_name) like upper('%${searchKeyword}%')
@@ -110,7 +47,6 @@
 				)			
 		</if>
 		
-	
 		<if test="corp_business_area != null">
 			and
 			<foreach collection="corp_business_area" item="corp_business_area" open="(" separator=" or " close=")" >
@@ -138,9 +74,44 @@
 				<if test="corp_business_area==8">
 					cc.corp_business_area=#{corp_business_area}
 				</if>
+				<if test="corp_business_area==0">
+					
+				</if>
 			</foreach>			
 		</if>
 	</sql>
+
+	<select id='getCorpListCnt' parameterType="com.group4.erp.CorpSearchDTO" resultType="int">
+		select count(*) from corporation_cus cc
+		where 1=1
+		and cc.is_on_business='y'
+		<include refid="whereCondition" />
+	</select>
+	
+	
+	<select id='getCorpList' parameterType="com.group4.erp.CorpSearchDTO" resultType="com.group4.erp.CorporationDTO">
+		select * from (select zzz.*, rownum RNUM from (
+			select
+				cc.corp_no "corp_no",
+				cc.corp_name "corp_name",
+				cc.ceo_name "ceo_name",
+				cc.corp_addr "corp_addr",
+				cc.corp_fax "corp_fax",
+				cc.corp_tel "corp_tel",
+				cc.corp_business_area "corp_business_area",
+				(select c.business_area_name from code_business_area c where c.business_area_code = cc.corp_business_area) "corp_business_name",
+				cc.is_on_business "is_on_business",
+				cc.reg_dt "reg_dt"
+			from corporation_cus cc
+			where 1=1 and
+			cc.is_on_business='y'
+			<include refid="whereCondition" />
+			<include refid="headerSort" />			
+		) zzz) 
+		where RNUM&gt;= ${selectPageNo * rowCntPerPage - rowCntPerPage +1} and RNUM&lt;=${selectPageNo * rowCntPerPage}
+	</select>
+	
+	
 	
 	<select id='getCorpInfo' parameterType="String" resultType="com.group4.erp.CorporationDTO">
 		

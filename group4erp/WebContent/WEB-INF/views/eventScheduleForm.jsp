@@ -35,7 +35,25 @@
 <script>
 
 	$(document).ready(function() {
-		
+
+		$("[name=evnt_start_dt]").keyup(function(event) {
+
+			if(!( (event.KeyCode >=37 && event.keyCode<=40) ) {
+				var inputVal = $(this).val();
+				alert(inputVal);
+				$(this).val(inputVal.replace(/[^0-9-]$/gi, ''));
+			}
+
+		});
+
+		$("[name=evnt_end_dt]").keyup(function(event) {
+
+			if(!(event.KeyCode >=37 && event.keyCode<=40)) {
+				var inputVal = $(this).val();
+				$(this).val(inputVal.replace(/[^0-9-]/gi, ''));
+			}
+
+		});
 		
 		var evnt_from_date = '';
 		
@@ -365,7 +383,7 @@
 						<input type="text" id="evnt_start_dt" name="evnt_start_dt" value="${myEventReApproval.evnt_start_dt}">
 					</c:if>
 					<c:if test="${empty myEventReApproval.evnt_start_dt}"> 
-						<input type="text" id="evnt_start_dt" name="evnt_start_dt" >
+						<input type="text" id="evnt_start_dt" name="evnt_start_dt">
 					</c:if> 
 						~
 						
@@ -394,7 +412,7 @@
 				<td colspan="2">첨부자료</td><td colspan="2"><input type="file" name="atchd_data"></td>
 			</tr>
 			<tr>
-				<td colspan="2">비고</td><td colspan="2"><textarea name="evnt_comment"></textarea></td>
+				<td colspan="2">비고</td><td colspan="2"><textarea name="evnt_comment" cols="50" rows="10" ></textarea></td>
 			</tr>
 		
 		</table><br>
