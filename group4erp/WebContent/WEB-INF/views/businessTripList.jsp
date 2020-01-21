@@ -223,17 +223,6 @@
         
 	</form>
 	
-	<table border=1 width=80%>
-		<tr>
-			<td>
-			<td>
-			<td>
-		<tr>
-			<td>
-		<tr>
-			<td>
-	</table>
-	
 	<div id="blankArea"><br></div>
 		<table class="businessTripListTable tab"  name="businessTripListTable" cellpadding="5" cellspacing="5">
 				<tr>

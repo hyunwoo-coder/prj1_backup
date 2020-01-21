@@ -206,6 +206,7 @@
 			inputData("[name=in_time]", "");
 			inputData("[name=out_time]", "");
 			inputData("[name=check_inout_name]", "출근");
+			inputData("[name=remarks]", "");
 		}
 		
 		function remove(){

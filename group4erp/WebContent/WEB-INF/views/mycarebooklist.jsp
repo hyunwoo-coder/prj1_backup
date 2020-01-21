@@ -382,7 +382,7 @@
             <td align=center>${MyCareBookList.ISBN13}
             <td align=center>${MyCareBookList.book_name}
             <td align=center>${MyCareBookList.cat_name}
-            <td align=center>${MyCareBookList.book_price}
+            <td align=center>${MyCareBookList.book_price}원
             <td align=center>${MyCareBookList.ISBN_cnt}
             <td align=center>${MyCareBookList.branch_name}
             <td align=center>
