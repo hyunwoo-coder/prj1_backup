@@ -129,21 +129,24 @@ public class MarketingController {
 			
 			
 			List<SalesInfoDTO> dailyOfflineSalesChart = this.marketingService.getDailyOfflineSalesChart();
+			SalesInfoDTO dailyOfflineSalesTotCnt = this.marketingService.getDailyOfflineSalesTotCnt();
 			
 			String offline_chart_data = "[";
-			offline_chart_data += "['일자', '판매량']";
+			offline_chart_data += "['일자', '오프라인 판매량', '온라인 판매량']";
 			
 			for(int i=0; i<dailyOfflineSalesChart.size(); i++) {
 				offline_chart_data += ", ['";
 				offline_chart_data += dailyOfflineSalesChart.get(i).getBuy_dt();
 				offline_chart_data += "', ";
-				offline_chart_data += dailyOfflineSalesChart.get(i).getBook_qty();
+				offline_chart_data += dailyOfflineSalesChart.get(i).getOffline_cnt();
+				offline_chart_data += ", ";
+				offline_chart_data += dailyOfflineSalesChart.get(i).getOnline_cnt();
 				offline_chart_data += "] ";
 			}
 		
 			offline_chart_data +="]";
 			
-					
+			mav.addObject("dailyOfflineSalesTotCnt", dailyOfflineSalesTotCnt);		
 			mav.addObject("onlineOrderCnt", online_order_cnt);
 			mav.addObject("onlineOrderList", onlineOrderList);
 			mav.addObject("salesSearchDTO", salesSearchDTO);
@@ -182,16 +185,17 @@ public class MarketingController {
 			
 			eventSearchDTO.setEmp_no((String)session.getAttribute("emp_id"));
 			
-			System.out.println("allOrMine==="+eventSearchDTO.getAllOrMine());
+			System.out.println("selectPageNo==="+eventSearchDTO.getSelectPageNo());
+			System.out.println("rowCntPerPage==="+eventSearchDTO.getRowCntPerPage());
 			
 			int eventCnt = this.marketingService.getEventCnt(eventSearchDTO);
-			int eventAllCnt = this.marketingService.getEventAllCnt();
+			int eventAllCnt = this.marketingService.getEventAllCnt(eventSearchDTO);
 			
-			if(eventCnt >0 ) {
+			if(eventAllCnt >0 ) {
 				int selectPageNo = eventSearchDTO.getSelectPageNo();	//선택한 페이지 번호 구하기
 				int rowCntPerPage = eventSearchDTO.getRowCntPerPage();	//한 화면에 보여지는 행의 개수 구하기
 				int beginRowNo = selectPageNo * rowCntPerPage - rowCntPerPage +1;	//검색할 시작행 번호 구하기
-				if(eventCnt < beginRowNo) {		//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한 페이지 번호를 1로 지정
+				if(eventAllCnt < beginRowNo) {		//만약 검색한 총 개수가 검색할 시작행 번호보다 작으면 선택한 페이지 번호를 1로 지정
 					eventSearchDTO.setSelectPageNo(1);
 				}
 			}
@@ -201,7 +205,7 @@ public class MarketingController {
 			mav.addObject("eventCnt", eventCnt);
 			mav.addObject("eventAllCnt", eventAllCnt);
 			mav.addObject("eventList", eventList);
-			mav.addObject("eventSearchDTO", eventSearchDTO);
+			//mav.addObject("eventSearchDTO", eventSearchDTO);
 			
 		} catch(Exception e) {
 			System.out.println("viewEventList() 메소드에서 예외발생=="+e);
@@ -229,7 +233,7 @@ public class MarketingController {
 		}
 		
 		try {
-			int eventAllCnt = this.marketingService.getEventAllCnt();
+			int eventAllCnt = this.marketingService.getEventNumForApproval();
 			int eventNo = eventAllCnt+1;
 			
 			mav.addObject("eventNo", eventNo);

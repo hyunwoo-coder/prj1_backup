@@ -37,35 +37,22 @@
 <script>
 
 	$(document).ready(function(){
-		
-		$("[name=allOrMine]").change(function() {
-			
-			var cnt = $(this).filter(":checked").length;
-			var rank='';
-
-			if(cnt==1) {
-				//change 이벤트가 발생한 체크박스의 형제들의 체크를 모두 풀기
-				$(this).siblings().prop("checked", false);
-				//rank = $(this).filter(":checked").val();
-			} 
-	
-		});
 
 		$("#evnt_start_dt").datepicker({
 	   	 	onSelect: function() { 
 	   	 		//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
 	   	    	 var dateObject = $(this).datepicker('getDate');
 	   	    	 //alert(dateObject.val()); 
-	   			}
-			});
+	   		}
+		});
 
-			$("#evnt_end_dt").datepicker({
-	    		onSelect: function() { 
+		$("#evnt_end_dt").datepicker({
+	    	onSelect: function() { 
 	    			//var date = $('#datepicker').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();
-	       			var dateObject = $(this).datepicker('getDate');
-	       		 	//alert(dateObject.val()); 
-	   			}
-			});
+	       		var dateObject = $(this).datepicker('getDate');
+	       	 	//alert(dateObject.val()); 
+	   		}
+		});
 		
 	
 		headerSort("eventListTable", 0);
@@ -81,13 +68,13 @@
 		
 
 		$('[name=rowCntPerPage]').change(function(){
-			//goSearch();
-			document.eventSearchRowForm.submit();
+			goSearch();
+			//document.eventSearchRowForm.submit();
 		});
 	
 		$(".pagingNumber").html(
 			getPagingNumber(
-				"${eventCnt}"						//검색 결과 총 이벤트 개수
+				"${eventAllCnt}"						//검색 결과 총 이벤트 개수
 				,"${eventSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
 				,"${eventSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
 				,"10"										//페이지 당 보여줄 페이지번호 개수
@@ -98,8 +85,7 @@
 		inputData('[name=rowCntPerPage]',"${eventSearchDTO.rowCntPerPage}");
 		inputData('[name=selectPageNo]',"${eventSearchDTO.selectPageNo}");
 		inputData("[name=searchKeyword]", "${eventSearchDTO.searchKeyword}");
-		inputData("[name=sort]", "${eventSearchDTO.sort}");
-		
+		inputData("[name=sort]", "${eventSearchDTO.sort}");	
 
 		<c:forEach items="${eventSearchDTO.evnt_category}" var="evnt_category">
 			inputData("[name=evnt_category]", "${evnt_category}");
@@ -126,7 +112,7 @@
 		$('[name=searchEvntForm] [name=sort]').val("1");
 		$('[name=searchEvntForm] [name=selectPageNo]').val("1");
 		$('[name=searchEvntForm] [name=rowCntPerPage]').val("15");
-		$("[name=searchEvntForm] [name=sort]").val('');
+		//$("[name=searchEvntForm] [name=sort]").val('');
 		
 		goSearch();
 	}
@@ -240,6 +226,8 @@
 					
 		if(evnt_no.length==0) {
 			alert("선택된 이벤트가 없습니다.");
+
+			return;
 		}
 
 		$("[name=evnt_no]").val(evnt_no);
@@ -277,20 +265,9 @@
 <body><center>
 
 	<h1>[이벤트 현황]</h1>
-    <input type="hidden" name="selectPageNo">
-    <input type="hidden" name="sort">
+    
 	<form name="searchEvntForm" method="post" action="/group4erp/viewEventList.do">
-		<table class="searchEvntTable tab" border="0" cellpadding="5" cellspacing="5">
-			<tr>
-	    		<td align="left">
-	    			
-	    			<label> [전체 행사 횟수] : ${eventAllCnt}회 </label><br>
-	    			<label> ${emp_name} ${jikup} 님 담당 행사 : ${eventCnt}회</label>
-	            	
-	            </td>
-	        </tr>
-		</table><br>
-		<table class="searchEvntTable tab" name="searchEvntTable" cellpadding="5" cellspacing="5">
+		<table class="tab" cellpadding="5" cellspacing="5">
 			<!-- <tr>
 				<td>[행사별] </td><td><input type="checkbox" name="allOrMine" value='a'>전체보기 &nbsp;
 									<input type="checkbox" name="allOrMine" value='m'>담당 행사만 보기</td>
@@ -319,34 +296,23 @@
 							</td>
 			</tr>
 		</table>
-		<input type="hidden" name="selectPageNo" >
-		<input type="hidden" name="sort" >
-	</form>
-	
-	<input type="button" value="이벤트 신청" onClick="reserveEvent();">&nbsp;
-	<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br><br>
-	
-	<table name="comment" cellpadding="5" cellspacing="5">
-		<tr>
-			<td align="left" style="color:red;">
-				<h5>* 대기중인 이벤트 행사만 삭제할 수 있습니다.<br>
-				 * 이벤트 행사는 최소 1달 전에 신청하셔야 합니다.</h5>
-			</td>
-		</tr>
-	</table>
-	
-	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
-	<table>
-		<tr height=10>
-			<td></td>
-		</tr>
-	</table>
-	
 
+		<input type="button" value="이벤트 신청" onClick="reserveEvent();">&nbsp;
+		<input type="button" value="삭제" onClick="deleteNotYetEvent();"><br><br>
+	
+		<div id="comment" style="color:red;">
+					<h5>* 대기중인 이벤트 행사만 삭제할 수 있습니다.<br>
+					 * 이벤트 행사는 최소 1달 전에 신청하셔야 합니다.</h5>		
+		</div>
+		
+		<input type="hidden" name="selectPageNo">
+		<input type="hidden" name="sort">
+		
 	<table border="0" cellpadding="5" cellspacing="5">
 		<tr>
-			<td align="right">
-				<form name="eventSearchRowForm" method="post" action="/group4erp/viewEventList.do">
+			<td align="right">[전체 행사 횟수] : ${eventAllCnt}회 &nbsp; &nbsp; ${emp_name} ${jikup} 님 담당 행사 : ${eventCnt}회</td>
+			<td align="right"  valign="center" width="100">
+				
 					<select name="rowCntPerPage">
 	              		<option value="10">10</option>
 	               		<option value="15">15</option>
@@ -354,12 +320,12 @@
 	               		<option value="25">25</option>
 	               		<option value="30">30</option>
 	            	</select> 행보기
-				</form>					
+	
 	        </td>
 		</tr>
-		
+	</form>
 		<tr>
-			<td>
+			<td colspan="2" align="center">
 			<form name="eventScheduleForm" method="post" action="/group4erp/reserveEvent.do">
 			<table class="eventListTable tab" name="eventListTable" cellpadding="5" cellspacing="5">
 				<tr>
@@ -475,14 +441,14 @@
 					</c:forEach>
 				</table><br>
 					<c:if test="${empty eventList}">
-					<h5><center>해당 결과가 없습니다.</center></h5>
+						<h5><center>해당 결과가 없습니다.</center></h5>
 					</c:if>
 	
 			</form>
 		</td>
 		</tr>
 	</table>
-
+	<div>&nbsp; <span class="pagingNumber"> </span>&nbsp;</div><br>
 	
 	<form name="deleteEvntForm" method="post" action="/group4erp/deleteEvntProc.do">
 		<input type="hidden" name="evnt_no">

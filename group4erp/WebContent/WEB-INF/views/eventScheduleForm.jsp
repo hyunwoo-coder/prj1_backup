@@ -35,7 +35,25 @@
 <script>
 
 	$(document).ready(function() {
-		
+
+		$("[name=evnt_start_dt]").keyup(function(event) {
+
+			if(!( (event.KeyCode >=37 && event.keyCode<=40) ) {
+				var inputVal = $(this).val();
+				alert(inputVal);
+				$(this).val(inputVal.replace(/[^0-9-]$/gi, ''));
+			}
+
+		});
+
+		$("[name=evnt_end_dt]").keyup(function(event) {
+
+			if(!(event.KeyCode >=37 && event.keyCode<=40)) {
+				var inputVal = $(this).val();
+				$(this).val(inputVal.replace(/[^0-9-]/gi, ''));
+			}
+
+		});
 		
 		var evnt_from_date = '';
 		
@@ -138,6 +156,20 @@
 			$("[name = evnt_start_dt]").focus();
 
 			return;
+		} else {
+			var evnt_start_dt = $("[name=evnt_start_dt]").val();
+			//alert(evnt_start_dt)
+			
+			var regExp = new RegExp(/^[2-9]{4}-[0-9]{2}-[0-9]{2}$/);
+			var flag = regExp.test(evnt_start_dt);
+
+			if(flag==false) {
+				alert("날짜 입력 형식은 숫자로 OOOO-OO-OO 입니다.");
+				$("[name=evnt_start_dt]").val("");
+
+				return;
+			}
+		
 		}
 
 		if(is_empty("[name = evnt_end_dt]")) {
@@ -145,6 +177,21 @@
 			$("[name = evnt_end_dt]").focus();
 
 			return;
+			
+		} else {
+			var evnt_end_dt = $("[name=evnt_end_dt]").val();
+			//alert(evnt_start_dt)
+			
+			var regExp = new RegExp(/^[2-9]{4}-[0-9]{2}-[0-9]{2}$/);
+			var flag = regExp.test(evnt_start_dt);
+
+			if(flag==false) {
+				alert("날짜 입력 형식은 숫자로 OOOO-OO-OO 입니다.");
+				$("[name=evnt_end_dt]").val("");
+
+				return;
+			}
+		
 		}
 
 		if(is_empty("[name = tot_est_cost]")) {
@@ -257,6 +304,43 @@
 		});
 
 	}
+	
+	function checkStartDateForm() {
+		
+		var evnt_start_dt = $("[name=evnt_start_dt]").val();
+		//alert(evnt_start_dt)
+		
+		var regExp = new RegExp(/^[2-9]{4}-[0-9]{2}-[0-9]{2}$/);
+		var flag = regExp.test(evnt_start_dt);
+
+		if(flag==false) {
+			alert("날짜 입력 형식은 숫자로 OOOO-OO-OO 입니다.");
+			$("[name=evnt_start_dt]").val("");
+
+			return;
+		}
+	}
+		
+	function checkEndDateForm() {
+		
+		var evnt_end_dt = $("[name=evnt_end_dt]").val();
+			
+		var regExp = new RegExp(/^[1-9]{4}-[0-9]{2}-[0-9]{2}$/);
+		var flag = regExp.test(evnt_start_dt);
+
+		if(flag==false) {
+			alert("날짜 입력 형식은 숫자로 OOOO-OO-OO 입니다.");
+			$("[name=evnt_start_dt]").val("");
+
+			return;
+		}
+	}
+	
+	function goBack() {
+		
+		history.go(-1);
+	
+	}
 
 
 	</script>
@@ -307,7 +391,7 @@
 						<input type="text" id="evnt_end_dt" name="evnt_end_dt" value="${myEventReApproval.evnt_end_dt}">
 					</c:if>
 					<c:if test="${empty myEventReApproval.evnt_end_dt}"> 
-						<input type="text" id="evnt_end_dt" name="evnt_end_dt">
+						<input type="text" id="evnt_end_dt" name="evnt_end_dt" >
 					</c:if>
 								
 					</td>	   
@@ -328,7 +412,7 @@
 				<td colspan="2">첨부자료</td><td colspan="2"><input type="file" name="atchd_data"></td>
 			</tr>
 			<tr>
-				<td colspan="2">비고</td><td colspan="2"><textarea name="evnt_comment"></textarea></td>
+				<td colspan="2">비고</td><td colspan="2"><textarea name="evnt_comment" cols="50" rows="10" ></textarea></td>
 			</tr>
 		
 		</table><br>
@@ -355,6 +439,7 @@
 	    	<input type="button" value="결재" onClick="checkForm();">
 	    </c:if>
 		<input type="reset" value="초기화">
+		<input type="button" value="뒤로 가기" onClick="goBack();">
 		<input type="hidden" name="evnt_no">
 		<input type="hidden" name="emp_no" value="${emp_no}">
 	</form>

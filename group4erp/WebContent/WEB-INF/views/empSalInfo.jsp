@@ -22,31 +22,29 @@
 		);
 	
 		$('[name=rowCntPerPage]').change(function(){
-			inputData('[name=rowCntPerPage]',  $('[name=outerBorder] [name=rowCntPerPage]').val());
+			//alert("행보기 변경");
 			goSearch();
 		});
 
 		$(".pagingNumber").html(
-				getPagingNumber(
-					"${myPayCheckCnt}"						//검색 결과 총 행 개수
-					,"${salListSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
-					,"${salListSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
-					,"10"										//페이지 당 보여줄 페이지번호 개수
-					,"goSearch();"						//페이지 번호 클릭 후 실행할 자스코드
-				)
-			);
-
-		//검색 후 입력양식에 넣었던 검색 조건들 세팅하기
-		$('[name=empSalForm] [name=rowCntPerPage]').val("${salListSearchDTO.rowCntPerPage}");
-		$('[name=empSalForm] [name=selectPageNo]').val("${salListSearchDTO.selectPageNo}");
+			getPagingNumber(
+				"${myPayCheckCnt}"						//검색 결과 총 행 개수
+				,"${salListSearchDTO.selectPageNo}"			//선택된 현재 페이지 번호
+				,"${salListSearchDTO.rowCntPerPage}"		//페이지 당 출력행의 개수
+				,"10"										//페이지 당 보여줄 페이지번호 개수
+				,"goSearch();"						//페이지 번호 클릭 후 실행할 자스코드
+			)
+		);
+		
+		$(".empSalInfo").each(function() {
+			$(this).val($.number($(this).val()));
+		});
+		
+		inputData('[name=rowCntPerPage]', "${salListSearchDTO.rowCntPerPage}");
+		inputData('[name=selectPageNo]', "${salListSearchDTO.rowCntPerPage}");
+		//inputData("[name=sort]", "${salListSearchDTO.sort}");	
 		$('[name=sort]').val("${salListSearchDTO.sort}");
 
-		//$('[name=rowCntPerPage]').val($('[name=empSalForm] [name=rowCntPerPage]').val());
-		//$('[name=selectPageNo]').val($('[name=empSalForm] [name=selectPageNo]').val());
-		
-		inputData('[name=rowCntPerPage]',  $('[name=empSalForm] [name=rowCntPerPage]').val());
-		inputData('[name=selectPageNo]',  $('[name=empSalForm] [name=selectPageNo]').val());
-		//inputData("[name=sort]", "${salListSearchDTO.sort}");
 	});
 	
 	
@@ -58,8 +56,8 @@
 	function goSearchAll() {
 		document.empSalForm.reset();
 
-		$('[name=empSalForm] [name=selectPageNo]').val("1");
-		$('[name=empSalForm] [name=rowCntPerPage]').val("15");
+		$('[name=selectPageNo]').val("1");
+		$('[name=rowCntPerPage]').val("15");
 		goSearch();
 	}
 		
@@ -69,39 +67,29 @@
 	
 	<h1>[급여 지급 내역]</h1><br>
 	직책 : ${jikup}	&nbsp;&nbsp; 성명 :${emp_name}  <br>
+	
 	<form name="empSalForm" method="post" action="/group4erp/viewEmpSalInfo.do">
 
-		<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
-		<table>
-			<tr height=10>
-				<td></td>
-			</tr>
-		</table>
-			
 		<input type="hidden" name="selectPageNo">
-		<input type="hidden" name="rowCntPerPage">
 		<input type="hidden" name="sort">
-
-		
-	</form>
 	
-	<table name="outerBorder" cellpadding="5" cellspacing="5">
-		<tr>			
-			<td align="right">
-	        [전체] : ${myPayCheckCnt}개&nbsp;&nbsp;&nbsp;&nbsp;
-	            <select name="rowCntPerPage">
-	               <option value="10">10</option>
-	               <option value="15">15</option>
-	               <option value="20">20</option>
-	               <option value="25">25</option>
-	               <option value="30">30</option>
-	            </select> 행보기 
-	    	</td>
-		</tr>
-		
-		<tr>
-			<td>
-				<table class="empSalInfo tab" name="empSalInfo" cellpadding="5" cellspacing="5">
+		<table class="tab" cellpadding="5" cellspacing="5">
+			<tr>			
+				<td align="right">
+	        	[전체] : ${myPayCheckCnt}건&nbsp;&nbsp;&nbsp;&nbsp;
+	           	 <select name="rowCntPerPage">
+	              		<option value="10">10</option>
+	               		<option value="15">15</option>
+	               		<option value="20">20</option>
+	               		<option value="25">25</option>
+	               		<option value="30">30</option>
+	            	</select> 행보기
+	    		</td>
+			</tr>
+			</form>
+			<tr>
+				<td>
+					<table class="empSalInfo tab" cellpadding="5" cellspacing="5">
 				
 					<tr align="center">
 						<th rowspan="2">번호</th>
@@ -258,12 +246,13 @@
 		
 					 </c:forEach>
 				</table>
-			
 			</td>
-		
 		</tr>
 	
 	</table>
+	
+	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div><br>
+	
 	
 	<h5>귀하의 노고에 감사드립니다.</h5>
 	<input type="button" value="뒤로 가기" onClick="javascript:history.go(-1);">

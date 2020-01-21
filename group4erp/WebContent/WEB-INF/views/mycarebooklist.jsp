@@ -395,10 +395,10 @@
 					</c:when>
             	</c:choose>
             <td align=center>
-               <c:if test="${MyCareBookList.isbn_cnt < 100}">
-                  <input type="button" value="발주" onClick="booKInvenFill(this,'${MyCareBookList.isbn13}');" >
+               <c:if test="${MyCareBookList.ISBN_cnt < 100}">
+                  <input type="button" value="발주" onClick="booKInvenFill(this,'${MyCareBookList.ISBN13}');" >
                </c:if>
-               <c:if test="${MyCareBookList.isbn_cnt >= 100}">
+               <c:if test="${MyCareBookList.ISBN_cnt >= 100}">
                   --
                </c:if>  
          </c:forEach>

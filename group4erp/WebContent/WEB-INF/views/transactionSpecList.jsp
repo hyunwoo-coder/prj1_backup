@@ -122,7 +122,7 @@
      <input type="hidden" name="sort">
      <input type="hidden" name="issueYn">
 		
-	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
+	
 	<table>
 		<tr height=10>
 			<td></td>
@@ -278,9 +278,11 @@
 	
 	</table>
 	
+	<div>&nbsp; <span class="pagingNumber"></span>&nbsp;</div>
+	
 	<form name="tranSpecTable" method="post" action="/group4erp/viewTranSpecInfo.do">
 		
-	<input type="hidden" name="order_no">
+		<input type="hidden" name="order_no">
 	</form>
 	
 	

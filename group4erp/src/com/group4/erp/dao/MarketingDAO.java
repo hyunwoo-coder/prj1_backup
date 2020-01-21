@@ -14,7 +14,7 @@ public interface MarketingDAO {
 	
 	int getEventCnt(EventSearchDTO eventSearchDTO);
 	
-	int getEventAllCnt();
+	int getEventAllCnt(EventSearchDTO eventSearchDTO);
 	
 	List<EventDTO> getEventList(EventSearchDTO eventSearchDTO);
 	
@@ -61,5 +61,9 @@ public interface MarketingDAO {
 	List<SalesInfoDTO> getDailyOfflineSalesChart();
 	
 	int updateEventReApproval(String document_no);
+	
+	SalesInfoDTO getDailyOfflineSalesTotCnt();
+	
+	int getEventNumForApproval();
 	
 }
