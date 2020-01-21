@@ -43,6 +43,14 @@
 		$('[name=rowCntPerPage]').change(function(){
 			goSearchMyWorkList();
 		});
+
+	   setTableTrBgColor(
+				"mycarebookTable"								//테이블 class값
+				, "${headerColor}"									//해더 tr 배경색
+				, "${oddTrColor}"									//홀수행 배경색
+				, "${evenColor}"									//짝수행 배경색
+				, "${mouseOverColor}"								//마우스 온 시 배경색
+		);
 		
 		$(".pagingNumber").html(
 				getPagingNumber(
@@ -279,7 +287,6 @@
       
       
       <table class="mycarebookTable tab" width="80%" border=0 cellspacing=5 cellpadding=5 >
-      	<thead>
          <tr bgcolor="gray">
          	<th width="4%">No
             <c:choose>
@@ -368,8 +375,6 @@
 			</c:choose>
 			<th width="8%">절판 상황
             <th width="8%">비고
-        </thead>
-        <tbody>    
          <c:forEach items="${requestScope.MyCareBookList}" var="MyCareBookList" varStatus="loopTagStatus">
          <tr>   
 
@@ -397,7 +402,6 @@
                   --
                </c:if>  
          </c:forEach>
-         </tbody>
       </table>
       <br>
         <input type="hidden" name="selectPageNo">

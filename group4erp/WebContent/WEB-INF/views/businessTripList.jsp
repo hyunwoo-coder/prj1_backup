@@ -223,9 +223,19 @@
         
 	</form>
 	
+	<table border=1 width=80%>
+		<tr>
+			<td>
+			<td>
+			<td>
+		<tr>
+			<td>
+		<tr>
+			<td>
+	</table>
+	
 	<div id="blankArea"><br></div>
-		<table class="businessTripListTable tab"  name="businessTripListTable" cellpadding="5" cellspacing="5">		
-			<thead>
+		<table class="businessTripListTable tab"  name="businessTripListTable" cellpadding="5" cellspacing="5">
 				<tr>
 					<th>번호</th>
 					
@@ -320,8 +330,6 @@
 						</c:otherwise>
 					</c:choose>
 				</tr>
-			</thead>
-			<tbody>
 			
 			<c:forEach items="${businessTripList}" var="businessList" varStatus="loopTagStatus">
 			<tr class="tab" style="cursor:pointer" onClick="goBusinessTripContentsForm(${businessList.work_outside_seq}
@@ -363,7 +371,6 @@
 					</td>
 			</tr>		
 			</c:forEach>
-			</tbody>
 		</table>
 		<br>
 		<input type="button" value="출장 신청" onClick="goBusinessTripForm();">	
