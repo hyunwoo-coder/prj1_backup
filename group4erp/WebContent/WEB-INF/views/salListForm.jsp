@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/WEB-INF/views/common.jsp" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,6 +98,10 @@
 
 	}
 
+	function numberFormat(inputNumber) {
+		   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
 </script>
 
 </head>
@@ -149,16 +154,16 @@
 				
 					<td><input type="hidden" name="jikup" value="${empSal.jikup}">${empSal.jikup}</td>
 					<td><input type="hidden" name="emp_name" value="${empSal.emp_name}">${empSal.emp_name}</td>
-					<td><input type="hidden" name="month_sal" value="${empSal.month_sal}">${empSal.month_sal}</td>
-					<td><input type="hidden" name="mess_allowance" value="${empSal.mess_allowance}">${empSal.mess_allowance}</td> 
-					<td><input type="hidden" name="bus_trip_bonus" value="${empSal.bus_trip_bonus}">${empSal.bus_trip_bonus}</td> 
-					<td><input type="hidden" name="sum_payable" value="${empSal.sum_payable}">${empSal.sum_payable}</td>
+					<td><input type="hidden" name="month_sal" value="${empSal.month_sal}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.month_sal}" />원</td>
+					<td><input type="hidden" name="mess_allowance" value="${empSal.mess_allowance}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.mess_allowance}" />원</td> 
+					<td><input type="hidden" name="bus_trip_bonus" value="${empSal.bus_trip_bonus}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.bus_trip_bonus}" />원</td> 
+					<td><input type="hidden" name="sum_payable" value="${empSal.sum_payable}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.sum_payable}" />원</td>
 					
-					<td><input type="hidden" name="emp_insurance" value="${empSal.emp_insurance}">${empSal.emp_insurance}</td>
-					<td><input type="hidden" name="health" value="${empSal.health}">${empSal.health}</td>
-					<td><input type="hidden" name="pension" value="${empSal.pension}">${empSal.pension}</td> 
-					<td><input type="hidden" name="deduct" value="${empSal.deduct}">${empSal.deduct} </td> 
-					<td><input type="hidden" name="real_sal" value="${empSal.real_sal}">${empSal.real_sal}</td>
+					<td><input type="hidden" name="emp_insurance" value="${empSal.emp_insurance}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.emp_insurance}" />원</td>
+					<td><input type="hidden" name="health" value="${empSal.health}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.health}" />원</td>
+					<td><input type="hidden" name="pension" value="${empSal.pension}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.pension}" />원</td> 
+					<td><input type="hidden" name="deduct" value="${empSal.deduct}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.deduct}" />원</td> 
+					<td><input type="hidden" name="real_sal" value="${empSal.real_sal}"><fmt:formatNumber type="number" maxFractionDigits="3" value="${empSal.real_sal}" />원</td>
 				</tr>
 			</c:forEach>
 	

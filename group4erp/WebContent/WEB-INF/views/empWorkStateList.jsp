@@ -178,7 +178,7 @@
 		    var remarks = $('.inoutListTable tr:eq('+idxNo+') [name=remarks]').text().trim();
 		    //alert(idxNo+'/'+in_time+'/'+out_time+'/'+check_inout_name+'/'+remarks);
 		     
-			 var workTimeUpTr = "<tr name='addTr'><center><div name='addTr' align='center' style='position:absoulte; text-align:center;'><td colspan='14' align=center name='addTr'>⏷<br>[근무시간 수정]<br>";
+			 var workTimeUpTr = "<tr name='addTr'><center><div align='center' style='position:absoulte; text-align:center;'><td colspan='14' align=center>⏷<br>[근무시간 수정]<br>";
 			 workTimeUpTr += "<form name='upData' action=''><table name='upDayoff' class='tab2' id='contentTable' border=1 bordercolor='#000000' cellpadding=5 align=center>";
 			 workTimeUpTr += "<tr><th>구분</th><td><select name=check_inout_name>";
 			 workTimeUpTr += "<option value='출근'>출근</option>";
