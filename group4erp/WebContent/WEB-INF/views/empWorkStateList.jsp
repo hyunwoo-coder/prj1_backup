@@ -172,13 +172,14 @@
 			if(delTr.size()>0){
 		         delTr.remove();
 		    }
-		    var in_time = $('.inoutListTable tr:eq('+idxNo+') td:eq(6)').text().trim();
-		    var out_time = $('.inoutListTable tr:eq('+idxNo+') td:eq(7)').text().trim();
-		    var check_inout_name = $('.inoutListTable tr:eq('+idxNo+') td:eq(9)').text().trim();
-		    var remarks = $('.inoutListTable tr:eq('+idxNo+') td:eq(10)').text().trim();
-		    //alert(in_time);
-			 var workTimeUpTr = "<tr name='addTr'><td colspan='14' align=center><center><div align='center' style='position:absoulte text-align:center'>⏷<br>[근무시간 수정]<br>";
-			 workTimeUpTr += "<div style='height:10'></div><form name='upData' action=''><table name='upDayoff' class='tab2' id='contentTable' border=1 bordercolor='#000000' cellpadding=5 align=center>";
+		    var in_time = $('.inoutListTable tr:eq('+idxNo+') [name=in_time]').text().trim();
+		    var out_time = $('.inoutListTable tr:eq('+idxNo+') [name=out_time]').text().trim();
+		    var check_inout_name = $('.inoutListTable tr:eq('+idxNo+') [name=check_inout_name]').text().trim();
+		    var remarks = $('.inoutListTable tr:eq('+idxNo+') [name=remarks]').text().trim();
+		    //alert(idxNo+'/'+in_time+'/'+out_time+'/'+check_inout_name+'/'+remarks);
+		     
+			 var workTimeUpTr = "<tr name='addTr'><center><div name='addTr' align='center' style='position:absoulte; text-align:center;'><td colspan='14' align=center name='addTr'>⏷<br>[근무시간 수정]<br>";
+			 workTimeUpTr += "<form name='upData' action=''><table name='upDayoff' class='tab2' id='contentTable' border=1 bordercolor='#000000' cellpadding=5 align=center>";
 			 workTimeUpTr += "<tr><th>구분</th><td><select name=check_inout_name>";
 			 workTimeUpTr += "<option value='출근'>출근</option>";
 			 workTimeUpTr += "<option value='퇴근'>퇴근</option>";
@@ -190,17 +191,16 @@
 			 workTimeUpTr += "<tr><th>퇴근시간</th><td><input type='text' name='out_time' size=6 value='"+ out_time +"'>";
 			 workTimeUpTr += "<tr><th>비고</th><td align=center><input type='text' name='remarks' size=23 value='"+ remarks +"'></td>";
 			 workTimeUpTr += "</table><input type='hidden' name='dt_work' value="+dt_work+"><input type='hidden' name='emp_no' value="+emp_no+"></form>";
-			 workTimeUpTr += "<div style='height:10'></div>";
 			 workTimeUpTr += "<input type='button' value='수정하기' onClick='upLoder();'>&nbsp;&nbsp;<input type='reset' value='초기화' onClick='goReset();'>";
-			 workTimeUpTr += "&nbsp;&nbsp;<input type='button' value='닫기' onClick='workTimeConfingClose(this);'></div><div style='height:20'></div></td><tr>";
+			 workTimeUpTr += "&nbsp;&nbsp;<input type='button' value='닫기' onClick='workTimeConfingClose(this);'></div>";
 			 $(idx).parent().parent().after(workTimeUpTr);
 
-			 inputData("[name=check_inout_name]", check_inout_name);
+			 inputData("[name=check_inout_name]", check_inout_name); 
 		}
 		function workTimeConfingClose(close){
 			//$(close).parent().parent().prev().remove();	
 			//$(close).parent().remove();
-			$("[name=addTr]").remove();
+			$('[name=addTr]').remove();
 		}
 		function goReset(){
 			inputData("[name=in_time]", "");
@@ -518,31 +518,32 @@
 				</tr>
 
 				<c:forEach items="${requestScope.getEmpInoutList}" var="inout" varStatus="loopTagStatus">
-					<c:if test="${inout.CHECK_INOUT_NAME != '퇴근'}">
-						<tr>
-					</c:if>
+					<tr>
 						<td align=center> ${getEmpInoutListCnt-loopTagStatus.index}</td>
 						<td align=center> ${inout.DT_WORK}</td>
 						<td align=center> ${inout.EMP_NO}</td>
 						<td align=center> ${inout.EMP_NAME}</td>
 						<td align=center> ${inout.DEP_NAME}</td>
 						<td align=center> ${inout.JIKUP}</td>
-						<td align=center> ${inout.IN_TIME}</td>
-						<td align=center> ${inout.OUT_TIME}</td>
+						<td align=center name="in_time"> ${inout.IN_TIME}</td>
+						<td align=center name="out_time"> ${inout.OUT_TIME}</td>
 						<td align=center> ${inout.WORKING_HRS}</td>
-						<td align=center> ${inout.CHECK_INOUT_NAME}</td>
-						<td align=center> ${inout.REMARKS}</td>
-						<td>
+						<td align=center name="check_inout_name"> ${inout.CHECK_INOUT_NAME}</td>
+						<td align=center name="remarks"> ${inout.REMARKS}</td>
+						<td align=center>
 							<c:if test="${inout.CHECK_INOUT_NAME != '퇴근'}">
-								<input type="button" value="수정" onClick="addTr(this,'${loopTagStatus.index+1}', '${inout.DT_WORK}','${inout.EMP_NO}');">
+								<input type="button" value="수정" onClick="addTr(this,'${loopTagStatus.index+1}', '${inout.DT_WORK}','${inout.EMP_NO}');"></td></tr>
 							</c:if>
-						</td>
+							<c:if test="${inout.CHECK_INOUT_NAME == '퇴근'}">
+								----</td></tr>
+							</c:if>
+						
 						<%-- 
 						<c:if test="${inout.CHECK_INOUT_NAME != '퇴근' && inout.CHECK_INOUT_NAME != '출근'}">
 							<input type="button" value="수정" onClick="goUpdate(this,'${loopTagStatus.index+1}', '${inout.DT_WORK}','${inout.EMP_NO}');">
 						</c:if>
 						 --%>
-					</tr>
+					
 				</c:forEach>
 			
 			
