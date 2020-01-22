@@ -519,9 +519,6 @@
 
 				<c:forEach items="${requestScope.getEmpInoutList}" var="inout" varStatus="loopTagStatus">
 					<c:if test="${inout.CHECK_INOUT_NAME != '퇴근'}">
-						<tr style="cursor:pointer">
-					</c:if>
-					<c:if test="${inout.CHECK_INOUT_NAME == '퇴근'}">
 						<tr>
 					</c:if>
 						<td align=center> ${getEmpInoutListCnt-loopTagStatus.index}</td>
